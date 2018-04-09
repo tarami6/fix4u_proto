@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import {observer, inject} from 'mobx-react/native'
+import { NavigationActions } from 'react-navigation';
+
 import authStore from "../../state-manager/mobx/authStore";
 
 const { width, height } = Dimensions.get('window')
@@ -34,10 +36,14 @@ export default class ChooseUserType extends Component {
 
     }
 
+    handlePress = () => {
+      // this.props.authStore.chooseUserType('consumer')
+    }
+
     render() {
         return (
             <View style={styles.containerItem}>
-                <TouchableOpacity onPress={()=>this.props.authStore.chooseUserType('consumer')}>
+                <TouchableOpacity onPress={this.handlePress}>
                 <Image style={{width, height: height - 150}} resizeMode="cover"
                        source={images[0].uri}/>
                 </TouchableOpacity>

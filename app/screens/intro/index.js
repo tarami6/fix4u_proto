@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import {observer, inject} from 'mobx-react/native'
+
+
 import authStore from "../../state-manager/mobx/authStore";
 
 const { width, height } = Dimensions.get('window')
@@ -72,10 +74,14 @@ export default class Intro extends Component {
   }
 
   onSnapToItem = (index) => {
+    const { navigate } = this.props.navigation
     this.setState({ activeSlide: index })
     if (index == 2) {
       //navigate to other screen
-      // alert('navigate to other screen')
+      setTimeout(()=>{
+        navigate('ChooseUserType')
+      }, 2000);
+
     }
   }
 
