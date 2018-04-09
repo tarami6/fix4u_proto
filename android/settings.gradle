@@ -1,0 +1,3 @@
+rootProject.name = 'fix4u_screens'
+
+include ':app'
