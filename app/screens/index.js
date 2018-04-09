@@ -11,14 +11,13 @@ import {
     View,
     TouchableOpacity
 } from 'react-native';
-// import {observer, inject} from 'mobx-react';
 import {observer, inject} from 'mobx-react/native'
 import authStore from "../state-manager/mobx/authStore";
 import AppNavigation from '../navigations'
 
 //screens
-// import Intro from './intro'
-// import ChooseUserType from './choose_user_type';
+import Intro from './intro'
+import ChooseUserType from './choose_user_type';
 
 
 type Props = {};
@@ -28,59 +27,59 @@ type Props = {};
 @observer
 export default class ScreensBase extends Component<Props> {
 
-    // render() {
-    //
-    //
-    //     // here we will show either the intro or screens
-    //     // what screen to show based on user and  his type we return the proper navigator
-    //     switch (this.props.authStore.currentScreen) {
-    //         case 'intro':
-    //             return (
-    //                 <Intro/>
-    //             );
-    //         case 'chooseUserType':
-    //             return (
-    //                 <ChooseUserType/>
-    //             )
-    //         case 'consumerNavigator': //in this case we return the consumer navigator
-    //             return (
-    //                 <View>
-    //                     <Text>
-    //                         {this.props.authStore.currentScreen}
-    //                     </Text>
-    //                 </View>
-    //             );
-    //         case 'pro-pro':
-    //             return (
-    //                 <View>
-    //                     <Text>
-    //                         {this.props.authStore.currentScreen}
-    //                     </Text>
-    //                 </View>
-    //             );
-    //         case 'pro-consumer':
-    //             return (
-    //                 <View>
-    //                     <Text>
-    //                         {this.props.authStore.currentScreen}
-    //                     </Text>
-    //                 </View>
-    //             );
-    //         default:
-    //             return (
-    //                 <View>
-    //                     <Text>
-    //                         {this.props.authStore.currentScreen}
-    //                     </Text>
-    //                 </View>
-    //             );
-    //     }
-    // }
     render() {
-      return (
-        <AppNavigation />
-      )
+
+
+        // here we will show either the intro or screens
+        // what screen to show based on user and  his type we return the proper navigator
+        switch (this.props.authStore.currentScreen) {
+            case 'intro':
+                return (
+                    <Intro/>
+                );
+            case 'chooseUserType':
+                return (
+                    <ChooseUserType/>
+                )
+            case 'consumerNavigator': //in this case we return the consumer navigator
+                return (
+                    <View>
+                        <Text>
+                            {this.props.authStore.currentScreen}
+                        </Text>
+                    </View>
+                );
+            case 'pro-pro':
+                return (
+                    <View>
+                        <Text>
+                            {this.props.authStore.currentScreen}
+                        </Text>
+                    </View>
+                );
+            case 'pro-consumer':
+                return (
+                    <View>
+                        <Text>
+                            {this.props.authStore.currentScreen}
+                        </Text>
+                    </View>
+                );
+            default:
+                return (
+                    <View>
+                        <Text>
+                            {this.props.authStore.currentScreen}
+                        </Text>
+                    </View>
+                );
+        }
     }
+    // render() {
+    //   return (
+    //     <AppNavigation />
+    //   )
+    // }
 
 }
 

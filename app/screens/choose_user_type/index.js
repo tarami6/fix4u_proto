@@ -1,73 +1,117 @@
 /* @flow */
 
+
 import React, { Component } from 'react';
 import {
     View,
     Text,
-    Image,
-    StyleSheet,
     Dimensions,
-    TouchableOpacity
+    TouchableOpacity,
+    StyleSheet,
 } from 'react-native';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import LinearGradient from 'react-native-linear-gradient';
 import {observer, inject} from 'mobx-react/native'
-import { NavigationActions } from 'react-navigation';
-
 import authStore from "../../state-manager/mobx/authStore";
 
-const { width, height } = Dimensions.get('window')
+const {width, height} = Dimensions.get('window')
 const sliderWidth = width
 const itemWidth = width
 //static image for development
 const images = [
-    {uri:require('../../../assets/chooseUserType/choose_mode.png')}
+    {uri: require('../../../assets/chooseUserType/choose_mode.png')}
 ]
 
 
 @inject("authStore")
 @observer
-export default class ChooseUserType extends Component {
-
-    state = {
-        activeSlide : 0
+export default class Welcome extends Component {
+    navigate = (key) => {
+        const {navigate} = this.props.navigation
+        switch (key) {
+            case 'dashboard':
+                navigate("Dashboard", {"title": "Dashboard"})
+                break;
+            case 'form':
+                alert('under development')
+                // navigate("Form", {"title": "Form"})
+                break;
+            default:
+                return
+        }
     }
 
-    componentDidMount(){
-
-    }
-
-    handlePress = () => {
-      // this.props.authStore.chooseUserType('consumer')
+    chooseUserType(type) {
+        this.props.authStore.chooseUserType(type)
     }
 
     render() {
         return (
-            <View style={styles.containerItem}>
-                <TouchableOpacity onPress={this.handlePress}>
-                <Image style={{width, height: height - 150}} resizeMode="cover"
-                       source={images[0].uri}/>
-                </TouchableOpacity>
+            <View style={styles.container}>
+                <Text style={{fontWeight: 'bold', margin: 40}}>אני</Text>
+                <OrangeButton chooseUserType={this.chooseUserType.bind(this)}/>
+                <Text style={{fontWeight: '100', fontSize: 12, color: '#9b9b9b', margin: 40}}>או</Text>
+                <WhiteButton chooseUserType={this.chooseUserType.bind(this)}/>
             </View>
         );
     }
 }
 
+const OrangeButton = ({chooseUserType}) => {
+    return (
+        <TouchableOpacity onPress={() => {chooseUserType('consumer')}}>
+            <LinierBackground>
+                <Text style={{color: '#fff', fontWeight: 'bold'}}>מחפש איש מקצוע</Text>
+            </LinierBackground>
+        </TouchableOpacity>
+    )
+}
+
+const WhiteButton = ({chooseUserType}) => {
+    return (
+        <TouchableOpacity onPress={() => {chooseUserType('pro')}}>
+            <LinierBackground>
+                <View style={{
+                    width: width - 122,
+                    height: 46,
+                    borderRadius: 30,
+                    margin: 1,
+                    backgroundColor: '#fff',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingRight: 40,
+                    paddingLeft: 40
+                }}>
+                    <Text style={{color: '#fd8724', fontWeight: 'bold'}}>נותן שירות</Text>
+                </View>
+            </LinierBackground>
+        </TouchableOpacity>
+    )
+}
+
+const LinierBackground = (props) => {
+    return (
+        <LinearGradient
+            colors={['#fd8824', '#fdb82c']}
+            start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
+            style={{
+                height: 48,
+                width: width - 120,
+                borderRadius: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingRight: 40,
+                paddingLeft: 40
+            }}>
+            {props.children}
+        </LinearGradient>
+    )
+}
+
 const styles = StyleSheet.create({
-    containerItem: {
-        width,
-        height: height,
-        // borderWidth:1,
-        // justifyContent:'center',
-        // alignItems:'center'
-    },
-    footer: {
-        position: 'absolute',
-        bottom: 30,
-        width,
-        justifyContent: 'center',
+    container: {
+        flex: 1,
+        backgroundColor: '#f6f6f6',
         alignItems: 'center',
+        justifyContent: 'center',
     },
-    textFooter : {
-        color :'#fff'
-    }
 });

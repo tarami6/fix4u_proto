@@ -74,26 +74,32 @@ export default class Intro extends Component {
   }
 
   onSnapToItem = (index) => {
-    const { navigate } = this.props.navigation
+    // const { navigate } = this.props.navigation
     this.setState({ activeSlide: index })
     if (index == 2) {
       //navigate to other screen
       setTimeout(()=>{
-        navigate('ChooseUserType')
-      }, 2000);
+          this.skipIntro();
+        // navigate('ChooseUserType')
+      }, 3000);
 
     }
+  }
+
+  skipIntro(){
+      this.props.authStore.skipIntro();
   }
 
   render() {
     return (
       <View>
+          {/*how can we set so the carousel will start from index 2 to 0? in hebrew all writing is from right to left unlike english*/}
         <Carousel
           ref={(c) => { this._carousel = c; }}
           autoplay={true}
           inactiveSlideScale={1}
           inactiveSlideOpacity={1}
-          autoplayDelay={1000}
+          autoplayDelay={1500}
           data={images}
           renderItem={this._renderItem}
           sliderWidth={sliderWidth}
@@ -101,7 +107,7 @@ export default class Intro extends Component {
           onSnapToItem={this.onSnapToItem}
         />
         { this.pagination }
-        <TouchableOpacity style={styles.footer} onPress={()=>this.props.authStore.skipIntro()}>
+        <TouchableOpacity style={styles.footer} onPress={this.skipIntro.bind(this)}>
           <Text style={styles.textFooter}>דלג</Text>
         </TouchableOpacity>
       </View>

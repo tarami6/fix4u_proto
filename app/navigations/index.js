@@ -6,7 +6,7 @@ import ChooseUserType from '../screens/choose_user_type'
 
 
 //it is just example
-const A = () => (<Text>screen choose as consument</Text>)
+const A = () => (<Text>screen choose as consumenr</Text>)
 const B = () => (<Text>screen choose as PRO</Text>)
 
 

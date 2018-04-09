@@ -4,7 +4,7 @@ import {AsyncStorage} from 'react-native'
 export default class AuthStore {
 
     // screensBase options:
-    //screen options: loadingScreen/intro/chooseUserType/consumerNavigator/proConsumerNavigator/proProNavigator
+    //screen options: loadingScreen/intro/chooseUserType/consumerNavigator/proNavigator
     @observable currentScreen = 'intro';
 
     @action changeScreen(newScreen) {
@@ -19,6 +19,9 @@ export default class AuthStore {
     @action chooseUserType(type){
         if(type==='consumer'){
             this.changeScreen('consumerNavigator')
+        }
+        else {
+            this.changeScreen('proNavigator')
         }
     }
 }
