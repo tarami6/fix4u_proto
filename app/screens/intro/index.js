@@ -33,9 +33,9 @@ export default class Intro extends Component {
     activeSlide : 0
   }
 
-  componentDidMount(){
-
-  }
+  // componentDidMount(){
+  //     this._carousel.snapToItem(2, false)
+  // }
 
   _renderItem ({item, index}) {
     return (
