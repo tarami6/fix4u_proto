@@ -14,6 +14,9 @@ import {
 import {observer, inject} from 'mobx-react/native'
 import authStore from "../state-manager/mobx/authStore";
 
+//screens
+import Intro from './intro'
+
 
 type Props = {};
 
@@ -30,11 +33,7 @@ export default class ScreensBase extends Component<Props> {
         switch (this.props.authStore.currentScreen) {
             case 'intro':
                 return (
-                    <View>
-                        <Text>
-                            {this.props.authStore.currentScreen}
-                        </Text>
-                    </View>
+                    <Intro />
                 );
             case 'consumer': //in this case we return the consumer navigator
                 return (
