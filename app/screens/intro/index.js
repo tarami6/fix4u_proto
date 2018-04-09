@@ -10,6 +10,8 @@ import {
   TouchableOpacity
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import {observer, inject} from 'mobx-react/native'
+import authStore from "../../state-manager/mobx/authStore";
 
 const { width, height } = Dimensions.get('window')
 const sliderWidth = width
@@ -22,6 +24,9 @@ const images = [
   {uri:require('../../../assets/intro/splash3.png')}
 ]
 
+
+@inject("authStore")
+@observer
 export default class Intro extends Component {
 
   state = {
@@ -46,6 +51,7 @@ export default class Intro extends Component {
       const entries = images
       return (
           <Pagination
+              firstItem={2}
             dotsLength={entries.length}
             activeDotIndex={activeSlide}
             containerStyle={{ backgroundColor: '#fd9126', height:150 }}
@@ -69,7 +75,7 @@ export default class Intro extends Component {
     this.setState({ activeSlide: index })
     if (index == 2) {
       //navigate to other screen
-      alert('navigate to other screen')
+      // alert('navigate to other screen')
     }
   }
 
@@ -89,9 +95,9 @@ export default class Intro extends Component {
           onSnapToItem={this.onSnapToItem}
         />
         { this.pagination }
-        <View style={styles.footer}>
-          <Text style={styles.textFooter}>LOREM</Text>
-        </View>
+        <TouchableOpacity style={styles.footer} onPress={()=>this.props.authStore.skipIntro()}>
+          <Text style={styles.textFooter}>דלג</Text>
+        </TouchableOpacity>
       </View>
     );
   }

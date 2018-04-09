@@ -5,14 +5,16 @@
 
 import React, {Component} from 'react';
 import {
-    Platform,
+    Image,
     StyleSheet,
     Text,
-    View
+    View,
+    TouchableOpacity
 } from 'react-native';
 // import {observer, inject} from 'mobx-react';
 import {observer, inject} from 'mobx-react/native'
 import authStore from "../state-manager/mobx/authStore";
+import ChooseUserType from './choose_user_type';
 
 //screens
 import Intro from './intro'
@@ -33,9 +35,13 @@ export default class ScreensBase extends Component<Props> {
         switch (this.props.authStore.currentScreen) {
             case 'intro':
                 return (
-                    <Intro />
+                    <Intro/>
                 );
-            case 'consumer': //in this case we return the consumer navigator
+            case 'chooseUserType':
+                return (
+                    <ChooseUserType/>
+                )
+            case 'consumerNavigator': //in this case we return the consumer navigator
                 return (
                     <View>
                         <Text>
