@@ -42,7 +42,7 @@ export default class Modals extends Component {
                 onBackButtonPress={this.closeAuthModal.bind(this)}
                 onBackdropPress={this.closeAuthModal.bind(this)}
             >
-                <AuthModal/>
+                <AuthModal closeModal={this.closeAuthModal.bind(this)}/>
             </Modal>
         )
     }

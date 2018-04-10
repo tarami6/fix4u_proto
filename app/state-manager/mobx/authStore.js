@@ -44,7 +44,7 @@ export default class AuthStore {
     // authSteps handler:
     @observable authStep = 'phone_number';
 
-    @action updateStep(str) {
+    @action updateAuthStep(str) {
         this.authStep = str
     }
 

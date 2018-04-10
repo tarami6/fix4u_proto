@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import {Text, TouchableOpacity, View, StyleSheet, TextInput, Alert} from "react-native";
+//AUTH screens import:
+import VerifyCodeInput from './VerifyCodeInput'
 import PhoneInput from './PhoneInput';
 import {SH, SW, colors} from "../../../../config/styles";
 import {inject, observer} from "mobx-react/native";
@@ -13,7 +15,7 @@ export default class ConsumerAuthModal extends Component {
             case 'phone_number':
                 return (
                     <View style={styles.container}>
-                        <PhoneInput/>
+                        <PhoneInput closeModal={()=>{this.props.closeModal()}}/>
                     </View>
                 )
             //if phone exists in db:
@@ -26,6 +28,7 @@ export default class ConsumerAuthModal extends Component {
             case 'verify_code':
                 return (
                     <View style={styles.container}>
+                        <VerifyCodeInput />
                     </View>
                 )
             case 'consumer_register':

@@ -1,61 +1,29 @@
 import React, {Component} from "react";
 import {Text, TouchableOpacity, View, StyleSheet, TextInput, Alert} from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
-import Modal from "react-native-modal";
 import {SH, SW, colors} from "../../../../config/styles";
 import {inject, observer} from "mobx-react/native";
-import LinearGradient from 'react-native-linear-gradient';
 import {submitButton} from "../../../../components/modalSubmitButton";
 import {fetcher} from "../../../../config/fetcher";
 
 @inject("authStore")
 @observer
-export default class PhoneInput extends Component {
+export default class VerifyCodeInput extends Component {
     constructor(props){
         super(props);
         this.state = {text: ''}
     }
 
-    submitPhone(){
+    submitCode(){
         let sendObj = {
-            phone_number: this.state.text
+            phone_number: this.props.authStore.user.phone_number,
+            code: this.state.text
         }
-        fetcher('api/sms/verify/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
+        fetcher('api/sms/verify/check/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
     }
 
     successCallback(response) {
-        console.warn('success calback at PhoneInput')
-        if (response['success']) {
-            this.props.authStore.updateUser({phone_number: this.state.text});
-            this.props.authStore.updateAuthStep('verify_code')
-        }
-        else {
-            for (error in response) {
-                if (response[error] === 'User with this Phone Number already exists.') {
-                    this.props.authStore.updateUser({phone_number: this.state.text})
-                    this.props.authStore.updateAuthStep('login')
-                }
-                else if (response[error] === 'Phone Number has already been Verified.') {
-                    this.props.authStore.updateUser({phone_number: this.state.text})
-                }
-                else if (response[error] === 'Concurrent verifications to the same number are not allowed') {
-                    Alert.alert('please wait a few minutes to get the verify code again')
-                    this.props.authStore.updateUser({phone_number: this.state.text})
-                }
-                else {
-                    //handling the error message
-                    let dotIndex = response[error][0].indexOf('.');
-                    let alertPartOne = response[error][0].slice(0, dotIndex + 1);
-                    let alertPartTwo = response[error][0].slice(dotIndex + 1);
-                    if (alertPartOne.length > 0) {
-                        Alert.alert(alertPartOne, alertPartTwo);
-                    }
-                    else {
-                        Alert.alert('error', response[error]);
-                    }
-                }
-            }
-        }
+        console.warn('success callback');
     }
 
     errorCallback(error){
@@ -72,10 +40,10 @@ export default class PhoneInput extends Component {
         return (
             <View style={styles.container}>
                 <TouchableOpacity style={{position: 'absolute', top: 10, left: 20}}
-                onPress={()=>{this.props.closeModal()}}>
-                    <Icon name="ios-close" size={50} color="#8C8C8C"/>
+                                  onPress={()=>{this.props.authStore.updateAuthStep('phone_number')}}>
+                    <Icon name="ios-arrow-back" size={50} color="#8C8C8C"/>
                 </TouchableOpacity>
-                <Text style={styles.headerText}>הזן מספר טלפון:</Text>
+                <Text style={styles.headerText}>הזן קוד לאימות הטלפון:</Text>
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.textInputStyle}
@@ -84,7 +52,7 @@ export default class PhoneInput extends Component {
                         underlineColorAndroid={"rgba(0, 0, 0, 0.0)"}
                     />
                 </View>
-                {submitButton('שלח', this.submitPhone.bind(this))}
+                {submitButton('שלח', this.submitCode.bind(this))}
             </View>
         )
     }
