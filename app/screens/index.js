@@ -1,5 +1,6 @@
 /**
- * most basic file in app,
+ * here we gonna have all the popUps: auth modal, newJobModal
+ * and the main navigator
  *
  */
 
@@ -13,12 +14,14 @@ import {
 } from 'react-native';
 import {observer, inject} from 'mobx-react/native'
 import authStore from "../state-manager/mobx/authStore";
-import AppNavigation from '../navigations'
+import AppNavigation from '../navigations';
+import Modals from './modals'
 
 //screens
-import Intro from './intro'
-import ChooseUserType from './choose_user_type';
-
+// import Intro from './intro'
+// import ChooseUserType from './choose_user_type';
+// import ChooseService from './addJob/addJobSteps/choose_service'
+import Modal from "react-native-modal";
 
 type Props = {};
 
@@ -26,60 +29,20 @@ type Props = {};
 @inject("authStore")
 @observer
 export default class ScreensBase extends Component<Props> {
-
     render() {
-
-
-        // here we will show either the intro or screens
-        // what screen to show based on user and  his type we return the proper navigator
-        switch (this.props.authStore.currentScreen) {
-            case 'intro':
-                return (
-                    <Intro/>
-                );
-            case 'chooseUserType':
-                return (
-                    <ChooseUserType/>
-                )
-            case 'consumerNavigator': //in this case we return the consumer navigator
-                return (
-                    <View>
-                        <Text>
-                            {this.props.authStore.currentScreen}
-                        </Text>
-                    </View>
-                );
-            case 'pro-pro':
-                return (
-                    <View>
-                        <Text>
-                            {this.props.authStore.currentScreen}
-                        </Text>
-                    </View>
-                );
-            case 'pro-consumer':
-                return (
-                    <View>
-                        <Text>
-                            {this.props.authStore.currentScreen}
-                        </Text>
-                    </View>
-                );
-            default:
-                return (
-                    <View>
-                        <Text>
-                            {this.props.authStore.currentScreen}
-                        </Text>
-                    </View>
-                );
-        }
+        return (
+            <View style={{flex: 1}}>
+                <AppNavigation/>
+                {/*<Modal isVisible={this.props.authStore.showAuthModal}*/}
+                {/*onRequestClose={()=>this.props.authStore.setShowAuthModal(false)}>*/}
+                    {/*<View style={{ flex: 1 }}>*/}
+                        {/*<Text>I am the modal content!{this.props.authStore.user.type}</Text>*/}
+                    {/*</View>*/}
+                {/*</Modal>*/}
+                <Modals />
+            </View>
+        )
     }
-    // render() {
-    //   return (
-    //     <AppNavigation />
-    //   )
-    // }
 
 }
 

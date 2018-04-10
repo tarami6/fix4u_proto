@@ -1,0 +1,1 @@
+export const mainRoute = 'http://bang-israel-dev.eu-central-1.elasticbeanstalk.com';

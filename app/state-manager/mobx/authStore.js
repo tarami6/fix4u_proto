@@ -2,6 +2,62 @@ import {observable, action, extendObservable, observe} from 'mobx'
 import {AsyncStorage} from 'react-native'
 
 export default class AuthStore {
+    //AUTH:
+    @observable showAuthModal = false;
+
+    @observable setShowAuthModal(bol: boolean){
+        this.showAuthModal = bol
+    }
+
+    //authentication user info:
+    @observable user = {
+        type: '',
+        phone_number: '',
+        token: '',
+        password: '', //just for now, later it will only be in the asyncStorage
+    }
+
+    @action updateUser(data: Object) {
+        if(data.type){
+            this.user.type = data.type
+        }
+        if (data.phone_number) {
+            this.user.phone_number = data.phone_number
+            console.log('this user:', this.user)
+        }
+        if (data.password) {
+            this.user.password = data.password
+        }
+        if (data.token) {
+            this.user.token = data.token;
+            //got token start token refresher
+            if (!this.tokenRefresherActive) {
+                this.tokenRefresher();
+                this.tokenRefresherActive = true;
+            }
+        }
+        if (this.user.token && this.user.password) {
+            AsyncStorage.setItem('GetServiceUserInfo', JSON.stringify(this.user))
+        }
+    }
+
+    // authSteps handler:
+    @observable authStep = 'phone_number';
+
+    @action updateStep(str) {
+        this.authStep = str
+    }
+
+    //////////////////// end of AUTH ////////////
+
+    //DrawerNavigator handler start:
+    @observable currentNavigationDrawer = 'pro';
+
+    @action changeNavigation(newNavigation){
+        this.currentNavigationDrawer = newNavigation;
+    }
+
+    //////////////////////
 
     // screensBase options:
     //screen options: loadingScreen/intro/chooseUserType/consumerNavigator/proNavigator
@@ -24,4 +80,5 @@ export default class AuthStore {
             this.changeScreen('proNavigator')
         }
     }
+    ///////////
 }
