@@ -7,14 +7,21 @@ import {
   Image,
   Dimensions,
   StyleSheet,
+    TouchableOpacity
 } from 'react-native';
 import { Content, List, ListItem, Text, Icon } from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 import Circle from '../../components/circle'
+import {inject, observer} from "mobx-react/native";
 
 const { width, height } = Dimensions.get('window')
 
+@inject("authStore")
+@observer
 export default class Consumer extends Component {
+  changeToPro(){
+      this.props.authStore.changeNavigation('pro');
+  }
   render() {
     return (
       <View>
@@ -34,7 +41,7 @@ export default class Consumer extends Component {
 
             </View>
           </ListItem>
-          <ListItem style={{borderWidth:0, justifyContent:'flex-end',  paddingLeft:0, marginLeft:0}}>
+          <ListItem style={{borderWidth:0, justifyContent:'flex-end',  paddingLeft:0, marginLeft:0}} onPress={this.changeToPro.bind(this)}>
             <Text style={{color:'gray', fontWeight:'bold'}}>Mignoletss</Text>
           </ListItem>
           <ListItem style={{borderBottomWidth:0, justifyContent:'flex-end',  paddingLeft:0, marginLeft:0}}>

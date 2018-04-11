@@ -1,4 +1,8 @@
-/* @flow */
+/* @flow
+*
+* inside cardRow we activate the whatever
+*
+* */
 
 import React, { Component } from 'react';
 import {

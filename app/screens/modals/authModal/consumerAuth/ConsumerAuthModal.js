@@ -3,6 +3,7 @@ import {Text, TouchableOpacity, View, StyleSheet, TextInput, Alert} from "react-
 //AUTH screens import:
 import VerifyCodeInput from './VerifyCodeInput'
 import PhoneInput from './PhoneInput';
+import FacebookLogin from './FacebookLogin'
 import {SH, SW, colors} from "../../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 
@@ -22,6 +23,7 @@ export default class ConsumerAuthModal extends Component {
             case 'login':
                 return (
                     <View style={styles.container}>
+                        <FacebookLogin />
                     </View>
                 )
             //in case phone doesnt exist in the system:

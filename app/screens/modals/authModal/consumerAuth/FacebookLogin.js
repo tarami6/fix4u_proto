@@ -5,77 +5,73 @@ import {SH, SW, colors} from "../../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 import {submitButton} from "../../../../components/modalSubmitButton";
 import {fetcher} from "../../../../config/fetcher";
+const FBSDK = require('react-native-fbsdk');
+const {
+    LoginButton,
+    AccessToken
+} = FBSDK;
 
 @inject("authStore")
 @observer
-export default class VerifyCodeInput extends Component {
+export default class Login extends Component {
     constructor(props){
         super(props);
         this.state = {text: ''}
     }
 
-    submitCode(){
+    handleSubmit(data){
         let sendObj = {
             phone_number: this.props.authStore.user.phone_number,
             code: this.state.text
         }
 
-
+        console.log('facebook login response data:', data);
         // this is the fetch for the verify code for the phone, inactive on the server for now
-        fetcher('api/sms/verify/check/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
+        // fetcher('api/sms/verify/check/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
     }
 
     successCallback(response) {
-        if (response['success']) {
-            this.props.authStore.updateAuthStep('login');
-        }
-        else {
-            console.log('the error:', response)
-            let errorMessage = '';
-            for (let error in response) {
-                console.log('Code Input error', response[error]);
-                if(typeof response[error] !== 'string'){
-                    console.warn('yes 0')
-                    errorMessage = response[error][0]
-                }
-                else {
-                    console.warn('no 0')
-                    errorMessage = response[error]
-                }
-                Alert.alert('errorMessage in VerifyCodeInput',errorMessage);
-            }
-        }
         console.warn('success callback');
-        console.log(response);
     }
 
     errorCallback(error){
-        console.warn('error in phoneNumb post fetch', error);
-    }
-    componentDidMount(){
-        this._input.clear();
+        console.warn('error in phoneNumb post fetch');
     }
 
+    componentDidMount(){
+        this.setState({
+            text: this.props.authStore.user.phone_number
+        })
+    }
 
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity style={{position: 'absolute', top: 10, left: 20}}
+                <TouchableOpacity style={{position: 'absolute', top: 10, left: 0}}
                                   onPress={()=>{this.props.authStore.updateAuthStep('phone_number')}}>
                     <Icon name="ios-arrow-back" size={50} color="#8C8C8C"/>
                 </TouchableOpacity>
-                <Text style={styles.headerText}>הזן קוד לאימות הטלפון:</Text>
-                <View style={styles.inputContainer}>
-                    <TextInput
-                        ref={(ref) => this._input = ref}
-                        style={styles.textInputStyle}
-                        keyboardType='phone-pad'
-                        onChangeText={(text) => this.setState({text})}
-                        value={this.state.text}
-                        underlineColorAndroid={"rgba(0, 0, 0, 0.0)"}
-                    />
-                </View>
-                {submitButton('שלח', this.submitCode.bind(this))}
+                <Text style={styles.headerText}>התחבר עם פייסבוק:</Text>
+                {/*facebook Login:*/}
+                <LoginButton
+                    publishPermissions={["publish_actions"]}
+                    onLoginFinished={
+                        (error, result) => {
+                            if (error) {
+                                alert("login has error: " + result.error);
+                            } else if (result.isCancelled) {
+                                alert("login is cancelled.");
+                            } else {
+                                AccessToken.getCurrentAccessToken().then(
+                                    (data) => {
+                                        this.handleSubmit(data)
+                                        // alert(data.accessToken.toString())
+                                    }
+                                )
+                            }
+                        }
+                    }
+                    onLogoutFinished={() => alert("logout.")}/>
             </View>
         )
     }
@@ -90,11 +86,11 @@ let styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 4,
         borderColor: "rgba(0, 0, 0, 0.1)",
-        // height: SH*0.8
     },
     headerText: {
         fontSize: 20,
         marginTop: 30,
+        marginVertical: 30,
         // borderBottomWidth: 1,
         // borderColor: '#000',
     },

@@ -8,7 +8,6 @@ import {
     TouchableOpacity,
     StyleSheet,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import {NavigationActions} from 'react-navigation';
 import {inject, observer} from 'mobx-react';
 import authStore from '../../state-manager/mobx/authStore';

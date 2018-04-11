@@ -33,12 +33,6 @@ export default class ScreensBase extends Component<Props> {
         return (
             <View style={{flex: 1}}>
                 <AppNavigation/>
-                {/*<Modal isVisible={this.props.authStore.showAuthModal}*/}
-                {/*onRequestClose={()=>this.props.authStore.setShowAuthModal(false)}>*/}
-                    {/*<View style={{ flex: 1 }}>*/}
-                        {/*<Text>I am the modal content!{this.props.authStore.user.type}</Text>*/}
-                    {/*</View>*/}
-                {/*</Modal>*/}
                 <Modals />
             </View>
         )

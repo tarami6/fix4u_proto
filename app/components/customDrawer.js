@@ -13,16 +13,15 @@ import {inject, observer} from "mobx-react/native";
 @inject("authStore")
 @observer
 export default class CustomDrawer extends Component {
-
-
+    componentDidMount(){
+        console.warn(this.props);
+    }
     render() {
         // consumer or pro, change based on login user props
         let currenUser = this.props.authStore.currentNavigationDrawer;
         if (!this.props.authStore.user.token){
             // currenUser = 'NoToken';
-
         }
-
             switch (currenUser) {
                 case 'NoToken':
                     return (
@@ -31,7 +30,7 @@ export default class CustomDrawer extends Component {
 
                 case 'consumer':
                     return (
-                        <Consumer/>
+                        <Consumer {...this.prop}/>
                     );
                     break;
                 case 'pro':

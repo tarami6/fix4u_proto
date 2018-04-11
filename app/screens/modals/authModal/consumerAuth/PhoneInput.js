@@ -40,7 +40,8 @@ export default class PhoneInput extends Component {
                 }
                 else if (response[error] === 'Concurrent verifications to the same number are not allowed') {
                     Alert.alert('please wait a few minutes to get the verify code again')
-                    this.props.authStore.updateUser({phone_number: this.state.text})
+                    this.props.authStore.updateUser({phone_number: this.state.text});
+                    this.props.authStore.updateAuthStep('verify_code');
                 }
                 else {
                     //handling the error message
@@ -79,6 +80,7 @@ export default class PhoneInput extends Component {
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.textInputStyle}
+                        keyboardType='phone-pad'
                         onChangeText={(text) => this.setState({text})}
                         value={this.state.text}
                         underlineColorAndroid={"rgba(0, 0, 0, 0.0)"}
