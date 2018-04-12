@@ -14,6 +14,7 @@ export default class AuthStore {
         type: '',
         phone_number: '',
         token: '',
+        fbToken: '',
         password: '', //just for now, later it will only be in the asyncStorage
     }
 
@@ -23,7 +24,6 @@ export default class AuthStore {
         }
         if (data.phone_number) {
             this.user.phone_number = data.phone_number
-            console.log('this user:', this.user)
         }
         if (data.password) {
             this.user.password = data.password
@@ -32,7 +32,7 @@ export default class AuthStore {
             this.user.token = data.token;
             //got token start token refresher
             if (!this.tokenRefresherActive) {
-                this.tokenRefresher();
+                // this.tokenRefresher();
                 this.tokenRefresherActive = true;
             }
         }

@@ -6,11 +6,11 @@
 
 import React, { Component } from 'react';
 import {
-  View,
-  Image,
-  Platform,
-  Dimensions,
-  StyleSheet,
+    View,
+    Image,
+    Platform,
+    Dimensions,
+    StyleSheet,
 } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Body, Text, Icon } from 'native-base';
 
@@ -22,25 +22,16 @@ const { width, height } = Dimensions.get('window')
 
 export default class ChooseService extends Component {
 
-  static navigationOptions = {
-    header:null
-  }
-
-  x = () => {}
-
-  nextStep(){
-      this.props.navigation.navigate('ChooseAddress');
-  }
-  render() {
-    return (
-      <Container>
-        <Content>
-        <LinierView>
-          <CustomHeader />
-        </LinierView>
-        <CardList nextStep={this.nextStep.bind(this)}/>
-        </Content>
-      </Container>
-    );
-  }
+    static navigationOptions = {
+        header:null
+    }
+    render() {
+        return (
+            <Container>
+                <Content>
+                    <Text>yooo there nextStep</Text>
+                </Content>
+            </Container>
+        );
+    }
 }

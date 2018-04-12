@@ -46,7 +46,6 @@ export default class VerifyCodeInput extends Component {
             }
         }
         console.warn('success callback');
-        console.log(response);
     }
 
     errorCallback(error){

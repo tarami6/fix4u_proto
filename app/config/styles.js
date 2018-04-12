@@ -19,9 +19,12 @@ export let secondaryColor = '#FB6717';
 export let mainRed = '#D0021B' ;
 export let grey  =  '#CCCCCC' ;
 export let darkGrey = '#7f7f7f';
+export let START = '#FFBA00';
+export let END = '#FF8D00';
 // SCREEN ZISE
 export let SW = Dimensions.get('window').width;
 export let SH = Dimensions.get('window').height;
+export let HH = SH/11.625
 export let PaddingSize = SW - SW / 16;
 export let stretchMinimum = SH /16;
 // FONT

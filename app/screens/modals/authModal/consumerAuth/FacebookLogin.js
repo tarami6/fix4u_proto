@@ -11,6 +11,7 @@ const {
     AccessToken
 } = FBSDK;
 
+@inject('userDataStore')
 @inject("authStore")
 @observer
 export default class Login extends Component {
@@ -22,16 +23,21 @@ export default class Login extends Component {
     handleSubmit(data){
         let sendObj = {
             phone_number: this.props.authStore.user.phone_number,
-            code: this.state.text
+            access_token: data
         }
 
         console.log('facebook login response data:', data);
+        this.props.authStore.updateUser({fbToken: data});
         // this is the fetch for the verify code for the phone, inactive on the server for now
-        // fetcher('api/sms/verify/check/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
+        fetcher('api/rest-auth/facebook/login/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
     }
 
     successCallback(response) {
+        //closing modal
+        this.props.authStore.setShowAuthModal(false);
+        this.props.userDataStore.setUserData(response)
         console.warn('success callback');
+        // console.log('yoo', response)
     }
 
     errorCallback(error){
@@ -39,9 +45,21 @@ export default class Login extends Component {
     }
 
     componentDidMount(){
+        this.checkIfUserIsLoggedIn();
         this.setState({
             text: this.props.authStore.user.phone_number
         })
+    }
+
+
+    checkIfUserIsLoggedIn(){
+        let item = '';
+        AccessToken.getCurrentAccessToken().then((data)=>{
+            item = data.accessToken.toString();
+            this.props.authStore.updateUser({fbToken: data});
+            fetcher('api/rest-auth/facebook/login/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
+
+        }).catch(err => console.warn('no token:', err))
     }
 
     render() {
@@ -54,7 +72,7 @@ export default class Login extends Component {
                 <Text style={styles.headerText}>התחבר עם פייסבוק:</Text>
                 {/*facebook Login:*/}
                 <LoginButton
-                    publishPermissions={["publish_actions"]}
+                    readPermissions={["email"]}
                     onLoginFinished={
                         (error, result) => {
                             if (error) {
@@ -64,8 +82,8 @@ export default class Login extends Component {
                             } else {
                                 AccessToken.getCurrentAccessToken().then(
                                     (data) => {
-                                        this.handleSubmit(data)
-                                        // alert(data.accessToken.toString())
+                                        this.handleSubmit(data.accessToken.toString())
+                                        // alert(data)
                                     }
                                 )
                             }
@@ -120,3 +138,5 @@ let styles = StyleSheet.create({
         margin: 0
     }
 })
+
+//exmple facebook key: EAACXPzPIrRgBAKsRZCYwIhdlIpdc1lBSFmvjDBMVNOvrUpZCkgcIn4HOLBx8LbQN6UiCC7gjh2KBipjS1rvvmGJNmqc6mhAXUZAt39NJOC4chEHUghRtrBQYWtUIGac6HloaEHzXzq18sECZAdpLRJQIr5HP3nXZC85SIWQzGJHGyhbZCpbrKCoZCLlxeNpYJ2x5C8ObxZBWslyXspWhQi9F0k1TsQfGtjYZD

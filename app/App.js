@@ -16,16 +16,22 @@ import ScreensBase from './screens';
 import {Provider} from "mobx-react";
 import AuthStore from './state-manager/mobx/authStore';
 import AddJobStore from './state-manager/mobx/addJobStore'
+import UserDataStore from './state-manager/mobx/userDataStore'
 
+//all auth process happends here
 let authStore = new AuthStore();
+//CRUD for the response from user authentication
+let userDataStore = new UserDataStore();
+
 
 let addJobStore = new AddJobStore();
+
 
 type Props = {};
 export default class App extends Component<Props> {
     render() {
         return (
-            <Provider authStore={authStore} addJobStore={addJobStore}>
+            <Provider authStore={authStore} addJobStore={addJobStore} userDataStore={userDataStore}>
                 <ScreensBase/>
             </Provider>
         )

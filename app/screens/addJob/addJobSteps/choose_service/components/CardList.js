@@ -55,27 +55,29 @@ const services = [
   },
 ]
 
-const CardList = () => {
-  return (
-    <View style={{marginTop: -105}}>
-      <Text style={styles.title}>
-        איזה שירות תרצה לבחור היום?
-      </Text>
-      <View style={styles.containerServices}>
-        {services.map((service, i) => {
-          return (
-            <View style={styles.rowWrapper} key={i}>
-              <Card style={{borderRadius:8}}>
-                <CardItem style={styles.cardContainer}>
-                  <CardRow service={service}/>
-                </CardItem>
-              </Card>
-            </View>
-          )
-        })}
-      </View>
-    </View>
-  )
+class CardList extends React.Component {
+  render() {
+      return (
+          <View style={{marginTop: -105}}>
+              <Text style={styles.title}>
+                  איזה שירות תרצה לבחור היום?
+              </Text>
+              <View style={styles.containerServices}>
+                  {services.map((service, i) => {
+                      return (
+                          <View style={styles.rowWrapper} key={i}>
+                              <Card style={{borderRadius: 8}}>
+                                  <CardItem style={styles.cardContainer}>
+                                      <CardRow service={service} nextStep={this.props.nextStep}/>
+                                  </CardItem>
+                              </Card>
+                          </View>
+                      )
+                  })}
+              </View>
+          </View>
+      )
+  }
 }
 
 export default CardList;

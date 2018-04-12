@@ -36,7 +36,8 @@ export default class PhoneInput extends Component {
                     this.props.authStore.updateAuthStep('login')
                 }
                 else if (response[error] === 'Phone Number has already been Verified.') {
-                    this.props.authStore.updateUser({phone_number: this.state.text})
+                    this.props.authStore.updateUser({phone_number: this.state.text});
+                    this.props.authStore.updateAuthStep('login');
                 }
                 else if (response[error] === 'Concurrent verifications to the same number are not allowed') {
                     Alert.alert('please wait a few minutes to get the verify code again')

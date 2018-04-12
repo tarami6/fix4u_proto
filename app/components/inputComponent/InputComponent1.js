@@ -29,7 +29,7 @@ InputComponent1.defaultProps = {
     placeholder: '',
     secureTextEntry: false,
     onSubmitEditing: (some='some')=>{
-        console.log(some);
+        console.warn('no onSubmitEditing was supllied to this input tho should!');
     }
 };
 
