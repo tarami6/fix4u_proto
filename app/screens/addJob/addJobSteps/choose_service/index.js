@@ -17,6 +17,7 @@ import { Container, Header, Content, Card, CardItem, Body, Text, Icon } from 'na
 
 import LinierView from '../../../../components/linierView'
 import { CardList, CustomHeader } from './components/index'
+import ChooseTime from "../../addJobRamiScreens/screens/ChooseTime";
 
 const { width, height } = Dimensions.get('window')
 
@@ -28,8 +29,9 @@ export default class ChooseService extends Component {
 
   x = () => {}
 
+  //after Submit info:
   nextStep(){
-      this.props.navigation.navigate('ChooseAddress');
+      this.props.navigation.navigate('ChooseTime');
   }
   render() {
     return (

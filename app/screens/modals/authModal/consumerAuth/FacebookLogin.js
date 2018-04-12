@@ -22,7 +22,6 @@ export default class Login extends Component {
 
     handleSubmit(data){
         let sendObj = {
-            phone_number: this.props.authStore.user.phone_number,
             access_token: data
         }
 
@@ -35,7 +34,8 @@ export default class Login extends Component {
     successCallback(response) {
         //closing modal
         this.props.authStore.setShowAuthModal(false);
-        this.props.userDataStore.setUserData(response)
+        this.props.authStore.updateUser({token: response.token});
+        this.props.userDataStore.setUserData(response);
         console.warn('success callback');
         // console.log('yoo', response)
     }
@@ -56,7 +56,7 @@ export default class Login extends Component {
         let item = '';
         AccessToken.getCurrentAccessToken().then((data)=>{
             item = data.accessToken.toString();
-            this.props.authStore.updateUser({fbToken: data});
+            this.props.authStore.updateUser({fbToken: item});
             fetcher('api/rest-auth/facebook/login/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
 
         }).catch(err => console.warn('no token:', err))

@@ -4,7 +4,11 @@ import {SH, SW, HH} from "../../../../config/styles";
 import LinearViewBelowHeaderConsumer from '../components/LinearViewBelowHeaderConsumer';
 import {submitButton} from "../../../../components/modalSubmitButton";
 import CustomHeaderAddJob from '../components/CustomHeaderAddJob'
+import {inject, observer} from "mobx-react/native";
 
+
+@inject("addJobStore")
+@observer
 export default class ChooseAddress extends React.Component {
     static navigationOptions = {
         header: ( /* Your custom header */
@@ -17,6 +21,16 @@ export default class ChooseAddress extends React.Component {
     constructor(props) {
         super(props);
         this.state = {text: 'כתובת'};
+    }
+
+    componentDidMount(){
+        console.warn(this.props.addJobStore.newJobInfo.appointment_time_end);
+    }
+
+    handleSubmit(){
+        let objToSave = {
+
+        }
     }
 
     render() {
@@ -71,9 +85,7 @@ export default class ChooseAddress extends React.Component {
                     {/*Button*/}
                     <View style={styles.container}>
                         <View style={{alignItems: 'center'}}>
-                            {submitButton('המשך', () => {
-                                console.log("warn")
-                            })}
+                            {submitButton('המשך', this.handleSubmit.bind(this))}
                         </View>
                     </View>
 

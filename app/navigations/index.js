@@ -1,8 +1,8 @@
-import { StackNavigator, DrawerNavigator } from 'react-navigation'
+import {StackNavigator, DrawerNavigator} from 'react-navigation'
 import React from 'react'
-import { Dimensions, Text } from 'react-native'
+import {Dimensions, Text} from 'react-native'
 
-import { Icon } from 'native-base'
+import {Icon} from 'native-base'
 
 import CustomDrawer from '../components/customDrawer'
 
@@ -12,7 +12,8 @@ import ChooseService from '../screens/addJob/addJobSteps'
 import ChooseAddress from '../screens/addJob/addJobRamiScreens/screens/ChooseAddress';
 import ChooseTime from '../screens/addJob/addJobRamiScreens/screens/ChooseTime';
 import ExplainTheJob from '../screens/addJob/addJobRamiScreens/screens/ExplainTheJob'
-const { width } = Dimensions.get('window')
+
+const {width} = Dimensions.get('window')
 //it is just example
 // const A = (props) => (
 //   <Icon
@@ -25,56 +26,55 @@ const HomeNavigation = StackNavigator({
     ChooseService: {
         screen: ChooseService
     },
-    ChooseAddress: {
-      screen: ChooseAddress
-    },
     ChooseTime: {
-      screen: ChooseTime
+        screen: ChooseTime
     },
     ExplainTheJob: {
-      screen: ExplainTheJob
-    }
-
+        screen: ExplainTheJob
+    },
+    ChooseAddress: {
+        screen: ChooseAddress
+    },
 })
 
 
 //all of screen who access drawer define on here
 const DrawerNavigation = DrawerNavigator({
-  ChooseService: {
-      screen: HomeNavigation,
+    ChooseService: {
+        screen: HomeNavigation,
     },
-  B: {
-    screen: B,
-  },
-},{
-  contentComponent: CustomDrawer,
-  drawerWidth : width
+    B: {
+        screen: B,
+    },
+}, {
+    contentComponent: CustomDrawer,
+    drawerWidth: width
 })
 
 
 //all screen dont access drawer
 const IntroNavigation = StackNavigator({
-  Intro : {
-    screen : Intro
-  },
-  ChooseUserType : {
-    screen : ChooseUserType
-  },
-},{
-  navigationOptions : {
-    header:null
-  }
+    Intro: {
+        screen: Intro
+    },
+    ChooseUserType: {
+        screen: ChooseUserType
+    },
+}, {
+    navigationOptions: {
+        header: null
+    }
 })
 
 export default AppNavigation = StackNavigator({
-  IntroNavigation : {
-    screen : IntroNavigation
-  },
-  DrawerNavigation : {
-    screen : DrawerNavigation
-  }
-},{
-  navigationOptions : {
-    header:null
-  }
+    IntroNavigation: {
+        screen: IntroNavigation
+    },
+    DrawerNavigation: {
+        screen: DrawerNavigation
+    }
+}, {
+    navigationOptions: {
+        header: null
+    }
 })

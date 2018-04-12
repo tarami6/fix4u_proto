@@ -14,8 +14,16 @@ import {
 import LoadinPage from '../../../components/LoadinPage';
 // import OpenScreen3 from '../../../components/infoScreens/OpenScreen3'
 import Step from './Step'
+import {inject, observer} from "mobx-react/native";
+
+@inject("authStore")
+@observer
 export default class Intro2 extends Component{
+
     render() {
+        if(this.props.authStore.user.token){
+            this.props.navigation.navigate('DrawerNavigation');
+        }
         return (
             <Step skipIntro={()=>this.props.navigation.navigate('ChooseUserType')}/>
         );

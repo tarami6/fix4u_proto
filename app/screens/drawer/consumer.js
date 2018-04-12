@@ -37,7 +37,9 @@ export default class Consumer extends Component {
               <View style={{marginLeft:50}}>
                 <Circle qty={22}/>
               </View>
+              <TouchableOpacity onPress={this.props.navigation.navigate('B')}>
               <Text style={{color:'gray', fontWeight:'bold'}}>Simon Mignoletss</Text>
+              </TouchableOpacity>
 
             </View>
           </ListItem>

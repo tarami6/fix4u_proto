@@ -2,7 +2,7 @@
  * The bottom component
  * also:
  * manages notifications data transfer to mobx
- * keeps the user logged on this phone as long as he didn't logout - asyncStorage login
+ * keeps the user logged on this phone as long as long as he didn't logout - asyncStorage/facebook login
  */
 
 import React, {Component} from 'react';
@@ -15,8 +15,9 @@ import {
 import ScreensBase from './screens';
 import {Provider} from "mobx-react";
 import AuthStore from './state-manager/mobx/authStore';
-import AddJobStore from './state-manager/mobx/addJobStore'
-import UserDataStore from './state-manager/mobx/userDataStore'
+import AddJobStore from './state-manager/mobx/addJobStore';
+import UserDataStore from './state-manager/mobx/userDataStore';
+import {tryLogin} from "./generalFunc/tryLogin";
 
 //all auth process happends here
 let authStore = new AuthStore();
@@ -29,6 +30,9 @@ let addJobStore = new AddJobStore();
 
 type Props = {};
 export default class App extends Component<Props> {
+    componentDidMount(){
+        tryLogin(authStore, userDataStore)
+    }
     render() {
         return (
             <Provider authStore={authStore} addJobStore={addJobStore} userDataStore={userDataStore}>
