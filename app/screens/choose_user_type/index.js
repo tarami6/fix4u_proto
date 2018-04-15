@@ -24,7 +24,7 @@ export default class ChooseUserType extends Component {
     navigate = (key) => {
         const {navigate} = this.props.navigation
         switch (key) {
-            case 'Consumer':
+            case 'consumer':
                 this.props.authStore.changeNavigation('consumer');
                 this.props.authStore.updateUser({type: 'consumer'});
                 const actionToDispatch = NavigationActions.reset({
@@ -39,7 +39,7 @@ export default class ChooseUserType extends Component {
                 });
                 this.props.navigation.dispatch(actionToDispatch);
                 break;
-            case 'Pro':
+            case 'pro':
                 this.props.authStore.changeNavigation('pro');
                 this.props.authStore.updateUser({type: 'pro'});
                 alert('under development')
@@ -54,9 +54,9 @@ export default class ChooseUserType extends Component {
         return (
             <View style={styles.container}>
                 <Text style={{fontWeight: 'bold', margin: 40}}>אני</Text>
-                <ConsumerButton navigate={this.navigate}/>
+                <ConsumerButton navigate={()=>this.navigate('consumer')}/>
                 <Text style={{fontWeight: '100', fontSize: 12, color: '#9b9b9b', margin: 40}}>או</Text>
-                <ProButton navigate={this.navigate}/>
+                <ProButton navigate={()=>this.navigate('pro')}/>
             </View>
         );
     }

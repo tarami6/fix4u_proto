@@ -17,7 +17,7 @@ export default class ChooseTime extends React.Component {
     };
 
     handleSubmit() {
-        let date = new Date();
+        let date = new Date().toISOString().slice(0,10);;
         let time_start = '10:00:00';
         let time_end = '12:00:00';
         let sendObj = {
@@ -25,8 +25,8 @@ export default class ChooseTime extends React.Component {
             appointment_time_start: time_start,
             appointment_time_end: time_end
         }
-        this.props.addJobStore.editNewJobInfo(sendObj)
-        this.props.navigation.navigate('ChooseAddress');
+        this.props.addJobStore.editNewJobInfo(sendObj);
+        this.props.navigation.navigate('ExplainTheJob');
     }
 
 

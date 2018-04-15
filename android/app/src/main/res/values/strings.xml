@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">fix4u_screens</string>
     <string name="facebook_app_id">166297707523352</string>
+    <string name="google_maps_key">AIzaSyBMAQfyfH1-jxThUzSls9DfUSvEASK1hBI</string>
 </resources>

@@ -14,44 +14,39 @@ import { CardRow } from './index'
 const { width, height } = Dimensions.get('window')
 const services = [
   {
-    name : 'cleaner',
+    name : 'Cleaner',
     qty : 0,
     uri : require('../../../../../../assets/services/serviceIcons/CleanerIconOrange.png')
   },
   {
-    name : 'electrician',
+    name : 'Doctor',
     qty : 1,
     uri : require('../../../../../../assets/services/serviceIcons/ElectricianIcon.png')
   },
   {
-    name : 'brush',
+    name : 'Electrician',
     qty : 17,
     uri : require('../../../../../../assets/services/brush.png')
   },
   {
-    name : 'broom',
+    name : 'GeneralService',
     qty : 34,
     uri : require('../../../../../../assets/services/broom.png')
   },
   {
-    name : 'lamp',
+    name : 'Handyman',
     qty : 273,
     uri : require('../../../../../../assets/services/lamp.png')
   },
   {
-    name : 'brush',
+    name : 'Plumber',
     qty : 17,
     uri : require('../../../../../../assets/services/brush.png')
   },
   {
-    name : 'broom',
+    name : 'Veterinarian',
     qty : 34,
     uri : require('../../../../../../assets/services/broom.png')
-  },
-  {
-    name : 'lamp',
-    qty : 273,
-    uri : require('../../../../../../assets/services/lamp.png')
   },
 ]
 

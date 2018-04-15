@@ -1,17 +1,22 @@
 import React from 'react';
-import {View, Text, Image, TextInput, StyleSheet} from 'react-native';
+import {View, Text, Image, TextInput, StyleSheet, Alert, TouchableOpacity} from 'react-native';
 import {SH, SW, HH} from "../../../../config/styles";
 import LinearViewBelowHeaderConsumer from '../components/LinearViewBelowHeaderConsumer';
 import {submitButton} from "../../../../components/modalSubmitButton";
 import CustomHeaderAddJob from '../components/CustomHeaderAddJob'
 import {inject, observer} from "mobx-react/native";
+import {fetcher} from "../../../../config/fetcher";
+import AutoComplete from '../../../../components/autoComplete'
+import {Keys} from "../../../../config/keys";
+import MapComponent from '../../../../components/mapComponent'
 
-
+@inject("userDataStore")
 @inject("addJobStore")
+@inject("authStore")
 @observer
 export default class ChooseAddress extends React.Component {
     static navigationOptions = {
-        header: ( /* Your custom header */
+        header: (/* Your custom header */
             <CustomHeaderAddJob/>
         ),
 
@@ -20,23 +25,116 @@ export default class ChooseAddress extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {text: 'כתובת'};
+        this.state = {
+            text: 'כתובת',
+            payment_type: '',
+            lat: 32.786842906668895,
+            lon: 34.972372709973115,
+        };
     }
 
-    componentDidMount(){
-        console.warn(this.props.addJobStore.newJobInfo.appointment_time_end);
+
+    handleSubmit() {
+        // let obj = {
+        //     address: this.state.address,
+        //     lat: '0.0',
+        //     lon: '0.0',
+        //     payment_type: 'cash',
+        //     service_fee: '100'
+        // };
+
+        if (this.state.place_id) {
+            if (this.state.details.address_components[0].long_name.length > 3) {
+                Alert.alert('please fill in building number as well');
+            }
+            else {
+                this.getCoordsAndSubmitData(this.state.place_id)
+            }
+        }
+        else {
+            Alert.alert('please choose proper address')
+        }
+
     }
 
-    handleSubmit(){
+    submitJob(lat, lon) {
         let objToSave = {
+            lat: lat,
+            lon: lon,
+            address: this.state.address,
+            payment_type: 'cash',
+            service_fee: '100'
+        }
+        this.props.addJobStore.editNewJobInfo(objToSave);
+        let item = this.props.addJobStore.returnFetchObj();
+        let headers = {
+            'Accept': `application/json`,
+            'Content-Type': 'application/json',
+            'Authorization': 'JWT ' + this.props.authStore.user.token
+        };
+        fetcher('api/posts/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), item, headers);
+    }
+
+    successCallback(response) {
+        if (response.id) {
 
         }
+        console.warn('success addJob!', response);
+    }
+
+    errorCallback(response) {
+        console.warn('error addJob');
+        console.log('error in addJob:', response)
+    }
+
+    //autoCompleteHandling:
+
+    //get the lat and lon with the place_id
+    getCoordsAndSubmitData(itemId) {
+        // https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJrTLr-GyuEmsRBfy61i59si0&key=YOUR_API_KEY
+        fetch(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${itemId}&key=${Keys.places_api_web_services}`)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                let lon = responseJson.result.geometry.location.lng;
+                let lat = responseJson.result.geometry.location.lat;
+                this.submitJob(lat, lon)
+
+            })
+    }
+
+    getCoordsAndSaveToState(itemId) {
+        fetch(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${itemId}&key=${Keys.places_api_web_services}`)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.warn(responseJson.result.geometry);
+                this.setState({
+                    lat: responseJson.result.geometry.location.lat,
+                    lon: responseJson.result.geometry.location.lng
+                })
+
+            })
+    }
+
+    handleLocationPress(data, details) {
+        let address = data.description;
+        let place_id = data.place_id;
+        this.getCoordsAndSaveToState(place_id);
+        this.setState({
+            address: address,
+            place_id: place_id,
+            details: details
+        })
     }
 
     render() {
+        // return (
+        //     <MapComponent style={styles.map}
+        //                     />
+        // )
+        let leftIconStyle = this.state.payment_type === 'cash' ? {} : {};
         return (
             <View style={styles.container}>
-                {/*Linear under header*/}
+                {/*Linear under header 0.8 flex*/}
                 <View style={styles.linear}>
                     <LinearViewBelowHeaderConsumer>
                         {/*step indicator*/}
@@ -46,25 +144,37 @@ export default class ChooseAddress extends React.Component {
                             />
                         </View>
                         <View style={styles.textInputView}>
-                            <TextInput
-                                multiline={true}
-                                underlineColorAndroid={'transparent'}
-                                style={styles.textInput}
-                                onChangeText={(text) => this.setState({text})}
-                                value={this.state.text}
+                            <AutoComplete
+                                handleLocationPress={this.handleLocationPress.bind(this)}
                             />
+                            {/*<TextInput*/}
+                            {/*multiline={true}*/}
+                            {/*underlineColorAndroid={'transparent'}*/}
+                            {/*style={styles.textInput}*/}
+                            {/*onChangeText={(text) => this.setState({text})}*/}
+                            {/*value={this.state.text}*/}
+                            {/*/>*/}
                         </View>
                     </LinearViewBelowHeaderConsumer>
                 </View>
 
-                {/*Map Component*/}
+                {/*Map Component 1.2*/}
                 <View style={{flex: 1.2, justifyContent: 'center', alignItems: 'center'}}>
-                    <Text>
-                        Map Component
-                    </Text>
+                    {/*<Text>*/}
+                    {/*Map Component*/}
+                    {/*</Text>*/}
+                    <MapComponent style={styles.map}
+                                  lat={this.state.lat}
+                                  lon={this.state.lon}
+                                  userLocation={{
+                                      latitude: this.state.lat,
+                                      longitude: this.state.lon,
+                                      latitudeDelta: 0.0622 * 0.1,
+                                      longitudeDelta: 0.0421 * 0.1
+                                  }}/>
                 </View>
 
-                {/*Footer with payment method and button*/}
+                {/*Footer with payment method and button 0.8*/}
                 <View style={styles.footer}>
                     <View style={{flex: 1}}>
                         <View style={styles.paymentMethodView}>
@@ -83,11 +193,11 @@ export default class ChooseAddress extends React.Component {
                     </View>
 
                     {/*Button*/}
-                    <View style={styles.container}>
-                        <View style={{alignItems: 'center'}}>
-                            {submitButton('המשך', this.handleSubmit.bind(this))}
-                        </View>
+                    {/*<View style={styles.container}>*/}
+                    <View style={{alignItems: 'center', width: SW}}>
+                        {submitButton('המשך', this.handleSubmit.bind(this))}
                     </View>
+                    {/*</View>*/}
 
                 </View>
 
@@ -98,13 +208,20 @@ export default class ChooseAddress extends React.Component {
 
 let styles = StyleSheet.create({
     container: {
+        position: 'absolute',
+        height: SH - HH,
+        width: SW,
+        top: 0,
+        left: 0,
         flex: 1
     },
     linear: {
         flex: 0.8
     },
     textInputView: {
-        marginTop: SH / 10
+        marginTop: SH / 10,
+        height: HH * 4,
+        zIndex: 3,
     },
     textInput: {
         borderColor: '#ECECEC',
@@ -142,5 +259,10 @@ let styles = StyleSheet.create({
     iconViewRight: {
         alignSelf: 'center',
         marginLeft: SW / 8,
-    }
+    },
+    map: {}
+    // map: {
+    //     width: 100,
+    //     height: 100
+    // }
 })

@@ -18,16 +18,17 @@ export default class CustomDrawer extends Component {
     }
     render() {
         // consumer or pro, change based on login user props
-        let currenUser = this.props.authStore.currentNavigationDrawer;
+        let currentUser = this.props.authStore.user.type;
         if (!this.props.authStore.user.token){
-            // currenUser = 'NoToken';
+            return (
+                <View/>
+            );
         }
-            switch (currenUser) {
+            switch (currentUser) {
                 case 'NoToken':
                     return (
                         <View/>
-                    )
-
+                    );
                 case 'consumer':
                     return (
                         <Consumer {...this.prop}/>

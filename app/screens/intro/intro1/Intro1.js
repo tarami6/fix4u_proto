@@ -13,7 +13,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import {observer, inject} from 'mobx-react/native'
 
 
-import authStore from "../../state-manager/mobx/authStore";
+import authStore from "../../../state-manager/mobx/authStore";
 
 const { width, height } = Dimensions.get('window')
 const sliderWidth = width
@@ -21,9 +21,9 @@ const itemWidth = width
 
 //static image for development
 const images = [
-    {uri:require('../../../assets/intro/splash1.png')},
-    {uri:require('../../../assets/intro/splash2.png')},
-    {uri:require('../../../assets/intro/splash3.png')}
+    {uri:require('../../../../assets/intro/splash1.png')},
+    {uri:require('../../../../assets/intro/splash2.png')},
+    {uri:require('../../../../assets/intro/splash3.png')}
 ]
 
 

@@ -28,6 +28,9 @@ export default class AuthStore {
         if (data.password) {
             this.user.password = data.password
         }
+        if(data.fbToken){
+            this.user.fbToken = data.fbToken
+        }
         if (data.token) {
             this.user.token = data.token;
             //got token start token refresher

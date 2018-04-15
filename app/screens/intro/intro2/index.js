@@ -21,9 +21,6 @@ import {inject, observer} from "mobx-react/native";
 export default class Intro2 extends Component{
 
     render() {
-        if(this.props.authStore.user.token){
-            this.props.navigation.navigate('DrawerNavigation');
-        }
         return (
             <Step skipIntro={()=>this.props.navigation.navigate('ChooseUserType')}/>
         );

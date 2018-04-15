@@ -40,7 +40,7 @@ const HomeNavigation = StackNavigator({
 
 //all of screen who access drawer define on here
 const DrawerNavigation = DrawerNavigator({
-    ChooseService: {
+    Home: {
         screen: HomeNavigation,
     },
     B: {
@@ -52,27 +52,23 @@ const DrawerNavigation = DrawerNavigator({
 })
 
 
-//all screen dont access drawer
-const IntroNavigation = StackNavigator({
+// //all screen dont access drawer
+// const IntroNavigation = StackNavigator({}, {
+//     navigationOptions: {
+//         header: null
+//     }
+// })
+
+export default AppNavigation = StackNavigator({
     Intro: {
         screen: Intro
     },
     ChooseUserType: {
         screen: ChooseUserType
     },
-}, {
-    navigationOptions: {
-        header: null
-    }
-})
-
-export default AppNavigation = StackNavigator({
-    IntroNavigation: {
-        screen: IntroNavigation
-    },
     DrawerNavigation: {
         screen: DrawerNavigation
-    }
+    },
 }, {
     navigationOptions: {
         header: null

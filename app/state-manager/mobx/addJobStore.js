@@ -4,7 +4,7 @@ import {AsyncStorage} from 'react-native'
 export default class AddJobStore {
     @observable newJobInfo = {};
     @action editNewJobInfo(data: Object){
-        //step 1
+        //step 1 collect type of service
         if(data.service){
             this.newJobInfo.service = data.service;
         }
@@ -18,15 +18,28 @@ export default class AddJobStore {
         if(data.appointment_time_end) {
             this.newJobInfo.appointment_time_end = data.appointment_time_end
         }
-        //step 3:
+        //step 3: description and optional image
         if(data.description) {
             this.newJobInfo.description = data.description
         }
         if(data.image){
             this.newJobInfo.image = data.image
         }
+        //step 4: address, lat,lan, payment_type, service_fee
         if(data.address){
             this.newJobInfo.address = data.address
+        }
+        if(data.lat){
+            this.newJobInfo.lat = data.lat
+        }
+        if(data.lon){
+            this.newJobInfo.lon = data.lon
+        }
+        if(data.payment_type){
+            this.newJobInfo.payment_type = data.payment_type
+        }
+        if(data.service_fee){
+            this.newJobInfo.service_fee = data.service_fee
         }
 
     }

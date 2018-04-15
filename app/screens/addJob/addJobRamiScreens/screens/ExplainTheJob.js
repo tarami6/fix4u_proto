@@ -1,13 +1,16 @@
 import React from 'react';
-import {View, Text, Image, TextInput, StyleSheet} from 'react-native';
+import {View, Text, Image, Alert, TextInput, StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import {SH, SW, HH} from "../../../../config/styles";
 import LinearViewBelowHeaderConsumer from '../components/LinearViewBelowHeaderConsumer';
 import {submitButton} from "../../../../components/modalSubmitButton";
 import CustomHeaderAddJob from '../components/CustomHeaderAddJob'
+import {inject, observer} from "mobx-react/native";
 
+@inject("addJobStore")
+@observer
 export default class ChooseTime extends React.Component {
     static navigationOptions = {
-        header: ( /* Your custom header */
+        header: (/* Your custom header */
             <CustomHeaderAddJob/>
         ),
 
@@ -19,31 +22,51 @@ export default class ChooseTime extends React.Component {
         this.state = {text: ''};
     }
 
+    submitJob() {
+        // console.log('addJobStore info collected:', this.props.addJobStore.newJobInfo)
+        if (!this.state.text) {
+            Alert.alert('please fill in description')
+        }
+        else {
+            let sendObj = {
+                description: this.state.text,
+            };
+            this.props.addJobStore.editNewJobInfo(sendObj);
+            this.props.navigation.navigate('ChooseAddress');
+        }
+    }
+
     render() {
         return (
             <View style={styles.container}>
-                {/*Linear*/}
-                <View style={styles.linear}>
-                    <LinearViewBelowHeaderConsumer>
-                        {/*step indicator*/}
-                        <View>
-                            <Image
-                                source={require('../assets/icons/stepIndicatorConsumer2.png')}
-                            />
-                        </View>
-                        {/*explain the job title*/}
-                        <View style={styles.explainTitleView}>
-                            <Text style={styles.explainText}>
-                                תאר את הבעיה
-                            </Text>
-                        </View>
+                <TouchableWithoutFeedback onPress={() => {
+                    this.textField.blur()
+                }}>
+                    {/*Linear*/}
+                    <View style={styles.linear}>
+                        <LinearViewBelowHeaderConsumer>
+                            {/*step indicator*/}
+                            <View>
+                                <Image
+                                    source={require('../assets/icons/stepIndicatorConsumer2.png')}
+                                />
+                            </View>
+                            {/*explain the job title*/}
+                            <View style={styles.explainTitleView}>
+                                <Text style={styles.explainText}>
+                                    תאר את הבעיה
+                                </Text>
+                            </View>
 
-                    </LinearViewBelowHeaderConsumer>
-                </View>
+                        </LinearViewBelowHeaderConsumer>
+                    </View>
+                </TouchableWithoutFeedback>
+
 
                 {/*text input*/}
                 <View style={styles.textInputView}>
                     <TextInput
+                        ref={(ref) => this.textField = ref}
                         multiline={true}
                         numberOfLines={20}
                         underlineColorAndroid={'transparent'}
@@ -53,32 +76,33 @@ export default class ChooseTime extends React.Component {
                     />
                 </View>
                 {/*middle*/}
-                <View style={styles.middleView}>
-                    {/*add pic title & optional title*/}
-                    <View style={styles.addTitleView}>
-                        <Text style={styles.addPicText}>
-                            הוסף תמונה
-                        </Text>
-                        <Text style={styles.optionalTitleText}>
-                            לא חובה
-                        </Text>
+                <TouchableWithoutFeedback style={{zIndex: 1}} onPress={() => {
+                    this.textField.blur()
+                }}>
+                    <View style={styles.middleView}>
+                        {/*add pic title & optional title*/}
+                        <View style={styles.addTitleView}>
+                            <Text style={styles.addPicText}>
+                                הוסף תמונה
+                            </Text>
+                            <Text style={styles.optionalTitleText}>
+                                לא חובה
+                            </Text>
+                        </View>
+                        {/*add pic icon*/}
+                        <View style={styles.addPicIconView}>
+                            <Image
+                                source={require('../assets/icons/addPic.png')}
+                            />
+                        </View>
                     </View>
-                    {/*add pic icon*/}
-                    <View style={styles.addPicIconView}>
-                        <Image
-                            source={require('../assets/icons/addPic.png')}
-                        />
-                    </View>
-                </View>
+                </TouchableWithoutFeedback>
 
                 <View style={styles.footer}>
                     <View style={{alignItems: 'center'}}>
-                        {submitButton('המשך', () => {
-                            console.log("warn")
-                        })}
+                        {submitButton('המשך', this.submitJob.bind(this))}
                     </View>
                 </View>
-
             </View>
 
 
@@ -88,7 +112,12 @@ export default class ChooseTime extends React.Component {
 
 let styles = StyleSheet.create({
     container: {
-        flex: 1,
+        position: 'absolute',
+        height: SH - HH,
+        width: SW,
+        top: 0,
+        left: 0,
+        flex: 1
     },
     linear: {
         flex: 0.8
@@ -118,33 +147,34 @@ let styles = StyleSheet.create({
         textAlign: 'right',
         paddingRight: 10,
         textAlignVertical: 'top',
+        zIndex: 3
     },
     // Middle
-    middleView:{
+    middleView: {
         flex: 1.5,
         justifyContent: 'center',
         alignItems: 'center'
     },
-    addTitleView:{
+    addTitleView: {
         alignSelf: 'flex-end',
         marginTop: SW / 5,
         marginRight: (SW - (SW / 1.16)) / 1.5
     },
-    addPicText:{
+    addPicText: {
         color: '#4a4a4a',
         fontSize: 16,
     },
-    optionalTitleText:{
+    optionalTitleText: {
         color: '#9b9b9b',
         fontSize: 12
     },
-    addPicIconView:{
+    addPicIconView: {
         alignSelf: 'flex-end',
         marginTop: SW / 20,
         marginRight: (SW - (SW / 1.16)) / 1.5
     },
     // Footer
-    footer:{
+    footer: {
         flex: 0.5,
         justifyContent: 'center'
     }

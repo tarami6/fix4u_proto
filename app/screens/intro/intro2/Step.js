@@ -42,7 +42,6 @@ export default class Step extends Component {
                         <Text style={{textAlign: 'center', color: '#fff', fontSize: 14}}>דלג</Text>
                     </LinearGradient>
                 </TouchableOpacity>
-
             </View>
         );
     }
