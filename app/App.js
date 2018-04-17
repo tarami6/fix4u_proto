@@ -17,16 +17,22 @@ import {Provider} from "mobx-react";
 import AuthStore from './state-manager/mobx/authStore';
 import AddJobStore from './state-manager/mobx/addJobStore';
 import UserDataStore from './state-manager/mobx/userDataStore';
+import ProAuthStore from "./state-manager/mobx/proAuthStore";
+import ModalsStore from './state-manager/mobx/modalsStore'
+import NavigationStore from "./state-manager/mobx/navigationStore";
 
-
-//all auth process happens here
+//the usual consumer costumer auth process happens here
 let authStore = new AuthStore();
+//pro Auth state manager:
+let proAuthStore = new ProAuthStore()
 //CRUD for the response from user authentication
 let userDataStore = new UserDataStore();
-
-
+// addJob state manager for the process
 let addJobStore = new AddJobStore();
-
+//modals state manage - manages the displays of all of our app modals:
+let modalsStore = new ModalsStore();
+//navigation store
+let navigationStore = new NavigationStore()
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -34,28 +40,9 @@ export default class App extends Component<Props> {
 
     render() {
         return (
-            <Provider authStore={authStore} addJobStore={addJobStore} userDataStore={userDataStore}>
+            <Provider navigationStore={navigationStore} authStore={authStore} addJobStore={addJobStore} userDataStore={userDataStore} proAuthStore={proAuthStore} modalsStore={modalsStore}>
                 <ScreensBase/>
             </Provider>
         )
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        // marginBottom: 5,
-    },
-});

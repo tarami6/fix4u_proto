@@ -16,12 +16,16 @@ import authStore from "../state-manager/mobx/authStore";
 import NavigationStore from "../state-manager/mobx/navigationStore";
 import {addNavigationHelpers, NavigationActions} from "react-navigation"
 import AppNavigation from '../navigations';
+// import NavigatorService from '../navigations/navigator';
+
 import Modals from './modals'
 import {tryLogin} from "../generalFunc/tryLogin";
 
 
 type Props = {};
 
+@inject('proAuthStore')
+@inject("modalsStore")
 @inject("userDataStore")
 @inject("authStore")
 @observer
@@ -29,6 +33,13 @@ export default class ScreensBase extends Component<Props> {
     constructor(props, context) {
         super(props, context);
         this.store = new NavigationStore();
+    }
+
+    componentDidMount(){
+        this.props.modalsStore.getStoreRef(this.store)
+        console.warn('1');
+        console.log('asdada');
+        this.props.modalsStore.getStoreRef(this.store)
     }
 
     successLoginCallback() {
@@ -61,7 +72,7 @@ export default class ScreensBase extends Component<Props> {
 
     componentDidMount() {
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
-        tryLogin(this.props.authStore, this.props.userDataStore, this.successLoginCallback.bind(this))
+        tryLogin(this.props.authStore, this.props.userDataStore, this.props.proAuthStore,  this.successLoginCallback.bind(this))
 
     }
 

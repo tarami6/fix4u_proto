@@ -51,7 +51,6 @@ export default class AutoComplete extends React.Component {
                     renderDescription={(row) => row.description} // custom description render
                     onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
                         this.handleLocationPress(data, details)
-                        console.warn('data:',data);
                         // this.props.onChooseAddress()
                     }}
                     getDefaultValue={() => {
@@ -70,6 +69,7 @@ export default class AutoComplete extends React.Component {
                             width: 300,
                             marginRight: 100,
                             height: SH,
+                            zIndex: 5,
                         },
 
                         predefinedPlacesDescription: {
@@ -135,10 +135,6 @@ export default class AutoComplete extends React.Component {
 
                 this.setState({ currentaddress: address_component });
 
-                // console.warn('current adress : ' + this.state.currentaddress)
-                // console.warn(this.state.currentLatlng[0] + " " + this.state.currentLatlng[1])
-
-
             }, error => { alert(error); }
         );
     }
@@ -155,7 +151,6 @@ export default class AutoComplete extends React.Component {
                 }
             })
 
-            //   console.warn(res.results[0].geometry.location.lat , res.results[0].geometry.location.lng)
         })
             .catch(err => console.warn('get latlng erorr' + err))
     }

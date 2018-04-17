@@ -12,10 +12,12 @@ import {NavigationActions} from 'react-navigation';
 import {inject, observer} from 'mobx-react';
 import authStore from '../../state-manager/mobx/authStore';
 import {LinierBackground} from "../../config/styles";
+import {fetcher} from "../../config/fetcher";
 
 const {width, height} = Dimensions.get('window')
 
 @inject("authStore")
+@inject("proAuthStore")
 @observer
 export default class ChooseUserType extends Component {
     static navigationOptions = {
@@ -25,29 +27,47 @@ export default class ChooseUserType extends Component {
         const {navigate} = this.props.navigation
         switch (key) {
             case 'consumer':
-                this.props.authStore.changeNavigation('consumer');
+                // this.props.authStore.changeNavigation('consumer');
                 this.props.authStore.updateUser({type: 'consumer'});
-                const actionToDispatch = NavigationActions.reset({
-                    index: 0,
-                    key: null,
-                    actions: [
-                        NavigationActions.navigate({
-                            routeName: 'DrawerNavigation',
-                            action: NavigationActions.navigate({routeName: 'ChooseService'}),
-                        })
-                    ],
-                });
-                this.props.navigation.dispatch(actionToDispatch);
+                let sendObj = {
+                    phone_number: this.props.authStore.user.uid
+                }
+                fetcher('api/rest-auth/registration/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
+                // const actionToDispatch = NavigationActions.reset({
+                //     index: 0,
+                //     key: null,
+                //     actions: [
+                //         NavigationActions.navigate({
+                //             routeName: 'DrawerNavigation',
+                //             action: NavigationActions.navigate({routeName: 'ChooseService'}),
+                //         })
+                //     ],
+                // });
+                // this.props.navigation.dispatch(actionToDispatch);
                 break;
             case 'pro':
-                this.props.authStore.changeNavigation('pro');
+                // this.props.authStore.changeNavigation('pro');
                 this.props.authStore.updateUser({type: 'pro'});
-                alert('under development')
+                this.props.proAuthStore.updatePro({
+                    phone_number: this.props.authStore.user.phone_number,
+                    uid: this.props.authStore.user.uid
+                });
+                // fetcher('api/rest-auth/registration/pro/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj))
+                navigate('ProRegistrationNavigator');
                 // navigate("Form", {"title": "Form"})
                 break;
             default:
                 return
         }
+    }
+    successCallback(response) {
+        console.warn('success cb:', response)
+        this.props.authStore.updateUser(response);
+        console.log('ehm:', this.props.authStore.user.token)
+        this.props.navigation.navigate('DrawerNavigation');
+    }
+    errorCallback(error){
+        console.warn('error in proPhoneVerifyModal:', error);
     }
 
     render() {

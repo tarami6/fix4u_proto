@@ -7,11 +7,19 @@ let defaultHeader = {
 
 export const
     fetcher = (route, method, successCallback, errorCallback, body, headers=defaultHeader) =>{
+    let sendBody;
+    if(body.type){  //in case the body should be sent as formData
+       sendBody  = body.payload
+    }
+    else {
+        sendBody = JSON.stringify(body)
+    }
+
     console.log('allSentInfo:', route, method, successCallback, errorCallback, body, headers)
         fetch(`${mainRoute}/${route}`, {
             method: method,
             headers: headers,
-            body: JSON.stringify(body)
+            body: sendBody
         })
             .then(response => response.json())
             .then(responseJson => {

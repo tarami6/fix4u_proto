@@ -67,11 +67,28 @@ export default class ChooseAddress extends React.Component {
         }
         this.props.addJobStore.editNewJobInfo(objToSave);
         let item = this.props.addJobStore.returnFetchObj();
-        let headers = {
-            'Accept': `application/json`,
-            'Content-Type': 'application/json',
-            'Authorization': 'JWT ' + this.props.authStore.user.token
-        };
+        let headers = {};
+
+        // this means we do nt send image
+        if(item.service === this.props.addJobStore.newJobInfo.service) {
+            headers = {
+                'Accept': `application/json`,
+                'Content-Type': 'application/json',
+                'Authorization': 'JWT ' + this.props.authStore.user.token
+            };
+        }
+        //in case we do wanna send image
+        else {
+            headers = {
+                'Accept': `application/json`,
+                'content-type': 'multipart/form-data; boundary=6ff46e0b6b5148d984f148b6542e5a5d',
+                'Authorization': 'JWT ' + this.props.authStore.user.token
+            };
+            item = {
+                type: 'formData',
+                payload: item
+            }
+        }
         fetcher('api/posts/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), item, headers);
     }
 
@@ -157,50 +174,55 @@ export default class ChooseAddress extends React.Component {
                         </View>
                     </LinearViewBelowHeaderConsumer>
                 </View>
+                <View style={{flex: 2}}>
+                    <View>
+                        <MapComponent style={styles.map}
+                                      lat={this.state.lat}
+                                      lon={this.state.lon}
+                                      userLocation={{
+                                          latitude: this.state.lat,
+                                          longitude: this.state.lon,
+                                          latitudeDelta: 0.0622 * 0.1,
+                                          longitudeDelta: 0.0421 * 0.1
+                                      }}/>
+                    </View>
+                    <View style={{position: 'absolute', zIndex: 5, bottom: 0}}>
+                        {/*Map Component 1.2*/}
+                        <View style={{flex: 1.2, justifyContent: 'center', alignItems: 'center'}}>
+                            {/*<Text>*/}
+                            {/*Map Component*/}
+                            {/*</Text>*/}
 
-                {/*Map Component 1.2*/}
-                <View style={{flex: 1.2, justifyContent: 'center', alignItems: 'center'}}>
-                    {/*<Text>*/}
-                    {/*Map Component*/}
-                    {/*</Text>*/}
-                    <MapComponent style={styles.map}
-                                  lat={this.state.lat}
-                                  lon={this.state.lon}
-                                  userLocation={{
-                                      latitude: this.state.lat,
-                                      longitude: this.state.lon,
-                                      latitudeDelta: 0.0622 * 0.1,
-                                      longitudeDelta: 0.0421 * 0.1
-                                  }}/>
-                </View>
+                        </View>
 
-                {/*Footer with payment method and button 0.8*/}
-                <View style={styles.footer}>
-                    <View style={{flex: 1}}>
-                        <View style={styles.paymentMethodView}>
-                            <View style={styles.iconViewLeft}>
-                                <Image
-                                    source={require('../assets/icons/CashPayIcon.png')}
-                                />
+                        {/*Footer with payment method and button 0.8*/}
+                        <View style={styles.footer}>
+                            <View style={{flex: 1}}>
+                                <View style={styles.paymentMethodView}>
+                                    <View style={styles.iconViewLeft}>
+                                        <Image
+                                            source={require('../assets/icons/CashPayIcon.png')}
+                                        />
+                                    </View>
+                                    <View style={styles.borderViewMiddle}/>
+                                    <View style={styles.iconViewRight}>
+                                        <Image
+                                            source={require('../assets/icons/CreadiPayIcon.png')}
+                                        />
+                                    </View>
+                                </View>
                             </View>
-                            <View style={styles.borderViewMiddle}/>
-                            <View style={styles.iconViewRight}>
-                                <Image
-                                    source={require('../assets/icons/CreadiPayIcon.png')}
-                                />
+
+                            {/*Button*/}
+                            {/*<View style={styles.container}>*/}
+                            <View style={{alignItems: 'center', width: SW}}>
+                                {submitButton('המשך', this.handleSubmit.bind(this))}
                             </View>
+                            {/*</View>*/}
+
                         </View>
                     </View>
-
-                    {/*Button*/}
-                    {/*<View style={styles.container}>*/}
-                    <View style={{alignItems: 'center', width: SW}}>
-                        {submitButton('המשך', this.handleSubmit.bind(this))}
-                    </View>
-                    {/*</View>*/}
-
                 </View>
-
             </View>
         );
     }
@@ -209,11 +231,11 @@ export default class ChooseAddress extends React.Component {
 let styles = StyleSheet.create({
     container: {
         position: 'absolute',
-        height: SH - HH,
+        height: SH - HH +20,
         width: SW,
         top: 0,
         left: 0,
-        flex: 1
+        flex: 1,
     },
     linear: {
         flex: 0.8
@@ -237,7 +259,9 @@ let styles = StyleSheet.create({
     footer: {
         flex: 0.8,
         justifyContent: 'center',
-        backgroundColor: '#f4f4f4'
+        backgroundColor: 'rgba(244, 244, 244, 0.1)',
+        zIndex: 3,
+        marginBottom: 50,
     },
     paymentMethodView: {
         height: SH / 12,

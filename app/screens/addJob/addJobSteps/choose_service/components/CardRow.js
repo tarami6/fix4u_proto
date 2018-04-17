@@ -58,13 +58,13 @@ class CardRow extends Component {
         //  first we edit the newJobInfo with the service
         this.props.addJobStore.editNewJobInfo({service: serviceName});
         //here we also check if user is authenticated to move on,
-        if (this.props.authStore.user.token) {
-            this.props.nextStep()
-        }
-        else {
-            //and then if user is not authenticated we send him to auth
-            this.props.authStore.setShowAuthModal(true);
-        }
+        // if (this.props.authStore.user.token) {
+        this.props.nextStep()
+        // }
+        // else {
+        //     //and then if user is not authenticated we send him to auth
+        //     this.props.authStore.setShowAuthModal(true);
+        // }
     }
 
     render() {

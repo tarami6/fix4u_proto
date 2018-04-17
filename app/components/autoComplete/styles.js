@@ -8,7 +8,8 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         marginLeft: 100,
         marginRight: 100,
-        width : 300
+        width : 300,
+        zIndex: 10,
 
     }
 

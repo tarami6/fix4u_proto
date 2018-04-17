@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
     mapContainer: {
         width: "100%",
         height: "100%",
-        marginTop: 20
     },
     map: {
         width: "100%",

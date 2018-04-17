@@ -10,7 +10,7 @@ import Consumer from '../screens/drawer/consumer'
 import Pro from '../screens/drawer/pro'
 import {inject, observer} from "mobx-react/native";
 
-@inject("authStore")
+@inject("userDataStore")
 @observer
 export default class CustomDrawer extends Component {
     componentDidMount(){
@@ -18,8 +18,8 @@ export default class CustomDrawer extends Component {
     }
     render() {
         // consumer or pro, change based on login user props
-        let currentUser = this.props.authStore.user.type;
-        if (!this.props.authStore.user.token){
+        let currentUser = this.props.userDataStore.userType;
+        if (!this.props.userDataStore.userType){
             return (
                 <View/>
             );
@@ -31,12 +31,12 @@ export default class CustomDrawer extends Component {
                     );
                 case 'consumer':
                     return (
-                        <Consumer {...this.prop}/>
+                        <Consumer {...this.props}/>
                     );
                     break;
                 case 'pro':
                     return (
-                        <Pro/>
+                        <Pro {...this.props}/>
                     );
                     break;
                 default:

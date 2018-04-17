@@ -3,6 +3,7 @@ import {AsyncStorage} from 'react-native'
 
 export default class AddJobStore {
     @observable newJobInfo = {};
+
     @action editNewJobInfo(data: Object){
         //step 1 collect type of service
         if(data.service){
@@ -45,8 +46,14 @@ export default class AddJobStore {
     }
 
     @action returnFetchObj(){
-        if(this.newJobInfo.image){
-        //    handle image sending
+        if(this.newJobInfo.image){        //    handle image sending
+            let formDataObj = this.newJobInfo.image;
+            for(let item in this.newJobInfo){
+                if(item!=='image'){
+                    formDataObj.append(item, this.newJobInfo[item])
+                }
+            }
+            return formDataObj;
         }
         else {
             return this.newJobInfo;

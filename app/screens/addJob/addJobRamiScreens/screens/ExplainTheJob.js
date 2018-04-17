@@ -1,10 +1,20 @@
 import React from 'react';
-import {View, Text, Image, Alert, TextInput, StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, Image, Alert, TextInput, StyleSheet, TouchableWithoutFeedback, TouchableOpacity} from 'react-native';
 import {SH, SW, HH} from "../../../../config/styles";
 import LinearViewBelowHeaderConsumer from '../components/LinearViewBelowHeaderConsumer';
 import {submitButton} from "../../../../components/modalSubmitButton";
 import CustomHeaderAddJob from '../components/CustomHeaderAddJob'
 import {inject, observer} from "mobx-react/native";
+import ImagePicker from "react-native-image-picker";
+
+//image picker options:
+var options = {
+    title: 'Upload profile picture',
+    storageOptions: {
+        skipBackup: true,
+        path: 'images'
+    }
+};
 
 @inject("addJobStore")
 @observer
@@ -20,6 +30,37 @@ export default class ChooseTime extends React.Component {
     constructor(props) {
         super(props);
         this.state = {text: ''};
+    }
+
+    selectPhotoTapped(fieldName='image') {
+
+
+        ImagePicker.showImagePicker(options, (response) => {
+
+            if (response.didCancel) {
+                console.log('User cancelled photo picker');
+            }
+            else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            }
+            else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            }
+            else {
+
+                let source = {uri: response.uri};
+                let data = new FormData();
+                data.append(fieldName, {uri: response.uri, name: response.fileName, type: response.type});
+                // You can also display the image using data:
+                // You can also display the image using data:
+                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+                this.props.addJobStore.editNewJobInfo({'image': data});
+                this.setState({
+                    profilePic: source,
+                    picData: data,
+                });
+            }
+        });
     }
 
     submitJob() {
@@ -91,9 +132,13 @@ export default class ChooseTime extends React.Component {
                         </View>
                         {/*add pic icon*/}
                         <View style={styles.addPicIconView}>
+                            <TouchableOpacity onPress={()=>{this.selectPhotoTapped()}} >
+                                {this.state.profilePic?
+                                    <Image style={{height: 100, width: 100}} source={this.state.profilePic}/>:
                             <Image
                                 source={require('../assets/icons/addPic.png')}
-                            />
+                            />}
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
