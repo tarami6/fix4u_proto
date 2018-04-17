@@ -16,6 +16,7 @@ import {fetcher} from "../../config/fetcher";
 
 const {width, height} = Dimensions.get('window')
 
+@inject("userDataStore")
 @inject("authStore")
 @inject("proAuthStore")
 @observer
@@ -60,13 +61,16 @@ export default class ChooseUserType extends Component {
                 return
         }
     }
+
     successCallback(response) {
-        console.warn('success cb:', response)
+        this.props.userDataStore.setUserData(response)
+        this.props.userDataStore.setUserType('consumer');
         this.props.authStore.updateUser(response);
-        console.log('ehm:', this.props.authStore.user.token)
+        this.props.authStore.saveToAsync()
         this.props.navigation.navigate('DrawerNavigation');
     }
-    errorCallback(error){
+
+    errorCallback(error) {
         console.warn('error in proPhoneVerifyModal:', error);
     }
 
@@ -74,9 +78,9 @@ export default class ChooseUserType extends Component {
         return (
             <View style={styles.container}>
                 <Text style={{fontWeight: 'bold', margin: 40}}>אני</Text>
-                <ConsumerButton navigate={()=>this.navigate('consumer')}/>
+                <ConsumerButton navigate={() => this.navigate('consumer')}/>
                 <Text style={{fontWeight: '100', fontSize: 12, color: '#9b9b9b', margin: 40}}>או</Text>
-                <ProButton navigate={()=>this.navigate('pro')}/>
+                <ProButton navigate={() => this.navigate('pro')}/>
             </View>
         );
     }

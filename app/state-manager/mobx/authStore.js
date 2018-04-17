@@ -4,11 +4,11 @@ import {mainRoute} from "../../config/apiRoutes";
 
 export default class AuthStore {
     //AUTH MODAL:
-    @observable showAuthModal = false;
-
-    @observable setShowAuthModal(bol: boolean) {
-        this.showAuthModal = bol
-    }
+    // @observable showAuthModal = false;
+    //
+    // @observable setShowAuthModal(bol: boolean) {
+    //     this.showAuthModal = bol
+    // }
 
     //authentication user info:
     @observable user = {
@@ -39,14 +39,14 @@ export default class AuthStore {
         }
     }
 
-    // authSteps handler:
-    @observable authStep = 'phone_number';
-
-    @action updateAuthStep(str) {
-        this.authStep = str
-    }
 
     //////////////////// end of AUTH ////////////
+    @action saveToAsync(){
+        AsyncStorage.setItem('GetServiceUser', JSON.stringify({
+            phone_number: this.user.phone_number,
+            uid: this.user.uid
+        }))
+    }
 
     //DrawerNavigator handler start:
     @observable currentNavigationDrawer = 'pro';
