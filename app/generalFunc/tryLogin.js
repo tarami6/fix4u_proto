@@ -1,12 +1,6 @@
 import {fetcher} from "../config/fetcher";
 import {AsyncStorage} from 'react-native'
-
-
-const FBSDK = require('react-native-fbsdk');
-const {
-    LoginButton,
-    AccessToken
-} = FBSDK;
+import {loginRoute} from "../config/apiRoutes";
 
 export const tryLogin = (authStore, userDataStore, proAuthStore, callbackFunc) => {
     console.log('tryLogin initiated');
@@ -43,7 +37,7 @@ export const tryLogin = (authStore, userDataStore, proAuthStore, callbackFunc) =
                 username: userInfoOnPhone.phone_number,
                 password: userInfoOnPhone.uid
             }
-            fetcher('api/rest-auth/login/', 'POST', successCallback, errorCallback, sendObj);
+            fetcher(loginRoute, 'POST', successCallback, errorCallback, sendObj);
         }
         // //consumer autoLogin:
         // AccessToken.getCurrentAccessToken().then((data) => {

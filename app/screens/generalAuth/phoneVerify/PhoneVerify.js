@@ -8,8 +8,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import {submitButton} from "../../../components/modalSubmitButton";
 import {fetcher} from "../../../config/fetcher";
 import styles from './styles'
+import {loginRoute, phoneVerifyRoute} from "../../../config/apiRoutes";
 
-
+@inject("userDataStore")
 @inject("authStore")
 @observer
 export default class PhoneVerify extends Component {
@@ -23,11 +24,29 @@ export default class PhoneVerify extends Component {
             code: this.state.text
         }
         // this is the fetch for the verify code for the phone, inactive on the server for now
-        fetcher('api/sms/verify/check/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
+        fetcher(phoneVerifyRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
+    }
+    loginSuccess(res){
+        let userType = res.user.services? 'pro': 'consumer';
+        this.props.userDataStore.setUserType(userType);
+        this.props.userDataStore.setUserData(res);
+        this.props.authStore.saveToAsync();
+        this.props.navigation.navigate('DrawerNavigation');
+        console.warn('success login got:', res);
+        console.log('success login got:', res);
+    }
+    loginError(err){
+        console.warn('error:',err)
     }
 
     successCallback(response) {
         if(response.user){
+            this.props.authStore.updateUser(response);
+            let sendObj = {
+                username: this.props.authStore.user.phone_number,
+                password: response.uid
+            }
+            fetcher(loginRoute, 'POST', this.loginSuccess.bind(this), this.loginError.bind(this), sendObj);
             //user is registered
             // this.props.proAuthStore.updatePro(response)
         }
@@ -42,6 +61,7 @@ export default class PhoneVerify extends Component {
     //
     errorCallback(error){
         console.warn('error in proPhoneVerifyModal:', error);
+        console.log(error)
     }
     // submitPhone(){
     //     let sendObj = {

@@ -7,7 +7,7 @@ import {
     Image,
     Dimensions,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity, AsyncStorage
 } from 'react-native';
 import {Content, List, ListItem, Text, Icon} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
@@ -30,8 +30,14 @@ export default class Consumer extends Component {
         this.props.authStore.changeNavigation('pro');
     }
 
-    handleFBPress() {
-        console.warn('handleFBPress was pressed');
+
+
+    logout(){
+        console.warn(this.props.navigation);
+        AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
+        ));
+        this.props.userDataStore.logout()
+        this.props.navigation.navigate('Intro');
     }
 
     render() {
@@ -63,25 +69,11 @@ export default class Consumer extends Component {
                     </ListItem>
                     <ListItem style={{borderBottomWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
                         <View>
-                            <LoginButton
-                                readPermissions={["email"]}
-                                onLoginFinished={
-                                    (error, result) => {
-                                        if (error) {
-                                            alert("login has error: " + result.error);
-                                        } else if (result.isCancelled) {
-                                            alert("login is cancelled.");
-                                        } else {
-                                            AccessToken.getCurrentAccessToken().then(
-                                                (data) => {
-                                                    this.handleFBPress(data.accessToken.toString())
-                                                    // alert(data)
-                                                }
-                                            )
-                                        }
-                                    }
-                                }
-                                onLogoutFinished={() => alert("logout.")}/>
+                            <TouchableOpacity onPress={this.logout.bind(this)}>
+                                <Text>
+                                    LogOut
+                                </Text>
+                            </TouchableOpacity>
                         </View>
                     </ListItem>
 

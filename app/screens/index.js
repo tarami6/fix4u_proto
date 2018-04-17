@@ -35,13 +35,6 @@ export default class ScreensBase extends Component<Props> {
         this.store = new NavigationStore();
     }
 
-    componentDidMount(){
-        this.props.modalsStore.getStoreRef(this.store)
-        console.warn('1');
-        console.log('asdada');
-        this.props.modalsStore.getStoreRef(this.store)
-    }
-
     successLoginCallback() {
         const actionToDispatch = NavigationActions.reset({
             index: 0,
