@@ -8,6 +8,7 @@ import {SH, SW, colors} from "../../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 
 
+
 @inject("authStore")
 @observer
 export default class ConsumerAuthModal extends Component {

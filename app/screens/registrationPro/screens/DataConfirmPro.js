@@ -6,6 +6,7 @@ import {submitButton} from "../../../components/modalSubmitButton";
 import CustomHeaderGrey from '../components/CustomHeaderGrey'
 import {inject, observer} from "mobx-react/native";
 import {fetcher} from "../../../config/fetcher";
+import {handlePushyToken} from "../../../generalFunc/pushyTokenHandler";
 
 
 @inject("proAuthStore")
@@ -56,6 +57,7 @@ export default class ChooseTime extends React.Component {
 
     successCallback(res) {
         if(res.token){
+            handlePushyToken(res.token)
             this.props.proAuthStore.updatePro(res);
             this.props.proAuthStore.saveToAsync();
         }
