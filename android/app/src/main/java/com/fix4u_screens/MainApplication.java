@@ -2,6 +2,7 @@ package com.fix4u_screens;
 
 import android.app.Application;
 
+import me.pushy.sdk.react.PushyPackage;
 import com.facebook.react.ReactApplication;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -38,7 +39,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new MapsPackage(),
                     new ImagePickerPackage(),
                     new FBSDKPackage(mCallbackManager),
-                    new LinearGradientPackage()
+                    new LinearGradientPackage(),
+                    new PushyPackage()
             );
         }
 
