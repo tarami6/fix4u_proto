@@ -21,6 +21,8 @@ import DataConfirmPro from "../screens/registrationPro/screens/DataConfirmPro";
 //general auth screens:
 import PhoneInput from '../screens/generalAuth/phoneInput';
 import PhoneVerify from '../screens/generalAuth/phoneVerify';
+//HomePages:
+import HomePage from '../screens/homePage'
 
 const {width} = Dimensions.get('window')
 //it is just example
@@ -32,6 +34,12 @@ const B = () => (<Text>screen choose as PRO</Text>)
 
 
 const HomeNavigation = StackNavigator({
+    ChooseService: {
+        screen: HomePage
+    },
+})
+
+const AddJobNavigation = StackNavigator({
     ChooseService: {
         screen: ChooseService
     },
