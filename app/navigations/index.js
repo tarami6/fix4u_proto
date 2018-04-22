@@ -57,8 +57,8 @@ const ProNavigator = DrawerNavigator({
     Home: {
         screen: ChooseJob,
     },
-    B: {
-        screen: B,
+    AddJob: {
+        screen: AddJobNavigation,
     },
 }, {
     contentComponent: CustomDrawer,

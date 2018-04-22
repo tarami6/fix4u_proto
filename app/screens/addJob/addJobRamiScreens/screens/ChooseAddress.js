@@ -82,7 +82,7 @@ export default class ChooseAddress extends React.Component {
             headers = {
                 'Accept': `application/json`,
                 'content-type': 'multipart/form-data; boundary=6ff46e0b6b5148d984f148b6542e5a5d',
-                'Authorization': 'JWT ' + this.props.authStore.user.token
+                'Authorization': 'JWT ' + this.props.userDataStore.userData.token
             };
             item = {
                 type: 'formData',
