@@ -36,12 +36,13 @@ export default class ScreensBase extends Component<Props> {
     }
 
     successLoginCallback() {
+        let routeName = this.props.userDataStore.userType === 'pro'? 'ProNavigator': 'ConsumerNavigator';
         const actionToDispatch = NavigationActions.reset({
             index: 0,
             key: null,
             actions: [
                 NavigationActions.navigate({
-                    routeName: 'DrawerNavigation',
+                    routeName: routeName,
                     action: NavigationActions.navigate({routeName: 'Home'}),
                 })
             ],

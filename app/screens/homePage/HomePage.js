@@ -1,12 +1,18 @@
 import {inject, observer} from "mobx-react/index";
 import React, {Component} from "react";
-import {View, Text} from 'react-native'
+import {View, Text, Alert} from 'react-native'
 import ChooseAddress from "../addJob/addJobRamiScreens/screens/ChooseAddress";
 import ExplainTheJob from "../addJob/addJobRamiScreens/screens/ExplainTheJob";
 import ChooseService from "../addJob/addJobSteps";
 import {StackNavigator} from "react-navigation";
 import ChooseTime from "../addJob/addJobRamiScreens/screens/ChooseTime";
-import CustomHeaderAddJob from '../addJob/addJobRamiScreens/components/CustomHeaderAddJob'
+import ChooseJob from '../chooseJob'
+
+//mapbox:
+import MapboxBoilerplate from '../../components/mapbox/MapboxBoilerplate'
+
+
+
 const AddJobNavigation = StackNavigator({
     ChooseService: {
         screen: ChooseService
@@ -25,23 +31,22 @@ const AddJobNavigation = StackNavigator({
 
 
 @inject("userDataStore")
-@inject("authStore")
-@inject("proAuthStore")
 @observer
 export default class HomePage extends Component {
-    static navigationOptions = {
-        header: (/* Your custom header */
-            <CustomHeaderAddJob/>
-        ),
-    };
+    // static navigationOptions = {
+    //     header:null
+    // };
 
     render(){
-        return (
-            <View>
-                <Text>
-                    {this.props.userDataStore.userType}
-                </Text>
-            </View>
-        )
+        if(this.props.userDataStore.userType==='pro'){
+            return (
+                <AddJobNavigation />
+            )
+        }
+        else {
+            return (
+                <ChooseJob />
+            )
+        }
     }
 }

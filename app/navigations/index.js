@@ -1,5 +1,5 @@
 import {StackNavigator, DrawerNavigator} from 'react-navigation'
-import React from 'react'
+import React, {Component} from 'react'
 import {Dimensions, Text} from 'react-native'
 
 import {Icon} from 'native-base'
@@ -21,8 +21,11 @@ import DataConfirmPro from "../screens/registrationPro/screens/DataConfirmPro";
 //general auth screens:
 import PhoneInput from '../screens/generalAuth/phoneInput';
 import PhoneVerify from '../screens/generalAuth/phoneVerify';
-//HomePages:
-import HomePage from '../screens/homePage'
+//HomePage stuff:
+import HomeNavigation from './HomeNavigation'
+import ChooseJob from '../screens/chooseJob'
+
+import {inject, observer} from "mobx-react/native";
 
 const {width} = Dimensions.get('window')
 //it is just example
@@ -32,12 +35,6 @@ const {width} = Dimensions.get('window')
 //     onPress={()=>props.navigation.navigate('DrawerOpen')} name="menu"/>)
 const B = () => (<Text>screen choose as PRO</Text>)
 
-
-const HomeNavigation = StackNavigator({
-    ChooseService: {
-        screen: HomePage
-    },
-})
 
 const AddJobNavigation = StackNavigator({
     ChooseService: {
@@ -54,6 +51,33 @@ const AddJobNavigation = StackNavigator({
     },
 })
 
+//main drawer navigators : (after auth )
+
+const ProNavigator = DrawerNavigator({
+    Home: {
+        screen: ChooseJob,
+    },
+    B: {
+        screen: B,
+    },
+}, {
+    contentComponent: CustomDrawer,
+    drawerWidth: width
+})
+
+const ConsumerNavigator = DrawerNavigator({
+    Home: {
+        screen: AddJobNavigation,
+    },
+    B: {
+        screen: B,
+    },
+}, {
+    contentComponent: CustomDrawer,
+    drawerWidth: width
+})
+
+//auth navigators:
 
 const ProRegistrationNavigator = StackNavigator({
     PersonalInfo: {
@@ -71,19 +95,6 @@ const ProRegistrationNavigator = StackNavigator({
     DataConfirmPro: {
         screen: DataConfirmPro
     }
-})
-
-//all of screen who access drawer define on here
-const DrawerNavigation = DrawerNavigator({
-    Home: {
-        screen: HomeNavigation,
-    },
-    B: {
-        screen: B,
-    },
-}, {
-    contentComponent: CustomDrawer,
-    drawerWidth: width
 })
 
 
@@ -117,8 +128,11 @@ export default AppNavigation = StackNavigator({
     ProRegistrationNavigator: {
         screen: ProRegistrationNavigator
     },
-    DrawerNavigation: {
-        screen: DrawerNavigation
+    ProNavigator: {
+        screen: ProNavigator
+    },
+    ConsumerNavigator: {
+        screen: ConsumerNavigator
     },
 }, {
     navigationOptions: {

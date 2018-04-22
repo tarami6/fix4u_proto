@@ -1,0 +1,45 @@
+import React, {Component} from 'react'
+import {inject, observer} from "mobx-react/native";
+import CustomDrawer from "../components/customDrawer";
+import {DrawerNavigator, StackNavigator} from "react-navigation";
+import ChooseJob from "../screens/chooseJob";
+import {SW} from "../config/styles";
+import ChooseAddress from "../screens/addJob/addJobRamiScreens/screens/ChooseAddress";
+import ExplainTheJob from "../screens/addJob/addJobRamiScreens/screens/ExplainTheJob";
+import ChooseService from "../screens/addJob/addJobSteps";
+import ChooseTime from "../screens/addJob/addJobRamiScreens/screens/ChooseTime";
+
+@inject("userDataStore")
+@observer
+export default class HomeNavigation extends Component<Props> {
+
+    render() {
+        let HomePage = this.props.userDataStore.userType !== 'pro' ? AddJobNavigation : ChooseJob;
+        const DrawerNavigation = DrawerNavigator({
+            Home: {
+                screen: HomePage,
+            },
+        }, {
+            contentComponent: CustomDrawer,
+            drawerWidth: SW
+        })
+        return (
+            <DrawerNavigation/>
+        )
+    }
+}
+
+const AddJobNavigation = StackNavigator({
+    ChooseService: {
+        screen: ChooseService
+    },
+    ChooseTime: {
+        screen: ChooseTime
+    },
+    ExplainTheJob: {
+        screen: ExplainTheJob
+    },
+    ChooseAddress: {
+        screen: ChooseAddress
+    },
+})

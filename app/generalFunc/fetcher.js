@@ -1,4 +1,4 @@
-import {mainRoute} from "./apiRoutes";
+import {mainRoute} from "../config/apiRoutes";
 
 let defaultHeader = {
     'Accept': `application/json`,
@@ -6,9 +6,17 @@ let defaultHeader = {
 }
 
 export const
-    fetcher = (route, method, successCallback, errorCallback, body, headers=defaultHeader) =>{
+    fetcher = (route, method, successCallback, errorCallback, body={}, headers=defaultHeader) =>{
     let sendBody;
-    if(body.type){  //in case the body should be sent as formData
+    if(method==="GET"){
+        headers = {
+            'Accept': `application/json`,
+            'content-type': 'application/json',
+            'Authorization': 'JWT ' + body.token
+        };
+        console.warn(body.token)
+    }
+    else if(body.type){  //in case the body should be sent as formData
        sendBody  = body.payload
     }
     else {

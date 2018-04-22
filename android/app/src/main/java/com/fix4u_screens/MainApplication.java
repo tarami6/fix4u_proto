@@ -15,6 +15,7 @@ import com.facebook.soloader.SoLoader;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.mapbox.rctmgl.RCTMGLPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,7 +41,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new ImagePickerPackage(),
                     new FBSDKPackage(mCallbackManager),
                     new LinearGradientPackage(),
-                    new PushyPackage()
+                    new PushyPackage(),
+                    new RCTMGLPackage()
             );
         }
 

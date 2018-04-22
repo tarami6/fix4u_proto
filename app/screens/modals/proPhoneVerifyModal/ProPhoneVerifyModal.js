@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {SH, SW, colors} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 import {submitButton} from "../../../components/modalSubmitButton";
-import {fetcher} from "../../../config/fetcher";
+import {fetcher} from "../../../generalFunc/fetcher";
 import {styles} from './styles';
 import {NavigationActions} from "react-navigation";
 

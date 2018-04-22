@@ -5,7 +5,7 @@ import LinearViewBelowHeaderConsumer from '../components/LinearViewBelowHeaderCo
 import {submitButton} from "../../../../components/modalSubmitButton";
 import CustomHeaderAddJob from '../components/CustomHeaderAddJob'
 import {inject, observer} from "mobx-react/native";
-import {fetcher} from "../../../../config/fetcher";
+import {fetcher} from "../../../../generalFunc/fetcher";
 import AutoComplete from '../../../../components/autoComplete'
 import {Keys} from "../../../../config/keys";
 import MapComponent from '../../../../components/mapComponent'
