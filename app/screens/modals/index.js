@@ -3,7 +3,8 @@ import {Text, TouchableOpacity, View, StyleSheet} from "react-native";
 import Modal from "react-native-modal";
 import {inject, observer} from "mobx-react/native";
 import AuthModal from './authModal';
-import ProPhoneVerifyModal from './proPhoneVerifyModal'
+import ProPhoneVerifyModal from './proPhoneVerifyModal';
+import ChooseJobModal from './chooseJobModal'
 import {SH, SW} from "../../config/styles";
 
 @inject("modalsStore")
@@ -54,6 +55,17 @@ export default class Modals extends Component {
                     onBackdropPress={()=>{this.closeModal('proPhoneVerifyModal')}}
                 >
                     <ProPhoneVerifyModal closeModal={()=>{this.closeModal('proPhoneVerifyModal')}}/>
+                </Modal>
+                <Modal
+                    isVisible={this.props.modalsStore.chooseJobModal && this.state.showModals}
+                    animationInTiming={1000}
+                    animationOutTiming={1000}
+                    backdropTransitionInTiming={2000}
+                    backdropTransitionOutTiming={1000}
+                    onBackButtonPress={()=>{this.closeModal('chooseJobModal')}}
+                    onBackdropPress={()=>{this.closeModal('chooseJobModal')}}
+                >
+                    <ChooseJobModal />
                 </Modal>
             </View>
         )

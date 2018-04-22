@@ -7,7 +7,9 @@ export default class ModalsStore {
     //AUTH:
     @observable showAuthModal = false;
 
-    @observable proPhoneVerifyModal = false
+    @observable proPhoneVerifyModal = false;
+
+    @observable chooseJobModal = false;
 
 
     //display/hide modals

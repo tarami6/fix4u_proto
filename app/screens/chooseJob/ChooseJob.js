@@ -58,18 +58,8 @@ export default class ChooseJob extends Component {
     onMarkerPress(openJob, index) {
         // this.props.modalsStore.showModal('proPhoneVerifyModal');
         console.warn(openJob);
-        let strOpenJob = JSON.stringify(openJob)
-        Alert.alert(
-            'numo' + index,
-            'yo',
-            [
-                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                {
-                    text: 'Show',
-                    onPress: () => Linking.openURL("google.navigation:q=" + latlng.latitude + "," + latlng.longitude)
-                },
-            ]
-        )
+        this.props.openJobsStore.focusJob(openJob);
+        this.props.modalsStore.showModal('chooseJobModal');
     }
 
     render() {
