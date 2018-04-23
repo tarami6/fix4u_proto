@@ -1,11 +1,21 @@
 import React from 'react';
-import {View, Text, Image, Alert, TextInput, StyleSheet, TouchableWithoutFeedback, TouchableOpacity} from 'react-native';
+import {
+    View,
+    Text,
+    Image,
+    Alert,
+    TextInput,
+    StyleSheet,
+    TouchableWithoutFeedback,
+    TouchableOpacity
+} from 'react-native';
 import {SH, SW, HH} from "../../../../config/styles";
-import LinearViewBelowHeaderConsumer from '../components/LinearViewBelowHeaderConsumer';
+import CustomHeaderAddJobStepsConsumer from '../../../../components/headers/CustomHeaderAddJobStepsConsumer'
 import {submitButton} from "../../../../components/modalSubmitButton";
-import CustomHeaderAddJob from '../components/CustomHeaderAddJob'
+import CustomHeaderAddJob from '../../../../components/headers/CustomHeaderAddJob'
 import {inject, observer} from "mobx-react/native";
 import ImagePicker from "react-native-image-picker";
+import LinierView from '../../../../components/linierView';
 
 //image picker options:
 var options = {
@@ -20,19 +30,16 @@ var options = {
 @observer
 export default class ChooseTime extends React.Component {
     static navigationOptions = {
-        header: (/* Your custom header */
-            <CustomHeaderAddJob/>
-        ),
-
-
+        header: null,
     };
+
 
     constructor(props) {
         super(props);
         this.state = {text: ''};
     }
 
-    selectPhotoTapped(fieldName='image') {
+    selectPhotoTapped(fieldName = 'image') {
 
 
         ImagePicker.showImagePicker(options, (response) => {
@@ -84,23 +91,23 @@ export default class ChooseTime extends React.Component {
                     this.textField.blur()
                 }}>
                     {/*Linear*/}
-                    <View style={styles.linear}>
-                        <LinearViewBelowHeaderConsumer>
-                            {/*step indicator*/}
-                            <View>
-                                <Image
+                    <LinierView>
+                        <CustomHeaderAddJobStepsConsumer props={this.props}/>
+                        <View style={{flex: 1, marginLeft: SW / 30,  alignItems: 'center'}}>
+                            <Image
                                     source={require('../assets/icons/stepIndicatorConsumer2.png')}
                                 />
-                            </View>
-                            {/*explain the job title*/}
-                            <View style={styles.explainTitleView}>
+                        </View>
+                        <View style={styles.explainTitleView}>
                                 <Text style={styles.explainText}>
                                     תאר את הבעיה
                                 </Text>
                             </View>
 
-                        </LinearViewBelowHeaderConsumer>
-                    </View>
+                    </LinierView>
+
+
+
                 </TouchableWithoutFeedback>
 
 
@@ -132,12 +139,14 @@ export default class ChooseTime extends React.Component {
                         </View>
                         {/*add pic icon*/}
                         <View style={styles.addPicIconView}>
-                            <TouchableOpacity onPress={()=>{this.selectPhotoTapped()}} >
-                                {this.state.profilePic?
-                                    <Image style={{height: 100, width: 100}} source={this.state.profilePic}/>:
-                            <Image
-                                source={require('../assets/icons/addPic.png')}
-                            />}
+                            <TouchableOpacity onPress={() => {
+                                this.selectPhotoTapped()
+                            }}>
+                                {this.state.profilePic ?
+                                    <Image style={{height: 100, width: 100}} source={this.state.profilePic}/> :
+                                    <Image
+                                        source={require('../assets/icons/addPic.png')}
+                                    />}
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -169,7 +178,7 @@ let styles = StyleSheet.create({
     },
     explainTitleView: {
         alignSelf: 'flex-end',
-        marginTop: SW / 15,
+        marginBottom: SH /10,
         marginRight: (SW - (SW / 1.16)) / 1.5
     },
     explainText: {
@@ -178,7 +187,7 @@ let styles = StyleSheet.create({
     },
     textInputView: {
         position: 'absolute',
-        top: SW / 6,
+        top: SW / 3.5,
         alignSelf: 'center'
     },
     textInput: {
@@ -196,6 +205,7 @@ let styles = StyleSheet.create({
     },
     // Middle
     middleView: {
+        marginTop: SH /20,
         flex: 1.5,
         justifyContent: 'center',
         alignItems: 'center'

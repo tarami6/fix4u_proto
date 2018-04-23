@@ -1,26 +1,24 @@
 import React from 'react';
 import {View, Text, Image, TextInput, StyleSheet, Alert, TouchableOpacity} from 'react-native';
 import {SH, SW, HH} from "../../../../config/styles";
-import LinearViewBelowHeaderConsumer from '../components/LinearViewBelowHeaderConsumer';
+import LinearViewBelowHeaderConsumer from '../../../../components/LinearViewBelowHeaderConsumer';
 import {submitButton} from "../../../../components/modalSubmitButton";
-import CustomHeaderAddJob from '../components/CustomHeaderAddJob'
+import CustomHeaderAddJob from '../../../../components/headers/CustomHeaderAddJob'
 import {inject, observer} from "mobx-react/native";
 import {fetcher} from "../../../../config/fetcher";
 import AutoComplete from '../../../../components/autoComplete'
 import {Keys} from "../../../../config/keys";
 import MapComponent from '../../../../components/mapComponent'
+import LinierView from '../../../../components/linierView';
+import CustomHeaderAddJobStepsConsumer from '../../../../components/headers/CustomHeaderAddJobStepsConsumer'
 
 @inject("userDataStore")
 @inject("addJobStore")
 @inject("authStore")
 @observer
 export default class ChooseAddress extends React.Component {
-    static navigationOptions = {
-        header: (/* Your custom header */
-            <CustomHeaderAddJob/>
-        ),
-
-
+     static navigationOptions = {
+        header: null,
     };
 
     constructor(props) {
@@ -42,18 +40,18 @@ export default class ChooseAddress extends React.Component {
         //     payment_type: 'cash',
         //     service_fee: '100'
         // };
-
-        if (this.state.place_id) {
-            if (this.state.details.address_components[0].long_name.length > 3) {
-                Alert.alert('please fill in building number as well');
-            }
-            else {
-                this.getCoordsAndSubmitData(this.state.place_id)
-            }
-        }
-        else {
-            Alert.alert('please choose proper address')
-        }
+        this.props.navigation.navigate('ApplyBaseScreen');
+        // if (this.state.place_id) {
+        //     if (this.state.details.address_components[0].long_name.length > 0) {
+        //         Alert.alert('please fill in building number as well');
+        //     }
+        //     else {
+        //         this.getCoordsAndSubmitData(this.state.place_id)
+        //     }
+        // }
+        // else {
+        //     Alert.alert('please choose proper address')
+        // }
 
     }
 
@@ -152,15 +150,15 @@ export default class ChooseAddress extends React.Component {
         return (
             <View style={styles.container}>
                 {/*Linear under header 0.8 flex*/}
-                <View style={styles.linear}>
-                    <LinearViewBelowHeaderConsumer>
-                        {/*step indicator*/}
-                        <View>
+                <LinierView>
+                        <CustomHeaderAddJobStepsConsumer props={this.props}/>
+                        <View style={{flex: 1,   alignItems: 'center'}}>
                             <Image
                                 source={require('../assets/icons/stepIndicatorConsumer3.png')}
                             />
                         </View>
-                        <View style={styles.textInputView}>
+                         <View style={styles.textInputView}>
+                             <Text style={{color: '#fff'}}>הכנסת כתובת</Text>
                             <AutoComplete
                                 handleLocationPress={this.handleLocationPress.bind(this)}
                             />
@@ -172,8 +170,10 @@ export default class ChooseAddress extends React.Component {
                             {/*value={this.state.text}*/}
                             {/*/>*/}
                         </View>
-                    </LinearViewBelowHeaderConsumer>
-                </View>
+
+                    </LinierView>
+
+
                 <View style={{flex: 2}}>
                     <View>
                         <MapComponent style={styles.map}
@@ -186,15 +186,8 @@ export default class ChooseAddress extends React.Component {
                                           longitudeDelta: 0.0421 * 0.1
                                       }}/>
                     </View>
-                    <View style={{position: 'absolute', zIndex: 5, bottom: 0}}>
-                        {/*Map Component 1.2*/}
-                        <View style={{flex: 1.2, justifyContent: 'center', alignItems: 'center'}}>
-                            {/*<Text>*/}
-                            {/*Map Component*/}
-                            {/*</Text>*/}
 
-                        </View>
-
+                    <View style={{position: 'absolute', zIndex: 5, bottom:-50, flex: 1}}>
                         {/*Footer with payment method and button 0.8*/}
                         <View style={styles.footer}>
                             <View style={{flex: 1}}>
@@ -215,13 +208,13 @@ export default class ChooseAddress extends React.Component {
 
                             {/*Button*/}
                             {/*<View style={styles.container}>*/}
-                            <View style={{alignItems: 'center', width: SW}}>
+                            <View style={{alignItems: 'center', width: SW, marginBottom: 30}}>
                                 {submitButton('המשך', this.handleSubmit.bind(this))}
                             </View>
                             {/*</View>*/}
-
                         </View>
                     </View>
+
                 </View>
             </View>
         );
@@ -230,11 +223,8 @@ export default class ChooseAddress extends React.Component {
 
 let styles = StyleSheet.create({
     container: {
-        position: 'absolute',
         height: SH - HH +20,
         width: SW,
-        top: 0,
-        left: 0,
         flex: 1,
     },
     linear: {
@@ -244,6 +234,7 @@ let styles = StyleSheet.create({
         marginTop: SH / 10,
         height: HH * 4,
         zIndex: 3,
+        alignItems: 'center',
     },
     textInput: {
         borderColor: '#ECECEC',
@@ -257,11 +248,12 @@ let styles = StyleSheet.create({
     },
     // Footer
     footer: {
-        flex: 0.8,
+        flex: 1.2,
         justifyContent: 'center',
-        backgroundColor: 'rgba(244, 244, 244, 0.1)',
+        backgroundColor: 'rgba(244, 244, 244, 0.8)',
         zIndex: 3,
         marginBottom: 50,
+        height: SH /4,
     },
     paymentMethodView: {
         height: SH / 12,
@@ -284,7 +276,10 @@ let styles = StyleSheet.create({
         alignSelf: 'center',
         marginLeft: SW / 8,
     },
-    map: {}
+    map: {
+        position: 'absolute',
+        bottom: 0,
+    }
     // map: {
     //     width: 100,
     //     height: 100

@@ -1,4 +1,4 @@
-import {observable, action, extendObservable, observe} from 'mobx'
+import {observable, action} from 'mobx'
 import {AsyncStorage} from 'react-native'
 
 export default class ProAuthStore {

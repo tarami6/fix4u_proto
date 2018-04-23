@@ -11,6 +11,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 
 const { width, height } = Dimensions.get('window')
+import {SH} from "../config/styles";
 
 const LinierView = (props) => {
   return (
@@ -27,7 +28,7 @@ export default LinierView;
 
 const styles = StyleSheet.create({
   container: {
-    height:Platform.OS == 'ios' ? 200 : 185,
+    height:SH /3.5,
     width
   }
 });

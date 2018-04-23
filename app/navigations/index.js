@@ -2,16 +2,15 @@ import {StackNavigator, DrawerNavigator} from 'react-navigation'
 import React from 'react'
 import {Dimensions, Text} from 'react-native'
 
-import {Icon} from 'native-base'
-
 import CustomDrawer from '../components/customDrawer'
-
+// Screens
 import Intro from '../screens/intro'
 import ChooseUserType from '../screens/choose_user_type'
 import ChooseService from '../screens/addJob/addJobSteps'
 import ChooseAddress from '../screens/addJob/addJobRamiScreens/screens/ChooseAddress';
 import ChooseTime from '../screens/addJob/addJobRamiScreens/screens/ChooseTime';
 import ExplainTheJob from '../screens/addJob/addJobRamiScreens/screens/ExplainTheJob';
+import ApplyBaseScreen from '../screens/jobApplyConsumer/screens/ApplyBaseScreenConsumer'
 //Pro Registration imports:
 import PersonalInfo from '../screens/registrationPro/screens/PersonalInfo'
 import AddressInfo from "../screens/registrationPro/screens/AddressInfo";
@@ -43,6 +42,12 @@ const HomeNavigation = StackNavigator({
     },
     ChooseAddress: {
         screen: ChooseAddress
+    },
+})
+
+const AuctionJobConsumer = StackNavigator({
+    ApplyBaseScreen: {
+        screen: ApplyBaseScreen
     },
 })
 
@@ -79,6 +84,7 @@ const DrawerNavigation = DrawerNavigator({
 })
 
 
+
 // //all screen dont access drawer
 // const IntroNavigation = StackNavigator({}, {
 //     navigationOptions: {
@@ -112,6 +118,9 @@ export default AppNavigation = StackNavigator({
     DrawerNavigation: {
         screen: DrawerNavigation
     },
+    AuctionJobConsumer:{
+        screen: AuctionJobConsumer
+    }
 }, {
     navigationOptions: {
         header: null

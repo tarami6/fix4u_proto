@@ -1,23 +1,25 @@
 import React, {Component} from "react";
-import {Text, TouchableOpacity, View, StyleSheet, TextInput, Alert} from "react-native";
-import Icon from 'react-native-vector-icons/Ionicons';
-import Modal from "react-native-modal";
-import {SH, SW, colors} from "../../../config/styles";
+import {Text, View, TextInput, Alert, Image} from "react-native";
 import {inject, observer} from "mobx-react/native";
-import LinearGradient from 'react-native-linear-gradient';
 import {submitButton} from "../../../components/modalSubmitButton";
 import {fetcher} from "../../../config/fetcher";
 import styles from './styles';
+import {SH, SW} from "../../../config/styles";
+
 
 @inject("authStore")
 @observer
 export default class PhoneInput extends Component {
-    constructor(props){
+    static navigationOptions = {
+        header: null,
+    };
+
+    constructor(props) {
         super(props);
         this.state = {text: ''}
     }
 
-    submitPhone(){
+    submitPhone() {
         let sendObj = {
             phone_number: this.state.text
         }
@@ -61,34 +63,44 @@ export default class PhoneInput extends Component {
         }
     }
 
-    errorCallback(error){
+    errorCallback(error) {
         console.warn('error in phoneNumb post fetch', error);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.setState({
             text: this.props.authStore.user.phone_number
         })
     }
 
     render() {
+
         return (
             <View style={styles.container}>
-                <TouchableOpacity style={{position: 'absolute', top: 10, left: 20}}
-                                  onPress={()=>{this.props.closeModal()}}>
-                    <Icon name="ios-close" size={50} color="#8C8C8C"/>
-                </TouchableOpacity>
-                <Text style={styles.headerText}>הזן מספר טלפון:</Text>
-                <View style={styles.inputContainer}>
-                    <TextInput
-                        style={styles.textInputStyle}
-                        keyboardType='phone-pad'
-                        onChangeText={(text) => this.setState({text})}
-                        value={this.state.text}
-                        underlineColorAndroid={"rgba(0, 0, 0, 0.0)"}
-                    />
+                <View style={{flex:1.3, justifyContent: 'flex-end'}}>
+                    <Image style={{width: SW / 2.5, height: SW / 2.5,}}
+                       source={require('../../../../assets/registration/phoneInputBack.png')}/>
                 </View>
-                {submitButton('שלח', this.submitPhone.bind(this))}
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <Text style={styles.headerText}>הזן מספר טלפון</Text>
+                <View style={styles.inputContainer}>
+
+                        <TextInput
+                            style={styles.textInputStyle}
+                            keyboardType='phone-pad'
+                            onChangeText={(text) => this.setState({text})}
+                            value={this.state.text}
+                            underlineColorAndroid={"rgba(0, 0, 0, 0.0)"}
+                        />
+
+                </View>
+                </View>
+                <View style={{flex: 1}}>
+                    {submitButton('שלח', this.submitPhone.bind(this))}
+                </View>
+
+
+
             </View>
         )
     }

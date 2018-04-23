@@ -20,7 +20,7 @@ import UserDataStore from './state-manager/mobx/userDataStore';
 import ProAuthStore from "./state-manager/mobx/proAuthStore";
 import ModalsStore from './state-manager/mobx/modalsStore'
 import NavigationStore from "./state-manager/mobx/navigationStore";
-
+import {StackNavigator, DrawerNavigator} from 'react-navigation'
 //the usual consumer costumer auth process happens here
 let authStore = new AuthStore();
 //pro Auth state manager:
@@ -33,14 +33,23 @@ let addJobStore = new AddJobStore();
 let modalsStore = new ModalsStore();
 //navigation store
 let navigationStore = new NavigationStore()
+import ChooseAddress from './screens/addJob/addJobRamiScreens/screens/ChooseAddress'
 
+const HomeNavigation = StackNavigator({
+    Home: {
+        screen: ChooseAddress
+    }
+})
+
+//
 type Props = {};
 export default class App extends Component<Props> {
 
 
     render() {
         return (
-            <Provider navigationStore={navigationStore} authStore={authStore} addJobStore={addJobStore} userDataStore={userDataStore} proAuthStore={proAuthStore} modalsStore={modalsStore}>
+            <Provider navigationStore={navigationStore} authStore={authStore} addJobStore={addJobStore}
+                      userDataStore={userDataStore} proAuthStore={proAuthStore} modalsStore={modalsStore}>
                 <ScreensBase/>
             </Provider>
         )
