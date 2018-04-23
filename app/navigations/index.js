@@ -12,11 +12,9 @@ import ChooseService from '../screens/addJob/addJobSteps'
 import ChooseAddress from '../screens/addJob/addJobRamiScreens/screens/ChooseAddress';
 import ChooseTime from '../screens/addJob/addJobRamiScreens/screens/ChooseTime';
 import ExplainTheJob from '../screens/addJob/addJobRamiScreens/screens/ExplainTheJob';
-<<<<<<< HEAD
+
 import ApplyBaseScreen from '../screens/jobApplyConsumer/screens/ApplyBaseScreenConsumer'
-=======
-import ApplyBaseScreen from '../screens/addJob/addJobRamiScreens/screens/ApplyBaseScreen'
->>>>>>> 17f05babf85cb22ace75dc4a6fe5bbc6cbd37aa8
+
 //Pro Registration imports:
 import PersonalInfo from '../screens/registrationPro/screens/PersonalInfo'
 import AddressInfo from "../screens/registrationPro/screens/AddressInfo";
@@ -59,14 +57,9 @@ const AddJobNavigation = StackNavigator({
     }
 })
 
-<<<<<<< HEAD
-const AuctionJobConsumer = StackNavigator({
-    ApplyBaseScreen: {
-        screen: ApplyBaseScreen
-    },
-})
 
-=======
+
+
 //main drawer navigators : (after auth )
 
 const ProNavigator = DrawerNavigator({
@@ -93,9 +86,8 @@ const ConsumerNavigator = DrawerNavigator({
     drawerWidth: width
 })
 
-//auth navigators:
->>>>>>> 17f05babf85cb22ace75dc4a6fe5bbc6cbd37aa8
 
+//auth navigators:
 const ProRegistrationNavigator = StackNavigator({
     PersonalInfo: {
         screen: PersonalInfo
@@ -152,9 +144,6 @@ export default AppNavigation = StackNavigator({
     ConsumerNavigator: {
         screen: ConsumerNavigator
     },
-    AuctionJobConsumer:{
-        screen: AuctionJobConsumer
-    }
 }, {
     navigationOptions: {
         header: null

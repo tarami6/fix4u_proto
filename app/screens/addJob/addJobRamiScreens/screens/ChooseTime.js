@@ -28,12 +28,7 @@ export default class ChooseTime extends React.Component {
         this.props.navigation.goBack()
     }
     static navigationOptions = {
-<<<<<<< HEAD
         header: null,
-=======
-        header: (props) => CustomHeaderAddJob(props)
-
->>>>>>> 17f05babf85cb22ace75dc4a6fe5bbc6cbd37aa8
     };
 
     handleSubmit() {

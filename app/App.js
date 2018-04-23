@@ -23,12 +23,13 @@ import UserDataStore from './state-manager/mobx/userDataStore';
 import ProAuthStore from "./state-manager/mobx/proAuthStore";
 import ModalsStore from './state-manager/mobx/modalsStore'
 import NavigationStore from "./state-manager/mobx/navigationStore";
-<<<<<<< HEAD
+
 import {StackNavigator, DrawerNavigator} from 'react-navigation'
-=======
-import OpenJobsStore from './state-manager/mobx/openJobsStore';
+
 import Pushy from 'pushy-react-native';
->>>>>>> 17f05babf85cb22ace75dc4a6fe5bbc6cbd37aa8
+
+import OpenJobsStore from './state-manager/mobx/openJobsStore';
+
 //the usual consumer costumer auth process happens here
 let authStore = new AuthStore();
 //pro Auth state manager:
@@ -40,17 +41,19 @@ let addJobStore = new AddJobStore();
 //modals state manage - manages the displays of all of our app modals:
 let modalsStore = new ModalsStore();
 //navigation store
-<<<<<<< HEAD
+
 let navigationStore = new NavigationStore()
+
+// Ramistesting
+import ChooseJob from './screens/chooseJob'
 import ChooseAddress from './screens/addJob/addJobRamiScreens/screens/ChooseAddress'
 
 const HomeNavigation = StackNavigator({
     Home: {
-        screen: ChooseAddress
+        screen: ChooseJob
     }
 })
-=======
-let navigationStore = new NavigationStore();
+
 //choose Job and all openJobs handling store:
 let openJobsStore = new OpenJobsStore();
 
@@ -96,9 +99,7 @@ Pushy.setNotificationListener(async (data) => {
 let handleNotificationData = (type, payload)=> {
     console.warn('handle not:', type, payload);
 }
->>>>>>> 17f05babf85cb22ace75dc4a6fe5bbc6cbd37aa8
 
-//
 type Props = {};
 export default class App extends Component<Props> {
     componentDidMount() {
@@ -127,13 +128,8 @@ export default class App extends Component<Props> {
     render() {
         return (
             <Provider navigationStore={navigationStore} authStore={authStore} addJobStore={addJobStore}
-<<<<<<< HEAD
-                      userDataStore={userDataStore} proAuthStore={proAuthStore} modalsStore={modalsStore}>
-=======
                       userDataStore={userDataStore} proAuthStore={proAuthStore} modalsStore={modalsStore}
-                      openJobsStore={openJobsStore}
-            >
->>>>>>> 17f05babf85cb22ace75dc4a6fe5bbc6cbd37aa8
+                      openJobsStore={openJobsStore}>
                 <ScreensBase/>
             </Provider>
         )

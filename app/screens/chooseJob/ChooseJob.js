@@ -67,8 +67,12 @@ export default class ChooseJob extends Component {
         if (openJobsList.length > 0) {
             return (
                 <View>
-                    <Header />
+                    <View style={{elevation:5}}>
+                            <Header />
+                    </View>
+
                     <MapComponent onMarkerPress={this.onMarkerPress.bind(this)} usersPlaces={openJobsList}/>
+
                 </View>
 
             )
