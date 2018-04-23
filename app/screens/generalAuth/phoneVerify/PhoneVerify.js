@@ -6,7 +6,7 @@ import {SH, SW, colors} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 import LinearGradient from 'react-native-linear-gradient';
 import {submitButton} from "../../../components/modalSubmitButton";
-import {fetcher} from "../../../config/fetcher";
+import {fetcher} from "../../../generalFunc/fetcher";
 import styles from './styles'
 import {loginRoute, phoneVerifyRoute} from "../../../config/apiRoutes";
 
@@ -31,13 +31,19 @@ export default class PhoneVerify extends Component {
         // this is the fetch for the verify code for the phone, inactive on the server for now
         fetcher(phoneVerifyRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
     }
+<<<<<<< HEAD
 
     loginSuccess(res) {
         let userType = res.user.services ? 'pro' : 'consumer';
+=======
+    loginSuccess(res){
+        let userType = res.user.services? 'pro': 'consumer';
+        let navigationEnd = res.user.services? 'ProNavigator': 'ConsumerNavigator';
+>>>>>>> 17f05babf85cb22ace75dc4a6fe5bbc6cbd37aa8
         this.props.userDataStore.setUserType(userType);
         this.props.userDataStore.setUserData(res);
         this.props.authStore.saveToAsync();
-        this.props.navigation.navigate('DrawerNavigation');
+        this.props.navigation.navigate(navigationEnd);
         console.warn('success login got:', res);
         console.log('success login got:', res);
     }

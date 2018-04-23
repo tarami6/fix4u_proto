@@ -16,17 +16,31 @@ import Circle from '../../components/circle'
 import {inject, observer} from "mobx-react/native";
 
 
-
 const {width, height} = Dimensions.get('window')
 
 @inject("userDataStore")
 @observer
 export default class Pro extends Component {
-    handleFBPress() {
-        console.warn('handleFBPress was pressed');
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentDrawer: 'pro',
+        }
     }
 
-    logout(){
+    handleSwitch(switchTo){
+        this.setState({
+            currentDrawer: switchTo
+        })
+        if(switchTo==='pro') {
+            this.props.navigation.navigate('Home')
+        }
+        else {
+            this.props.navigation.navigate('AddJob')
+        }
+    }
+
+    logout() {
         console.warn(this.props.navigation);
         AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
         ));
@@ -35,44 +49,98 @@ export default class Pro extends Component {
     }
 
     render() {
-        return (
-            <View>
-                <LinearGradient
-                    colors={['#fd8824', '#fdb82c']}
-                    start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
-                    style={styles.container}>
-                    <Navbar/>
-                </LinearGradient>
-                <List>
-                    <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                        <View style={{width, justifyContent: 'space-between', flexDirection: 'row'}}>
-                            <View style={{marginLeft: 50}}>
-                                <Circle qty={22}/>
+        if(this.state.currentDrawer==='pro') {
+            ////////// PRO MODE //////////
+            return (
+                <View>
+                    <LinearGradient
+                        colors={['#fd8824', '#fdb82c']}
+                        start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
+                        style={styles.container}>
+                        <Navbar/>
+                    </LinearGradient>
+                    <List>
+                        <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                            <View style={{width, justifyContent: 'space-between', flexDirection: 'row'}}>
+                                <View style={{marginLeft: 50}}>
+                                    <Circle qty={22}/>
+                                </View>
+                                <TouchableOpacity>
+                                    <Text style={{color: 'gray', fontWeight: 'bold'}}>Simon Mignoletss</Text>
+                                </TouchableOpacity>
                             </View>
-                            <TouchableOpacity>
-                                <Text style={{color: 'gray', fontWeight: 'bold'}}>Simon Mignoletss</Text>
+                        </ListItem>
+                        {/*Switch drawer type consumer/pro*/}
+                        <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                            <TouchableOpacity onPress={()=>this.handleSwitch('consumer')}>
+                                <Text style={{color: 'gray', fontWeight: 'bold'}}>Switch to Consumer mode</Text>
                             </TouchableOpacity>
-                        </View>
-                    </ListItem>
-                    <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                        <Text style={{color: 'gray', fontWeight: 'bold'}}>Mignoletss</Text>
-                    </ListItem>
-                    <ListItem style={{borderBottomWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                        <Text style={{color: 'gray', fontWeight: 'bold'}}>Simon</Text>
-                    </ListItem>
-                    <ListItem style={{borderBottomWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                        <View>
-                            <TouchableOpacity onPress={this.logout.bind(this)}>
-                                <Text>
-                                    LogOut
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </ListItem>
+                        </ListItem>
+                        <ListItem
+                            style={{borderBottomWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                            <Text style={{color: 'gray', fontWeight: 'bold'}}>Simon</Text>
+                        </ListItem>
+                        <ListItem
+                            style={{borderBottomWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                            <View>
+                                <TouchableOpacity onPress={this.logout.bind(this)}>
+                                    <Text>
+                                        LogOut
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </ListItem>
 
-                </List>
-            </View>
-        );
+                    </List>
+                </View>
+            );
+        }
+        else {
+        //    ///////// CONSUMER MODE ///////////
+            return (
+                <View>
+                    <LinearGradient
+                        colors={['#fd8824', '#fdb82c']}
+                        start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
+                        style={styles.container}>
+                        <Navbar/>
+                    </LinearGradient>
+                    <List>
+                        <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                            <View style={{width, justifyContent: 'space-between', flexDirection: 'row'}}>
+                                <View style={{marginLeft: 50}}>
+                                    <Circle qty={22}/>
+                                </View>
+                                <TouchableOpacity>
+                                    <Text style={{color: 'gray', fontWeight: 'bold'}}>Simon Mignoletss</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </ListItem>
+                        {/*Switch drawer type consumer/pro*/}
+                        <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                            <TouchableOpacity onPress={()=>this.handleSwitch('pro')}>
+                                <Text style={{color: 'gray', fontWeight: 'bold'}}>Switch to pro mode</Text>
+                            </TouchableOpacity>
+                        </ListItem>
+                        <ListItem
+                            style={{borderBottomWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                            <Text style={{color: 'gray', fontWeight: 'bold'}}>Simon</Text>
+                        </ListItem>
+                        <ListItem
+                            style={{borderBottomWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                            <View>
+                                <TouchableOpacity onPress={this.logout.bind(this)}>
+                                    <Text>
+                                        LogOut
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </ListItem>
+
+                    </List>
+                </View>
+            )
+        }
     }
 }
 

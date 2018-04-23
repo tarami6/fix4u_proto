@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Text, View, TextInput, Alert, Image} from "react-native";
 import {inject, observer} from "mobx-react/native";
 import {submitButton} from "../../../components/modalSubmitButton";
-import {fetcher} from "../../../config/fetcher";
+import {fetcher} from "../../../generalFunc/fetcher";
 import styles from './styles';
 import {SH, SW} from "../../../config/styles";
 

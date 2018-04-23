@@ -12,7 +12,7 @@ import {NavigationActions} from 'react-navigation';
 import {inject, observer} from 'mobx-react';
 import authStore from '../../state-manager/mobx/authStore';
 import {LinierBackground} from "../../config/styles";
-import {fetcher} from "../../config/fetcher";
+import {fetcher} from "../../generalFunc/fetcher";
 
 const {width, height} = Dimensions.get('window')
 
@@ -67,7 +67,7 @@ export default class ChooseUserType extends Component {
         this.props.userDataStore.setUserType('consumer');
         this.props.authStore.updateUser(response);
         this.props.authStore.saveToAsync()
-        this.props.navigation.navigate('DrawerNavigation');
+        this.props.navigation.navigate('ConsumerNavigator');
     }
 
     errorCallback(error) {

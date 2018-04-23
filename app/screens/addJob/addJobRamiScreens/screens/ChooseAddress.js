@@ -5,7 +5,7 @@ import LinearViewBelowHeaderConsumer from '../../../../components/LinearViewBelo
 import {submitButton} from "../../../../components/modalSubmitButton";
 import CustomHeaderAddJob from '../../../../components/headers/CustomHeaderAddJob'
 import {inject, observer} from "mobx-react/native";
-import {fetcher} from "../../../../config/fetcher";
+import {fetcher} from "../../../../generalFunc/fetcher";
 import AutoComplete from '../../../../components/autoComplete'
 import {Keys} from "../../../../config/keys";
 import MapComponent from '../../../../components/mapComponent'
@@ -80,7 +80,7 @@ export default class ChooseAddress extends React.Component {
             headers = {
                 'Accept': `application/json`,
                 'content-type': 'multipart/form-data; boundary=6ff46e0b6b5148d984f148b6542e5a5d',
-                'Authorization': 'JWT ' + this.props.authStore.user.token
+                'Authorization': 'JWT ' + this.props.userDataStore.userData.token
             };
             item = {
                 type: 'formData',
@@ -92,7 +92,7 @@ export default class ChooseAddress extends React.Component {
 
     successCallback(response) {
         if (response.id) {
-
+            this.props.navigation.navigate('ApplyBaseScreen');
         }
         console.warn('success addJob!', response);
     }

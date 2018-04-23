@@ -5,7 +5,7 @@ import LinearViewBelowHeaderPro from '../components/LinearViewBelowHeaderPro';
 import {submitButton} from "../../../components/modalSubmitButton";
 import {SH, SW, HH} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
-import {fetcher} from "../../../config/fetcher";
+import {fetcher} from "../../../generalFunc/fetcher";
 
 @inject("modalsStore")
 @inject("proAuthStore")
@@ -67,7 +67,6 @@ export default class PersonalInfo extends React.Component {
     }
 
     render() {
-        console.warn('yooo', this.props.proAuthStore.proUser.uid)
         // if(this.props.proAuthStore.proUser.uid){
         //     this.props.navigation.navigate('AddressInfo');
         // }

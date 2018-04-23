@@ -5,7 +5,7 @@ import {SH, SW, HH} from "../../../config/styles";
 import {submitButton} from "../../../components/modalSubmitButton";
 import CustomHeaderGrey from '../components/CustomHeaderGrey'
 import {inject, observer} from "mobx-react/native";
-import {fetcher} from "../../../config/fetcher";
+import {fetcher} from "../../../generalFunc/fetcher";
 import {handlePushyToken} from "../../../generalFunc/pushyTokenHandler";
 
 

@@ -100,9 +100,10 @@ android {
     defaultConfig {
         applicationId "com.fix4u_screens"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -137,8 +138,8 @@ android {
 }
 
 dependencies {
-    implementation 'me.pushy:sdk:1.0.32'
-    implementation 'me.pushy:sdk-react-native:1.0.3'
+    compile 'me.pushy:sdk:1.0.32'
+    compile 'me.pushy:sdk-react-native:1.0.3'
     implementation project(':react-native-maps')
     implementation project(':react-native-image-picker')
     implementation project(':react-native-fbsdk')
@@ -147,6 +148,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.facebook.react:react-native:+'
     implementation project(':react-native-maps')
+    implementation project(':mapbox-react-native-mapbox-gl')
 }
 
 // Run this once to be able to run the application with BUCK

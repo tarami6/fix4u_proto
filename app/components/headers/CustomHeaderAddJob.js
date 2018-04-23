@@ -4,6 +4,7 @@ import { SW } from "../../config/styles";
 import {View, Image, TouchableOpacity, } from 'react-native';
 import ArrowIcon from 'react-native-vector-icons/Ionicons';
 const CustomHeaderAddJob = (props) => {
+    console.warn(props);
     return (
         <LinearViewHeader>
             <View
@@ -14,7 +15,9 @@ const CustomHeaderAddJob = (props) => {
                     justifyContent: 'space-between',
                 }}
             >
-                <TouchableOpacity style={{justifyContent: 'flex-start', flex: 1}}>
+                <TouchableOpacity style={{justifyContent: 'flex-start', flex: 1}} onPress={()=>{
+                    props.navigation.navigate('ChooseService');
+                   }}>
                     <ArrowIcon name="ios-arrow-back" size={35} color="#fff" style={{paddingLeft: SW / 20}}/>
                 </TouchableOpacity>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>

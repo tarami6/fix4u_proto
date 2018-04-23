@@ -10,7 +10,10 @@ import {
     Platform,
     StyleSheet,
     Text,
-    View
+    View,
+    ToastAndroid,
+    PermissionsAndroid,
+    AppState
 } from 'react-native';
 import ScreensBase from './screens';
 import {Provider} from "mobx-react";
@@ -20,7 +23,12 @@ import UserDataStore from './state-manager/mobx/userDataStore';
 import ProAuthStore from "./state-manager/mobx/proAuthStore";
 import ModalsStore from './state-manager/mobx/modalsStore'
 import NavigationStore from "./state-manager/mobx/navigationStore";
+<<<<<<< HEAD
 import {StackNavigator, DrawerNavigator} from 'react-navigation'
+=======
+import OpenJobsStore from './state-manager/mobx/openJobsStore';
+import Pushy from 'pushy-react-native';
+>>>>>>> 17f05babf85cb22ace75dc4a6fe5bbc6cbd37aa8
 //the usual consumer costumer auth process happens here
 let authStore = new AuthStore();
 //pro Auth state manager:
@@ -32,6 +40,7 @@ let addJobStore = new AddJobStore();
 //modals state manage - manages the displays of all of our app modals:
 let modalsStore = new ModalsStore();
 //navigation store
+<<<<<<< HEAD
 let navigationStore = new NavigationStore()
 import ChooseAddress from './screens/addJob/addJobRamiScreens/screens/ChooseAddress'
 
@@ -40,16 +49,91 @@ const HomeNavigation = StackNavigator({
         screen: ChooseAddress
     }
 })
+=======
+let navigationStore = new NavigationStore();
+//choose Job and all openJobs handling store:
+let openJobsStore = new OpenJobsStore();
+
+
+let appState = '';
+
+Pushy.setNotificationListener(async (data) => {
+        // Print notification payload data
+        console.log('Received notification: ' + JSON.stringify(data));
+        if (data.type) {
+            let payload = JSON.parse(data.payload);
+            if (appState === 'active') {
+                handleNotificationData(data.type, payload);
+            }
+            else {
+                let updateAppInterval = setInterval(() => {
+                    if (appState === 'active') {
+                        clearInterval(updateAppInterval);
+                        handleNotificationData(data.type, payload);
+                    }
+                }, 5000)
+            }
+        }
+        let notificationTitle = 'GetService';
+        // Attempt to extract the "message" property from the payload: {"message":"Hello World!"}
+        let notificationText = data.message || 'Test notification';
+        // Display basic system notification
+        if (appState !== 'active') {
+            Pushy.notify(notificationTitle, notificationText);
+        }
+        else {
+            ToastAndroid.showWithGravityAndOffset(
+                notificationText,
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM,
+                25,
+                50
+            );
+        }
+    }
+);
+
+let handleNotificationData = (type, payload)=> {
+    console.warn('handle not:', type, payload);
+}
+>>>>>>> 17f05babf85cb22ace75dc4a6fe5bbc6cbd37aa8
 
 //
 type Props = {};
 export default class App extends Component<Props> {
+    componentDidMount() {
+        //get the app state - background/foreground/active
+        AppState.addEventListener('change', state => {
+                console.log('AppState changed to', state)
+                appState = state;
+            }
+        );
 
-
+        // Start the Pushy service
+        Pushy.listen();
+        PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE).then((granted) => {
+            if (!granted) {
+                // Request the WRITE_EXTERNAL_STORAGE permission so that the Pushy SDK will be able to persist
+                // the device token in the external storage
+                PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE).then((result) => {
+                    // User denied permission?
+                    if (result !== PermissionsAndroid.RESULTS.GRANTED) {
+                        // Possibly ask the user to grant the permission
+                    }
+                });
+            }
+        });
+    }
     render() {
         return (
             <Provider navigationStore={navigationStore} authStore={authStore} addJobStore={addJobStore}
+<<<<<<< HEAD
                       userDataStore={userDataStore} proAuthStore={proAuthStore} modalsStore={modalsStore}>
+=======
+                      userDataStore={userDataStore} proAuthStore={proAuthStore} modalsStore={modalsStore}
+                      openJobsStore={openJobsStore}
+            >
+>>>>>>> 17f05babf85cb22ace75dc4a6fe5bbc6cbd37aa8
                 <ScreensBase/>
             </Provider>
         )

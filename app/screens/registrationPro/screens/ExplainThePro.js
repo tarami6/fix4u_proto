@@ -4,7 +4,7 @@ import {submitButton} from "../../../components/modalSubmitButton";
 import {SH, SW, HH} from "../../../config/styles";
 import LinearViewBelowHeaderConsumer from '../components/LinearViewBelowHeaderPro';
 import CustomHeaderAddJob from '../components/CustomHeaderRegPro'
-import {fetcher} from "../../../config/fetcher";
+import {fetcher} from "../../../generalFunc/fetcher";
 import ImagePicker from "react-native-image-picker";
 import {inject, observer} from "mobx-react/native";
 

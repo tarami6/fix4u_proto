@@ -1,10 +1,11 @@
+import React from 'react';
 import {
     View,
     BackHandler,
     AsyncStorage
 } from 'react-native';
-import {mainRoute} from "../config/apiRoutes";
 import Pushy from 'pushy-react-native';
+import {mainRoute} from "../config/apiRoutes";
 
 //this function handle the pushy token-:(happens every manual login/register)
 //1 - register the device to pushy and get a token back

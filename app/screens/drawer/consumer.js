@@ -33,7 +33,7 @@ export default class Consumer extends Component {
 
 
     logout(){
-        console.warn(this.props.navigation);
+        // console.warn(this.props.navigation);
         AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
         ));
         this.props.userDataStore.logout()

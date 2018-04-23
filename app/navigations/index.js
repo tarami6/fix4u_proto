@@ -1,16 +1,22 @@
 import {StackNavigator, DrawerNavigator} from 'react-navigation'
-import React from 'react'
+import React, {Component} from 'react'
 import {Dimensions, Text} from 'react-native'
 
 import CustomDrawer from '../components/customDrawer'
 // Screens
 import Intro from '../screens/intro'
 import ChooseUserType from '../screens/choose_user_type'
+
+//AddJobScreens:
 import ChooseService from '../screens/addJob/addJobSteps'
 import ChooseAddress from '../screens/addJob/addJobRamiScreens/screens/ChooseAddress';
 import ChooseTime from '../screens/addJob/addJobRamiScreens/screens/ChooseTime';
 import ExplainTheJob from '../screens/addJob/addJobRamiScreens/screens/ExplainTheJob';
+<<<<<<< HEAD
 import ApplyBaseScreen from '../screens/jobApplyConsumer/screens/ApplyBaseScreenConsumer'
+=======
+import ApplyBaseScreen from '../screens/addJob/addJobRamiScreens/screens/ApplyBaseScreen'
+>>>>>>> 17f05babf85cb22ace75dc4a6fe5bbc6cbd37aa8
 //Pro Registration imports:
 import PersonalInfo from '../screens/registrationPro/screens/PersonalInfo'
 import AddressInfo from "../screens/registrationPro/screens/AddressInfo";
@@ -20,6 +26,11 @@ import DataConfirmPro from "../screens/registrationPro/screens/DataConfirmPro";
 //general auth screens:
 import PhoneInput from '../screens/generalAuth/phoneInput';
 import PhoneVerify from '../screens/generalAuth/phoneVerify';
+//HomePage stuff:
+import HomeNavigation from './HomeNavigation'
+import ChooseJob from '../screens/chooseJob'
+
+import {inject, observer} from "mobx-react/native";
 
 const {width} = Dimensions.get('window')
 //it is just example
@@ -30,7 +41,7 @@ const {width} = Dimensions.get('window')
 const B = () => (<Text>screen choose as PRO</Text>)
 
 
-const HomeNavigation = StackNavigator({
+const AddJobNavigation = StackNavigator({
     ChooseService: {
         screen: ChooseService
     },
@@ -43,14 +54,47 @@ const HomeNavigation = StackNavigator({
     ChooseAddress: {
         screen: ChooseAddress
     },
+    ApplyBaseScreen: {
+        screen: ApplyBaseScreen
+    }
 })
 
+<<<<<<< HEAD
 const AuctionJobConsumer = StackNavigator({
     ApplyBaseScreen: {
         screen: ApplyBaseScreen
     },
 })
 
+=======
+//main drawer navigators : (after auth )
+
+const ProNavigator = DrawerNavigator({
+    Home: {
+        screen: ChooseJob,
+    },
+    AddJob: {
+        screen: AddJobNavigation,
+    },
+}, {
+    contentComponent: CustomDrawer,
+    drawerWidth: width
+})
+
+const ConsumerNavigator = DrawerNavigator({
+    Home: {
+        screen: AddJobNavigation,
+    },
+    B: {
+        screen: B,
+    },
+}, {
+    contentComponent: CustomDrawer,
+    drawerWidth: width
+})
+
+//auth navigators:
+>>>>>>> 17f05babf85cb22ace75dc4a6fe5bbc6cbd37aa8
 
 const ProRegistrationNavigator = StackNavigator({
     PersonalInfo: {
@@ -68,19 +112,6 @@ const ProRegistrationNavigator = StackNavigator({
     DataConfirmPro: {
         screen: DataConfirmPro
     }
-})
-
-//all of screen who access drawer define on here
-const DrawerNavigation = DrawerNavigator({
-    Home: {
-        screen: HomeNavigation,
-    },
-    B: {
-        screen: B,
-    },
-}, {
-    contentComponent: CustomDrawer,
-    drawerWidth: width
 })
 
 
@@ -115,8 +146,11 @@ export default AppNavigation = StackNavigator({
     ProRegistrationNavigator: {
         screen: ProRegistrationNavigator
     },
-    DrawerNavigation: {
-        screen: DrawerNavigation
+    ProNavigator: {
+        screen: ProNavigator
+    },
+    ConsumerNavigator: {
+        screen: ConsumerNavigator
     },
     AuctionJobConsumer:{
         screen: AuctionJobConsumer

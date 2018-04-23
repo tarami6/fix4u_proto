@@ -13,9 +13,7 @@ import {inject, observer} from "mobx-react/native";
 @inject("userDataStore")
 @observer
 export default class CustomDrawer extends Component {
-    componentDidMount(){
-        console.warn(this.props);
-    }
+
     render() {
         // consumer or pro, change based on login user props
         let currentUser = this.props.userDataStore.userType;

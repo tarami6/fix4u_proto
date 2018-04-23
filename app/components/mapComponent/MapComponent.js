@@ -5,7 +5,7 @@ import MapView from "react-native-maps";
 // import MapViewDirections from 'react-native-maps-directions';
 // import {DirectionsRenderer,GoogleMap, withGoogleMap} from 'react-google-maps';
 
-const usersMap = props => {
+let usersMap = props => {
     let userLocationMarker = null;
     this.mapView = null;
     this.state = {
@@ -31,12 +31,32 @@ const usersMap = props => {
                                              identifier={"current location"} />;
     }
 
-    // const usersMarkers = props.usersPlaces.map(userPlace => (
-    //     <MapView.Marker coordinate={userPlace} key={userPlace.id++} pinColor={'#FF5500'} style={{ width:1, height: 1 }}
-    //         // identifier={1++}
-    //                     onPress={props.press}
-    //         //  image={require('../assets/images/map/icon1.png')}
-    //     />));
+    //markers:
+
+
+
+    let usersPlaces = [
+        {
+            latitude: 32.0853,
+            longitude: 34.781768,
+            latitudeDelta: 0.0622*0.2,
+            longitudeDelta: 0.0421*0.2,
+        },
+        {
+            latitude: 32.0753,
+            longitude: 34.782768,
+            latitudeDelta: 0.0622*0.2,
+            longitudeDelta: 0.0421*0.2,
+        }
+
+    ]
+
+    const usersMarkers = usersPlaces.map(userPlace => (
+        <MapView.Marker coordinate={userPlace} key={userPlace.id++} pinColor={'#FF5500'} style={{ width:1, height: 1 }}
+            // identifier={1++}
+                        onPress={(yo)=>{this.onMarkerPress(yo)}}
+            //  image={require('../assets/images/map/icon1.png')}
+        />));
 
 
 
@@ -54,7 +74,7 @@ const usersMap = props => {
                 style={styles.map}
                 ref={c => this.mapView = c} >
                 {userLocationMarker}
-                {/*{ usersMarkers}*/}
+                { usersMarkers}
 
                 {/*<MapView.Polyline*/}
                     {/*coordinates={props.coords}*/}

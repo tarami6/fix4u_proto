@@ -1,4 +1,4 @@
-import {fetcher} from "../config/fetcher";
+import {fetcher} from "./fetcher";
 import {AsyncStorage} from 'react-native'
 import {loginRoute} from "../config/apiRoutes";
 
