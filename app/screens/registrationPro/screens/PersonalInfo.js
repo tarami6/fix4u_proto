@@ -67,7 +67,6 @@ export default class PersonalInfo extends React.Component {
     }
 
     render() {
-        console.warn('yooo', this.props.proAuthStore.proUser.uid)
         // if(this.props.proAuthStore.proUser.uid){
         //     this.props.navigation.navigate('AddressInfo');
         // }

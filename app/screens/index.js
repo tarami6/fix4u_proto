@@ -43,7 +43,6 @@ export default class ScreensBase extends Component<Props> {
             actions: [
                 NavigationActions.navigate({
                     routeName: routeName,
-                    action: NavigationActions.navigate({routeName: 'Home'}),
                 })
             ],
         });
@@ -54,9 +53,9 @@ export default class ScreensBase extends Component<Props> {
     onBackPress = () => {
         console.log('backHandler pressed')
         const {dispatch} = this.store;
-        console.log(this.store);
+        // console.log(this.store);
         const {navigationState} = this.store;
-        console.log('navigationState',navigationState.index);
+        // console.log('navigationState',navigationState.index);
         if (navigationState.index === 0) {
             return false;
         }
@@ -65,6 +64,7 @@ export default class ScreensBase extends Component<Props> {
     };
 
     componentDidMount() {
+        // console.log('userData = ', this.props.userDataStore.userData)
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
         tryLogin(this.props.authStore, this.props.userDataStore, this.props.proAuthStore,  this.successLoginCallback.bind(this))
 

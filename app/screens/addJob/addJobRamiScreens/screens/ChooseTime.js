@@ -7,13 +7,20 @@ import CustomHeaderAddJob from '../components/CustomHeaderAddJob'
 import {inject, observer} from "mobx-react/native";
 import ChooseAddress from "./ChooseAddress";
 
+@inject("navigationStore")
 @inject("addJobStore")
 @observer
 export default class ChooseTime extends React.Component {
+
+    constructor(props){
+        super(props);
+    }
+    goBack(){
+        this.props.navigation.goBack()
+    }
     static navigationOptions = {
-        header: (/* Your custom header */
-            <CustomHeaderAddJob/>
-        ),
+        header: (props) => CustomHeaderAddJob(props)
+
     };
 
     handleSubmit() {
@@ -27,6 +34,11 @@ export default class ChooseTime extends React.Component {
         }
         this.props.addJobStore.editNewJobInfo(sendObj);
         this.props.navigation.navigate('ExplainTheJob');
+    }
+
+    componentWillMount(){
+        // console.warn('index is:', this.props.navigationStore.navigationState.index)
+        // console.log('chooseTime navigationState:', this.props.navigationStore.navigationState)
     }
 
 

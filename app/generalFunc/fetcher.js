@@ -31,6 +31,7 @@ export const
         })
             .then(response => response.json())
             .then(responseJson => {
+                console.warn('success cb got: ', responseJson);
                 successCallback(responseJson);
             })
             .catch(error => {

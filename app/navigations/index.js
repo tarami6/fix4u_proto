@@ -8,10 +8,13 @@ import CustomDrawer from '../components/customDrawer'
 
 import Intro from '../screens/intro'
 import ChooseUserType from '../screens/choose_user_type'
+
+//AddJobScreens:
 import ChooseService from '../screens/addJob/addJobSteps'
 import ChooseAddress from '../screens/addJob/addJobRamiScreens/screens/ChooseAddress';
 import ChooseTime from '../screens/addJob/addJobRamiScreens/screens/ChooseTime';
 import ExplainTheJob from '../screens/addJob/addJobRamiScreens/screens/ExplainTheJob';
+import ApplyBaseScreen from '../screens/addJob/addJobRamiScreens/screens/ApplyBaseScreen'
 //Pro Registration imports:
 import PersonalInfo from '../screens/registrationPro/screens/PersonalInfo'
 import AddressInfo from "../screens/registrationPro/screens/AddressInfo";
@@ -49,6 +52,9 @@ const AddJobNavigation = StackNavigator({
     ChooseAddress: {
         screen: ChooseAddress
     },
+    ApplyBaseScreen: {
+        screen: ApplyBaseScreen
+    }
 })
 
 //main drawer navigators : (after auth )

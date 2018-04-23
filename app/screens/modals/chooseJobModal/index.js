@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import {Modal, Text, TouchableHighlight, View, Image, StyleSheet, TextInput} from 'react-native';
+import {Modal, Text, TouchableHighlight, View, Image, StyleSheet, TextInput, Alert} from 'react-native';
 import {SW, SH} from "../../../config/styles";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {submitButton} from "../../../components/modalSubmitButton";
 import {inject, observer} from "mobx-react/index";
+import {applyForJobRoute} from "../../../config/apiRoutes";
+import {fetcher} from "../../../generalFunc/fetcher";
 
 const data = {
     name: 'אלכסנדרה קנדל',
@@ -19,6 +21,7 @@ const data = {
 }
 
 @inject('openJobsStore')
+@inject('userDataStore')
 @inject("modalsStore")
 @observer
 export default class ChooseJobModal extends Component {
@@ -28,6 +31,35 @@ export default class ChooseJobModal extends Component {
 
     setModalVisible(visible) {
         this.setState({modalVisible: visible});
+    }
+
+    submitApply(){
+        console.warn(this.props.openJobsStore.focusedJob.id);
+        let jobId = this.props.openJobsStore.focusedJob.id
+        let route = applyForJobRoute(jobId);
+        let headers = {
+            'Accept': `application/json`,
+            'Content-Type': 'application/json',
+            'Authorization': 'JWT ' + this.props.userDataStore.userData.token
+        };
+        fetcher(route, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), {time: '12:00:00', service_fee: 45}, headers)
+    }
+
+    closeModal(){
+        this.props.modalsStore.closeModal('chooseJobModal')
+    }
+
+    successCallback(res){
+        // console.warn('success cb chooseJob:', res);
+        if(res.detail){
+            Alert.alert(res.detail)
+            this.closeModal();
+        }
+        console.log('success cb chooseJob:', res);
+    }
+    errorCallback(err){
+        console.warn('error in chooseJob:', err);
+        console.log('error in chooseJob:', err)
     }
 
     render() {
@@ -221,7 +253,7 @@ export default class ChooseJobModal extends Component {
                                 <View style={styles.footer}>
                                     <View style={{alignItems: 'center'}}>
                                         {submitButton('שלח הצעה', () => {
-                                            console.log("warn")
+                                            this.submitApply();
                                         })}
                                     </View>
                                 </View>
