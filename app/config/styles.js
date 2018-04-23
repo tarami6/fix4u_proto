@@ -12,6 +12,14 @@ export const colors = {
     inputDivider: '#E4E2E5',
 };
 
+//absolute Screen Size container style
+export let absoluteContainer = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: SW,
+    height: SH
+}
 
 // COLOR
 export let mainColor = '#F5A623';

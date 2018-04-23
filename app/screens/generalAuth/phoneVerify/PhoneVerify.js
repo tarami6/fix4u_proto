@@ -9,6 +9,7 @@ import {submitButton} from "../../../components/modalSubmitButton";
 import {fetcher} from "../../../generalFunc/fetcher";
 import styles from './styles'
 import {loginRoute, phoneVerifyRoute} from "../../../config/apiRoutes";
+import {handlePushyToken} from "../../../generalFunc/pushyTokenHandler";
 
 @inject("userDataStore")
 @inject("authStore")
@@ -37,6 +38,7 @@ export default class PhoneVerify extends Component {
         this.props.userDataStore.setUserType(userType);
         this.props.userDataStore.setUserData(res);
         this.props.authStore.saveToAsync();
+        handlePushyToken(res.token);
         this.props.navigation.navigate(navigationEnd);
         console.warn('success login got:', res);
         console.log('success login got:', res);

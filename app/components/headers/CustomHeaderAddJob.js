@@ -16,7 +16,7 @@ const CustomHeaderAddJob = (props) => {
                 }}
             >
                 <TouchableOpacity style={{justifyContent: 'flex-start', flex: 1}} onPress={()=>{
-                    props.navigation.navigate('ChooseService');
+                    console.warn('goBack')
                    }}>
                     <ArrowIcon name="ios-arrow-back" size={35} color="#fff" style={{paddingLeft: SW / 20}}/>
                 </TouchableOpacity>

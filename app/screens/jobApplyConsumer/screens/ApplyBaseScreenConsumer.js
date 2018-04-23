@@ -1,10 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import CustomHeaderAddJob from '../../../components/headers/CustomHeaderAddJob';
 import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHeaderConsumer';
 import MapComponent from '../../../components/mapComponent'
 
 import {SW, SH} from "../../../config/styles";
+import {inject, observer} from "mobx-react/native";
 
 const data = [
     {
@@ -22,34 +23,49 @@ const data = [
         time: 'היום 16:00'
     },
 ]
-const job = {
- icon :   require('../../../../assets/icons/serviceElectrician.png'),
- service : 'חשמלאי' ,
- appointmentTime:   'היום "ו" 5 בשעה 14:00' ,
-}
+// const job = {
+//  icon :   require('../../../../assets/icons/serviceElectrician.png'),
+//  service : 'חשמלאי' ,
+//  appointmentTime:   'היום "ו" 5 בשעה 14:00' ,
+// }
+
+@inject("userDataStore")
+@observer
 export default class ApplyBaseScreen extends React.Component {
     static navigationOptions = {
-        header: ( /* Your custom header */
-            <CustomHeaderAddJob/>
+        header: (/* Your custom header */
+            <CustomHeaderAddJob />
         ),
     };
-    constructor(props){
+
+    constructor(props) {
         super(props);
-        this.state={
-            auctionTime : 60,
+        this.state = {
+            auctionTime: 60,
             lat: 32.786842906668895,
             lon: 34.972372709973115,
         };
     }
-    componentDidMount(){
+
+    componentDidMount() {
         let time = this.state.auctionTime;
-        if(this.state.auctionTime > 0){
-            setInterval(() =>{ this.setState({auctionTime: this.state.auctionTime -= 1})}, 1000);
+        if (this.state.auctionTime > 0) {
+            setInterval(() => {
+                this.setState({auctionTime: this.state.auctionTime -= 1})
+            }, 1000);
         }
+
+        this.props.userDataStore.findAndFocusConsumerJob();
+        console.warn('user current job: ', this.props.userDataStore.focusedConsumerJob.post_applies);
 
     }
 
+    choosePro(proObj) {
+        console.warn('chose:', proObj);
+    }
+
     render() {
+        let job = this.props.userDataStore.focusedConsumerJob
         return (
             <View style={{flex: 1}}>
                 <View style={{flex: 0.14, backgroundColor: 'red'}}>
@@ -58,12 +74,17 @@ export default class ApplyBaseScreen extends React.Component {
                             {/*Time counter*/}
                             <View style={{flex: 0.6, justifyContent: 'center', alignItems: 'center'}}>
                                 <Text
-                                    style={{color: '#000', fontSize: 22, fontWeight: 'bold', opacity: 0.5}}>{this.state.auctionTime}</Text>
+                                    style={{
+                                        color: '#000',
+                                        fontSize: 22,
+                                        fontWeight: 'bold',
+                                        opacity: 0.5
+                                    }}>{this.state.auctionTime}</Text>
                             </View>
                             {/*Job Info*/}
                             <View style={{flex: 1, justifyContent: 'center', paddingRight: SW / 20}}>
-                                <Text style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>{job.service}</Text>
-                                <Text style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>{job.appointmentTime}
+                                <Text style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>job service</Text>
+                                <Text style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>job appointment time
                                     14:00</Text>
                             </View>
                             {/*Border*/}
@@ -77,7 +98,7 @@ export default class ApplyBaseScreen extends React.Component {
                             {/*Service Icon*/}
                             <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
                                 <Image
-                                    source={job.icon}
+                                    source={require('../../../../assets/icons/serviceElectrician.png')}
                                 />
                             </View>
                         </View>
@@ -88,18 +109,22 @@ export default class ApplyBaseScreen extends React.Component {
 
                     <View>
                         <MapComponent
-                                      lat={this.state.lat}
-                                      lon={this.state.lon}
-                                      userLocation={{
-                                          latitude: this.state.lat,
-                                          longitude: this.state.lon,
-                                          latitudeDelta: 0.0622 * 0.1,
-                                          longitudeDelta: 0.0421 * 0.1
-                                      }}/>
+                            lat={this.state.lat}
+                            lon={this.state.lon}
+                            userLocation={{
+                                latitude: this.state.lat,
+                                longitude: this.state.lon,
+                                latitudeDelta: 0.0622 * 0.1,
+                                longitudeDelta: 0.0421 * 0.1
+                            }}/>
                     </View>
-                    {data.map((item, index) => {
+                    {/*       applies.MAP         */}
+
+                    {job.post_applies && job.post_applies.map((item, index) => {
                         return (
-                            <View key={index}
+                            <TouchableOpacity
+                                onPress={()=>this.choosePro(item)}
+                                key={index}
                                 style={{
                                     width: SW,
                                     height: SH / 9,
@@ -110,18 +135,19 @@ export default class ApplyBaseScreen extends React.Component {
                                     borderBottomWidth: 1,
                                     borderBottomColor: '#7e7e7e'
                                 }}>
+
                                 <View style={{
                                     flex: 0.5,
                                     justifyContent: 'center',
                                     alignItems: 'flex-start',
                                     marginLeft: SW / 20
                                 }}>
-                                    <Text style={{zIndex: 3, fontSize: 16, color: '#000'}}>{item.time} </Text>
-                                    <Text style={{zIndex: 3, fontSize: 16}}>{item.price} </Text>
+                                    <Text style={{zIndex: 3, fontSize: 16, color: '#000'}}>name </Text>
+                                    <Text style={{zIndex: 3, fontSize: 16}}>price </Text>
                                 </View>
                                 <View style={{flex: 1, justifyContent: 'center'}}>
-                                    <Text style={{zIndex: 3, fontSize: 16, color: '#000'}}>{item.name} </Text>
-                                    <Text style={{zIndex: 3, fontSize: 14}}>{item.services} </Text>
+                                    <Text style={{zIndex: 3, fontSize: 16, color: '#000'}}>name </Text>
+                                    <Text style={{zIndex: 3, fontSize: 14}}>service </Text>
                                 </View>
                                 <View style={{flex: 0.4, alignItems: 'center', justifyContent: 'center'}}>
                                     {item.pic ? <Image
@@ -130,17 +156,13 @@ export default class ApplyBaseScreen extends React.Component {
                                     /> : <View/>}
 
                                 </View>
-
-
-                            </View>
+                            </TouchableOpacity>
+                            // </TouchableOpacity>
                         )
                     })}
-
-
                 </View>
 
             </View>
-
         )
     }
 }

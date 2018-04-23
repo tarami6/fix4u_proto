@@ -8,7 +8,7 @@ import {inject, observer} from "mobx-react/native";
 import {fetcher} from "../../../generalFunc/fetcher";
 import {handlePushyToken} from "../../../generalFunc/pushyTokenHandler";
 
-
+@inject('userDataStore')
 @inject("proAuthStore")
 @observer
 export default class ChooseTime extends React.Component {
@@ -55,11 +55,16 @@ export default class ChooseTime extends React.Component {
         fetcher('api/rest-auth/registration/pro/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), finalSendObj, headers)
     }
 
+    ///// success registration handles:
     successCallback(res) {
         if(res.token){
             handlePushyToken(res.token)
             this.props.proAuthStore.updatePro(res);
             this.props.proAuthStore.saveToAsync();
+            this.props.userDataStore.setUserData(res)
+            this.props.userDataStore.setUserType('pro');
+            console.warn('navigate:', this.props.navigation);
+            this.props.navigation.navigate('ProNavigator');
         }
         console.warn('success registration got:', res);
         console.log('registration log:', res)

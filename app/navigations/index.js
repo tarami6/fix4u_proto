@@ -8,6 +8,9 @@ import Intro from '../screens/intro'
 import ChooseUserType from '../screens/choose_user_type'
 
 //AddJobScreens:
+//in LoadingScreen we check if the user have an open job or not and navigate hime through the addJob navigator accordingly
+//while displaying "LoadingScreen"
+import LoadingScreen from "../screens/loadingScreen/LoadingScreen";
 import ChooseService from '../screens/addJob/addJobSteps'
 import ChooseAddress from '../screens/addJob/addJobRamiScreens/screens/ChooseAddress';
 import ChooseTime from '../screens/addJob/addJobRamiScreens/screens/ChooseTime';
@@ -38,6 +41,9 @@ const B = () => (<Text>screen choose as PRO</Text>)
 
 
 const AddJobNavigation = StackNavigator({
+    LoadingScreen: {
+        screen: LoadingScreen
+    },
     ChooseService: {
         screen: ChooseService
     },

@@ -80,6 +80,11 @@ Pushy.setNotificationListener(async (data) => {
 );
 
 let handleNotificationData = (type, payload)=> {
+    switch(type){
+        case 'post_update':
+            userDataStore.updatePost(payload)
+
+    }
     console.warn('handle not:', type, payload);
 }
 //

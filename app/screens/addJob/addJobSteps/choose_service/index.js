@@ -83,7 +83,16 @@ export default class ChooseService extends Component {
 
     //after Submit info:
     nextStep() {
+        // const navigateAction = NavigationActions.navigate({
+        //     routeName: 'ChooseTime',
+        //
+        //     params: {},
+        // });
+        //
+        // this.props.navigationStore.dispatch(navigateAction);
         this.props.navigation.navigate('ChooseTime');
+        // console.log(this.props.navigationStore);
+        // console.warn(this.props.navigationStore);
     }
 
     render() {

@@ -64,7 +64,7 @@ export default class ChooseJob extends Component {
 
     render() {
         let openJobsList = this.props.openJobsStore.openJobsList
-        if (openJobsList.length > 0) {
+        if (openJobsList && openJobsList.length > 0) {
             return (
                 <View>
                     <Header />

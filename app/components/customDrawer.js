@@ -18,6 +18,7 @@ export default class CustomDrawer extends Component {
         // consumer or pro, change based on login user props
         let currentUser = this.props.userDataStore.userType;
         if (!this.props.userDataStore.userType){
+            console.warn('no userType')
             return (
                 <View/>
             );
