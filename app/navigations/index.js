@@ -15,7 +15,9 @@ import ChooseService from '../screens/addJob/addJobSteps'
 import ChooseAddress from '../screens/addJob/addJobRamiScreens/screens/ChooseAddress';
 import ChooseTime from '../screens/addJob/addJobRamiScreens/screens/ChooseTime';
 import ExplainTheJob from '../screens/addJob/addJobRamiScreens/screens/ExplainTheJob';
+
 import ApplyBaseScreen from '../screens/jobApplyConsumer/screens/ApplyBaseScreenConsumer'
+
 //Pro Registration imports:
 import PersonalInfo from '../screens/registrationPro/screens/PersonalInfo'
 import AddressInfo from "../screens/registrationPro/screens/AddressInfo";
@@ -61,6 +63,9 @@ const AddJobNavigation = StackNavigator({
     }
 })
 
+
+
+
 //main drawer navigators : (after auth )
 
 const ProNavigator = DrawerNavigator({
@@ -86,7 +91,6 @@ const ConsumerNavigator = DrawerNavigator({
     contentComponent: CustomDrawer,
     drawerWidth: width
 })
-
 
 
 //auth navigators:

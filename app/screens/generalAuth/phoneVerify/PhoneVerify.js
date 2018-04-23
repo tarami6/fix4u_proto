@@ -32,6 +32,7 @@ export default class PhoneVerify extends Component {
         // this is the fetch for the verify code for the phone, inactive on the server for now
         fetcher(phoneVerifyRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
     }
+
     loginSuccess(res){
         let userType = res.user.services? 'pro': 'consumer';
         let navigationEnd = res.user.services? 'ProNavigator': 'ConsumerNavigator';

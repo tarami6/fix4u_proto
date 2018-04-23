@@ -1,7 +1,9 @@
 import React from "react";
-import {View, StyleSheet, Alert} from "react-native";
+import {View, StyleSheet, Text, TouchableOpacity, Alert} from "react-native";
 import MapView from "react-native-maps";
 import {Keys} from "../../config/keys";
+import {SH, SW} from "../../config/styles";
+
 // import Geocoder from 'react-native-geocoding';
 // import MapViewDirections from 'react-native-maps-directions';
 // import {DirectionsRenderer,GoogleMap, withGoogleMap} from 'react-google-maps';
@@ -46,20 +48,21 @@ export default class usersMap extends React.Component {
                 longitude: openJob.lon
 
             }
-            console.warn('coordinates'+index, coordinates);
+            console.warn('coordinates' + index, coordinates);
             return (
-            <MapView.Marker
-                coordinate={coordinates}
-                key={openJob.id}
-                pinColor={'#FF5500'}
-                style={{width: 1, height: 1}}
-                onPress={() => this.props.onMarkerPress(openJob, index)}
-                // identifier={1++}
-                //             onPress={(yo) => {
-                //                 console.log('marker:', yo);
-                //             }}
-                //  image={require('../assets/images/map/icon1.png')}
-            />)});
+                <MapView.Marker
+                    coordinate={coordinates}
+                    key={openJob.id}
+                    pinColor={'#FF5500'}
+                    style={{width: 1, height: 1}}
+                    onPress={() => this.props.onMarkerPress(openJob, index)}
+                    // identifier={1++}
+                    //             onPress={(yo) => {
+                    //                 console.log('marker:', yo);
+                    //             }}
+                    //  image={require('../assets/images/map/icon1.png')}
+                />)
+        });
     }
 
     // displayAlert(latlng) {
@@ -97,9 +100,71 @@ export default class usersMap extends React.Component {
                     {/*strokeWidth={4}*/}
                     {/*strokeColor="blue"/>*/}
 
+
                 </MapView>
+                <View style={{position: 'absolute', top: 0}}>
+                    {/*Waiting for confirmation*/}
+
+                        <TouchableOpacity onPress={() => Alert.alert('Will take you to ? soon')} style={{
+                            width: SW,
+                            height: SH / 15,
+                            backgroundColor: 'rgba(244,244,244,1)',
+                            flexDirection: 'row',
+                            elevation: 3,
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+
+                        }}>
+                            <View style={{flex: 1}}>
+                                <Text style={{paddingLeft: 20,}}>3</Text>
+                            </View>
+                            <View style={{flex: 1}}>
+                                <Text style={{paddingRight: 20,}}>מחכה לאישור</Text>
+                            </View>
+                        </TouchableOpacity>
+                    {/*Got Job*/}
+                        <TouchableOpacity onPress={() => Alert.alert('Will take you to ? soon')}
+                                          style={{
+                                              width: SW,
+                                              height: SH / 15,
+                                              backgroundColor: 'rgba(255,255,255,1)',
+                                              flexDirection: 'row',
+                                              elevation: 2,
+                                              alignItems: 'center',
+                                              justifyContent: 'flex-end',
+                                          }}>
+                            <View style={{flex: 1}}>
+                                <Text style={{paddingLeft: 20,}}>1</Text>
+                            </View>
+                            <View style={{flex: 1}}>
+                                <Text style={{paddingRight: 20,}}>עבודה חדשה</Text>
+                            </View>
+                        </TouchableOpacity>
+                    {/*Contact request*/}
+
+                    <TouchableOpacity onPress={() => Alert.alert('Will take you to ? soon')}
+                                      style={{
+                                          width: SW,
+                                          height: SH / 15,
+                                          backgroundColor: 'rgba(244,244,244,1)',
+                                          flexDirection: 'row',
+                                          elevation: 1,
+                                          alignItems: 'center',
+                                          justifyContent: 'flex-end',
+                                      }}>
+                        <View style={{flex: 1}}>
+                            <Text style={{paddingLeft: 20,}}>3</Text>
+                        </View>
+                        <View style={{flex: 1}}>
+                            <Text style={{paddingRight: 20,}}>בקשת התחברות</Text>
+                        </View>
+
+                    </TouchableOpacity>
+
+                </View>
             </View>
-        );
+        )
+            ;
     }
 };
 

@@ -23,8 +23,13 @@ import UserDataStore from './state-manager/mobx/userDataStore';
 import ProAuthStore from "./state-manager/mobx/proAuthStore";
 import ModalsStore from './state-manager/mobx/modalsStore'
 import NavigationStore from "./state-manager/mobx/navigationStore";
-import OpenJobsStore from './state-manager/mobx/openJobsStore';
+
+import {StackNavigator, DrawerNavigator} from 'react-navigation'
+
 import Pushy from 'pushy-react-native';
+
+import OpenJobsStore from './state-manager/mobx/openJobsStore';
+
 //the usual consumer costumer auth process happens here
 let authStore = new AuthStore();
 //pro Auth state manager:
@@ -36,7 +41,19 @@ let addJobStore = new AddJobStore();
 //modals state manage - manages the displays of all of our app modals:
 let modalsStore = new ModalsStore();
 //navigation store
-let navigationStore = new NavigationStore();
+
+let navigationStore = new NavigationStore()
+
+// Ramistesting
+import ChooseJob from './screens/chooseJob'
+import ChooseAddress from './screens/addJob/addJobRamiScreens/screens/ChooseAddress'
+
+const HomeNavigation = StackNavigator({
+    Home: {
+        screen: ChooseJob
+    }
+})
+
 //choose Job and all openJobs handling store:
 let openJobsStore = new OpenJobsStore();
 
@@ -87,7 +104,7 @@ let handleNotificationData = (type, payload)=> {
     }
     console.warn('handle not:', type, payload);
 }
-//
+
 type Props = {};
 export default class App extends Component<Props> {
     componentDidMount() {
@@ -117,8 +134,7 @@ export default class App extends Component<Props> {
         return (
             <Provider navigationStore={navigationStore} authStore={authStore} addJobStore={addJobStore}
                       userDataStore={userDataStore} proAuthStore={proAuthStore} modalsStore={modalsStore}
-                      openJobsStore={openJobsStore}
-            >
+                      openJobsStore={openJobsStore}>
                 <ScreensBase/>
             </Provider>
         )
