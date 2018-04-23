@@ -4,7 +4,7 @@ import {SH, SW, colors} from "../../../config/styles";
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: "#F5F5F5",
+        backgroundColor: "#f6f6f6",
         padding: 22,
         justifyContent: "center",
         alignItems: "center",
@@ -14,7 +14,7 @@ export default StyleSheet.create({
     },
     headerText: {
         fontSize: 20,
-        marginTop: 30,
+
         // borderBottomWidth: 1,
         // borderColor: '#000',
     },
@@ -22,7 +22,6 @@ export default StyleSheet.create({
     inputContainer: {},
     textInputStyle: {
         width: SW * 0.6,
-        marginVertical: SH / 16,
         backgroundColor: '#fff',
         borderRadius: 5,
         borderWidth: 0.1,

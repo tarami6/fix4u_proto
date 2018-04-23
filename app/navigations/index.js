@@ -2,10 +2,8 @@ import {StackNavigator, DrawerNavigator} from 'react-navigation'
 import React, {Component} from 'react'
 import {Dimensions, Text} from 'react-native'
 
-import {Icon} from 'native-base'
-
 import CustomDrawer from '../components/customDrawer'
-
+// Screens
 import Intro from '../screens/intro'
 import ChooseUserType from '../screens/choose_user_type'
 
@@ -14,7 +12,7 @@ import ChooseService from '../screens/addJob/addJobSteps'
 import ChooseAddress from '../screens/addJob/addJobRamiScreens/screens/ChooseAddress';
 import ChooseTime from '../screens/addJob/addJobRamiScreens/screens/ChooseTime';
 import ExplainTheJob from '../screens/addJob/addJobRamiScreens/screens/ExplainTheJob';
-import ApplyBaseScreen from '../screens/addJob/addJobRamiScreens/screens/ApplyBaseScreen'
+import ApplyBaseScreen from '../screens/jobApplyConsumer/screens/ApplyBaseScreenConsumer'
 //Pro Registration imports:
 import PersonalInfo from '../screens/registrationPro/screens/PersonalInfo'
 import AddressInfo from "../screens/registrationPro/screens/AddressInfo";
@@ -83,8 +81,9 @@ const ConsumerNavigator = DrawerNavigator({
     drawerWidth: width
 })
 
-//auth navigators:
 
+
+//auth navigators:
 const ProRegistrationNavigator = StackNavigator({
     PersonalInfo: {
         screen: PersonalInfo
@@ -102,6 +101,7 @@ const ProRegistrationNavigator = StackNavigator({
         screen: DataConfirmPro
     }
 })
+
 
 
 // //all screen dont access drawer

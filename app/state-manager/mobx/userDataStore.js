@@ -1,5 +1,5 @@
-import {observable, action, extendObservable, observe} from 'mobx'
-import {AsyncStorage} from 'react-native'
+import {observable, action} from 'mobx'
+
 
 export default class UserDataStore {
     //This object is the response from the database stragiht after authentication

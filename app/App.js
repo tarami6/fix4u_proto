@@ -82,7 +82,7 @@ Pushy.setNotificationListener(async (data) => {
 let handleNotificationData = (type, payload)=> {
     console.warn('handle not:', type, payload);
 }
-
+//
 type Props = {};
 export default class App extends Component<Props> {
     componentDidMount() {
