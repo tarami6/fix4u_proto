@@ -13,6 +13,7 @@ import {inject, observer} from 'mobx-react';
 import authStore from '../../state-manager/mobx/authStore';
 import {LinierBackground} from "../../config/styles";
 import {fetcher} from "../../generalFunc/fetcher";
+import {handlePushyToken} from "../../generalFunc/pushyTokenHandler";
 
 const {width, height} = Dimensions.get('window')
 
@@ -66,7 +67,8 @@ export default class ChooseUserType extends Component {
         this.props.userDataStore.setUserData(response)
         this.props.userDataStore.setUserType('consumer');
         this.props.authStore.updateUser(response);
-        this.props.authStore.saveToAsync()
+        this.props.authStore.saveToAsync();
+        handlePushyToken(response.token);
         this.props.navigation.navigate('ConsumerNavigator');
     }
 

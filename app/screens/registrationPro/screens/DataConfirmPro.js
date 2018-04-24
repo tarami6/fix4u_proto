@@ -52,6 +52,9 @@ export default class ChooseTime extends React.Component {
                 payload: sendObj
             };
         }
+        console.warn('finalSendObj',finalSendObj);
+        console.log('finalSendObj',finalSendObj);
+        console.warn('headers', headers);
         fetcher('api/rest-auth/registration/pro/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), finalSendObj, headers)
     }
 
@@ -91,7 +94,7 @@ export default class ChooseTime extends React.Component {
                         <View
                             style={styles.imageView}>
                             <Image style={styles.proImage}
-                                   source={require('../assets/icons/Handyman.jpg')}
+                                   source={require('../../../../assets/registration/icons/Handyman.jpg')}
                             />
                         </View>
                     </View>

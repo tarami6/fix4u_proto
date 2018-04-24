@@ -23,7 +23,7 @@ const CustomHeaderAddJob = (props) => {
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                     <Image
                         style={{paddingRight: SW / 10}}
-                        source={require('../../screens/addJob/addJobRamiScreens/assets/icons/fixU.png')}
+                        source={require('../../../assets/addJob/icons/fixU.png')}
                     />
                 </View>
                 <View style={{flex: 1}}></View>

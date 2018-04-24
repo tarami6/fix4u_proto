@@ -32,6 +32,10 @@ import HomeNavigation from './HomeNavigation'
 import ChooseJob from '../screens/chooseJob'
 
 import {inject, observer} from "mobx-react/native";
+//Schedule
+import Schedule from "../screens/schedule";
+//Active job
+import ActiveJob from '../screens/activeJob'
 
 const {width} = Dimensions.get('window')
 //it is just example
@@ -47,22 +51,36 @@ const AddJobNavigation = StackNavigator({
         screen: LoadingScreen
     },
     ChooseService: {
-        screen: ChooseService
+        screen: ChooseService,
+        navigationOptions: ({navigation}) => {
+            title: 'Choose Service'
+        }
     },
     ChooseTime: {
-        screen: ChooseTime
+        screen: ChooseTime,
+        navigationOptions: ({navigation}) => {
+            title: 'Choose Time'
+        }
     },
     ExplainTheJob: {
-        screen: ExplainTheJob
+        screen: ExplainTheJob,
+        navigationOptions: ({navigation}) => {
+            title: 'Explaing The Job'
+        }
     },
     ChooseAddress: {
-        screen: ChooseAddress
+        screen: ChooseAddress,
+        navigationOptions: ({navigation}) => {
+            title: 'Choose Time'
+        }
     },
     ApplyBaseScreen: {
-        screen: ApplyBaseScreen
+        screen: ApplyBaseScreen,
+        navigationOptions: ({navigation}) => {
+            title: 'ApplyBaseScreen'
+        }
     }
 })
-
 
 
 
@@ -84,8 +102,8 @@ const ConsumerNavigator = DrawerNavigator({
     Home: {
         screen: AddJobNavigation,
     },
-    B: {
-        screen: B,
+    AddJob: {
+        screen: AddJobNavigation,
     },
 }, {
     contentComponent: CustomDrawer,
@@ -111,7 +129,6 @@ const ProRegistrationNavigator = StackNavigator({
         screen: DataConfirmPro
     }
 })
-
 
 
 // //all screen dont access drawer
@@ -150,6 +167,13 @@ export default AppNavigation = StackNavigator({
     ConsumerNavigator: {
         screen: ConsumerNavigator
     },
+    Schedule: {
+        screen: Schedule
+    },
+    ActiveJob: {
+        screen: ActiveJob
+    }
+
 }, {
     navigationOptions: {
         header: null

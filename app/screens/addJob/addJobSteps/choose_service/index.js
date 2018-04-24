@@ -39,43 +39,53 @@ export default class ChooseService extends Component {
         // then navigate
         navigate('NewScreen');
     }
-    //
-    // handleBackButton = () => {
-    //     console.warn('index is:', this.props.navigationStore.navigationState.index)
-    //     if (this.props.navigationStore.navigationState.index === 0) {
-    //         Alert.alert('index is:', this.props.navigationStore.navigationState.index)
-    //         // return false;
-    //     }
-    //     this.props.navigationStore.dispatch(NavigationActions.back());
-    //     return true;
-    //     // Alert.alert(
-    //     //     'Exit App',
-    //     //     'Exiting the application?'
-    //     // ),
-    //     //     [{
-    //     //         text: 'Cancel',
-    //     //         onPress: () => console.log('Cancel Pressed'),
-    //     //         style: 'cancel'
-    //     //     }, {
-    //     //         text: 'OK',
-    //     //         onPress: () => BackHandler.exitApp()
-    //     //     },], {
-    //     //     cancelable: false
-    //     // }
-    //     // return true;
-    // }
-    //
-    // componentDidMount() {
-    //     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    // }
-    //
-    // componentWillUnmount() {
-    //     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-    // }
-    componentWillMount(){
-        // console.warn('index is:', this.props.navigationStore.navigationState.index)
-        // console.log('chooseService navigationState:', this.props.navigationStore.navigationState)
+
+    handleBackButton = () => {
+        const {dispatch} = this.props.navigationStore;
+        const {navigationState} = this.props.navigationStore;
+        const routeName = navigationState.routes[0].routeName
+
+        if(routeName === 'ConsumerNavigator' || routeName === 'ProNavigator'){
+            if(navigationState.routes[0].routes[0].routes[0].index===0){
+                return false
+            }
+            else {
+                dispatch(NavigationActions.back())
+                return true;
+            }
+        }
+        else {
+            if(navigationState.index===0){
+                return false
+            }
+            dispatch(NavigationActions.back())
+            return true
+        }
+        // Alert.alert(
+        //     'Exit App',
+        //     'Exiting the application?'
+        // ),
+        //     [{
+        //         text: 'Cancel',
+        //         onPress: () => console.log('Cancel Pressed'),
+        //         style: 'cancel'
+        //     }, {
+        //         text: 'OK',
+        //         onPress: () => BackHandler.exitApp()
+        //     },], {
+        //     cancelable: false
+        // }
+        // return true;
     }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
 
 
     x = () => {

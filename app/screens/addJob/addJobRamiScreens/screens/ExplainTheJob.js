@@ -95,7 +95,7 @@ export default class ChooseTime extends React.Component {
                         <CustomHeaderAddJobStepsConsumer props={this.props}/>
                         <View style={{flex: 1, marginLeft: SW / 30,  alignItems: 'center'}}>
                             <Image
-                                    source={require('../assets/icons/stepIndicatorConsumer2.png')}
+                                    source={require('../../../../../assets/addJob/icons/stepIndicatorConsumer2.png')}
                                 />
                         </View>
                         <View style={styles.explainTitleView}>
@@ -145,7 +145,7 @@ export default class ChooseTime extends React.Component {
                                 {this.state.profilePic ?
                                     <Image style={{height: 100, width: 100}} source={this.state.profilePic}/> :
                                     <Image
-                                        source={require('../assets/icons/addPic.png')}
+                                        source={require('../../../../../assets/addJob/icons/addPic.png')}
                                     />}
                             </TouchableOpacity>
                         </View>

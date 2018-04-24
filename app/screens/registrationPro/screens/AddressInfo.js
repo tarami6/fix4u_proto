@@ -74,7 +74,7 @@ export default class AddressInfo extends React.Component {
                         {/*step indicator*/}
                         <View>
                             <Image
-                                source={require('../assets/icons/proStepImdicator2.png')}
+                                source={require('../../../../assets/registration/icons/proStepImdicator2.png')}
                             />
                         </View>
                         <View style={styles.titles}>

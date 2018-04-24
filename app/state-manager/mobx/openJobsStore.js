@@ -9,6 +9,10 @@ export default class OpenJobsStore {
         this.openJobsList = arr;
     }
 
+    @action addJob(job: Object){
+        this.openJobsList.push(job)
+    }
+
     @observable focusedJob = {};
 
     @action focusJob(job: Object){

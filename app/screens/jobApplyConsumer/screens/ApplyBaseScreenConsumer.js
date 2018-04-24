@@ -3,9 +3,11 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import CustomHeaderAddJob from '../../../components/headers/CustomHeaderAddJob';
 import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHeaderConsumer';
 import MapComponent from '../../../components/mapComponent'
-
+import CustomHeader from "../../../components/headerComponent/CustomHeader";
 import {SW, SH} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
+import {fetcher} from "../../../generalFunc/fetcher";
+import {chooseApplyRoute} from "../../../config/apiRoutes";
 
 const data = [
     {
@@ -34,7 +36,7 @@ const data = [
 export default class ApplyBaseScreen extends React.Component {
     static navigationOptions = {
         header: (/* Your custom header */
-            <CustomHeaderAddJob />
+            <CustomHeader props={this.props}/>
         ),
     };
 
@@ -61,7 +63,33 @@ export default class ApplyBaseScreen extends React.Component {
     }
 
     choosePro(proObj) {
+        console.warn(this.props.userDataStore.focusedConsumerJob.id, proObj.id);
+        let route = chooseApplyRoute(this.props.userDataStore.focusedConsumerJob.id);
         console.warn('chose:', proObj);
+        let sendObj = {
+            user_pro: proObj.user_pro.id,
+            status: 'on_the_way'
+        };
+        let headers = {
+            'Accept': `application/json`,
+            'content-type': 'application/json',
+            'Authorization': 'JWT ' + this.props.userDataStore.userData.token
+        };
+
+        console.log('fetching::: ', route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers);
+        fetcher(route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers)
+
+    }
+    successCallback(res){
+        console.warn(res)
+        this.props.userDataStore.focusJob(res);
+        this.props.navigation.navigate('ConsumerNavigator');
+    }
+
+    errorCallback(err){
+        console.warn(err)
+        console.log(err);
+
     }
 
     render() {

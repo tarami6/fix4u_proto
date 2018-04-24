@@ -78,7 +78,7 @@ export default class AddressInfo extends React.Component {
                         <View>
                             <Image
                                 style={{marginTop: 0}}
-                                source={require('../assets/icons/proStepImdicator3.png')}
+                                source={require('../../../../assets/registration/icons/proStepImdicator3.png')}
                             />
                         </View>
                         <View style={{marginTop: SH / 60, alignItems: 'center'}}>
@@ -115,8 +115,8 @@ export default class AddressInfo extends React.Component {
                                     </View>
                                     <View>
                                         {this.state.chosenServices[item.state] ?
-                                            <Image source={require('../assets/icons/Vee.png')}/> :
-                                            <Image source={require('../assets/icons/square.png')}/>}
+                                            <Image source={require('../../../../assets/registration/icons/Vee.png')}/> :
+                                            <Image source={require('../../../../assets/registration/icons/square.png')}/>}
                                     </View>
 
                                 </View>

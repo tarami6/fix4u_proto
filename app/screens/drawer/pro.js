@@ -1,20 +1,14 @@
 /* @flow */
 
 import React, {Component} from 'react';
-import {
-    View,
-    Platform,
-    Image,
-    Dimensions,
-    StyleSheet,
-    TouchableOpacity,
-    AsyncStorage
-} from 'react-native';
-import {Content, List, ListItem, Text, Icon} from 'native-base';
+import {AsyncStorage, Alert, Dimensions, Image, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Icon, List, ListItem, Text} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 import Circle from '../../components/circle'
 import {inject, observer} from "mobx-react/native";
-
+//func and config
+import {fetcher} from "../../generalFunc/fetcher";
+import {logOutRoute} from "../../config/apiRoutes";
 
 const {width, height} = Dimensions.get('window')
 
@@ -28,11 +22,13 @@ export default class Pro extends Component {
         }
     }
 
-    handleSwitch(switchTo){
+    //switchTo is the new current user type for the pro, changes mobx state as well (changes currentUserType)
+    handleSwitch(switchTo) {
+        this.props.userDataStore.setCurrentUserType(switchTo)
         this.setState({
             currentDrawer: switchTo
         })
-        if(switchTo==='pro') {
+        if (switchTo === 'pro') {
             this.props.navigation.navigate('Home')
         }
         else {
@@ -41,15 +37,29 @@ export default class Pro extends Component {
     }
 
     logout() {
-        console.warn(this.props.navigation);
+        fetcher(logOutRoute, 'PATCH', this.successLogout.bind(this), this.errorLogout.bind(this),{push_token: ""}, {token: this.props.userDataStore.userData.token})
+        // console.warn(this.props.navigation);
+        // AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
+        // ));
+        // this.props.userDataStore.logout()
+        // this.props.navigation.navigate('Intro');
+    }
+
+    successLogout(res) {
         AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
         ));
         this.props.userDataStore.logout()
         this.props.navigation.navigate('Intro');
+        console.warn('success cb at logout:', res);
+    }
+
+    errorLogout(err) {
+        console.warn('', err)
+        Alert.alert('there was a problem with the internet connection')
     }
 
     render() {
-        if(this.state.currentDrawer==='pro') {
+        if (this.state.currentDrawer === 'pro') {
             ////////// PRO MODE //////////
             return (
                 <View>
@@ -72,7 +82,7 @@ export default class Pro extends Component {
                         </ListItem>
                         {/*Switch drawer type consumer/pro*/}
                         <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                            <TouchableOpacity onPress={()=>this.handleSwitch('consumer')}>
+                            <TouchableOpacity onPress={() => this.handleSwitch('consumer')}>
                                 <Text style={{color: 'gray', fontWeight: 'bold'}}>Switch to Consumer mode</Text>
                             </TouchableOpacity>
                         </ListItem>
@@ -96,7 +106,7 @@ export default class Pro extends Component {
             );
         }
         else {
-        //    ///////// CONSUMER MODE ///////////
+            //    ///////// CONSUMER MODE ///////////
             return (
                 <View>
                     <LinearGradient
@@ -118,7 +128,7 @@ export default class Pro extends Component {
                         </ListItem>
                         {/*Switch drawer type consumer/pro*/}
                         <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                            <TouchableOpacity onPress={()=>this.handleSwitch('pro')}>
+                            <TouchableOpacity onPress={() => this.handleSwitch('pro')}>
                                 <Text style={{color: 'gray', fontWeight: 'bold'}}>Switch to pro mode</Text>
                             </TouchableOpacity>
                         </ListItem>

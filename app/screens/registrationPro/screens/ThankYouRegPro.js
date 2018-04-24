@@ -31,14 +31,14 @@ export default class ThankYouRegPro extends Component {
                                         this.setModalVisible(!this.state.modalVisible);
                                     }}>
                                     <Image
-                                        source={require('../assets/icons/Exit.png')}
+                                        source={require('../../../../assets/registration/icons/Exit.png')}
                                     />
                                 </TouchableHighlight>
                             </View>
                             <View style={styles.body}>
                                 <Image
                                     style={{marginTop: SW / 15}}
-                                    source={require('../assets/icons/ThankYouMan.png')}
+                                    source={require('../../../../assets/registration/icons/ThankYouMan.png')}
                                 />
                                 <Text style={styles.thanksText}>תודה
                                     על ההרשמה</Text>

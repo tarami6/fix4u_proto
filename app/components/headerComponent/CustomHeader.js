@@ -19,6 +19,7 @@ const CustomHeader = (props) => {
             </TouchableOpacity>
             <Text style={styles.title}>fix4U</Text>
             <TouchableOpacity
+                onPress={() => props.navigation.navigate('Schedule')}
                 style={styles.rightButton}>
                 <Icon name='ios-person-outline' style={styles.rightIcon}/>
             </TouchableOpacity>
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingTop: Platform.OS == 'ios' ? 30 : 10,
         elevation: 5,
-        zIndex:2
+        zIndex:2,
     },
     title: {
         color: '#fff',

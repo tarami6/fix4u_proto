@@ -65,18 +65,9 @@ export default class usersMap extends React.Component {
         });
     }
 
-    // displayAlert(latlng) {
-    //     Alert.alert(
-    //         'Alert Title',
-    //         'My Alert Msg',
-    //         [
-    //             {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-    //             {text: 'Show', onPress: () => Linking.openURL("google.navigation:q=" +   latlng.latitude + "," + latlng.longitude)},
-    //         ]
-    //     )
-    // }
 
     render() {
+
         return (
             <View style={styles.mapContainer}>
                 <MapView
@@ -102,66 +93,6 @@ export default class usersMap extends React.Component {
 
 
                 </MapView>
-                <View style={{position: 'absolute', top: 0}}>
-                    {/*Waiting for confirmation*/}
-
-                        <TouchableOpacity onPress={() => Alert.alert('Will take you to ? soon')} style={{
-                            width: SW,
-                            height: SH / 15,
-                            backgroundColor: 'rgba(244,244,244,1)',
-                            flexDirection: 'row',
-                            elevation: 3,
-                            alignItems: 'center',
-                            justifyContent: 'flex-end',
-
-                        }}>
-                            <View style={{flex: 1}}>
-                                <Text style={{paddingLeft: 20,}}>3</Text>
-                            </View>
-                            <View style={{flex: 1}}>
-                                <Text style={{paddingRight: 20,}}>מחכה לאישור</Text>
-                            </View>
-                        </TouchableOpacity>
-                    {/*Got Job*/}
-                        <TouchableOpacity onPress={() => Alert.alert('Will take you to ? soon')}
-                                          style={{
-                                              width: SW,
-                                              height: SH / 15,
-                                              backgroundColor: 'rgba(255,255,255,1)',
-                                              flexDirection: 'row',
-                                              elevation: 2,
-                                              alignItems: 'center',
-                                              justifyContent: 'flex-end',
-                                          }}>
-                            <View style={{flex: 1}}>
-                                <Text style={{paddingLeft: 20,}}>1</Text>
-                            </View>
-                            <View style={{flex: 1}}>
-                                <Text style={{paddingRight: 20,}}>עבודה חדשה</Text>
-                            </View>
-                        </TouchableOpacity>
-                    {/*Contact request*/}
-
-                    <TouchableOpacity onPress={() => Alert.alert('Will take you to ? soon')}
-                                      style={{
-                                          width: SW,
-                                          height: SH / 15,
-                                          backgroundColor: 'rgba(244,244,244,1)',
-                                          flexDirection: 'row',
-                                          elevation: 1,
-                                          alignItems: 'center',
-                                          justifyContent: 'flex-end',
-                                      }}>
-                        <View style={{flex: 1}}>
-                            <Text style={{paddingLeft: 20,}}>3</Text>
-                        </View>
-                        <View style={{flex: 1}}>
-                            <Text style={{paddingRight: 20,}}>בקשת התחברות</Text>
-                        </View>
-
-                    </TouchableOpacity>
-
-                </View>
             </View>
         )
             ;

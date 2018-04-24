@@ -3,10 +3,14 @@ import LinearViewHeader from '../LinearViewHeader';
 import { SW } from "../../config/styles";
 import {View, Image, TouchableOpacity, Alert} from 'react-native';
 import ArrowIcon from 'react-native-vector-icons/Ionicons';
+import {NavigationActions} from "react-navigation";
+import {inject, observer} from "mobx-react/native";
 
 
-const CustomHeaderAddJobSteps = (props) => {
-
+const CustomHeaderAddJobSteps = inject("navigationStore")(observer((props) => {
+    const {dispatch} = props.navigationStore;
+    // const {navigationState} = props.navigationStore;
+    // const routeName = navigationState.routes[0].routeName
     return (
 
             <View
@@ -17,18 +21,36 @@ const CustomHeaderAddJobSteps = (props) => {
                     justifyContent: 'space-between',
                 }}
             >
-                <TouchableOpacity onPress={()=> Alert.alert('Go back')} style={{justifyContent: 'flex-start', flex: 1}}>
+                <TouchableOpacity onPress={()=> {
+                    dispatch(NavigationActions.back());
+                }}
+                                  style={{justifyContent: 'flex-start', flex: 1}}>
                     <ArrowIcon name="ios-arrow-back" size={35} color="#fff" style={{paddingLeft: SW / 20}}/>
                 </TouchableOpacity>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                     <Image
                         style={{paddingRight: SW / 10}}
-                        source={require('../../screens/addJob/addJobRamiScreens/assets/icons/fixU.png')}
+                        source={require('../../../assets/addJob/icons/fixU.png')}
                     />
                 </View>
                 <View style={{flex: 1}}></View>
             </View>
     )
-}
+}))
 
 export  default CustomHeaderAddJobSteps;
+
+
+// const {dispatch} = this.props.navigationStore;
+// const {navigationState} = this.props.navigationStore;
+// const routeName = navigationState.routes[0].routeName
+//
+// if(routeName === 'ConsumerNavigator' || routeName === 'ProNavigator'){
+//     if(navigationState.routes[0].routes[0].routes[0].index===0){
+//         return false
+//     }
+//     else {
+//         dispatch(NavigationActions.back())
+//         return true;
+//     }
+// }

@@ -18,7 +18,7 @@ const CustomHeader = (props) => {
         <Icon name='ios-menu' style={styles.leftIcon}/>
       </TouchableOpacity>
       <Text style={styles.title}>fix4U</Text>
-      <TouchableOpacity
+      <TouchableOpacity onPress={()=>props.navigation.navigate('Schedule')}
         style={styles.rightButton}>
         <Icon name='ios-person-outline' style={styles.rightIcon}/>
       </TouchableOpacity>

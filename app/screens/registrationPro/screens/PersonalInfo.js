@@ -79,7 +79,7 @@ export default class PersonalInfo extends React.Component {
                             <View>
                                 <Image
                                     style={{marginTop: 0}}
-                                    source={require('../assets/icons/proStepImdicator1.png')}
+                                    source={require('../../../../assets/registration/icons/proStepImdicator1.png')}
                                 />
                             </View>
                             <View style={{marginTop: SH / 30}}>

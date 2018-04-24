@@ -40,18 +40,18 @@ export default class ChooseAddress extends React.Component {
         //     payment_type: 'cash',
         //     service_fee: '100'
         // };
-        this.props.navigation.navigate('ApplyBaseScreen');
-        // if (this.state.place_id) {
-        //     if (this.state.details.address_components[0].long_name.length > 0) {
-        //         Alert.alert('please fill in building number as well');
-        //     }
-        //     else {
-        //         this.getCoordsAndSubmitData(this.state.place_id)
-        //     }
-        // }
-        // else {
-        //     Alert.alert('please choose proper address')
-        // }
+        // this.props.navigation.navigate('ApplyBaseScreen');
+        if (this.state.place_id) {
+            // if (this.state.details.address_components[0].long_name.length > 0) {
+            //     Alert.alert('please fill in building number as well');
+            // }
+            // else {
+                this.getCoordsAndSubmitData(this.state.place_id)
+            // }
+        }
+        else {
+            Alert.alert('please choose proper address')
+        }
 
     }
 
@@ -72,7 +72,7 @@ export default class ChooseAddress extends React.Component {
             headers = {
                 'Accept': `application/json`,
                 'Content-Type': 'application/json',
-                'Authorization': 'JWT ' + this.props.authStore.user.token
+                'Authorization': 'JWT ' + this.props.userDataStore.userData.token
             };
         }
         //in case we do wanna send image
@@ -154,7 +154,7 @@ export default class ChooseAddress extends React.Component {
                         <CustomHeaderAddJobStepsConsumer props={this.props}/>
                         <View style={{flex: 1,   alignItems: 'center'}}>
                             <Image
-                                source={require('../assets/icons/stepIndicatorConsumer3.png')}
+                                source={require('../../../../../assets/addJob/icons/stepIndicatorConsumer3.png')}
                             />
                         </View>
                          <View style={styles.textInputView}>
@@ -194,13 +194,13 @@ export default class ChooseAddress extends React.Component {
                                 <View style={styles.paymentMethodView}>
                                     <View style={styles.iconViewLeft}>
                                         <Image
-                                            source={require('../assets/icons/CashPayIcon.png')}
+                                            source={require('../../../../../assets/addJob/icons/CashPayIcon.png')}
                                         />
                                     </View>
                                     <View style={styles.borderViewMiddle}/>
                                     <View style={styles.iconViewRight}>
                                         <Image
-                                            source={require('../assets/icons/CreadiPayIcon.png')}
+                                            source={require('../../../../../assets/addJob/icons/CreadiPayIcon.png')}
                                         />
                                     </View>
                                 </View>

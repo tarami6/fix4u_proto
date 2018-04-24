@@ -84,7 +84,7 @@ export default class ExplainThePro extends React.Component {
                         {/*step indicator*/}
                         <View>
                             <Image
-                                source={require('../assets/icons/proStepImdicator4.png')}
+                                source={require('../../../../assets/registration/icons/proStepImdicator4.png')}
                             />
                         </View>
                         {/*explain the job title*/}
@@ -127,7 +127,7 @@ export default class ExplainThePro extends React.Component {
                             {this.state.profilePic ?
                                 <Image style={{height: 100, width: 100}} source={this.state.profilePic}/> :
                                 <Image
-                                    source={require('../../addJob/addJobRamiScreens/assets/icons/addPic.png')}
+                                    source={require('../../../../assets/addJob/icons/addPic.png')}
                                 />}
                         </TouchableOpacity>
                     </View>

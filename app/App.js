@@ -13,7 +13,8 @@ import {
     View,
     ToastAndroid,
     PermissionsAndroid,
-    AppState
+    AppState,
+    Alert
 } from 'react-native';
 import ScreensBase from './screens';
 import {Provider} from "mobx-react";
@@ -41,8 +42,10 @@ let addJobStore = new AddJobStore();
 //modals state manage - manages the displays of all of our app modals:
 let modalsStore = new ModalsStore();
 //navigation store
-
 let navigationStore = new NavigationStore()
+//choose Job and all openJobs handling store:
+let openJobsStore = new OpenJobsStore();
+
 
 // Ramistesting
 import ChooseJob from './screens/chooseJob'
@@ -54,8 +57,6 @@ const HomeNavigation = StackNavigator({
     }
 })
 
-//choose Job and all openJobs handling store:
-let openJobsStore = new OpenJobsStore();
 
 
 let appState = '';
@@ -77,7 +78,7 @@ Pushy.setNotificationListener(async (data) => {
                 }, 5000)
             }
         }
-        let notificationTitle = 'GetService';
+        let notificationTitle = 'Fix4u';
         // Attempt to extract the "message" property from the payload: {"message":"Hello World!"}
         let notificationText = data.message || 'Test notification';
         // Display basic system notification
@@ -100,6 +101,9 @@ let handleNotificationData = (type, payload)=> {
     switch(type){
         case 'post_update':
             userDataStore.updatePost(payload)
+        case 'post_open':
+            console.warn('add job:', payload)
+            openJobsStore.addJob(payload)
 
     }
     console.warn('handle not:', type, payload);

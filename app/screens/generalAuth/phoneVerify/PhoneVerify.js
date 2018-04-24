@@ -33,6 +33,7 @@ export default class PhoneVerify extends Component {
         fetcher(phoneVerifyRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
     }
 
+
     loginSuccess(res){
         let userType = res.user.services? 'pro': 'consumer';
         let navigationEnd = res.user.services? 'ProNavigator': 'ConsumerNavigator';

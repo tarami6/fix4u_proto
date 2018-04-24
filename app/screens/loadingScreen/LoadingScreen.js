@@ -1,5 +1,7 @@
-// we check if the user have an open job or not and navigate hime through the addJob navigator accordingly
-//while displaying "LoadingScreen"
+/**
+ * AddJob loading screen
+ * here we check if the user have an open job or not and navigate him through the addJob navigator accordingly while displaying "LoadingScreen"
+ **/
 
 
 import {inject, observer} from "mobx-react/native";
@@ -24,8 +26,16 @@ export default class LoadingScreen extends Component {
 
     successCallback(res){
         if(res.length>0) {
-            // console.warn('succcess cb at addJob:', res)
-            this.props.navigation.navigate('ApplyBaseScreen');
+            // res is the openPost
+            // console.warn('succcess cb at addJob:', res[0].status)
+            //case job is open
+            if(res[0].status==='open') {
+                this.props.navigation.navigate('ApplyBaseScreen');
+            }
+            //job is no open so home is AddJob
+            else {
+                this.props.navigation.navigate('ChooseService');
+            }
         }
         else{
             this.props.navigation.navigate('ChooseService');
