@@ -100,9 +100,14 @@ Pushy.setNotificationListener(async (data) => {
 let handleNotificationData = (type, payload)=> {
     switch(type){
         case 'post_update':
+            if(payload.id===this.props.userDataStore.focusedJob.id){
+                userDataStore.focusJob(payload);
+            }
             userDataStore.updatePost(payload)
-        case 'post_open':
-            openJobsStore.addJob(payload)
+        case 'post_open': // a new post has been open
+            openJobsStore.addJob(payload);
+        case 'post_add': // only for pro, new post for pro
+            userDataStore.addProPost(payload)
 
     }
     console.warn('handle not:', type, payload);

@@ -1,3 +1,9 @@
+/**
+ * most important store!
+ * notes:
+ * "post" = "job"
+ **/
+
 import {observable, action} from 'mobx'
 
 
@@ -59,7 +65,7 @@ export default class UserDataStore {
         this.userData.user.user_posts.push(job)
     }
 
-    @action updatePost(post) {
+    @action updatePost(post: Object) {
         let userPosts = this.userData.user.user_posts;
         for (let i = 0; i < userPosts.length; i++) {
             if (userPosts[i].id === post.id) {
@@ -70,6 +76,9 @@ export default class UserDataStore {
                 this.focusJob(post)
             }
         }
+    }
+    @action addProPost(post: Object){
+        this.userData.user.pro_posts.push(post)
     }
 }
 //AUTH:

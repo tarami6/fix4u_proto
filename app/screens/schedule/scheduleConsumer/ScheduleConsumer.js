@@ -30,7 +30,6 @@ export default class ScheduleConsumer extends Component {
 
 
     render() {
-        console.warn('ywp', this.props.userDataStore.userData.user.user_posts);
         return (
             <View>
                 <LinierView style={{height: HH}}>
