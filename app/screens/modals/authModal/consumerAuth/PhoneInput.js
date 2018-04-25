@@ -24,7 +24,6 @@ export default class PhoneInput extends Component {
     }
 
     successCallback(response) {
-        console.warn('success calback at PhoneInput')
         if (response['success']) {
             this.props.authStore.updateUser({phone_number: this.state.text});
             this.props.authStore.updateAuthStep('verify_code')

@@ -54,7 +54,11 @@ export default class UserDataStore {
     }
 
 
-    // notification handling:
+    // notification and upadating user handling:
+    @action addJob(job){
+        this.userData.user.user_posts.push(job)
+    }
+
     @action updatePost(post) {
         let userPosts = this.userData.user.user_posts;
         for (let i = 0; i < userPosts.length; i++) {

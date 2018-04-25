@@ -118,7 +118,6 @@ export default class AuthStore {
                         })
                             .then(response => response.json())
                             .then(responseJson => {
-                                console.warn('finish fetch');
                                 this.tokenFetching = false;
                                 let date = new Date();
                                 this.lastTokenRefresh = date;
@@ -126,7 +125,6 @@ export default class AuthStore {
                                 this.user.token = responseJson.token;
                             })
                             .catch(error => {
-                                console.warn('finish fetch');
                                 this.tokenFetching = false
                                 if (this._mounted) {
                                     console.warn('here I need to relogin');

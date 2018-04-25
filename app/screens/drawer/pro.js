@@ -54,7 +54,8 @@ export default class Pro extends Component {
     }
 
     errorLogout(err) {
-        console.warn('', err)
+        console.warn('logout error:', err);
+        console.log('logout error:', err);
         Alert.alert('there was a problem with the internet connection')
     }
 
@@ -67,7 +68,7 @@ export default class Pro extends Component {
                         colors={['#fd8824', '#fdb82c']}
                         start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
                         style={styles.container}>
-                        <Navbar/>
+                        <Navbar name={this.props.userDataStore.userData.user.name}/>
                     </LinearGradient>
                     <List>
                         <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
@@ -113,7 +114,7 @@ export default class Pro extends Component {
                         colors={['#fd8824', '#fdb82c']}
                         start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
                         style={styles.container}>
-                        <Navbar/>
+                        <Navbar name={this.props.userDataStore.userData.user.name}/>
                     </LinearGradient>
                     <List>
                         <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
@@ -154,12 +155,12 @@ export default class Pro extends Component {
     }
 }
 
-const Navbar = () => {
+const Navbar = (props) => {
     return (
         <View style={{width, height: Platform.OS == 'ios' ? 150 : 135,}}>
             <Icon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
             <View style={{flexDirection: 'row', position: 'absolute', bottom: 20, right: 20, alignItems: 'center'}}>
-                <Text style={{color: '#fff', marginRight: 20}}>asdasd</Text>
+                <Text style={{color: '#fff', marginRight: 20}}>{props.name}</Text>
                 <Image
                     source={require('../../../assets/drawer/icon-user.png')}
                     style={{height: 60, width: 60}}/>

@@ -35,17 +35,14 @@ export default class VerifyCodeInput extends Component {
             for (let error in response) {
                 console.log('Code Input error', response[error]);
                 if(typeof response[error] !== 'string'){
-                    console.warn('yes 0')
                     errorMessage = response[error][0]
                 }
                 else {
-                    console.warn('no 0')
                     errorMessage = response[error]
                 }
                 Alert.alert('errorMessage in VerifyCodeInput',errorMessage);
             }
         }
-        console.warn('success callback');
     }
 
     errorCallback(error){

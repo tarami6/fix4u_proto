@@ -102,7 +102,6 @@ let handleNotificationData = (type, payload)=> {
         case 'post_update':
             userDataStore.updatePost(payload)
         case 'post_open':
-            console.warn('add job:', payload)
             openJobsStore.addJob(payload)
 
     }

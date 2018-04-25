@@ -5,11 +5,7 @@ import {SH, SW, colors} from "../../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 import {submitButton} from "../../../../components/modalSubmitButton";
 import {fetcher} from "../../../../generalFunc/fetcher";
-const FBSDK = require('react-native-fbsdk');
-const {
-    LoginButton,
-    AccessToken
-} = FBSDK;
+
 
 @inject('userDataStore')
 @inject("authStore")
@@ -36,7 +32,6 @@ export default class Login extends Component {
         this.props.authStore.setShowAuthModal(false);
         this.props.authStore.updateUser({token: response.token});
         this.props.userDataStore.setUserData(response);
-        console.warn('success callback');
         // console.log('yoo', response)
     }
 

@@ -14,11 +14,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Circle from '../../components/circle'
 import {inject, observer} from "mobx-react/native";
 
-const FBSDK = require('react-native-fbsdk');
-const {
-    LoginButton,
-    AccessToken
-} = FBSDK;
+
 
 
 const {width, height} = Dimensions.get('window')

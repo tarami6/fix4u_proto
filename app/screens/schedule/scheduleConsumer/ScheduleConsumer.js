@@ -23,13 +23,14 @@ export default class ScheduleConsumer extends Component {
     chooseJob(job){
         this.props.userDataStore.focusJob(job);
         if(job.status==='open'){
-            this.props.navigation.navigate('ConsumerNavigator');
+            this.props.navigation.navigate('AddJob');
         }
         this.props.navigation.navigate('ActiveJob');
     }
 
 
     render() {
+        console.warn('ywp', this.props.userDataStore.userData.user.user_posts);
         return (
             <View>
                 <LinierView style={{height: HH}}>
