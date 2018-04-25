@@ -35,8 +35,7 @@ export default class InProgressConsumer extends Component {
                     <TouchableOpacity onPress={this.startJob.bind(this)}>
                         <View style={styles.jobContainer}>
                             <Text style={{textAlign: 'center', justifyContent: 'center', alignItems: 'center'}}>
-                                as a consumer you are here only to look at this text,
-                                and wait for the pro to start the job
+                                job is in progress
                             </Text>
                         </View>
                     </TouchableOpacity>

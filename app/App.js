@@ -6,16 +6,7 @@
  */
 
 import React, {Component} from 'react';
-import {
-    Platform,
-    StyleSheet,
-    Text,
-    View,
-    ToastAndroid,
-    PermissionsAndroid,
-    AppState,
-    Alert
-} from 'react-native';
+import {AppState, PermissionsAndroid, ToastAndroid} from 'react-native';
 import ScreensBase from './screens';
 import {Provider} from "mobx-react";
 import AuthStore from './state-manager/mobx/authStore';
@@ -25,16 +16,18 @@ import ProAuthStore from "./state-manager/mobx/proAuthStore";
 import ModalsStore from './state-manager/mobx/modalsStore'
 import NavigationStore from "./state-manager/mobx/navigationStore";
 
-import {StackNavigator, DrawerNavigator} from 'react-navigation'
+import {StackNavigator} from 'react-navigation';
 
 import Pushy from 'pushy-react-native';
 
 import OpenJobsStore from './state-manager/mobx/openJobsStore';
+// Ramistesting
+import ChooseJob from './screens/chooseJob';
 
 //the usual consumer costumer auth process happens here
 let authStore = new AuthStore();
 //pro Auth state manager:
-let proAuthStore = new ProAuthStore()
+let proAuthStore = new ProAuthStore();
 //CRUD for the response from user authentication
 let userDataStore = new UserDataStore();
 // addJob state manager for the process
@@ -42,21 +35,16 @@ let addJobStore = new AddJobStore();
 //modals state manage - manages the displays of all of our app modals:
 let modalsStore = new ModalsStore();
 //navigation store
-let navigationStore = new NavigationStore()
+let navigationStore = new NavigationStore();
 //choose Job and all openJobs handling store:
 let openJobsStore = new OpenJobsStore();
 
-
-// Ramistesting
-import ChooseJob from './screens/chooseJob'
-import ChooseAddress from './screens/addJob/addJobRamiScreens/screens/ChooseAddress'
 
 const HomeNavigation = StackNavigator({
     Home: {
         screen: ChooseJob
     }
 })
-
 
 
 let appState = '';
@@ -97,17 +85,29 @@ Pushy.setNotificationListener(async (data) => {
     }
 );
 
-let handleNotificationData = (type, payload)=> {
-    switch(type){
-        case 'post_update':
-            if(payload.id===this.props.userDataStore.focusedJob.id){
+let handleNotificationData = (type, payload) => {
+    switch (type) {
+        case 'active_post_update':
+            if (payload.id === this.props.userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
             }
-            userDataStore.updatePost(payload)
+            userDataStore.updatePost(payload);
+            break;
+
+        case 'post_update': // when a consumer get post apply
+            if (payload.id === this.props.userDataStore.focusedJob.id) {
+                userDataStore.focusJob(payload);
+            }
+            userDataStore.updatePost(payload);
+            break;
         case 'post_open': // a new post has been open
             openJobsStore.addJob(payload);
+            break;
         case 'post_add': // only for pro, new post for pro
-            userDataStore.addProPost(payload)
+            userDataStore.addProPost(payload);
+            break;
+        default:
+            console.warn("notification wasn't handled:", type);
 
     }
     console.warn('handle not:', type, payload);
@@ -118,7 +118,7 @@ export default class App extends Component<Props> {
     componentDidMount() {
         //get the app state - background/foreground/active
         AppState.addEventListener('change', state => {
-                console.log('AppState changed to', state)
+                console.log('AppState changed to', state);
                 appState = state;
             }
         );
@@ -138,6 +138,7 @@ export default class App extends Component<Props> {
             }
         });
     }
+
     render() {
         return (
             <Provider navigationStore={navigationStore} authStore={authStore} addJobStore={addJobStore}
