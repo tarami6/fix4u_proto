@@ -88,14 +88,14 @@ Pushy.setNotificationListener(async (data) => {
 let handleNotificationData = (type, payload) => {
     switch (type) {
         case 'active_post_update':
-            if (payload.id === this.props.userDataStore.focusedJob.id) {
+            if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
             }
             userDataStore.updatePost(payload);
             break;
 
         case 'post_update': // when a consumer get post apply
-            if (payload.id === this.props.userDataStore.focusedJob.id) {
+            if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
             }
             userDataStore.updatePost(payload);
