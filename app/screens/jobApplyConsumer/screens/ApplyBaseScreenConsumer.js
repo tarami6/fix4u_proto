@@ -82,6 +82,7 @@ export default class ApplyBaseScreen extends React.Component {
     }
     successCallback(res){
         console.warn(res)
+        this.props.userDataStore.updatePost(res);
         this.props.userDataStore.focusJob(res);
         this.props.navigation.navigate('ConsumerNavigator');
     }

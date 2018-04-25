@@ -27,6 +27,9 @@ let usersPlaces = [
     }
 ]
 
+//we give the app time to fetch jobs before loading the map so we will have all markers on it - comment continue in successCallback
+let loadEmptyMap = false
+
 
 @inject("userDataStore")
 @inject('openJobsStore')
@@ -47,7 +50,10 @@ export default class ChooseJob extends Component {
     }
 
     successCallback(res) {
-        // console.log('got:9999', res);
+        // if there are no open jobs we show empty map, look at if statement in render
+        if(res.length===0){
+            loadEmptyMap=true;
+        }
         this.props.openJobsStore.setOpenJobsList(res);
     }
 
@@ -65,7 +71,7 @@ export default class ChooseJob extends Component {
 
     render() {
         let openJobsList = this.props.openJobsStore.openJobsList
-        if (openJobsList && openJobsList.length > 0) {
+        if (openJobsList && openJobsList.length > 0 || loadEmptyMap) {
             return (
                 <View style={{flex: 1}}>
                     <View style={{elevation: 5}}>
