@@ -1,7 +1,6 @@
 import {inject, observer} from "mobx-react/index";
 import React, {Component} from "react";
-import {View, Text, Alert, TouchableOpacity} from 'react-native';
-import {StackNavigator} from "react-navigation";
+import {Alert, Text, TouchableOpacity, View} from 'react-native';
 //header stuff:
 import Header from '../../components/headerComponent'
 //fetch allJobs
@@ -9,7 +8,7 @@ import {fetcher} from "../../generalFunc/fetcher";
 import {getOpenPostsRoute} from "../../config/apiRoutes";
 //google maps:
 import MapComponent from '../../components/mapComponent/MarkersMap'
-import {SH, SW, HH} from "../../config/styles";
+import {HH, SH, SW} from "../../config/styles";
 
 //dummyData:
 let usersPlaces = [
@@ -51,8 +50,9 @@ export default class ChooseJob extends Component {
 
     successCallback(res) {
         // if there are no open jobs we show empty map, look at if statement in render
-        if(res.length===0){
-            loadEmptyMap=true;
+        // if there are no open jobs we show empty map, look at if statement in render3
+        if (res.length === 0) {
+            loadEmptyMap = true;
         }
         this.props.openJobsStore.setOpenJobsList(res);
     }
@@ -83,6 +83,7 @@ export default class ChooseJob extends Component {
                     <View style={{position: 'absolute', top: HH}}>
                         {/*Waiting for confirmation*/}
 
+                        {this.props.userDataStore.sentApplies.length > 0 &&
                         <TouchableOpacity onPress={() => Alert.alert('Will take you to ? soon')} style={{
                             width: SW,
                             height: SH / 15,
@@ -94,50 +95,53 @@ export default class ChooseJob extends Component {
 
                         }}>
                             <View style={{flex: 1}}>
-                                <Text style={{paddingLeft: 20,}}>3</Text>
+                                <Text style={{paddingLeft: 20,}}>{this.props.userDataStore.sentApplies.length}</Text>
                             </View>
                             <View style={{flex: 1}}>
                                 <Text style={{paddingRight: 20,}}>מחכה לאישור</Text>
                             </View>
                         </TouchableOpacity>
+                        }
                         {/*Got Job*/}
-                        <TouchableOpacity onPress={() => Alert.alert(`there are ${this.props.openJobsStore.openJobsList.length} Jobs On map`)}
-                                          style={{
-                                              width: SW,
-                                              height: SH / 15,
-                                              backgroundColor: 'rgba(255,255,255,1)',
-                                              flexDirection: 'row',
-                                              elevation: 2,
-                                              alignItems: 'center',
-                                              justifyContent: 'flex-end',
-                                          }}>
+                        {this.props.userDataStore.focusedJob.id &&
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.navigate('ActiveJob')}
+                            style={{
+                                width: SW,
+                                height: SH / 15,
+                                backgroundColor: 'rgba(255,255,255,1)',
+                                flexDirection: 'row',
+                                elevation: 2,
+                                alignItems: 'center',
+                                justifyContent: 'flex-end',
+                            }}>
                             <View style={{flex: 1}}>
                                 <Text style={{paddingLeft: 20,}}>1</Text>
                             </View>
                             <View style={{flex: 1}}>
                                 <Text style={{paddingRight: 20,}}>עבודה חדשה</Text>
                             </View>
-                        </TouchableOpacity>
+                        </TouchableOpacity>}
                         {/*Contact request*/}
 
-                        <TouchableOpacity onPress={() => Alert.alert('Will take you to ? soon')}
-                                          style={{
-                                              width: SW,
-                                              height: SH / 15,
-                                              backgroundColor: 'rgba(244,244,244,1)',
-                                              flexDirection: 'row',
-                                              elevation: 1,
-                                              alignItems: 'center',
-                                              justifyContent: 'flex-end',
-                                          }}>
-                            <View style={{flex: 1}}>
-                                <Text style={{paddingLeft: 20,}}>3</Text>
-                            </View>
-                            <View style={{flex: 1}}>
-                                <Text style={{paddingRight: 20,}}>בקשת התחברות</Text>
-                            </View>
+                        {/*<TouchableOpacity onPress={() => Alert.alert('Will take you to ? soon')}*/}
+                                          {/*style={{*/}
+                                              {/*width: SW,*/}
+                                              {/*height: SH / 15,*/}
+                                              {/*backgroundColor: 'rgba(244,244,244,1)',*/}
+                                              {/*flexDirection: 'row',*/}
+                                              {/*elevation: 1,*/}
+                                              {/*alignItems: 'center',*/}
+                                              {/*justifyContent: 'flex-end',*/}
+                                          {/*}}>*/}
+                            {/*<View style={{flex: 1}}>*/}
+                                {/*<Text style={{paddingLeft: 20,}}>3</Text>*/}
+                            {/*</View>*/}
+                            {/*<View style={{flex: 1}}>*/}
+                                {/*<Text style={{paddingRight: 20,}}>בקשת התחברות</Text>*/}
+                            {/*</View>*/}
 
-                        </TouchableOpacity>
+                        {/*</TouchableOpacity>*/}
 
                     </View>
                 </View>

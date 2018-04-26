@@ -20,6 +20,7 @@ export default class LoadingScreen extends Component {
     }
 
     componentWillMount(){
+        this.props.userDataStore.findAndFocusConsumerJob();
     //    check for open posts made by the user
         fetcher(checkForOpenPost, 'GET', this.successCallback.bind(this), this.errorCallback.bind(this), {token: this.props.userDataStore.userData.token})
     }

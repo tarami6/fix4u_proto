@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text} from 'react-native';
+import {Text, View} from 'react-native';
 //mobx
 import {inject, observer} from "mobx-react/index";
 //on the way
@@ -27,15 +27,12 @@ export default class ActiveJob extends Component {
 
 
     render() {
-        console.warn('sttttat:', this.props.userDataStore.focusedJob.status);
         switch (this.props.userDataStore.focusedJob.status) {
             case 'on_the_way':
                 //here we check user type and bring back the relevant stage of active job
                 let OnTheWay = this.props.userDataStore.currentUserType === 'pro' ? OnTheWayPro : OnTheWayConsumer;
                 return (
-                    <View>
-                        <OnTheWay/>
-                    </View>
+                    <OnTheWay/>
                 );
             case 'in_progress':
                 let InProgress = this.props.userDataStore.currentUserType === 'pro' ? InProgressPro : InProgressConsumer;
@@ -45,18 +42,14 @@ export default class ActiveJob extends Component {
                     </View>
                 );
             case 'pro_payment':
-                let ProPayment = this.props.userDataStore.currentUserType === 'pro' ? ProPaymentPro: ProPaymentConsumer
+                let ProPayment = this.props.userDataStore.currentUserType === 'pro' ? ProPaymentPro : ProPaymentConsumer
                 return (
-                    <View>
-                        <ProPayment/>
-                    </View>
+                    <ProPayment/>
                 );
             case 'consumer_payment':
-                let ConsumerPayment = this.props.userDataStore.currentUserType === 'pro' ? ConsumerPaymentPro: ConsumerPaymentConsumer
+                let ConsumerPayment = this.props.userDataStore.currentUserType === 'pro' ? ConsumerPaymentPro : ConsumerPaymentConsumer
                 return (
-                    <View>
-                        <ConsumerPayment />
-                    </View>
+                    <ConsumerPayment/>
                 );
             case 'consumer_review':
                 return (

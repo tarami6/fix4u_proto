@@ -72,8 +72,8 @@ export default class usersMap extends React.Component {
             <View style={styles.mapContainer}>
                 <MapView
                     initialRegion={{
-                        latitude: 32.0853,
-                        longitude: 34.781768,
+                        latitude: 32.7917735,
+                        longitude: 34.9829165,
                         latitudeDelta: 0.0622 * 0.2,
                         longitudeDelta: 0.0421 * 0.2
                     }}

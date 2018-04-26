@@ -1,13 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import CustomHeaderAddJob from '../../../components/headers/CustomHeaderAddJob';
-import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHeaderConsumer';
-import MapComponent from '../../../components/mapComponent'
-import CustomHeader from "../../../components/headerComponent/CustomHeader";
-import {SW, SH} from "../../../config/styles";
-import {inject, observer} from "mobx-react/native";
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import Header from '../../../components/headers/Header';
+import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHeaderConsumer'
+import MapComponent from '../../../components/mapComponent/MapComponent'
 import {fetcher} from "../../../generalFunc/fetcher";
-import {chooseApplyRoute} from "../../../config/apiRoutes";
+import {SH, SW} from "../../../config/styles";
+import {inject, observer} from "mobx-react/native";
 
 const data = [
     {
@@ -25,28 +23,35 @@ const data = [
         time: 'היום 16:00'
     },
 ]
-// const job = {
-//  icon :   require('../../../../assets/icons/serviceElectrician.png'),
-//  service : 'חשמלאי' ,
-//  appointmentTime:   'היום "ו" 5 בשעה 14:00' ,
-// }
+const job = {
+    icon: require(' ../../../../assets/icons/serviceElectrician.png'),
+    service: 'חשמלאי',
+    appointmentTime: 'היום, 14:00-16:00',
+}
 
-@inject("userDataStore")
+let returnInHeb = (word) => {
+    // console.warn('word', word)
+    switch (word) {
+        case 'Cleaner':
+            return 'מנקה';
+
+    }
+
+}
+
+@inject('userDataStore')
+@inject("proAuthStore")
 @observer
 export default class ApplyBaseScreen extends React.Component {
     static navigationOptions = {
-        header: (/* Your custom header */
-            <CustomHeader props={this.props}/>
-        ),
+        header: null,
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            auctionTime: 60,
-            lat: 32.786842906668895,
-            lon: 34.972372709973115,
-        };
+            auctionTime: 60
+        }
     }
 
     componentDidMount() {
@@ -57,48 +62,54 @@ export default class ApplyBaseScreen extends React.Component {
             }, 1000);
         }
 
-        this.props.userDataStore.findAndFocusConsumerJob();
-        console.warn('user current job: ', this.props.userDataStore.focusedConsumerJob.post_applies);
-
     }
 
-    choosePro(proObj) {
-        console.warn(this.props.userDataStore.focusedConsumerJob.id, proObj.id);
-        let route = chooseApplyRoute(this.props.userDataStore.focusedConsumerJob.id);
-        console.warn('chose:', proObj);
-        let sendObj = {
-            user_pro: proObj.user_pro.id,
-            status: 'on_the_way'
-        };
-        let headers = {
-            'Accept': `application/json`,
-            'content-type': 'application/json',
-            'Authorization': 'JWT ' + this.props.userDataStore.userData.token
-        };
+    // //Choose pro funcs:
+    // choosePro(proObj) {
+    //     console.warn(this.props.userDataStore.focusedConsumerJob.id, proObj.id);
+    //     let route = chooseApplyRoute(this.props.userDataStore.focusedConsumerJob.id);
+    //     console.warn('chose:', proObj);
+    //     let sendObj = {
+    //         user_pro: proObj.user_pro.id,
+    //         status: 'on_the_way'
+    //     };
+    //     let headers = {
+    //         'Accept': `application/json`,
+    //         'content-type': 'application/json',
+    //         'Authorization': 'JWT ' + this.props.userDataStore.userData.token
+    //     };
+    //
+    //     console.log('fetching::: ', route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers);
+    //     fetcher(route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers)
+    //
+    // }
+    //
+    // successCallback(res) {
+    //     console.warn(res)
+    //     this.props.userDataStore.updatePost(res);
+    //     this.props.userDataStore.focusJob(res);
+    //     this.props.navigation.navigate('ConsumerNavigator');
+    // }
+    //
+    // errorCallback(err) {
+    //     console.warn(err)
+    //     console.log(err);
+    //
+    // }
 
-        console.log('fetching::: ', route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers);
-        fetcher(route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers)
-
-    }
-    successCallback(res){
-        console.warn(res)
-        this.props.userDataStore.updatePost(res);
-        this.props.userDataStore.focusJob(res);
-        this.props.navigation.navigate('ConsumerNavigator');
-    }
-
-    errorCallback(err){
-        console.warn(err)
-        console.log(err);
-
+    showPro(pro){
+        this.props.userDataStore.showPro(pro);
+        this.props.navigation.navigate('ChoosePro')
     }
 
     render() {
-        let job = this.props.userDataStore.focusedConsumerJob
+        let job2 = this.props.userDataStore.focusedConsumerJob;
+        // let service =
         return (
             <View style={{flex: 1}}>
-                <View style={{flex: 0.14, backgroundColor: 'red'}}>
+                <View style={{flex: 0.23, backgroundColor: 'red'}}>
                     <LinearViewBelowHeaderConsumer>
+                        <Header head={'consumerHome'}  {...this.props} />
                         <View style={{flex: 1, flexDirection: 'row'}}>
                             {/*Time counter*/}
                             <View style={{flex: 0.6, justifyContent: 'center', alignItems: 'center'}}>
@@ -112,9 +123,17 @@ export default class ApplyBaseScreen extends React.Component {
                             </View>
                             {/*Job Info*/}
                             <View style={{flex: 1, justifyContent: 'center', paddingRight: SW / 20}}>
-                                <Text style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>job service</Text>
-                                <Text style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>job appointment time
-                                    14:00</Text>
+                                <Text style={{
+                                    color: '#fff',
+                                    fontSize: 16,
+                                    fontWeight: 'bold'
+                                }}>{returnInHeb(job2.service)}</Text>
+                                <Text style={{
+                                    color: '#fff',
+                                    fontSize: 16,
+                                    fontWeight: 'bold'
+                                }}>{job2.appointment_time_start.slice(0, 5) + '-' + job2.appointment_time_end.slice(0, 5)}
+                                </Text>
                             </View>
                             {/*Border*/}
                             <View style={{
@@ -127,32 +146,28 @@ export default class ApplyBaseScreen extends React.Component {
                             {/*Service Icon*/}
                             <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
                                 <Image
-                                    source={require('../../../../assets/icons/serviceElectrician.png')}
+                                    style={{width: 50, height: 50}}
+                                    source={{uri: job2.image_thumb}}
                                 />
                             </View>
                         </View>
                     </LinearViewBelowHeaderConsumer>
                 </View>
                 <View style={{flex: 1}}>
-
-
-                    <View>
-                        <MapComponent
-                            lat={this.state.lat}
-                            lon={this.state.lon}
-                            userLocation={{
-                                latitude: this.state.lat,
-                                longitude: this.state.lon,
-                                latitudeDelta: 0.0622 * 0.1,
-                                longitudeDelta: 0.0421 * 0.1
-                            }}/>
-                    </View>
+                    <MapComponent style={styles.map}
+                                  lat={this.state.lat}
+                                  lon={this.state.lon}
+                                  userLocation={{
+                                      latitude: 32.7917735,
+                                      longitude: 34.9829165,
+                                      latitudeDelta: 0.0622 * 0.1,
+                                      longitudeDelta: 0.0421 * 0.1
+                                  }}/>
                     {/*       applies.MAP         */}
-
-                    {job.post_applies && job.post_applies.map((item, index) => {
+                    {job2.post_applies && job2.post_applies.map((item, index) => {
                         return (
                             <TouchableOpacity
-                                onPress={()=>this.choosePro(item)}
+                                onPress={() => this.showPro(item)}
                                 key={index}
                                 style={{
                                     width: SW,
@@ -164,34 +179,38 @@ export default class ApplyBaseScreen extends React.Component {
                                     borderBottomWidth: 1,
                                     borderBottomColor: '#7e7e7e'
                                 }}>
-
                                 <View style={{
                                     flex: 0.5,
                                     justifyContent: 'center',
                                     alignItems: 'flex-start',
                                     marginLeft: SW / 20
                                 }}>
-                                    <Text style={{zIndex: 3, fontSize: 16, color: '#000'}}>name </Text>
-                                    <Text style={{zIndex: 3, fontSize: 16}}>price </Text>
+                                    <Text
+                                        style={{zIndex: 3, fontSize: 16, color: '#000'}}>{item.time.slice(0, 5)} </Text>
+                                    <Text style={{zIndex: 3, fontSize: 16}}>{item.service_fee} </Text>
                                 </View>
                                 <View style={{flex: 1, justifyContent: 'center'}}>
-                                    <Text style={{zIndex: 3, fontSize: 16, color: '#000'}}>name </Text>
-                                    <Text style={{zIndex: 3, fontSize: 14}}>service </Text>
+                                    <Text style={{zIndex: 3, fontSize: 16, color: '#000'}}>{item.user_pro.name} </Text>
+                                    <Text style={{zIndex: 3, fontSize: 14}}>{item.services} </Text>
                                 </View>
                                 <View style={{flex: 0.4, alignItems: 'center', justifyContent: 'center'}}>
                                     {item.pic ? <Image
                                         style={{width: 50, height: 50, borderRadius: 100}}
-                                        source={item.pic}
+                                        source={item.user_pro.profile_pic_thumb}
                                     /> : <View/>}
 
                                 </View>
+
+
                             </TouchableOpacity>
-                            // </TouchableOpacity>
                         )
                     })}
+
+
                 </View>
 
             </View>
+
         )
     }
 }

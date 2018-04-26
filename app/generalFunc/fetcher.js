@@ -14,6 +14,9 @@ export const
             'content-type': 'application/json',
             'Authorization': 'JWT ' + body.token
         };
+        if(method==='GET'){
+            body = {};
+        }
     }
     else if(body.type){  //in case the body should be sent as formData
        sendBody  = body.payload

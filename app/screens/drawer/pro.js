@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, {Component} from 'react';
-import {AsyncStorage, Alert, Dimensions, Image, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Alert, AsyncStorage, Dimensions, Image, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Icon, List, ListItem, Text} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 import Circle from '../../components/circle'
@@ -37,7 +37,7 @@ export default class Pro extends Component {
     }
 
     logout() {
-        fetcher(logOutRoute, 'PATCH', this.successLogout.bind(this), this.errorLogout.bind(this),{push_token: ""}, {token: this.props.userDataStore.userData.token})
+        fetcher(logOutRoute, 'PATCH', this.successLogout.bind(this), this.errorLogout.bind(this), {push_token: ""}, {token: this.props.userDataStore.userData.token})
         // console.warn(this.props.navigation);
         // AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
         // ));
@@ -68,7 +68,8 @@ export default class Pro extends Component {
                         colors={['#fd8824', '#fdb82c']}
                         start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
                         style={styles.container}>
-                        <Navbar name={this.props.userDataStore.userData.user.name}/>
+                        <Navbar name={this.props.userDataStore.userData.user.name}
+                                navigation={this.props.navigation}/>
                     </LinearGradient>
                     <List>
                         <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
@@ -114,7 +115,8 @@ export default class Pro extends Component {
                         colors={['#fd8824', '#fdb82c']}
                         start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
                         style={styles.container}>
-                        <Navbar name={this.props.userDataStore.userData.user.name}/>
+                        <Navbar name={this.props.userDataStore.userData.user.name}
+                                navigation={this.props.navigation}/>
                     </LinearGradient>
                     <List>
                         <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
@@ -158,7 +160,9 @@ export default class Pro extends Component {
 const Navbar = (props) => {
     return (
         <View style={{width, height: Platform.OS == 'ios' ? 150 : 135,}}>
-            <Icon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
+            <TouchableOpacity onPress={() => props.navigation.navigate('DrawerClose')}>
+                <Icon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
+            </TouchableOpacity>
             <View style={{flexDirection: 'row', position: 'absolute', bottom: 20, right: 20, alignItems: 'center'}}>
                 <Text style={{color: '#fff', marginRight: 20}}>{props.name}</Text>
                 <Image

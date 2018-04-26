@@ -7,6 +7,7 @@ import CustomHeaderAddJob from '../components/CustomHeaderRegPro'
 import {fetcher} from "../../../generalFunc/fetcher";
 import ImagePicker from "react-native-image-picker";
 import {inject, observer} from "mobx-react/native";
+import Header from "../../../components/headers/Header";
 
 var options = {
     title: 'Upload profile picture',
@@ -21,9 +22,7 @@ var options = {
 @observer
 export default class ExplainThePro extends React.Component {
     static navigationOptions = {
-        header: (/* Your custom header */
-            <CustomHeaderAddJob/>
-        ),
+        header: null
 
 
     };
@@ -81,6 +80,7 @@ export default class ExplainThePro extends React.Component {
                 {/*Linear*/}
                 <View style={styles.linear}>
                     <LinearViewBelowHeaderConsumer>
+                        <Header head={'AddJob'} previousPage={'ChoosingService'} props={this.props} />
                         {/*step indicator*/}
                         <View>
                             <Image
@@ -147,7 +147,6 @@ export default class ExplainThePro extends React.Component {
         );
     }
 }
-
 let styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -172,7 +171,7 @@ let styles = StyleSheet.create({
     },
     textInputView: {
         position: 'absolute',
-        top: SW / 6,
+        top: SW / 3,
         alignSelf: 'center'
     },
     textInput: {

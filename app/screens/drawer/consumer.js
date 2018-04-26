@@ -43,7 +43,7 @@ export default class Consumer extends Component {
                     colors={['#fd8824', '#fdb82c']}
                     start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
                     style={styles.container}>
-                    <Navbar/>
+                    <Navbar navigation={this.props.navigation}/>
                 </LinearGradient>
                 <List>
                     <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
@@ -79,10 +79,12 @@ export default class Consumer extends Component {
     }
 }
 
-const Navbar = () => {
+const Navbar = (props) => {
     return (
         <View style={{width, height: Platform.OS == 'ios' ? 150 : 135,}}>
+            <TouchableOpacity onPress={()=>props.navigation.navigate('DrawerClose')}>
             <Icon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
+            </TouchableOpacity>
             <View style={{flexDirection: 'row', position: 'absolute', bottom: 20, right: 20, alignItems: 'center'}}>
                 <Text style={{color: '#fff', marginRight: 20}}>asdasd</Text>
                 <Image

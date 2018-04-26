@@ -8,14 +8,14 @@ import {inject, observer} from "mobx-react/native";
 import AutoComplete from '../../../components/autoComplete'
 import {Keys} from "../../../config/keys";
 import  MapComponent from '../../../components/mapComponent'
+import Header from '../../../components/headers/Header'
+
 
 @inject("proAuthStore")
 @observer
 export default class AddressInfo extends React.Component {
     static navigationOptions = {
-        header: ( /* Your custom header */
-            <CustomHeaderRegPro/>
-        ),
+        header: null,
     };
 
     constructor(props) {
@@ -71,6 +71,7 @@ export default class AddressInfo extends React.Component {
 
                 <View style={styles.linear}>
                     <LinearViewBelowHeaderPro>
+                        <Header head={'AddJob'} previousPage={'PersonalInfo'} props={this.props} />
                         {/*step indicator*/}
                         <View>
                             <Image

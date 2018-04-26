@@ -1,26 +1,28 @@
 import {fetcher} from "./fetcher";
 import {AsyncStorage} from 'react-native'
-import {loginRoute} from "../config/apiRoutes";
+import {loginRoute, getAppliesRoute} from "../config/apiRoutes";
 
 export const tryLogin = (authStore, userDataStore, proAuthStore, callbackFunc) => {
     console.log('tryLogin initiated');
 
     //fetch callbacks:
     const successCallback = (response) => {
-        console.warn('success autoLogin');
-        // type: '',
-        //     phone_number: '',
-        //     token: '',
-        //     fbToken: '',
-        //     password: '',
-        console.log('userData:', response)
         let userType = response.user.services ? 'pro' : 'consumer';
-
         //setting the user type:
 
         userDataStore.setUserType(userType);
         userDataStore.setUserData(response);
-        callbackFunc();
+        if(userType === 'pro'){
+            let gotApplies = (res)=>{
+                console.warn('success cb applies:', res)
+                userDataStore.setSentApplies(res);
+                callbackFunc(response);
+            };
+            fetcher(getAppliesRoute, 'GET', gotApplies, errorCallback, {token: response.token})
+        }
+        else {
+            callbackFunc(response);
+        }
         return 1; //success
     };
     const errorCallback = (err) => {
@@ -31,7 +33,6 @@ export const tryLogin = (authStore, userDataStore, proAuthStore, callbackFunc) =
 
     AsyncStorage.getItem('GetServiceUser', (err, result) => {
         let userInfoOnPhone = JSON.parse(result);
-        console.log('got info');
         if (userInfoOnPhone) {
             let sendObj = {
                 username: userInfoOnPhone.phone_number,

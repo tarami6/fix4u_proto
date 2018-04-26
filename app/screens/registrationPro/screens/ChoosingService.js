@@ -1,11 +1,10 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity, StyleSheet, Alert} from 'react-native';
-import CustomHeaderRegPro from '../components/CustomHeaderRegPro'
+import {Alert, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import LinearViewBelowHeaderPro from '../components/LinearViewBelowHeaderPro';
 import {submitButton} from "../../../components/modalSubmitButton";
-import {SH, SW, HH} from "../../../config/styles";
+import {SH, SW} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
-import {fetcher} from "../../../generalFunc/fetcher";
+import Header from '../../../components/headers/Header'
 
 const data = [
     {service: 'חשמלאי', state: 'Electrician'},
@@ -21,10 +20,9 @@ const data = [
 @observer
 export default class AddressInfo extends React.Component {
     static navigationOptions = {
-        header: ( /* Your custom header */
-            <CustomHeaderRegPro/>
-        ),
+        header: null
     };
+    _keyExtractor = (item, index) => item.state;
 
     constructor(props) {
         super(props);
@@ -35,29 +33,24 @@ export default class AddressInfo extends React.Component {
 
     }
 
-
-    handleSubmit(){
+    handleSubmit() {
 
         let serviceArr = [];
-        for(let item in this.state.chosenServices){
-            if(this.state.chosenServices[item]){
+        for (let item in this.state.chosenServices) {
+            if (this.state.chosenServices[item]) {
                 serviceArr.push(item)
             }
         }
-        if(serviceArr.length>0){
+        if (serviceArr.length > 0) {
             this.props.proAuthStore.updatePro({services: serviceArr})
             this.props.navigation.navigate('ExplainThePro');
         }
-        else{
+        else {
             Alert.alert('please choose at least one service')
         }
         console.warn(this.state.chosenServices)
         // this.props.navigation.navigate('DataConfirmPro')
     }
-
-
-
-    _keyExtractor = (item, index) => item.state;
 
     // renderItem(item, index) {
     //
@@ -66,7 +59,6 @@ export default class AddressInfo extends React.Component {
     //     )
     // }
 
-
     render() {
         console.log(this.state.electrician)
         return (
@@ -74,6 +66,7 @@ export default class AddressInfo extends React.Component {
                 {/*Header Gradient*/}
                 <View style={{flex: 0.3, backgroundColor: 'green'}}>
                     <LinearViewBelowHeaderPro>
+                        <Header head={'AddJob'} previousPage={'AddressInfo'} props={this.props}/>
                         {/*step indicator*/}
                         <View>
                             <Image
@@ -116,7 +109,8 @@ export default class AddressInfo extends React.Component {
                                     <View>
                                         {this.state.chosenServices[item.state] ?
                                             <Image source={require('../../../../assets/registration/icons/Vee.png')}/> :
-                                            <Image source={require('../../../../assets/registration/icons/square.png')}/>}
+                                            <Image
+                                                source={require('../../../../assets/registration/icons/square.png')}/>}
                                     </View>
 
                                 </View>
@@ -174,7 +168,7 @@ let styles = StyleSheet.create({
         fontSize: 16,
         paddingRight: SW / 15
     },
-    footer:{
+    footer: {
         flex: 0.5,
         justifyContent: 'center',
         marginTop: SH / 40

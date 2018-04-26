@@ -51,9 +51,11 @@ export default class ChooseJobModal extends Component {
 
     successCallback(res){
         // console.warn('success cb chooseJob:', res);
+        this.closeModal();
+        this.props.userDataStore.addApply(res)
         if(res.detail){
             Alert.alert(res.detail)
-            this.closeModal();
+            // this.closeModal();
         }
         console.log('success cb chooseJob:', res);
     }

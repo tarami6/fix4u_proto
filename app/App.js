@@ -105,6 +105,7 @@ let handleNotificationData = (type, payload) => {
             break;
         case 'post_add': // only for pro, new post for pro
             userDataStore.addProPost(payload);
+            userDataStore.focusJob(payload);
             break;
         default:
             console.warn("notification wasn't handled:", type);

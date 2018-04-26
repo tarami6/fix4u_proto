@@ -4,8 +4,9 @@ import {Dimensions, Text} from 'react-native'
 
 import CustomDrawer from '../components/customDrawer'
 // Screens
-import Intro from '../screens/intro'
-import ChooseUserType from '../screens/choose_user_type'
+import ChoosePro from '../screens/jobApplyConsumer/screens/ChoosePro';
+import Intro from '../screens/intro';
+import ChooseUserType from '../screens/choose_user_type';
 
 //AddJobScreens:
 //in LoadingScreen we check if the user have an open job or not and navigate hime through the addJob navigator accordingly
@@ -79,7 +80,11 @@ const AddJobNavigation = StackNavigator({
         navigationOptions: ({navigation}) => {
             title: 'ApplyBaseScreen'
         }
+    },
+    ChoosePro: {
+        screen: ChoosePro
     }
+
 })
 
 

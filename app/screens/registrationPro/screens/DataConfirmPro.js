@@ -7,15 +7,14 @@ import CustomHeaderGrey from '../components/CustomHeaderGrey'
 import {inject, observer} from "mobx-react/native";
 import {fetcher} from "../../../generalFunc/fetcher";
 import {handlePushyToken} from "../../../generalFunc/pushyTokenHandler";
+import Header from "../../../components/headers/Header";
 
 @inject('userDataStore')
 @inject("proAuthStore")
 @observer
 export default class ChooseTime extends React.Component {
     static navigationOptions = {
-        header: (/* Your custom header */
-            <CustomHeaderGrey/>
-        ),
+        header: null
 
 
     };
@@ -85,6 +84,7 @@ export default class ChooseTime extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.whiteHead}>
+                    <Header head={'Grey'} previousPage={'ExplainThePro'} props={this.props} />
                     {/*Image & service & full name*/}
                     <View style={styles.imageAndNameRow}>
                         <View style={styles.nameView}>

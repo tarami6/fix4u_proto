@@ -26,8 +26,8 @@ export default class ChooseAddress extends React.Component {
         this.state = {
             text: 'כתובת',
             payment_type: '',
-            lat: 32.786842906668895,
-            lon: 34.972372709973115,
+            lat: 32.7917735,
+            lon: 34.9829165,
         };
     }
 

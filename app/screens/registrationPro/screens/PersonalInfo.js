@@ -1,20 +1,17 @@
 import React from 'react';
-import {View, Text, Image, TextInput, StyleSheet, Alert, KeyboardAvoidingView} from 'react-native';
-import CustomHeaderRegPro from '../components/CustomHeaderRegPro'
+import {Alert, Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import LinearViewBelowHeaderPro from '../components/LinearViewBelowHeaderPro';
 import {submitButton} from "../../../components/modalSubmitButton";
-import {SH, SW, HH} from "../../../config/styles";
+import {HH, SH, SW} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
-import {fetcher} from "../../../generalFunc/fetcher";
+import Header from '../../../components/headers/Header'
 
 @inject("modalsStore")
 @inject("proAuthStore")
 @observer
 export default class PersonalInfo extends React.Component {
     static navigationOptions = {
-        header: (/* Your custom header */
-            <CustomHeaderRegPro/>
-        ),
+        header: null,
     };
 
     constructor(props) {
@@ -75,6 +72,7 @@ export default class PersonalInfo extends React.Component {
                 <View style={{flex: 1}}>
                     <View style={styles.linear}>
                         <LinearViewBelowHeaderPro>
+                            <Header head={'AddJob'} previousPage={'ChooseUserType'} props={this.props} />
                             {/*step indicator*/}
                             <View>
                                 <Image
@@ -209,8 +207,8 @@ let styles = StyleSheet.create({
         height: SW - HH
     },
     linear: {
-        height: (SH - HH) / 4,
-        backgroundColor: 'green'
+        height: SH/3,
+        // backgroundColor: 'green'
     },
     contactForm: {
         flex: 3,
