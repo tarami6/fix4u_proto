@@ -48,7 +48,6 @@ export default class usersMap extends React.Component {
                 longitude: openJob.lon
 
             }
-            console.warn('coordinates' + index, coordinates);
             return (
                 <MapView.Marker
                     coordinate={coordinates}

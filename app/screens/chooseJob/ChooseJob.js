@@ -64,7 +64,7 @@ export default class ChooseJob extends Component {
 
     onMarkerPress(openJob, index) {
         // this.props.modalsStore.showModal('proPhoneVerifyModal');
-        console.warn(openJob);
+        // console.warn(openJob);
         this.props.openJobsStore.focusJob(openJob);
         this.props.modalsStore.showModal('chooseJobModal');
     }
@@ -77,7 +77,7 @@ export default class ChooseJob extends Component {
                     <View style={{elevation: 5}}>
                         <Header/>
                     </View>
-
+                    {/*Map component: */}
                     <MapComponent onMarkerPress={this.onMarkerPress.bind(this)}
                                   usersPlaces={this.props.openJobsStore.openJobsList}/>
                     <View style={{position: 'absolute', top: HH}}>

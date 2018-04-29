@@ -93,6 +93,7 @@ export default class ChooseAddress extends React.Component {
     successCallback(response) {
         if (response.id) {
             this.props.userDataStore.addJob(response)
+            this.props.userDataStore.focusConsumerJob(response);
             this.props.navigation.navigate('ApplyBaseScreen');
         }
         console.warn('success addJob!', response);

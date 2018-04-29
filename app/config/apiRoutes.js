@@ -18,3 +18,9 @@ export const startJobRoute = (postId) => {return(`api/posts/pro/${postId}/`)};
 
 //logout delete token from server
 export const logOutRoute = editUserRoute;
+
+//payments:
+
+export const braintreeGetTokenRoute = 'api/payment/token/';
+//send amount , nonce
+export const braintreeSendTokenRoute = `api/posts/${postId}/payment/`

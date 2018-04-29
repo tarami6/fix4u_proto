@@ -76,7 +76,7 @@ export default class UserDataStore {
     }
 
     @action addJob(job){
-        this.userData.user.user_posts.push(job)
+        this.userData.user.user_posts.push(job);
     }
 
     @action updatePost(post: Object) {
