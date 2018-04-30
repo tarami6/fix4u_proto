@@ -37,8 +37,6 @@ export default class ProPhoneVerifyModal extends Component {
             //user is not registered yet
             this.props.proAuthStore.updatePro(response)
         }
-        console.warn('success cb:', response);
-        console.log('success cb:', response)
     }
     //
     errorCallback(error){
@@ -46,7 +44,6 @@ export default class ProPhoneVerifyModal extends Component {
     }
     componentDidMount(){
         this._input.clear();
-        console.warn('hello', this.props.store);
         setTimeout(()=>{
             const actionToDispatch = NavigationActions.reset({
                 index: 0,

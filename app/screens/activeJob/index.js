@@ -27,7 +27,6 @@ export default class ActiveJob extends Component {
         // console.warn(this.props.userDataStore.userData.user.user_posts)
     }
 
-
     render() {
         switch (this.props.userDataStore.focusedJob.status) {
             case 'on_the_way':
@@ -55,7 +54,9 @@ export default class ActiveJob extends Component {
                     <ConsumerPayment/>
                 );
             case 'consumer_review':
+
                 if (this.props.userDataStore.currentUserType === 'pro'){
+                    this.props.navigation.navigate('Home');
                     return (
                         <View>
                             <Text>

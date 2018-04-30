@@ -49,8 +49,6 @@ export default class ChooseJob extends Component {
     }
 
     successCallback(res) {
-        // if there are no open jobs we show empty map, look at if statement in render
-        // if there are no open jobs we show empty map, look at if statement in render3
         if (res.length === 0) {
             loadEmptyMap = true;
         }
@@ -63,15 +61,15 @@ export default class ChooseJob extends Component {
     }
 
     onMarkerPress(openJob, index) {
-        // this.props.modalsStore.showModal('proPhoneVerifyModal');
-        // console.warn(openJob);
+
         this.props.openJobsStore.focusJob(openJob);
         this.props.modalsStore.showModal('chooseJobModal');
     }
 
     render() {
         let openJobsList = this.props.openJobsStore.openJobsList
-        if (openJobsList && openJobsList.length >= 0 || loadEmptyMap) {
+
+
             return (
                 <View style={{flex: 1}}>
                     <View style={{elevation: 5}}>
@@ -122,40 +120,10 @@ export default class ChooseJob extends Component {
                                 <Text style={{paddingRight: 20,}}>עבודה חדשה</Text>
                             </View>
                         </TouchableOpacity>}
-                        {/*Contact request*/}
-
-                        {/*<TouchableOpacity onPress={() => Alert.alert('Will take you to ? soon')}*/}
-                                          {/*style={{*/}
-                                              {/*width: SW,*/}
-                                              {/*height: SH / 15,*/}
-                                              {/*backgroundColor: 'rgba(244,244,244,1)',*/}
-                                              {/*flexDirection: 'row',*/}
-                                              {/*elevation: 1,*/}
-                                              {/*alignItems: 'center',*/}
-                                              {/*justifyContent: 'flex-end',*/}
-                                          {/*}}>*/}
-                            {/*<View style={{flex: 1}}>*/}
-                                {/*<Text style={{paddingLeft: 20,}}>3</Text>*/}
-                            {/*</View>*/}
-                            {/*<View style={{flex: 1}}>*/}
-                                {/*<Text style={{paddingRight: 20,}}>בקשת התחברות</Text>*/}
-                            {/*</View>*/}
-
-                        {/*</TouchableOpacity>*/}
-
                     </View>
                 </View>
 
             )
-        }
-        else {
-            return (
-                <View>
-                    <Text>
-                        loading all Open Jobs
-                    </Text>
-                </View>
-            )
-        }
+
     }
 }

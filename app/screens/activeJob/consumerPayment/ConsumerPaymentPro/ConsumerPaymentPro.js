@@ -25,14 +25,14 @@ export default class OnTheWayPro extends Component {
     }
 
     getPaid() {
-        Alert.alert('not up to me bro');
+        console.warn(this.props.userDataStore.focusedJob);
     }
 
     successCallback(res){
         this.props.userDataStore.updatePost(res);
         this.props.userDataStore.focusJob(res)
         // this.props.navigation.navigate('ActiveJob');
-        console.warn('get paid fetch success', res);
+        // console.warn('get paid fetch success', res);
         // console.log('start job fetch success', res);
     }
 

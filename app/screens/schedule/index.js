@@ -13,9 +13,9 @@ export default class Schedule extends Component {
         super(props)
     }
 
-    componentWillMount() {
-        console.warn(this.props.userDataStore.currentUserType);
-    }
+    // componentWillMount() {
+    //     console.warn(this.props.userDataStore.currentUserType);
+    // }
 
 
     render() {

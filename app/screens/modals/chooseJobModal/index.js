@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Modal, Text, TouchableHighlight, View, Image, StyleSheet, TextInput, Alert} from 'react-native';
-import {SW, SH} from "../../../config/styles";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {Alert, Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import {SH, SW} from "../../../config/styles";
 import {submitButton} from "../../../components/modalSubmitButton";
 import {inject, observer} from "mobx-react/index";
 import {applyForJobRoute} from "../../../config/apiRoutes";
@@ -33,8 +32,7 @@ export default class ChooseJobModal extends Component {
         this.setState({modalVisible: visible});
     }
 
-    submitApply(){
-        console.warn(this.props.openJobsStore.focusedJob.id);
+    submitApply() {
         let jobId = this.props.openJobsStore.focusedJob.id
         let route = applyForJobRoute(jobId);
         let headers = {
@@ -42,24 +40,28 @@ export default class ChooseJobModal extends Component {
             'Content-Type': 'application/json',
             'Authorization': 'JWT ' + this.props.userDataStore.userData.token
         };
-        fetcher(route, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), {time: '12:00:00', service_fee: 45}, headers)
+        fetcher(route, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), {
+            time: '12:00:00',
+            service_fee: 45
+        }, headers)
     }
 
-    closeModal(){
+    closeModal() {
         this.props.modalsStore.closeModal('chooseJobModal')
     }
 
-    successCallback(res){
+    successCallback(res) {
         // console.warn('success cb chooseJob:', res);
         this.closeModal();
         this.props.userDataStore.addApply(res)
-        if(res.detail){
+        if (res.detail) {
             Alert.alert(res.detail)
             // this.closeModal();
         }
         console.log('success cb chooseJob:', res);
     }
-    errorCallback(err){
+
+    errorCallback(err) {
         console.warn('error in chooseJob:', err);
         console.log('error in chooseJob:', err)
     }
@@ -67,7 +69,6 @@ export default class ChooseJobModal extends Component {
     render() {
         ///////// and here is the data: ///////////
         let currentJob = this.props.openJobsStore.focusedJob;
-        console.warn('from the modal:', currentJob.user);
         return (
             <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
                 <View style={styles.modalView}>
@@ -108,32 +109,37 @@ export default class ChooseJobModal extends Component {
                                             fontSize: 18,
                                             color: '#000',
                                             fontWeight: 'bold',
-                                            marginRight: 5
-                                        }}>{data.name}</Text>
+                                            marginRight: 5,
+                                            textAlign: 'center',
+                                        }}>{currentJob.user.name}</Text>
                                     </View>
                                     <View style={{
                                         flex: 0.3,
                                         alignItems: 'flex-end',
                                         justifyContent: 'center'
                                     }}>
-                                        <Image
+                                        {currentJob.user.profile_pic_thumb ? <Image
                                             style={{width: SW / 5.5, height: SW / 5.5, borderRadius: 100}}
-                                            source={data.profilePic}/>
+                                            source={{uri: currentJob.user.profile_pic_thumb}}/> : <View/>
+
+                                        }
                                     </View>
                                 </View>
                                 <View style={{flex: 0.5, justifyContent: 'center'}}>
-                                    <Text>{data.address}</Text>
+                                    <Text>{currentJob.address}</Text>
                                 </View>
                             </View>
                             {/*Description and Image*/}
                             <View style={{flex: 1.15, backgroundColor: '#fff'}}>
-                                <Text style={{lineHeight: 20, paddingTop: 10}}>{data.description}</Text>
-                                <Image style={{
-                                    height: SW / 6,
-                                    width: SW / 6,
-                                    alignSelf: 'flex-end',
-                                    marginTop: 10
-                                }} source={data.jobImage}/>
+                                <Text style={{lineHeight: 20, paddingTop: 10}}>{currentJob.description}</Text>
+                                {currentJob.image_thumb ?
+                                    <Image style={{
+                                        height: SW / 6,
+                                        width: SW / 6,
+                                        alignSelf: 'flex-end',
+                                        marginTop: 10
+                                    }} source={{uri: currentJob.image_thumb}}/> : < View/>
+                                }
                             </View>
                         </View>
                         {/*This the bottom and the second view*/}

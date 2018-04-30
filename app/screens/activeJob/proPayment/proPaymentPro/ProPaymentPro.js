@@ -58,7 +58,7 @@ export default class ProPaymentPro extends React.Component {
         this.props.userDataStore.updatePost(res);
         this.props.userDataStore.focusJob(res)
         // this.props.navigation.navigate('ActiveJob');
-        console.warn('get paid fetch success', res);
+        // console.warn('get paid fetch success', res);
         // console.log('start job fetch success', res);
     }
 

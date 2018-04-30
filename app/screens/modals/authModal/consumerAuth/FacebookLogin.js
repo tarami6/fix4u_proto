@@ -21,7 +21,7 @@ export default class Login extends Component {
             access_token: data
         }
 
-        console.log('facebook login response data:', data);
+        // console.log('facebook login response data:', data);
         this.props.authStore.updateUser({fbToken: data});
         // this is the fetch for the verify code for the phone, inactive on the server for now
         fetcher('api/rest-auth/facebook/login/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)

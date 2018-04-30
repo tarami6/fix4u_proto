@@ -55,7 +55,51 @@ export default class ApplyBaseScreen extends React.Component {
         }
     }
 
-    showPro(pro) {
+
+    componentDidMount() {
+        let time = this.state.auctionTime;
+        if (this.state.auctionTime > 0) {
+            // setInterval(() => {
+            //     this.setState({auctionTime: this.state.auctionTime -= 1})
+            // }, 1000);
+        }
+
+    }
+
+    // //Choose pro funcs:
+    // choosePro(proObj) {
+    //     console.warn(this.props.userDataStore.focusedConsumerJob.id, proObj.id);
+    //     let route = chooseApplyRoute(this.props.userDataStore.focusedConsumerJob.id);
+    //     console.warn('chose:', proObj);
+    //     let sendObj = {
+    //         user_pro: proObj.user_pro.id,
+    //         status: 'on_the_way'
+    //     };
+    //     let headers = {
+    //         'Accept': `application/json`,
+    //         'content-type': 'application/json',
+    //         'Authorization': 'JWT ' + this.props.userDataStore.userData.token
+    //     };
+    //
+    //     console.log('fetching::: ', route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers);
+    //     fetcher(route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers)
+    //
+    // }
+    //
+    // successCallback(res) {
+    //     console.warn(res)
+    //     this.props.userDataStore.updatePost(res);
+    //     this.props.userDataStore.focusJob(res);
+    //     this.props.navigation.navigate('ConsumerNavigator');
+    // }
+    //
+    // errorCallback(err) {
+    //     console.warn(err)
+    //     console.log(err);
+    //
+    // }
+
+    showPro(pro){
         this.props.userDataStore.showPro(pro);
         this.props.navigation.navigate('ChoosePro')
     }
@@ -63,8 +107,11 @@ export default class ApplyBaseScreen extends React.Component {
     render() {
         //mobx "listener" for new jobs
         let job2 = this.props.userDataStore.focusedConsumerJob;
-        console.warn('job222', job2.post_applies)
-        // let service =
+        if(!job2.appointment_time_start){
+            return (
+                <View/>
+            )
+        }
         return (
             <View style={{flex: 1}}>
                 <View style={{flex: 0.23, backgroundColor: 'red'}}>
@@ -117,6 +164,7 @@ export default class ApplyBaseScreen extends React.Component {
                                       longitudeDelta: 0.0421 * 0.1
                                   }}/>
                     {/*       applies.MAP         */}
+
                     <View style={{flex: 1, backgroundColor: 'red', position: 'absolute'}}>
                         <FlatList
                             data={job2.post_applies}
@@ -174,7 +222,6 @@ export default class ApplyBaseScreen extends React.Component {
                     {/*</TouchableOpacity>*/}
                     {/*)*/}
                     {/*})}*/}
-
 
                 </View>
 

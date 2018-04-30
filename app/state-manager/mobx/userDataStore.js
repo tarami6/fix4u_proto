@@ -107,9 +107,9 @@ export default class UserDataStore {
             if (userPosts[i].id === post.id) {
                 this.userData.user.pro_posts[i] = post;
                 //if the pro is currently focusing this job then:
-                if (this.focusedJob.id === post.id) {
-                    this.focusJob(this.userData.user.user_posts[i]);
-                }
+                // if (this.focusedJob.id === post.id) {
+                //     this.focusJob(post);
+                // }
             }
         }
     }
@@ -120,6 +120,18 @@ export default class UserDataStore {
 
     @action showPro(pro: Object) {
         this.shownPro = pro;
+    }
+
+//    location handler:
+    @observable userLocation = {
+        currentLocation: '',
+        lat: 0,
+        lon: 0
+    };
+
+    @action saveUserLocation(location: Object){
+        this.userLocation = location
+        console.warn('got:', this.userLocation);
     }
 
 }

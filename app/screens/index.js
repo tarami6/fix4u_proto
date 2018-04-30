@@ -20,6 +20,8 @@ import AppNavigation from '../navigations';
 
 import Modals from './modals'
 import {tryLogin} from "../generalFunc/tryLogin";
+import Geocoder from "react-native-geocoding";
+import {Keys} from "../config/keys";
 
 
 type Props = {};
@@ -51,7 +53,7 @@ export default class ScreensBase extends Component<Props> {
     }
 
     onBackPress = () => {
-        console.log('backHandler pressed')
+        // console.log('backHandler pressed')
         const {dispatch} = this.store;
         // console.log(this.store);
         const {navigationState} = this.store;
@@ -67,11 +69,44 @@ export default class ScreensBase extends Component<Props> {
         // console.log('userData = ', this.props.userDataStore.userData)
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
         tryLogin(this.props.authStore, this.props.userDataStore, this.props.proAuthStore,  this.successLoginCallback.bind(this))
+    //    get location and save to userDataStore
+        this.getUserLocationHandler()
 
     }
 
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+    }
+
+    getUserLocationHandler() {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                this.setState({
+                        currentLatLng: {
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude
+                        }
+                    },
+                    () => {
+                        console.warn('state2:', this.state);
+                        this.getData(position.coords.latitude, position.coords.longitude)
+                    }
+                );
+
+            }
+            , error => console.warn(error), {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000});
+    };
+    getData = (lat, lan) => {
+        Geocoder.setApiKey(Keys.google_maps_key);
+        Geocoder.getFromLatLng(lat, lan).then(
+            json => {
+                var address_component = json.results[0].formatted_address;
+                this.props.userDataStore.saveUserLocation({currentAddress: address_component, lat: lat, lon: lan});
+
+            }, error => {
+                alert(error);
+            }
+        );
     }
 
     render() {

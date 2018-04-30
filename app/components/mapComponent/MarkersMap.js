@@ -1,7 +1,7 @@
 import React from "react";
 import {StyleSheet, View} from "react-native";
-import MapView from "react-native-maps";
-
+    import MapView from "react-native-maps";
+import {retroMap} from "../../config/mapStyles";
 // import Geocoder from 'react-native-geocoding';
 // import MapViewDirections from 'react-native-maps-directions';
 // import {DirectionsRenderer,GoogleMap, withGoogleMap} from 'react-google-maps';
@@ -57,11 +57,12 @@ export default class usersMap extends React.Component {
                     pinColor={'#FF5500'}
                     style={{width: 1, height: 1}}
                     onPress={() => this.props.onMarkerPress(openJob, index)}
+
                     // identifier={1++}
                     //             onPress={(yo) => {
                     //                 console.log('marker:', yo);
                     //             }}
-                    //  image={require('../assets/images/map/icon1.png')}
+                    //  image={require('../../../assets/images/map/18672972_1766504230032438_2439149980771512775_o.jpg')}
                 />)
         });
 
@@ -78,6 +79,7 @@ export default class usersMap extends React.Component {
                     onRegionChange={this._handleMapRegionChange}
                     showsUserLocation={true}
                     style={styles.map}
+                    customMapStyle={retroMap}
                     loadingEnabled={true}
                     ref={c => this.mapView = c}>
                     {this.userLocationMarker}

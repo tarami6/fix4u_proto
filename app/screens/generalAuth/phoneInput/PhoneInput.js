@@ -27,7 +27,6 @@ export default class PhoneInput extends Component {
     }
 
     successCallback(response) {
-        console.warn('success calback at PhoneInput')
         if (response['success']) {
             this.props.authStore.updateUser({phone_number: this.state.text});
             this.props.navigation.navigate('PhoneVerify');
@@ -68,7 +67,6 @@ export default class PhoneInput extends Component {
     }
 
     componentDidMount() {
-        console.warn('up')
         this.setState({
             text: this.props.authStore.user.phone_number
         })
@@ -86,6 +84,7 @@ export default class PhoneInput extends Component {
                 <View style={{flex: 1, alignItems: 'center'}}>
                     <Text style={[mainStyles.greyTitle, {paddingBottom: 10}]}>הזן מספר טלפון</Text>
                     <View style={styles.inputContainer}>
+
 
                         <TextInput
                             ref={ref => this.phoneInput = ref}
