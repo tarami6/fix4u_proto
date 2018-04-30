@@ -17,7 +17,6 @@ import {
 import Header from '../../../components/headers/Header';
 import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHeaderConsumer';
 
-import StarIcon from 'react-native-star-rating';
 import {SH, SW} from "../../../config/styles";
 import StarIcon from 'react-native-vector-icons/FontAwesome';
 import IconCamera from 'react-native-vector-icons/FontAwesome';
