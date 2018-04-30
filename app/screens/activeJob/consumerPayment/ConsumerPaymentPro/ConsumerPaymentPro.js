@@ -25,7 +25,7 @@ export default class OnTheWayPro extends Component {
     }
 
     getPaid() {
-        Alert.alert('not up to me bro');
+        console.warn(this.props.userDataStore.focusedJob);
     }
 
     successCallback(res){

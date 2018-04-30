@@ -107,9 +107,9 @@ export default class UserDataStore {
             if (userPosts[i].id === post.id) {
                 this.userData.user.pro_posts[i] = post;
                 //if the pro is currently focusing this job then:
-                if (this.focusedJob.id === post.id) {
-                    this.focusJob(this.userData.user.user_posts[i]);
-                }
+                // if (this.focusedJob.id === post.id) {
+                //     this.focusJob(post);
+                // }
             }
         }
     }
