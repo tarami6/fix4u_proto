@@ -15,14 +15,21 @@ import UserDataStore from './state-manager/mobx/userDataStore';
 import ProAuthStore from "./state-manager/mobx/proAuthStore";
 import ModalsStore from './state-manager/mobx/modalsStore'
 import NavigationStore from "./state-manager/mobx/navigationStore";
+import OpenJobsStore from './state-manager/mobx/openJobsStore';
+
 
 import {StackNavigator} from 'react-navigation';
 
 import Pushy from 'pushy-react-native';
 
-import OpenJobsStore from './state-manager/mobx/openJobsStore';
+
 // Ramistesting
 import ChooseJob from './screens/chooseJob';
+import ScheduleConsumer1 from './screens/schedule/scheduleConsumer/ScheduleConsumer1';
+import OnTheWayConsumer1 from './screens/activeJob/onTheWay/onTheWayConsumer/OnTheWayConsumer1';
+import InProgressConsumer1 from './screens/activeJob/inProgress/inProgressConsumer/InProgressConsumer1';
+import Review from './screens/activeJob/inProgress/inProgressConsumer/Review';
+import SchedulePro1 from './screens/schedule/schedulePro/SchedulePro1';
 
 //the usual consumer costumer auth process happens here
 let authStore = new AuthStore();
@@ -42,7 +49,7 @@ let openJobsStore = new OpenJobsStore();
 
 const HomeNavigation = StackNavigator({
     Home: {
-        screen: ChooseJob
+        screen: InProgressConsumer1
     }
 })
 

@@ -46,12 +46,14 @@ export default class ChooseAddress extends React.Component {
             //     Alert.alert('please fill in building number as well');
             // }
             // else {
-                this.getCoordsAndSubmitData(this.state.place_id)
+                this.getCoordsAndSubmitData(this.state.place_id);
+
             // }
         }
         else {
             Alert.alert('please choose proper address')
         }
+        this.props.navigation.navigate('ApplyBaseScreen');
 
     }
 
@@ -143,10 +145,7 @@ export default class ChooseAddress extends React.Component {
     }
 
     render() {
-        // return (
-        //     <MapComponent style={styles.map}
-        //                     />
-        // )
+        console.log('addressPage', this.props)
         let leftIconStyle = this.state.payment_type === 'cash' ? {} : {};
         return (
             <View style={styles.container}>

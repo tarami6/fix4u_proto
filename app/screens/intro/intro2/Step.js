@@ -48,9 +48,27 @@ export default class Step extends Component {
 
 
     _renderDotIndicator() {
-        return <PagerDotIndicator pageCount={3}/>;
+        return <PagerDotIndicator pageCount={3} selectedDotStyle={styles.dotSelected} dotStyle={styles.dotStyle}/>;
     }
 
 
 }
+const styles = StyleSheet.create({
+  dotSelected: {
+    height: 8,
+    width: 8,
+    borderRadius: 20 >> 1,
+    margin: 15 >> 1,
+    backgroundColor: '#fff',
+    opacity: 1
+  },
+    dotStyle:{
+      height: 8,
+    width: 8,
+    borderRadius: 20 >> 1,
+    margin: 15 >> 1,
+    backgroundColor: '#9b9b9b',
+    opacity: 1
+    }
+})
 // Later on in your styles..

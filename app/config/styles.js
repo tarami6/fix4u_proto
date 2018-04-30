@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 export const colors = {
@@ -21,31 +22,34 @@ export let absoluteContainer = {
     height: SH
 }
 
+
 // COLOR
 export let mainColor = '#F5A623';
 export let secondaryColor = '#FB6717';
-export let mainRed = '#D0021B' ;
-export let grey  =  '#CCCCCC' ;
+export let mainRed = '#D0021B';
+export let grey = '#CCCCCC';
 export let darkGrey = '#7f7f7f';
 export let START = '#FFBA00';
 export let END = '#FF8D00';
 // SCREEN ZISE
 export let SW = Dimensions.get('window').width;
 export let SH = Dimensions.get('window').height;
-export let HH = SH/11.625
+export let HH = SH / 11.625
 export let PaddingSize = SW - SW / 16;
-export let stretchMinimum = SH /16;
+export let stretchMinimum = SH / 16;
 // FONT
 export let basicIconFont = 30;
+export let buttonFont = 20;
 export let smallFont = 11;
+
 export const
     LinierBackground = (props) => {
         return (
             <LinearGradient
-                colors={['#fd8824', '#fdb82c']}
+                colors={['#FF8600', '#FFBA00']}
                 start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
                 style={{
-                    height: 48,
+                    height: HH,
                     width: SW - 120,
                     borderRadius: 30,
                     justifyContent: 'center',
@@ -57,4 +61,18 @@ export const
             </LinearGradient>
         )
     }
+
+export let mainStyles = StyleSheet.create({
+    buttonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: buttonFont
+    },
+    greyTitle: {
+        fontSize: 18,
+        color: '#4a4a4a',
+        fontWeight: 'bold'
+    }
+
+});
 

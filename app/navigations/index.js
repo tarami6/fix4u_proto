@@ -72,7 +72,7 @@ const AddJobNavigation = StackNavigator({
     ChooseAddress: {
         screen: ChooseAddress,
         navigationOptions: ({navigation}) => {
-            title: 'Choose Time'
+            title: 'Choose Address'
         }
     },
     ApplyBaseScreen: {
@@ -102,6 +102,8 @@ const ProNavigator = DrawerNavigator({
     contentComponent: CustomDrawer,
     drawerWidth: width
 })
+
+
 
 const ConsumerNavigator = DrawerNavigator({
     Home: {
