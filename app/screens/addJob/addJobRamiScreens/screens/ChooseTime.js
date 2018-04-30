@@ -1,6 +1,6 @@
 // React
 import React from 'react';
-import {View, Text, Image, StyleSheet, Platform, TouchableHighlight, Alert} from 'react-native';
+import {View, Text, Image, StyleSheet, Platform, TouchableWithoutFeedback,TouchableHighlight, Alert} from 'react-native';
 // Components
 import LinierView from '../../../../components/linierView';
 import CustomHeaderAddJobStepsConsumer from '../../../../components/headers/CustomHeaderAddJobStepsConsumer'
@@ -8,7 +8,9 @@ import {submitButton} from "../../../../components/modalSubmitButton";
 // Mobx
 import {inject, observer} from "mobx-react/native";
 // Styles
-import {SH, SW} from "../../../../config/styles";
+import {SH, SW, mainStyles} from "../../../../config/styles";
+
+import Header from '../../../../components/headers/Header'
 
 let data = {
     service: 'חשמלאי',
@@ -21,12 +23,14 @@ let data = {
 @observer
 export default class ChooseTime extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
     }
-    goBack(){
+
+    goBack() {
         this.props.navigation.goBack()
     }
+
     static navigationOptions = {
         header: null,
     };
@@ -45,7 +49,7 @@ export default class ChooseTime extends React.Component {
         this.props.navigation.navigate('ExplainTheJob');
     }
 
-    componentWillMount(){
+    componentWillMount() {
         // console.warn('index is:', this.props.navigationStore.navigationState.index)
         // console.log('chooseTime navigationState:', this.props.navigationStore.navigationState)
     }
@@ -56,7 +60,7 @@ export default class ChooseTime extends React.Component {
             <View style={{flex: 1}}>
                 {/*Orange Head*/}
                 <LinierView>
-                    <CustomHeaderAddJobStepsConsumer props={this.props}/>
+                     <Header head={'AddJob'} previousPage={'ChooseService'} props={this.props} />
                     <View style={{flex: 1, marginLeft: SW / 30, justifyContent: 'center', alignItems: 'center'}}>
                         <Image
                             source={require('../../../../../assets/icons/stepIndicatorConsumer1.png')}
@@ -69,7 +73,7 @@ export default class ChooseTime extends React.Component {
                         />
                     </View>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 18, color: '#fff'}}>{data.service}</Text>
+                        <Text style={mainStyles.whiteTitle}>{data.service}</Text>
                     </View>
                 </LinierView>
                 {/*The Body*/}
@@ -78,7 +82,7 @@ export default class ChooseTime extends React.Component {
                     {/*price list and order button*/}
                     <View style={{flex: 1.2, alignItems: 'center'}}>
                         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                            <Text style={{color: '#000', fontSize: 18}}>
+                            <Text style={mainStyles.greyTitle}>
                                 מחיר הגעה מומלץ 130 ש"ח
                             </Text>
                             <Text style={{fontSize: 14}}>
@@ -87,7 +91,7 @@ export default class ChooseTime extends React.Component {
                         </View>
 
                         <View style={{flex: 1, justifyContent: 'center'}}>
-                            <TouchableHighlight onPress={ this.handleSubmit.bind(this)}>
+                            <TouchableWithoutFeedback onPress={this.handleSubmit.bind(this)}>
                                 <View style={{
                                     width: SW / 1.5,
                                     height: SH / 13,
@@ -97,25 +101,28 @@ export default class ChooseTime extends React.Component {
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                 }}>
-                                    <Text style={{color: 'orange', fontSize: 20}}>הזמן לעכשיו</Text>
+                                    <Text style={[mainStyles.buttonText, {color: '#FFAC50'}]}>הזמן לעכשיו</Text>
                                 </View>
-                            </TouchableHighlight>
+                            </TouchableWithoutFeedback>
                         </View>
                     </View>
                     {/*Choose Date*/}
                     <View style={{flex: 1.2,}}>
                         <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
-                            <Text style={{fontSize: 14, marginTop: 20}}>or</Text>
+                            <Text style={{fontSize: 14, marginTop: 20}}>או</Text>
                         </View>
                         <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
-                            <Text>Choose the date</Text>
+                            <Text style={mainStyles.greyTitle}>בחר תאריך</Text>
                             <TouchableHighlight onPress={() => Alert.alert("coming soon")}>
                                 <View style={{
                                     width: SW / 1.5,
                                     height: SH / 13,
-                                    borderColor: '#E0E0E0',
-                                    borderWidth: 2,
                                     borderRadius: 7,
+                                    borderWidth: 0.1,
+                                    borderTopWidth: 4,
+                                    borderLeftWidth: 2,
+                                    borderRightWidth: 2,
+                                    borderColor: 'rgba(218, 218, 218, 0.35)',
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                 }}>
@@ -133,9 +140,8 @@ export default class ChooseTime extends React.Component {
                     {/*Button Next*/}
                     <View style={{flex: 0.8, justifyContent: 'center'}}>
                         <View style={{alignItems: 'center'}}>
-                            {submitButton('המשך',
+                            {submitButton('המשך', 'consumer',
                                 this.handleSubmit.bind(this)
-
                             )}
                         </View>
                     </View>

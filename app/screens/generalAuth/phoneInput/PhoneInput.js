@@ -4,7 +4,7 @@ import {inject, observer} from "mobx-react/native";
 import {submitButton} from "../../../components/modalSubmitButton";
 import {fetcher} from "../../../generalFunc/fetcher";
 import styles from './styles';
-import {SH, SW} from "../../../config/styles";
+import {fontGrey, SW, mainStyles} from "../../../config/styles";
 
 
 @inject("authStore")
@@ -77,31 +77,31 @@ export default class PhoneInput extends Component {
 
         return (
             <View style={styles.container}>
-                <View style={{flex:1.3, justifyContent: 'flex-end'}}>
+                <View style={{flex: 1.3, justifyContent: 'flex-end'}}>
                     <Image style={{width: SW / 2.5, height: SW / 2.5,}}
-                       source={require('../../../../assets/registration/phoneInputBack.png')}/>
+                           source={require('../../../../assets/registration/phoneInputBack.png')}/>
                 </View>
                 <View style={{flex: 1, alignItems: 'center'}}>
-                    <Text style={styles.headerText}>הזן מספר טלפון</Text>
-                <View style={styles.inputContainer}>
+                    <Text style={[mainStyles.greyTitle, {paddingBottom: 10}]}>הזן מספר טלפון</Text>
+                    <View style={styles.inputContainer}>
 
 
                         <TextInput
                             ref={ref => this.phoneInput = ref}
                             style={styles.textInputStyle}
                             keyboardType='phone-pad'
+                            selectionColor={fontGrey}
                             onChangeText={(text) => this.setState({text})}
                             value={this.state.text}
                             underlineColorAndroid={"rgba(0, 0, 0, 0.0)"}
                             onSubmitEditing={this.submitPhone.bind(this)}
                         />
 
-                </View>
+                    </View>
                 </View>
                 <View style={{flex: 1}}>
-                    {submitButton('שלח', this.submitPhone.bind(this))}
+                    {submitButton('שלח', 'consumer', this.submitPhone.bind(this))}
                 </View>
-
 
 
             </View>

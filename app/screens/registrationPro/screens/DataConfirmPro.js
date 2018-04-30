@@ -174,7 +174,7 @@ export default class ChooseTime extends React.Component {
 
                 <View style={styles.footer}>
                     <View style={{alignItems: 'center'}}>
-                        {submitButton('אימות', () => {
+                        {submitButton('אימות','consumer', () => {
                             this.handleSubmit();
                         })}
                     </View>
@@ -193,7 +193,7 @@ let styles = StyleSheet.create({
     },
     whiteHead: {
         backgroundColor: '#fff',
-        flex: 0.75,
+        flex: 1,
         borderBottomWidth: 1,
         borderColor: '#9b9b9b'
     },
@@ -213,7 +213,7 @@ let styles = StyleSheet.create({
         justifyContent: 'center'
     },
     imageView: {
-        flex: 0.2,
+        flex: 0.4,
         backgroundColor: 'white',
         alignItems: 'flex-end',
         marginRight: SW / 20

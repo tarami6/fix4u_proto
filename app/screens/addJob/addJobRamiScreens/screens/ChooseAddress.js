@@ -1,6 +1,6 @@
 import React from 'react';
 import {Alert, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {HH, SH, SW} from "../../../../config/styles";
+import {HH, SH, SW, mainStyles} from "../../../../config/styles";
 import {submitButton} from "../../../../components/modalSubmitButton";
 import {inject, observer} from "mobx-react/native";
 import {fetcher} from "../../../../generalFunc/fetcher";
@@ -9,7 +9,7 @@ import {Keys} from "../../../../config/keys";
 
 import MapComponent from '../../../../components/mapComponent'
 import LinierView from '../../../../components/linierView';
-import CustomHeaderAddJobStepsConsumer from '../../../../components/headers/CustomHeaderAddJobStepsConsumer'
+import Header from '../../../../components/headers/Header'
 
 @inject("userDataStore")
 @inject("addJobStore")
@@ -25,7 +25,7 @@ export default class ChooseAddress extends React.Component {
         super(props);
         this.state = {
             text: 'כתובת',
-            payment_type: '',
+            payment_type: 'cash',
             lat: 0,
             lon: 0,
             currentLatLng: {},
@@ -33,18 +33,7 @@ export default class ChooseAddress extends React.Component {
     }
 
     handleSubmit() {
-        // let obj = {
-        //     address: this.state.address,
-        //     lat: '0.0',
-        //     lon: '0.0',
-        //     payment_type: 'cash',
-        //     service_fee: '100'
-        // };
-        // this.props.navigation.navigate('ApplyBaseScreen');
-        if (!this.state.payment_type) {
-            Alert.alert('please choose payment type');
-        }
-        else {
+
             if (this.state.place_id) {
                 // if (this.state.details.address_components[0].long_name.length > 0) {
                 //     Alert.alert('please fill in building number as well');
@@ -58,7 +47,6 @@ export default class ChooseAddress extends React.Component {
                 Alert.alert('please choose proper address')
             }
             this.props.navigation.navigate('ApplyBaseScreen');
-        }
 
     }
 
@@ -154,6 +142,7 @@ export default class ChooseAddress extends React.Component {
 
 
     render() {
+
         //here we check if the user wants to choose his current location or other
         let stateLocation = {
             lat: this.state.lat,
@@ -164,24 +153,24 @@ export default class ChooseAddress extends React.Component {
             lon: this.props.userDataStore.userLocation.lon
         }
         let showLocation = this.state.lat === 0 ? storeLocation : stateLocation;
-        // return (
-        //     <MapComponent style={styles.map}
-        //                     />
-        // )
+
         let leftPaymentIcon = this.state.payment_type === 'cash' ? styles.activeChoiceStyle : {};
         let rightPaymentIcon = this.state.payment_type === 'cash' ? {} : styles.activeChoiceStyle;
+
         return (
             <View style={styles.container}>
                 {/*Linear under header 0.8 flex*/}
                 <LinierView>
-                    <CustomHeaderAddJobStepsConsumer props={this.props}/>
+                    <Header head={'AddJob'} previousPage={'ExplainTheJob'} props={this.props} />
                     <View style={{flex: 1, alignItems: 'center'}}>
                         <Image
                             source={require('../../../../../assets/addJob/icons/stepIndicatorConsumer3.png')}
                         />
                     </View>
+
                     <View style={styles.textInputView} pointerEvents="box-none">
-                        <Text style={{color: '#fff'}}>הכנס כתובת</Text>
+                        <Text style={mainStyles.whiteTitle}>הכנסת כתובת</Text>
+
                         <AutoComplete
                             currentAddress={this.props.userDataStore.userLocation.currentAddress}
                             handleLocationPress={this.handleLocationPress.bind(this)}
@@ -235,7 +224,7 @@ export default class ChooseAddress extends React.Component {
                             {/*Button*/}
                             {/*<View style={styles.container}>*/}
                             <View style={{alignItems: 'center', width: SW, marginBottom: 30}}>
-                                {submitButton('המשך', this.handleSubmit.bind(this))}
+                                {submitButton('המשך','consumer', this.handleSubmit.bind(this))}
                             </View>
                             {/*</View>*/}
                         </View>
@@ -257,7 +246,7 @@ let styles = StyleSheet.create({
         flex: 0.8
     },
     textInputView: {
-        marginTop: SH / 10,
+        marginTop: SH / 15,
         height: HH * 4,
         zIndex: 3,
         alignItems: 'center',
@@ -307,7 +296,7 @@ let styles = StyleSheet.create({
         bottom: 0,
     },
     activeChoiceStyle: {
-        borderWidth: 3,
+        borderWidth: 0.3,
         borderColor: '#000',
     }
     // map: {

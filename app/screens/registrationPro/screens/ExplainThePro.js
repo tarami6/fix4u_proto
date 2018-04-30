@@ -140,7 +140,7 @@ export default class ExplainThePro extends React.Component {
 
                     <View style={styles.footer}>
                         <View style={{alignItems: 'center'}}>
-                            {submitButton('סיום', () => {
+                            {submitButton('סיום','consumer', () => {
                                 this.handleSubmit();
                             })}
                         </View>
@@ -200,7 +200,7 @@ let styles = StyleSheet.create({
     },
     addTitleView: {
         alignSelf: 'flex-end',
-        marginTop: SW / 5,
+        marginTop: SW / 3,
         marginRight: (SW - (SW / 1.16)) / 1.5
     },
     addPicText: {
