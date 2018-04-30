@@ -100,6 +100,13 @@ let handleNotificationData = (type, payload) => {
             }
             userDataStore.updatePost(payload);
             break;
+        case 'pro_post_update': // this is the route for updating the pot_posts
+            console.warn('got pro post update:', payload);
+            console.log('got pro post update:', payload)
+            if (payload.id === userDataStore.focusedJob.id) {
+                userDataStore.focusJob(payload);
+            }
+            userDataStore.updateProPost(payload);
         case 'post_open': // a new post has been open
             openJobsStore.addJob(payload);
             break;

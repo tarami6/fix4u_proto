@@ -52,8 +52,8 @@ export default class ConsumerPaymentConsumer extends Component {
             clientToken: token,
         })
             .then(result => {
-                // this.fetchPayment()
-                console.log(result)
+                this.fetchPayment(result)
+                // console.log(result)
             })
             .catch((error) => {
                 if (error.code === 'USER_CANCELLATION') {
@@ -67,15 +67,25 @@ export default class ConsumerPaymentConsumer extends Component {
 
     }
 
-    // fetchPayment(nonce){
-    //     let amount = this.props.userDataStore.focusedJob.total_fee;
-    //     let sendBody = {
-    //         nonce: nonce,
-    //         amount: amount
-    //     }
-    //     fetcher(braintreeSendTokenRoute, 'POST', this.cardConfirmed.bind(this), this.errorCallback, sendBody, {token})
-    //
-    // }
+    fetchPayment(result){
+        let route = braintreeSendTokenRoute(this.props.userDataStore.focusedJob.id)
+        let amount = this.props.userDataStore.focusedJob.total_fee;
+        let sendBody = {
+            nonce: result.nonce,
+            amount: amount
+        }
+        console.warn('body in fetchPayment:', sendBody)
+        fetcher(route, 'POST', this.cardConfirmed.bind(this), this.errorCallback, sendBody, {token: this.props.userDataStore.userData.token});
+
+    }
+
+    cardConfirmed(res){
+        Alert.alert('Payment Confirmed!');
+        let postId = this.props.userDataStore.focusedJob.id
+        this.props.userDataStore.updatePostStatus(postId, 'consumer_review');
+        console.warn('card confirmed:', res);
+        console.log('card confirmed:', res);
+    }
 
     errorCallback(err) {
         console.warn('got error in consumerPaymentConsumer:', err);

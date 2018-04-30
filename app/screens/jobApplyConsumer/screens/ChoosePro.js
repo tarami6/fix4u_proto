@@ -51,7 +51,6 @@ const data = [
 ]
 
 @inject('userDataStore')
-@inject("proAuthStore")
 @observer
 export default class ApplyBaseScreen extends React.Component {
     static navigationOptions = {

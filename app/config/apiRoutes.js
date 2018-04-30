@@ -14,7 +14,8 @@ export const applyForJobRoute = (postId) => {return (`api/posts/${postId}/apply/
 export const chooseApplyRoute = (postId) => {return(`api/posts/${postId}/`)};
 //pro start job
 export const startJobRoute = (postId) => {return(`api/posts/pro/${postId}/`)};
-
+//consumer send review:
+export const sendReviewRoute =  (postId) => {return(`api/posts/${postId}/review/`)};
 
 //logout delete token from server
 export const logOutRoute = editUserRoute;
@@ -23,4 +24,4 @@ export const logOutRoute = editUserRoute;
 
 export const braintreeGetTokenRoute = 'api/payment/token/';
 //send amount , nonce
-export const braintreeSendTokenRoute = `api/posts/${postId}/payment/`
+export const braintreeSendTokenRoute = (postId) => {return( `api/posts/${postId}/payment/`)}

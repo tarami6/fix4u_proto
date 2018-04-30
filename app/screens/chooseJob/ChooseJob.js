@@ -87,7 +87,7 @@ export default class ChooseJob extends Component {
                         <TouchableOpacity onPress={() => Alert.alert('Will take you to ? soon')} style={{
                             width: SW,
                             height: SH / 15,
-                            backgroundColor: 'rgba(244,244,244,1)',
+                            backgroundColor: 'rgba(255,255,255,1)',
                             flexDirection: 'row',
                             elevation: 3,
                             alignItems: 'center',

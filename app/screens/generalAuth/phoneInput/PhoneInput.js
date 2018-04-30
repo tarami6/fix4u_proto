@@ -68,9 +68,11 @@ export default class PhoneInput extends Component {
     }
 
     componentDidMount() {
+        console.warn('up')
         this.setState({
             text: this.props.authStore.user.phone_number
         })
+        this.phoneInput.focus()
     }
 
     render() {
@@ -86,11 +88,13 @@ export default class PhoneInput extends Component {
                 <View style={styles.inputContainer}>
 
                         <TextInput
+                            ref={ref => this.phoneInput = ref}
                             style={styles.textInputStyle}
                             keyboardType='phone-pad'
                             onChangeText={(text) => this.setState({text})}
                             value={this.state.text}
                             underlineColorAndroid={"rgba(0, 0, 0, 0.0)"}
+                            onSubmitEditing={this.submitPhone.bind(this)}
                         />
 
                 </View>

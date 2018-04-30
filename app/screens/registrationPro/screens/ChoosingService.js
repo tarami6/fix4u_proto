@@ -4,7 +4,9 @@ import LinearViewBelowHeaderPro from '../components/LinearViewBelowHeaderPro';
 import {submitButton} from "../../../components/modalSubmitButton";
 import {SH, SW} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
-import Header from '../../../components/headers/Header'
+import Header from '../../../components/headers/Header';
+
+
 
 const data = [
     {service: 'חשמלאי', state: 'Electrician'},
@@ -12,7 +14,7 @@ const data = [
     {service: 'מנקה', state: 'Cleaner'},
     {service: 'שיפוצניק', state: 'Handyman'},
     {service: 'מנעולן', state: 'Locksmith'},
-    {service: 'תכנאי מכונות כביסה', state: 'TechnicianWashingMachines'},
+    {service: 'טכנאי מכונות כביסה', state: 'TechnicianWashingMachines'},
     {service: 'תכנאי מזגנים', state: 'AirConditioningTechnician'},
 ]
 

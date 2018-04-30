@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Text, TouchableOpacity, View, StyleSheet, TextInput, Image} from "react-native";
+import {Text, Alert, View, StyleSheet, TextInput, Image} from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import Modal from "react-native-modal";
 import {SH, SW, colors} from "../../../config/styles";
@@ -25,12 +25,18 @@ export default class PhoneVerify extends Component {
     }
 
     submitCode() {
-        let sendObj = {
-            phone_number: this.props.authStore.user.phone_number,
-            code: this.state.text
+        let code = this.state.text;
+        if(code.length === 4) {
+            let sendObj = {
+                phone_number: this.props.authStore.user.phone_number,
+                code: code
+            }
+            // this is the fetch for the verify code for the phone, inactive on the server for now
+            fetcher(phoneVerifyRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
         }
-        // this is the fetch for the verify code for the phone, inactive on the server for now
-        fetcher(phoneVerifyRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
+        else {
+            Alert.alert('קוד האימות צריך להיות 4 ספרות')
+        }
     }
 
 
@@ -76,6 +82,10 @@ export default class PhoneVerify extends Component {
         console.log(error)
     }
 
+    componentDidMount(){
+        this.codeInput.focus();
+    }
+
 
     render() {
         return (
@@ -89,11 +99,13 @@ export default class PhoneVerify extends Component {
                     <Text style={styles.headerText}>הכנס קוד אימות</Text>
                     <View style={styles.inputContainer}>
                         <TextInput
+                            ref={ref => this.codeInput = ref}
                             style={styles.textInputStyle}
                             keyboardType='phone-pad'
                             onChangeText={(text) => this.setState({text})}
                             value={this.state.text}
                             underlineColorAndroid={"rgba(0, 0, 0, 0.0)"}
+                            onSubmitEditing={this.submitCode.bind(this)}
                         />
                     </View>
                 </View>

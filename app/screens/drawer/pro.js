@@ -60,6 +60,17 @@ export default class Pro extends Component {
     }
 
     render() {
+        if(!this.props.userDataStore.userData.user){
+            console.log('err in drawer pro, this.props.userDataStore.userData=', this.props.userDataStore.userData)
+            return (
+                <View>
+                    <Text>
+                        no store data in drawer pro
+                    </Text>
+                </View>
+            )
+        }
+
         if (this.state.currentDrawer === 'pro') {
             ////////// PRO MODE //////////
             return (

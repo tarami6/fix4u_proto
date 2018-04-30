@@ -103,6 +103,7 @@ export default class ApplyBaseScreen extends React.Component {
     }
 
     render() {
+        //mobx "listener" for new jobs
         let job2 = this.props.userDataStore.focusedConsumerJob;
         // let service =
         return (
