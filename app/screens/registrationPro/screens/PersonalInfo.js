@@ -63,6 +63,10 @@ export default class PersonalInfo extends React.Component {
         console.warn('personalInfo err cb got :', err)
     }
 
+    componentDidMount(){
+        this.nameField.focus();
+    }
+
     render() {
         // if(this.props.proAuthStore.proUser.uid){
         //     this.props.navigation.navigate('AddressInfo');
@@ -87,6 +91,7 @@ export default class PersonalInfo extends React.Component {
                             </View>
                             <View>
                                 <TextInput
+                                    ref={(ref=> this.nameField = ref)}
                                     underlineColorAndroid={'transparent'}
                                     style={{
                                         marginTop: SW / 30,
@@ -190,7 +195,7 @@ export default class PersonalInfo extends React.Component {
                     </View>
                     <View style={styles.footer}>
                         <View style={{alignItems: 'center'}}>
-                            {submitButton('המשך', () => {
+                            {submitButton('המשך','consumer', () => {
                                 this.handleSubmit()
                             })}
                         </View>

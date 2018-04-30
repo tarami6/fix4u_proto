@@ -1,8 +1,6 @@
 import React from "react";
-import {View, StyleSheet, Text, TouchableOpacity, Alert} from "react-native";
+import {StyleSheet, View} from "react-native";
 import MapView from "react-native-maps";
-import {Keys} from "../../config/keys";
-import {SH, SW} from "../../config/styles";
 
 // import Geocoder from 'react-native-geocoding';
 // import MapViewDirections from 'react-native-maps-directions';
@@ -41,6 +39,10 @@ export default class usersMap extends React.Component {
                                                       coordinate={this.props.userLocation}
                                                       identifier={"current location"}/>;
         }
+    }
+
+
+    render() {
         this.usersMarkers = this.props.usersPlaces.map((openJob, index) => {
             //here we arrange the data from the db to sync with google maps:
             let coordinates = {
@@ -48,7 +50,6 @@ export default class usersMap extends React.Component {
                 longitude: openJob.lon
 
             }
-            console.warn('coordinates' + index, coordinates);
             return (
                 <MapView.Marker
                     coordinate={coordinates}
@@ -63,10 +64,6 @@ export default class usersMap extends React.Component {
                     //  image={require('../assets/images/map/icon1.png')}
                 />)
         });
-    }
-
-
-    render() {
 
         return (
             <View style={styles.mapContainer}>

@@ -4,11 +4,14 @@ import StarIcon from 'react-native-vector-icons/FontAwesome';
 import {SH, SW, HH} from "../../../config/styles";
 import {submitButton} from "../../../components/modalSubmitButton";
 import CustomHeaderGrey from '../components/CustomHeaderGrey'
+//config
+import {ServicesArrToHebString} from "../../../generalFunc/generalObjects";
 import {inject, observer} from "mobx-react/native";
 import {fetcher} from "../../../generalFunc/fetcher";
 import {handlePushyToken} from "../../../generalFunc/pushyTokenHandler";
 import Header from "../../../components/headers/Header";
 
+@inject('authStore')
 @inject('userDataStore')
 @inject("proAuthStore")
 @observer
@@ -78,9 +81,16 @@ export default class ChooseTime extends React.Component {
 
     }
 
+    //renders the services from arr to view with
+    showProServices(serviceArr){
+
+    }
+
 
     render() {
         let proUser = this.props.proAuthStore.proUser;
+        console.warn(proUser);
+        console.log('proUser', proUser);
         return (
             <View style={styles.container}>
                 <View style={styles.whiteHead}>
@@ -88,20 +98,21 @@ export default class ChooseTime extends React.Component {
                     {/*Image & service & full name*/}
                     <View style={styles.imageAndNameRow}>
                         <View style={styles.nameView}>
+                            {/* name */}
                             <Text style={{color: '#000', textAlign: 'right'}}>{proUser.name}</Text>
-                            <Text>חשמל, אינסטלציה, ביוב</Text>
+                            {/* services */}
+                            <Text>{ServicesArrToHebString(proUser.services)}</Text>
                         </View>
                         <View
                             style={styles.imageView}>
                             <Image style={styles.proImage}
-                                   source={require('../../../../assets/registration/icons/Handyman.jpg')}
+                                   source={this.props.proAuthStore.localImage}
                             />
                         </View>
                     </View>
                     {/*about*/}
                     <View style={{flex: 0.8, marginRight: SW / 20, justifyContent: 'center'}}>
-                        <Text>חשמלאי עם וותק של 30 שנה, מתקן כל דבר שקשור{"\n"}
-                            לחשמל, מנוסה ונחמד. מחירים נוחים.</Text>
+                        <Text>{proUser.company_description}</Text>
                     </View>
                     {/*reviews*/}
                     <View style={styles.reviewsRow}>
@@ -125,7 +136,7 @@ export default class ChooseTime extends React.Component {
                         {/*businessName*/}
                         <View style={styles.businessRow}>
                             <View style={styles.left}>
-                                <Text>אבי חשמל בע"מ</Text>
+                                <Text>{proUser.company_name}</Text>
                             </View>
                             <View style={styles.right}>
                                 <Text>שם העסק</Text>
@@ -134,7 +145,7 @@ export default class ChooseTime extends React.Component {
                         {/*businessId*/}
                         <View style={styles.businessRow}>
                             <View style={styles.left}>
-                                <Text>356565989</Text>
+                                <Text>{proUser.company_id}</Text>
                             </View>
                             <View style={styles.right}>
                                 <Text>מספר העסק</Text>
@@ -143,7 +154,7 @@ export default class ChooseTime extends React.Component {
                         {/*businessAddress*/}
                         <View style={{flex: 1, flexDirection: 'row'}}>
                             <View style={{flex: 1, justifyContent: 'center', alignItems: 'flex-start'}}>
-                                <Text>אבולעפיה 11, תל אביב</Text>
+                                <Text>{proUser.company_address}</Text>
                             </View>
                             <View style={{flex: 1, justifyContent: 'center'}}>
                                 <Text>כתובת העסק</Text>
@@ -152,7 +163,7 @@ export default class ChooseTime extends React.Component {
                         {/*phoneNumber*/}
                         <View style={styles.businessRow}>
                             <View style={styles.left}>
-                                <Text>054-2291103</Text>
+                                <Text>{this.props.authStore.user.phone_number}</Text>
                             </View>
                             <View style={styles.right}>
                                 <Text>פלאפון</Text>
@@ -163,7 +174,7 @@ export default class ChooseTime extends React.Component {
 
                 <View style={styles.footer}>
                     <View style={{alignItems: 'center'}}>
-                        {submitButton('אימות', () => {
+                        {submitButton('אימות','consumer', () => {
                             this.handleSubmit();
                         })}
                     </View>
@@ -182,7 +193,7 @@ let styles = StyleSheet.create({
     },
     whiteHead: {
         backgroundColor: '#fff',
-        flex: 0.75,
+        flex: 1,
         borderBottomWidth: 1,
         borderColor: '#9b9b9b'
     },
@@ -202,7 +213,7 @@ let styles = StyleSheet.create({
         justifyContent: 'center'
     },
     imageView: {
-        flex: 0.2,
+        flex: 0.4,
         backgroundColor: 'white',
         alignItems: 'flex-end',
         marginRight: SW / 20

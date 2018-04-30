@@ -1,23 +1,21 @@
 import React from 'react';
-import {View, Text, Image, TextInput, StyleSheet, Alert, TouchableOpacity} from 'react-native';
-import {SH, SW, HH} from "../../../../config/styles";
-import LinearViewBelowHeaderConsumer from '../../../../components/LinearViewBelowHeaderConsumer';
+import {Alert, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {HH, SH, SW, mainStyles} from "../../../../config/styles";
 import {submitButton} from "../../../../components/modalSubmitButton";
-import CustomHeaderAddJob from '../../../../components/headers/CustomHeaderAddJob'
 import {inject, observer} from "mobx-react/native";
 import {fetcher} from "../../../../generalFunc/fetcher";
 import AutoComplete from '../../../../components/autoComplete'
 import {Keys} from "../../../../config/keys";
 import MapComponent from '../../../../components/mapComponent'
 import LinierView from '../../../../components/linierView';
-import CustomHeaderAddJobStepsConsumer from '../../../../components/headers/CustomHeaderAddJobStepsConsumer'
+import Header from '../../../../components/headers/Header'
 
 @inject("userDataStore")
 @inject("addJobStore")
 @inject("authStore")
 @observer
 export default class ChooseAddress extends React.Component {
-     static navigationOptions = {
+    static navigationOptions = {
         header: null,
     };
 
@@ -25,8 +23,8 @@ export default class ChooseAddress extends React.Component {
         super(props);
         this.state = {
             text: 'כתובת',
-            payment_type: '',
-            lat: 32.7917735,
+            payment_type: 'cash',
+            lat: 36.7917735,
             lon: 34.9829165,
         };
     }
@@ -46,6 +44,7 @@ export default class ChooseAddress extends React.Component {
             //     Alert.alert('please fill in building number as well');
             // }
             // else {
+
                 this.getCoordsAndSubmitData(this.state.place_id);
 
             // }
@@ -58,43 +57,49 @@ export default class ChooseAddress extends React.Component {
     }
 
     submitJob(lat, lon) {
-        let objToSave = {
-            lat: lat,
-            lon: lon,
-            address: this.state.address,
-            payment_type: 'cash',
-            service_fee: '100'
+        if (!this.state.payment_type) {
+            Alert.alert('please choose payment type');
         }
-        this.props.addJobStore.editNewJobInfo(objToSave);
-        let item = this.props.addJobStore.returnFetchObj();
-        let headers = {};
-
-        // this means we do nt send image
-        if(item.service === this.props.addJobStore.newJobInfo.service) {
-            headers = {
-                'Accept': `application/json`,
-                'Content-Type': 'application/json',
-                'Authorization': 'JWT ' + this.props.userDataStore.userData.token
-            };
-        }
-        //in case we do wanna send image
         else {
-            headers = {
-                'Accept': `application/json`,
-                'content-type': 'multipart/form-data; boundary=6ff46e0b6b5148d984f148b6542e5a5d',
-                'Authorization': 'JWT ' + this.props.userDataStore.userData.token
-            };
-            item = {
-                type: 'formData',
-                payload: item
+            let objToSave = {
+                lat: lat,
+                lon: lon,
+                address: this.state.address,
+                payment_type: this.state.payment_type,
+                service_fee: '100'
             }
+            this.props.addJobStore.editNewJobInfo(objToSave);
+            let item = this.props.addJobStore.returnFetchObj();
+            let headers = {};
+
+            // this means we do nt send image
+            if (item.service === this.props.addJobStore.newJobInfo.service) {
+                headers = {
+                    'Accept': `application/json`,
+                    'Content-Type': 'application/json',
+                    'Authorization': 'JWT ' + this.props.userDataStore.userData.token
+                };
+            }
+            //in case we do wanna send image
+            else {
+                headers = {
+                    'Accept': `application/json`,
+                    'content-type': 'multipart/form-data; boundary=6ff46e0b6b5148d984f148b6542e5a5d',
+                    'Authorization': 'JWT ' + this.props.userDataStore.userData.token
+                };
+                item = {
+                    type: 'formData',
+                    payload: item
+                }
+            }
+            fetcher('api/posts/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), item, headers);
         }
-        fetcher('api/posts/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), item, headers);
     }
 
     successCallback(response) {
         if (response.id) {
             this.props.userDataStore.addJob(response)
+            this.props.userDataStore.focusConsumerJob(response);
             this.props.navigation.navigate('ApplyBaseScreen');
         }
         console.warn('success addJob!', response);
@@ -145,33 +150,41 @@ export default class ChooseAddress extends React.Component {
     }
 
     render() {
-        console.log('addressPage', this.props)
+
         let leftIconStyle = this.state.payment_type === 'cash' ? {} : {};
+
+        // return (
+        //     <MapComponent style={styles.map}
+        //                     />
+        // )
+        let leftPaymentIcon = this.state.payment_type === 'cash' ? styles.activeChoiceStyle : {};
+        let rightPaymentIcon = this.state.payment_type === 'cash' ? {} : styles.activeChoiceStyle;
+
         return (
             <View style={styles.container}>
                 {/*Linear under header 0.8 flex*/}
                 <LinierView>
-                        <CustomHeaderAddJobStepsConsumer props={this.props}/>
-                        <View style={{flex: 1,   alignItems: 'center'}}>
-                            <Image
-                                source={require('../../../../../assets/addJob/icons/stepIndicatorConsumer3.png')}
-                            />
-                        </View>
-                         <View style={styles.textInputView}>
-                             <Text style={{color: '#fff'}}>הכנסת כתובת</Text>
-                            <AutoComplete
-                                handleLocationPress={this.handleLocationPress.bind(this)}
-                            />
-                            {/*<TextInput*/}
-                            {/*multiline={true}*/}
-                            {/*underlineColorAndroid={'transparent'}*/}
-                            {/*style={styles.textInput}*/}
-                            {/*onChangeText={(text) => this.setState({text})}*/}
-                            {/*value={this.state.text}*/}
-                            {/*/>*/}
-                        </View>
+                    <Header head={'AddJob'} previousPage={'ExplainTheJob'} props={this.props} />
+                    <View style={{flex: 1, alignItems: 'center'}}>
+                        <Image
+                            source={require('../../../../../assets/addJob/icons/stepIndicatorConsumer3.png')}
+                        />
+                    </View>
+                    <View style={styles.textInputView}>
+                        <Text style={mainStyles.whiteTitle}>הכנסת כתובת</Text>
+                        <AutoComplete
+                            handleLocationPress={this.handleLocationPress.bind(this)}
+                        />
+                        {/*<TextInput*/}
+                        {/*multiline={true}*/}
+                        {/*underlineColorAndroid={'transparent'}*/}
+                        {/*style={styles.textInput}*/}
+                        {/*onChangeText={(text) => this.setState({text})}*/}
+                        {/*value={this.state.text}*/}
+                        {/*/>*/}
+                    </View>
 
-                    </LinierView>
+                </LinierView>
 
 
                 <View style={{flex: 2}}>
@@ -187,29 +200,33 @@ export default class ChooseAddress extends React.Component {
                                       }}/>
                     </View>
 
-                    <View style={{position: 'absolute', zIndex: 5, bottom:-50, flex: 1}}>
+                    <View style={{position: 'absolute', zIndex: 5, bottom: -50, flex: 1}}>
                         {/*Footer with payment method and button 0.8*/}
                         <View style={styles.footer}>
                             <View style={{flex: 1}}>
                                 <View style={styles.paymentMethodView}>
-                                    <View style={styles.iconViewLeft}>
-                                        <Image
-                                            source={require('../../../../../assets/addJob/icons/CashPayIcon.png')}
-                                        />
-                                    </View>
+                                    <TouchableOpacity onPress={() => this.setState({payment_type: 'cash'})}>
+                                        <View style={[styles.iconViewLeft, leftPaymentIcon]}>
+                                            <Image
+                                                source={require('../../../../../assets/addJob/icons/CashPayIcon.png')}
+                                            />
+                                        </View>
+                                    </TouchableOpacity>
                                     <View style={styles.borderViewMiddle}/>
-                                    <View style={styles.iconViewRight}>
-                                        <Image
-                                            source={require('../../../../../assets/addJob/icons/CreadiPayIcon.png')}
-                                        />
-                                    </View>
+                                    <TouchableOpacity onPress={() => this.setState({payment_type: 'credit_card'})}>
+                                        <View style={[styles.iconViewRight, rightPaymentIcon]}>
+                                            <Image
+                                                source={require('../../../../../assets/addJob/icons/CreadiPayIcon.png')}
+                                            />
+                                        </View>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
 
                             {/*Button*/}
                             {/*<View style={styles.container}>*/}
                             <View style={{alignItems: 'center', width: SW, marginBottom: 30}}>
-                                {submitButton('המשך', this.handleSubmit.bind(this))}
+                                {submitButton('המשך','consumer', this.handleSubmit.bind(this))}
                             </View>
                             {/*</View>*/}
                         </View>
@@ -223,7 +240,7 @@ export default class ChooseAddress extends React.Component {
 
 let styles = StyleSheet.create({
     container: {
-        height: SH - HH +20,
+        height: SH - HH + 20,
         width: SW,
         flex: 1,
     },
@@ -231,7 +248,7 @@ let styles = StyleSheet.create({
         flex: 0.8
     },
     textInputView: {
-        marginTop: SH / 10,
+        marginTop: SH / 15,
         height: HH * 4,
         zIndex: 3,
         alignItems: 'center',
@@ -253,7 +270,7 @@ let styles = StyleSheet.create({
         backgroundColor: 'rgba(244, 244, 244, 0.8)',
         zIndex: 3,
         marginBottom: 50,
-        height: SH /4,
+        height: SH / 4,
     },
     paymentMethodView: {
         height: SH / 12,
@@ -279,6 +296,10 @@ let styles = StyleSheet.create({
     map: {
         position: 'absolute',
         bottom: 0,
+    },
+    activeChoiceStyle: {
+        borderWidth: 0.3,
+        borderColor: '#000',
     }
     // map: {
     //     width: 100,

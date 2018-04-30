@@ -11,7 +11,9 @@ import { Card, CardItem } from 'native-base'
 
 import { CardRow } from './index'
 
-const { width, height } = Dimensions.get('window')
+import {SW, mainStyles} from "../../../../../config/styles";
+
+
 const services = [
   {
     name : 'Cleaner',
@@ -54,7 +56,7 @@ class CardList extends React.Component {
   render() {
       return (
           <View style={{marginTop: -105}}>
-              <Text style={styles.title}>
+              <Text style={[mainStyles.whiteTitle,{marginBottom:20}]}>
                   איזה שירות תרצה לבחור היום?
               </Text>
               <View style={styles.containerServices}>
@@ -81,12 +83,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  title:{alignSelf:'center',
-    color:'#fff',
-    marginBottom:20
-  },
+
   containerServices : {
-    width,
+
     flexDirection:'row',
     flexWrap:'wrap',
     justifyContent:'center'

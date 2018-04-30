@@ -40,6 +40,9 @@ export const tryLogin = (authStore, userDataStore, proAuthStore, callbackFunc) =
             }
             fetcher(loginRoute, 'POST', successCallback, errorCallback, sendObj);
         }
+        else {
+            console.warn('no user info on phone');
+        }
         // //consumer autoLogin:
         // AccessToken.getCurrentAccessToken().then((data) => {
         //     //updating store with fbToken:

@@ -1,11 +1,11 @@
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 import React, {Component} from 'react';
-import {PagerTabIndicator, IndicatorViewPager, PagerTitleIndicator, PagerDotIndicator} from 'rn-viewpager';
+import {IndicatorViewPager, PagerDotIndicator} from 'rn-viewpager';
 import LinearGradient from 'react-native-linear-gradient';
 import OpenScreen1 from './steps/OpenScreen1';
 import OpenScreen2 from './steps/OpenScreen2';
 import OpenScreen3 from './steps/OpenScreen3';
-import {SH, SW} from "../../../config/styles";
+import {SW, SH} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 
 @inject("authStore")
@@ -37,11 +37,13 @@ export default class Step extends Component {
                         <OpenScreen1/>
                     </View>
                 </IndicatorViewPager>
-                <TouchableOpacity onPress={()=>this.props.skipIntro()}>
-                    <LinearGradient colors={['#FF8D00', '#FF8600']} style={{justifyContent: 'center', height: SW / 5}}>
-                        <Text style={{textAlign: 'center', color: '#fff', fontSize: 14}}>דלג</Text>
-                    </LinearGradient>
-                </TouchableOpacity>
+                <LinearGradient colors={['#FF8D00', '#FF8600']} style={{justifyContent: 'center', height: SW / 5}}>
+                    <TouchableOpacity onPress={() => this.props.skipIntro()} >
+
+                        <Text style={{textAlign: 'center', color: '#fff', fontSize: 14, textAlignVertical: 'center', height: SH/12}}>דלג</Text>
+                    </TouchableOpacity>
+
+                </LinearGradient>
             </View>
         );
     }

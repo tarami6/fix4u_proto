@@ -20,6 +20,7 @@ import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHe
 
 import {SH, SW} from "../../../config/styles";
 import StarIcon from 'react-native-vector-icons/FontAwesome';
+import IconCamera from 'react-native-vector-icons/FontAwesome';
 import StarRating from 'react-native-star-rating';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import {submitButton} from "../../../components/modalSubmitButton";
@@ -51,7 +52,6 @@ const data = [
 ]
 
 @inject('userDataStore')
-@inject("proAuthStore")
 @observer
 export default class ApplyBaseScreen extends React.Component {
     static navigationOptions = {
@@ -249,7 +249,7 @@ export default class ApplyBaseScreen extends React.Component {
                                     <Text style={{opacity: 0.7}}>מתכנן את היציאה אליך</Text>
                                     <View style={styles.footer}>
                                         <View style={{alignItems: 'center'}}>
-                                            {submitButton('אשר', () => {
+                                            {submitButton('אשר','consumer', () => {
                                                 this.choosePro(apply);
                                             })}
                                         </View>
@@ -437,7 +437,7 @@ export default class ApplyBaseScreen extends React.Component {
                                 })}
                                 <View style={styles.footer}>
                                     <View style={{alignItems: 'center'}}>
-                                        {submitButton('הזמן עכשיו', () => {
+                                        {submitButton('הזמן עכשיו','consumer', () => {
                                             this.setModalVisible(true);
                                         })}
                                     </View>

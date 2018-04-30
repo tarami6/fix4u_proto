@@ -2,6 +2,7 @@ package com.fix4u_screens;
 
 import android.app.Application;
 
+import tech.bam.RNBraintreeDropIn.RNBraintreeDropInPackage;
 import me.pushy.sdk.react.PushyPackage;
 import com.facebook.react.ReactApplication;
 import com.airbnb.android.react.maps.MapsPackage;
@@ -30,7 +31,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new MapsPackage(),
                     new ImagePickerPackage(),
                     new LinearGradientPackage(),
-                    new PushyPackage()
+                    new PushyPackage(),
+                    new RNBraintreeDropInPackage()
             );
         }
 

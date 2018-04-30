@@ -28,7 +28,8 @@ export let mainColor = '#F5A623';
 export let secondaryColor = '#FB6717';
 export let mainRed = '#D0021B';
 export let grey = '#CCCCCC';
-export let darkGrey = '#7f7f7f';
+export let backgroundGrey = '#f6f6f6'
+export let fontGrey = '#7f7f7f';
 export let START = '#FFBA00';
 export let END = '#FF8D00';
 // SCREEN ZISE
@@ -39,7 +40,10 @@ export let PaddingSize = SW - SW / 16;
 export let stretchMinimum = SH / 16;
 // FONT
 export let basicIconFont = 30;
+export let largeFont = 20;
 export let buttonFont = 20;
+export let infoWhiteFont = 16;
+export let mediumFont = 14
 export let smallFont = 11;
 
 export const
@@ -70,7 +74,18 @@ export let mainStyles = StyleSheet.create({
     },
     greyTitle: {
         fontSize: 18,
-        color: '#4a4a4a',
+        color: fontGrey,
+        fontWeight: 'bold'
+    },
+    whiteTitle: {
+        fontSize: 18,
+        color: '#fff',
+        fontWeight: 'bold',
+        alignSelf: 'center'
+    },
+    infoWhiteText: {
+        color: '#fff',
+        fontSize: 16,
         fontWeight: 'bold'
     }
 

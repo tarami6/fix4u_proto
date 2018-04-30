@@ -11,12 +11,20 @@ import Header from '../../../../components/headers/Header'
 
 @inject("userDataStore")
 @observer
-export default class ReceiptToConsumer extends React.Component {
+export default class ProPaymentPro extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             modalVisible: false,
+            name: '',
         };
+    }
+
+    componentWillMount(){
+        let name = this.props.userDataStore.focusedJob.user.name;
+        this.setState({
+            name: name
+        })
     }
 
 
@@ -126,6 +134,8 @@ export default class ReceiptToConsumer extends React.Component {
                             <View style={{flex: 1, backgroundColor: '#fff'}}>
                                 <TextInput
                                     underlineColorAndroid="transparent"
+                                    value={this.state.name}
+                                    onChangeText={(text)=>{this.setState({name: name})}}
                                     placeholder={"אלכסנדר קנדל"}
                                     style={styles.textInput}
                                 />

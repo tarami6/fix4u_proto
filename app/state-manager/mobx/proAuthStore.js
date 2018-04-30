@@ -2,6 +2,10 @@ import {observable, action} from 'mobx'
 import {AsyncStorage} from 'react-native'
 
 export default class ProAuthStore {
+
+    //Pro auth state
+
+    // Pro Profile Pic
     //local image for displaying before saving the image on the aws
     @observable localImage = '';
 
@@ -101,4 +105,5 @@ export default class ProAuthStore {
             return sendObj
         }
     }
+
 }

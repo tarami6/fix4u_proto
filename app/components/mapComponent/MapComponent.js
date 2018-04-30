@@ -11,11 +11,11 @@ let usersMap = props => {
     this.state = {
         coordinates: [
             {
-                latitude: 37.3317876,
+                latitude: 33.3317876,
                 longitude: -122.0054812,
             },
             {
-                latitude: 37.771707,
+                latitude: 33.771707,
                 longitude: -122.4053769,
             },
         ],
@@ -64,7 +64,7 @@ let usersMap = props => {
         <View style={styles.mapContainer}>
             <MapView
                 initialRegion={{
-                    latitude: 32.0853,
+                    latitude: 35.0853,
                     longitude: 34.781768,
                     latitudeDelta: 0.0622*0.2,
                     longitudeDelta: 0.0421*0.2}}

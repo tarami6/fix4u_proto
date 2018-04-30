@@ -1,9 +1,9 @@
 import {StyleSheet} from 'react-native';
-import {SH, SW, colors} from "../../../config/styles";
+import {SH, SW, backgroundGrey} from "../../../config/styles";
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: "#F5F5F5",
+        backgroundColor: backgroundGrey,
         flex: 1,
         padding: 22,
         justifyContent: "center",
@@ -29,7 +29,7 @@ export default StyleSheet.create({
         borderTopWidth: 4,
         borderLeftWidth:2,
         borderRightWidth:2,
-        borderColor: '#DADADA',
+        borderColor: 'rgba(218, 218, 218, 0.35)',
         marginBottom: SH /8,
         textAlign: 'center'
 

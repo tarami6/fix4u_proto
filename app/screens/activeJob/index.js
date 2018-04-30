@@ -14,6 +14,8 @@ import ProPaymentConsumer from './proPayment/proPaymentConsumer'
 //consumer payment step - here the consumer pays the pro
 import ConsumerPaymentPro from './consumerPayment/ConsumerPaymentPro';
 import ConsumerPaymentConsumer from './consumerPayment/ConsumerPaymentConsumer'
+//Consumer review
+import ConsumerReview from './consumerReview/consumerReviewConsumer'
 // screens:
 
 
@@ -42,6 +44,7 @@ export default class ActiveJob extends Component {
                     </View>
                 );
             case 'pro_payment':
+
                 let ProPayment = this.props.userDataStore.currentUserType === 'pro' ? ProPaymentPro : ProPaymentConsumer
                 return (
                     <ProPayment/>
@@ -52,11 +55,21 @@ export default class ActiveJob extends Component {
                     <ConsumerPayment/>
                 );
             case 'consumer_review':
-                return (
-                    <View>
-                        <Text>consumer_review</Text>
-                    </View>
-                );
+                if (this.props.userDataStore.currentUserType === 'pro'){
+                    return (
+                        <View>
+                            <Text>
+                                The consumer is currently reviewing the job
+                            </Text>
+                        </View>
+                    );
+                }
+                else {
+                    return (
+                        <ConsumerReview />
+                    );
+                }
+
 
             default:
                 return (

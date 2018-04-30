@@ -23,10 +23,13 @@ export default StyleSheet.create({
     textInputStyle: {
         width: SW * 0.6,
         backgroundColor: '#fff',
-        borderRadius: 5,
+        borderRadius: 7,
         borderWidth: 0.1,
-        elevation: 4,
-        borderColor: '#000'
+        borderTopWidth: 4,
+        borderLeftWidth:2,
+        borderRightWidth:2,
+        borderColor: 'rgba(218, 218, 218, 0.35)',
+
     },
 
     button: {

@@ -4,7 +4,7 @@
  * "post" = "job"
  **/
 
-import {observable, action} from 'mobx'
+import {action, observable} from 'mobx'
 
 
 export default class UserDataStore {
@@ -13,7 +13,11 @@ export default class UserDataStore {
     @observable userType = ''; //this is the the general user type, if he have a pro account he will always stay pro here
     @observable currentUserType = '';
     @observable sentApplies = [];
-
+    // focused Job, the job the user is currently viewing
+    @observable focusedJob = {};
+    @observable focusedConsumerJob = {}
+    // Choose pro process:
+    @observable shownPro = {}
 
     //user and userData editing:
     @action setUserType(type: string) {
@@ -29,23 +33,17 @@ export default class UserDataStore {
         this.userData = data;
     }
 
+
+    /// consumer open Job handling:
+
     @action logout() {
         this.userType = '';
         this.userData = {};
     }
 
-
-    // focused Job
-    @observable focusedJob = {};
-
     @action focusJob(job: Object) {
         this.focusedJob = job;
     }
-
-
-    /// consumer open Job handling:
-
-    @observable focusedConsumerJob = {}
 
     @action focusConsumerJob(job: Object) {
         this.focusedConsumerJob = job;
@@ -61,13 +59,12 @@ export default class UserDataStore {
         }
     }
 
-
     // notification and upadating user handling:
-    @action setSentApplies(sendApplies: Array){
-        this.sentApplies =  sendApplies;
+    @action setSentApplies(sendApplies: Array) {
+        this.sentApplies = sendApplies;
     }
 
-    @action addApply(apply: Object){
+    @action addApply(apply: Object) {
         this.sentApplies.push(apply);
     }
 
@@ -75,30 +72,53 @@ export default class UserDataStore {
         this.userData.user = data;
     }
 
-    @action addJob(job){
-        this.userData.user.user_posts.push(job)
+    @action addJob(job) {
+        this.userData.user.user_posts.push(job);
     }
 
+    //this is update for the user consumer post
     @action updatePost(post: Object) {
         let userPosts = this.userData.user.user_posts;
         for (let i = 0; i < userPosts.length; i++) {
             if (userPosts[i].id === post.id) {
                 this.userData.user.user_posts[i] = post;
             }
+            //not sure about that yet, after recheck
             if (post.status === 'open') {
                 this.focusConsumerJob(post);
                 this.focusJob(post)
             }
         }
     }
-    @action addProPost(post: Object){
+
+    @action updatePostStatus(postId: string, status: string) {
+        let userPosts = this.userData.user.user_posts;
+        for (let i = 0; i < userPosts.length; i++) {
+            if (userPosts[i].id === postId) {
+                this.userData.user.user_posts[i].status = status;
+                this.focusJob(this.userData.user.user_posts[i]);
+            }
+        }
+    }
+
+    @action updateProPost(post: Object) {
+        let userPosts = this.userData.user.pro_posts;
+        for (let i = 0; i < userPosts.length; i++) {
+            if (userPosts[i].id === post.id) {
+                this.userData.user.pro_posts[i] = post;
+                //if the pro is currently focusing this job then:
+                if (this.focusedJob.id === post.id) {
+                    this.focusJob(this.userData.user.user_posts[i]);
+                }
+            }
+        }
+    }
+
+    @action addProPost(post: Object) {
         this.userData.user.pro_posts.push(post)
     }
 
-    // Choose pro process:
-    @observable shownPro = {}
-
-    @action showPro(pro: Object){
+    @action showPro(pro: Object) {
         this.shownPro = pro;
     }
 

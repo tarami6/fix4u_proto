@@ -64,20 +64,20 @@ export default class ChooseJob extends Component {
 
     onMarkerPress(openJob, index) {
         // this.props.modalsStore.showModal('proPhoneVerifyModal');
-        console.warn(openJob);
+        // console.warn(openJob);
         this.props.openJobsStore.focusJob(openJob);
         this.props.modalsStore.showModal('chooseJobModal');
     }
 
     render() {
         let openJobsList = this.props.openJobsStore.openJobsList
-        if (openJobsList && openJobsList.length > 0 || loadEmptyMap) {
+        if (openJobsList && openJobsList.length >= 0 || loadEmptyMap) {
             return (
                 <View style={{flex: 1}}>
                     <View style={{elevation: 5}}>
                         <Header/>
                     </View>
-
+                    {/*Map component: */}
                     <MapComponent onMarkerPress={this.onMarkerPress.bind(this)}
                                   usersPlaces={this.props.openJobsStore.openJobsList}/>
                     <View style={{position: 'absolute', top: HH}}>
@@ -87,7 +87,7 @@ export default class ChooseJob extends Component {
                         <TouchableOpacity onPress={() => Alert.alert('Will take you to ? soon')} style={{
                             width: SW,
                             height: SH / 15,
-                            backgroundColor: 'rgba(244,244,244,1)',
+                            backgroundColor: 'rgba(255,255,255,1)',
                             flexDirection: 'row',
                             elevation: 3,
                             alignItems: 'center',
