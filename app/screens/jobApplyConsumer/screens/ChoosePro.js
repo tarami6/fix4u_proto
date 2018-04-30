@@ -17,7 +17,7 @@ import {
 import Header from '../../../components/headers/Header';
 import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHeaderConsumer';
 
-
+import StarIcon from 'react-native-star-rating';
 import {SH, SW} from "../../../config/styles";
 import StarIcon from 'react-native-vector-icons/FontAwesome';
 import StarRating from 'react-native-star-rating';
@@ -234,7 +234,7 @@ export default class ApplyBaseScreen extends React.Component {
                                         backgroundColor: 'white',
                                         flexDirection: "row"
                                     }}>
-                                        <IconCamera style={{opacity: 0.7, alignSelf: 'center', marginLeft: 5}}
+                                        <StarIcon style={{opacity: 0.7, alignSelf: 'center', marginLeft: 5}}
                                                     name="camera" size={30}
                                                     color="gray"/>
                                         <TextInput underlineColorAndroid="transparent" style={{height: 40, flex: 1}}

@@ -71,7 +71,7 @@ export default class ChooseJob extends Component {
 
     render() {
         let openJobsList = this.props.openJobsStore.openJobsList
-        if (openJobsList && openJobsList.length > 0 || loadEmptyMap) {
+        // if (openJobsList && openJobsList.length > 0 || loadEmptyMap) {
             return (
                 <View style={{flex: 1}}>
                     <View style={{elevation: 5}}>
@@ -147,15 +147,15 @@ export default class ChooseJob extends Component {
                 </View>
 
             )
-        }
-        else {
-            return (
-                <View>
-                    <Text>
-                        loading all Open Jobs
-                    </Text>
-                </View>
-            )
-        }
+        // }
+        // else {
+        //     return (
+        //         <View>
+        //             <Text>
+        //                 loading all Open Jobs
+        //             </Text>
+        //         </View>
+        //     )
+        // }
     }
 }

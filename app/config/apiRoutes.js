@@ -1,14 +1,20 @@
 /// app routes
 
+// main route
 export const mainRoute = 'http://bang-israel-dev.eu-central-1.elasticbeanstalk.com';
+
+//generalAuth
 export const loginRoute = 'api/rest-auth/login/';
 export const phoneVerifyRoute = 'api/sms/verify/check/';
-export const getOpenPostsRoute = 'api/posts/pro/open/';
+
+//routes to get open consumer posts for the pro
+export const getOpenPostsRoute = 'api/posts/open/pro/';
+//route for consumer to get his open posts(tho he gets in in auth)
 export const checkForOpenPost = 'api/posts/open/';
 
 export const editUserRoute = 'api/rest-auth/user/';
 // get all my sent applies:
-export const getAppliesRoute = 'api/posts/pro/open/applied/';
+export const getAppliesRoute = 'api/posts/open/pro/applied/';
 /** Need post id and returns the route string**/
 export const applyForJobRoute = (postId) => {return (`api/posts/${postId}/apply/`)};
 export const chooseApplyRoute = (postId) => {return(`api/posts/${postId}/`)};
