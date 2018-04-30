@@ -57,11 +57,12 @@ export default class usersMap extends React.Component {
                     pinColor={'#FF5500'}
                     style={{width: 1, height: 1}}
                     onPress={() => this.props.onMarkerPress(openJob, index)}
+
                     // identifier={1++}
                     //             onPress={(yo) => {
                     //                 console.log('marker:', yo);
                     //             }}
-                    //  image={require('../assets/images/map/icon1.png')}
+                     image={{uri: 'https://drive.google.com/open?id=1R0IIojDOk-4kOfaBIXXYHyt693pTLDa7'}}
                 />)
         });
 

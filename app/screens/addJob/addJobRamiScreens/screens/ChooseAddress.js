@@ -45,11 +45,13 @@ export default class ChooseAddress extends React.Component {
             // }
             // else {
             this.getCoordsAndSubmitData(this.state.place_id)
+
             // }
         }
         else {
             Alert.alert('please choose proper address')
         }
+        this.props.navigation.navigate('ApplyBaseScreen');
 
     }
 

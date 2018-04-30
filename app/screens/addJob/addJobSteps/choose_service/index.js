@@ -14,9 +14,10 @@ import {
     Alert,
     BackHandler
 } from 'react-native';
-import {Container, Header, Content, Card, CardItem, Body, Text, Icon} from 'native-base';
+import {Container, Content, Card, CardItem, Body, Text, Icon} from 'native-base';
 
-import {addNavigationHelpers, NavigationActions} from "react-navigation"
+import {addNavigationHelpers, NavigationActions} from "react-navigation";
+import Header from '../../../../components/headers/Header'
 
 import LinierView from '../../../../components/linierView'
 import {CardList, CustomHeader} from './components/index'
@@ -110,7 +111,7 @@ export default class ChooseService extends Component {
             <Container>
                 <Content>
                     <LinierView>
-                        <CustomHeader/>
+                        <Header head={'consumerHome'} {...this.props}/>
                     </LinierView>
                     <CardList nextStep={this.nextStep.bind(this)}/>
                 </Content>

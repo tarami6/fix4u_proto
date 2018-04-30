@@ -103,7 +103,6 @@ export default class ProAuthStore {
             let sendObj = Object.assign({}, this.proUser);
             sendObj.phone_number = this.proUser['uid'];
             return sendObj
-
         }
     }
 

@@ -87,6 +87,7 @@ export default class PhoneInput extends Component {
                     <Text style={styles.headerText}>הזן מספר טלפון</Text>
                 <View style={styles.inputContainer}>
 
+
                         <TextInput
                             ref={ref => this.phoneInput = ref}
                             style={styles.textInputStyle}

@@ -297,6 +297,7 @@ export default class ApplyBaseScreen extends React.Component {
                         </View>
                     </LinearViewBelowHeaderConsumer>
                 </View>
+
                 <View style={{flex: 0.7}}>
                     <View style={styles.infoView}>
                         {/*Image & service & full name*/}
