@@ -108,8 +108,6 @@ let handleNotificationData = (type, payload) => {
             userDataStore.updatePost(payload);
             break;
         case 'pro_post_update': // this is the route for updating the pot_posts
-            console.warn('got pro post update:', payload);
-            console.log('got pro post update:', payload)
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
             }
@@ -125,7 +123,7 @@ let handleNotificationData = (type, payload) => {
             console.warn("notification wasn't handled:", type);
 
     }
-    console.warn('handle not:', type, payload);
+    console.warn('handle not:', 'type: ' + type, 'payload: ' + payload);
 }
 
 type Props = {};
@@ -152,6 +150,32 @@ export default class App extends Component<Props> {
                 });
             }
         });
+        PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION).then((granted) => {
+            if (!granted) {
+                // Request the WRITE_EXTERNAL_STORAGE permission so that the Pushy SDK will be able to persist
+                // the device token in the external storage
+                PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE).then((result) => {
+                    // User denied permission?
+                    if (result !== PermissionsAndroid.RESULTS.GRANTED) {
+                        // Possibly ask the user to grant the permission
+                    }
+                });
+            }
+        });
+        PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION).then((granted) => {
+            if (!granted) {
+                // Request the WRITE_EXTERNAL_STORAGE permission so that the Pushy SDK will be able to persist
+                // the device token in the external storage
+                PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE).then((result) => {
+                    // User denied permission?
+                    if (result !== PermissionsAndroid.RESULTS.GRANTED) {
+                        // Possibly ask the user to grant the permission
+                    }
+                });
+            }
+        });
+
+
     }
 
     render() {

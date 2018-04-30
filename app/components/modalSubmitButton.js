@@ -4,7 +4,7 @@ import {LinierBackground} from "../config/styles";
 import {HH, SW, mainStyles} from "../config/styles";
 
 export const
-    submitButton = (title,color ,onPress ) => {
+    submitButton = (title, onPress, color='red' ) => {
         switch (color) {
             case 'consumer':
                 return (

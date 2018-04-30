@@ -32,7 +32,7 @@ export default class OnTheWayPro extends Component {
         this.props.userDataStore.updatePost(res);
         this.props.userDataStore.focusJob(res)
         // this.props.navigation.navigate('ActiveJob');
-        console.warn('get paid fetch success', res);
+        // console.warn('get paid fetch success', res);
         // console.log('start job fetch success', res);
     }
 

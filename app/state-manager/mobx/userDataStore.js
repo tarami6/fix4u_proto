@@ -122,4 +122,16 @@ export default class UserDataStore {
         this.shownPro = pro;
     }
 
+//    location handler:
+    @observable userLocation = {
+        currentLocation: '',
+        lat: 0,
+        lon: 0
+    };
+
+    @action saveUserLocation(location: Object){
+        this.userLocation = location
+        console.warn('got:', this.userLocation);
+    }
+
 }

@@ -74,7 +74,6 @@ export default class ConsumerPaymentConsumer extends Component {
             nonce: result.nonce,
             amount: amount
         }
-        console.warn('body in fetchPayment:', sendBody)
         fetcher(route, 'POST', this.cardConfirmed.bind(this), this.errorCallback, sendBody, {token: this.props.userDataStore.userData.token});
 
     }
@@ -83,7 +82,6 @@ export default class ConsumerPaymentConsumer extends Component {
         Alert.alert('Payment Confirmed!');
         let postId = this.props.userDataStore.focusedJob.id
         this.props.userDataStore.updatePostStatus(postId, 'consumer_review');
-        console.warn('card confirmed:', res);
         console.log('card confirmed:', res);
     }
 

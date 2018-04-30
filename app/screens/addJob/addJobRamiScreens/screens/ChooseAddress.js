@@ -6,6 +6,7 @@ import {inject, observer} from "mobx-react/native";
 import {fetcher} from "../../../../generalFunc/fetcher";
 import AutoComplete from '../../../../components/autoComplete'
 import {Keys} from "../../../../config/keys";
+
 import MapComponent from '../../../../components/mapComponent'
 import LinierView from '../../../../components/linierView';
 import CustomHeaderAddJobStepsConsumer from '../../../../components/headers/CustomHeaderAddJobStepsConsumer'
@@ -19,16 +20,17 @@ export default class ChooseAddress extends React.Component {
         header: null,
     };
 
+
     constructor(props) {
         super(props);
         this.state = {
             text: 'כתובת',
             payment_type: '',
-            lat: 36.7917735,
-            lon: 34.9829165,
+            lat: 0,
+            lon: 0,
+            currentLatLng: {},
         };
     }
-
 
     handleSubmit() {
         // let obj = {
@@ -39,60 +41,62 @@ export default class ChooseAddress extends React.Component {
         //     service_fee: '100'
         // };
         // this.props.navigation.navigate('ApplyBaseScreen');
-        if (this.state.place_id) {
-            // if (this.state.details.address_components[0].long_name.length > 0) {
-            //     Alert.alert('please fill in building number as well');
-            // }
-            // else {
-            this.getCoordsAndSubmitData(this.state.place_id)
-
-            // }
-        }
-        else {
-            Alert.alert('please choose proper address')
-        }
-        this.props.navigation.navigate('ApplyBaseScreen');
-
-    }
-
-    submitJob(lat, lon) {
         if (!this.state.payment_type) {
             Alert.alert('please choose payment type');
         }
         else {
-            let objToSave = {
-                lat: lat,
-                lon: lon,
-                address: this.state.address,
-                payment_type: this.state.payment_type,
-                service_fee: '100'
-            }
-            this.props.addJobStore.editNewJobInfo(objToSave);
-            let item = this.props.addJobStore.returnFetchObj();
-            let headers = {};
+            if (this.state.place_id) {
+                // if (this.state.details.address_components[0].long_name.length > 0) {
+                //     Alert.alert('please fill in building number as well');
+                // }
+                // else {
+                this.getCoordsAndSubmitData(this.state.place_id)
 
-            // this means we do nt send image
-            if (item.service === this.props.addJobStore.newJobInfo.service) {
-                headers = {
-                    'Accept': `application/json`,
-                    'Content-Type': 'application/json',
-                    'Authorization': 'JWT ' + this.props.userDataStore.userData.token
-                };
+                // }
             }
-            //in case we do wanna send image
             else {
-                headers = {
-                    'Accept': `application/json`,
-                    'content-type': 'multipart/form-data; boundary=6ff46e0b6b5148d984f148b6542e5a5d',
-                    'Authorization': 'JWT ' + this.props.userDataStore.userData.token
-                };
-                item = {
-                    type: 'formData',
-                    payload: item
-                }
+                Alert.alert('please choose proper address')
             }
-            fetcher('api/posts/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), item, headers);
+            this.props.navigation.navigate('ApplyBaseScreen');
         }
+
+    }
+
+    submitJob(lat, lon) {
+
+        let objToSave = {
+            lat: lat,
+            lon: lon,
+            address: this.state.address,
+            payment_type: this.state.payment_type,
+            service_fee: '100'
+        }
+        this.props.addJobStore.editNewJobInfo(objToSave);
+        let item = this.props.addJobStore.returnFetchObj();
+        let headers = {};
+
+        // this means we do nt send image
+        if (item.service === this.props.addJobStore.newJobInfo.service) {
+            headers = {
+                'Accept': `application/json`,
+                'Content-Type': 'application/json',
+                'Authorization': 'JWT ' + this.props.userDataStore.userData.token
+            };
+        }
+        //in case we do wanna send image
+        else {
+            headers = {
+                'Accept': `application/json`,
+                'content-type': 'multipart/form-data; boundary=6ff46e0b6b5148d984f148b6542e5a5d',
+                'Authorization': 'JWT ' + this.props.userDataStore.userData.token
+            };
+            item = {
+                type: 'formData',
+                payload: item
+            }
+        }
+        fetcher('api/posts/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), item, headers);
+
     }
 
     successCallback(response) {
@@ -104,12 +108,12 @@ export default class ChooseAddress extends React.Component {
         console.warn('success addJob!', response);
     }
 
+    //autoCompleteHandling:
+
     errorCallback(response) {
         console.warn('error addJob');
         console.log('error in addJob:', response)
     }
-
-    //autoCompleteHandling:
 
     //get the lat and lon with the place_id
     getCoordsAndSubmitData(itemId) {
@@ -148,7 +152,18 @@ export default class ChooseAddress extends React.Component {
         })
     }
 
+
     render() {
+        //here we check if the user wants to choose his current location or other
+        let stateLocation = {
+            lat: this.state.lat,
+            lon: this.state.lon
+        }
+        let storeLocation = {
+            lat: this.props.userDataStore.userLocation.lat,
+            lon: this.props.userDataStore.userLocation.lon
+        }
+        let showLocation = this.state.lat === 0 ? storeLocation : stateLocation;
         // return (
         //     <MapComponent style={styles.map}
         //                     />
@@ -165,9 +180,10 @@ export default class ChooseAddress extends React.Component {
                             source={require('../../../../../assets/addJob/icons/stepIndicatorConsumer3.png')}
                         />
                     </View>
-                    <View style={styles.textInputView}>
-                        <Text style={{color: '#fff'}}>הכנסת כתובת</Text>
+                    <View style={styles.textInputView} pointerEvents="box-none">
+                        <Text style={{color: '#fff'}}>הכנס כתובת</Text>
                         <AutoComplete
+                            currentAddress={this.props.userDataStore.userLocation.currentAddress}
                             handleLocationPress={this.handleLocationPress.bind(this)}
                         />
                         {/*<TextInput*/}
@@ -182,14 +198,12 @@ export default class ChooseAddress extends React.Component {
                 </LinierView>
 
 
-                <View style={{flex: 2}}>
+                <View style={{flex: 2, backgroundColor: 'red'}}>
                     <View>
                         <MapComponent style={styles.map}
-                                      lat={this.state.lat}
-                                      lon={this.state.lon}
                                       userLocation={{
-                                          latitude: this.state.lat,
-                                          longitude: this.state.lon,
+                                          latitude: showLocation.lat,
+                                          longitude: showLocation.lon,
                                           latitudeDelta: 0.0622 * 0.1,
                                           longitudeDelta: 0.0421 * 0.1
                                       }}/>

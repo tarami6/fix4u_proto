@@ -57,9 +57,9 @@ export default class ApplyBaseScreen extends React.Component {
     componentDidMount() {
         let time = this.state.auctionTime;
         if (this.state.auctionTime > 0) {
-            setInterval(() => {
-                this.setState({auctionTime: this.state.auctionTime -= 1})
-            }, 1000);
+            // setInterval(() => {
+            //     this.setState({auctionTime: this.state.auctionTime -= 1})
+            // }, 1000);
         }
 
     }
@@ -107,6 +107,12 @@ export default class ApplyBaseScreen extends React.Component {
         let job2 = this.props.userDataStore.focusedConsumerJob;
         // console.warn('job2', job2);
         // let service =
+        //loading
+        if(!job2.appointment_time_start){
+            return (
+                <View/>
+            )
+        }
         return (
             <View style={{flex: 1}}>
                 <View style={{flex: 0.23, backgroundColor: 'red'}}>

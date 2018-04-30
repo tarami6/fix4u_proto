@@ -52,7 +52,6 @@ export default class ChooseTime extends React.Component {
 
 
     render() {
-        console.log('props', this.props.navigation.state)
         return (
             <View style={{flex: 1}}>
                 {/*Orange Head*/}

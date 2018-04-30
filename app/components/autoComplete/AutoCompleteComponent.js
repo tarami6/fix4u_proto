@@ -1,31 +1,81 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet, Component, Button } from 'react-native';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import {Component, View} from 'react-native';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import styles from './styles';
 import Geocoder from 'react-native-geocoding';
-import {SH, SW, HH} from "../../config/styles";
+import {HH, SH} from "../../config/styles";
 
-const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } } };
-const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } } };
-const myApiKey = 'AIzaSyAUL3vQQOGHgl938e6RNuDMhqQpNpXA2Nw';
+const homePlace = {description: 'Home', geometry: {location: {lat: 48.8152937, lng: 2.4597668}}};
+const workPlace = {description: 'Work', geometry: {location: {lat: 48.8496818, lng: 2.2940881}}};
+export const myApiKey = 'AIzaSyAUL3vQQOGHgl938e6RNuDMhqQpNpXA2Nw';
 
-let firstEnter =0;
+let firstEnter = 0;
 
 export default class AutoComplete extends React.Component {
 
+    getData = (lat, lan) => {
+        Geocoder.setApiKey(myApiKey);
+        Geocoder.getFromLatLng(lat, lan).then(
+            json => {
+                var address_component = json.results[0].formatted_address;
+
+                this.setState({currentaddress: address_component});
+
+            }, error => {
+                alert(error);
+            }
+        );
+    }
+    getlatlng = () => {
+        Geocoder.setApiKey('AIzaSyC0phAdvvYdwAk1LChuwnHJgEN3c_2GZjg');
+        Geocoder.getFromLocation("new york").then(res => {
+            console.warn('state:', this.state);
+            this.setState({
+                currentLatlng: {
+                    latitude: res.results[0].geometry.location.lat,
+                    longitude: res.results[0].geometry.location.lng,
+                }
+            })
+
+        })
+            .catch(err => console.warn('get latlng erorr' + err))
+    }
+
     constructor(props) {
         super(props);
-        this.state = { currentaddress: '', currentLatlng: [] };
+        this.state = {currentaddress: '', currentLatlng: {}};
     };
 
-    handleLocationPress(data, details){
+    //map functions:
+
+    handleLocationPress(data, details) {
         this.props.handleLocationPress(data, details)
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        console.warn('mounted');
         this.getUserLocationHandler();
-        this.getlatlng ();
+        // this.getlatlng ();
     }
+
+    getUserLocationHandler() {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                this.setState({
+                        currentLatlng: {
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude
+                        }
+                    },
+                    () => {
+                        console.warn('state2:', this.state);
+                        this.getData(position.coords.latitude, position.coords.longitude)
+                }
+                );
+
+            }
+            , error => console.warn(error), {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000});
+    };
 
     render() {
         // console.warn('current adress : ' + this.state.currentaddress)
@@ -34,12 +84,12 @@ export default class AutoComplete extends React.Component {
             <View style={styles}>
                 {/* <Button onPress={console.warn("buutun pressed") }/> */}
                 <GooglePlacesAutocomplete
-                    placeholder={this.state.currentaddress}
+                    placeholder={'Enter Address..'}
                     minLength={2} //length of text
                     textInputProps={{
                         onChangeText: (text) => {
                             // this.props.onChangeAddress(text)
-                            this.setState({ currentaddress: text })
+                            this.setState({currentaddress: text})
                         },
                     }}
                     width={300}
@@ -54,7 +104,9 @@ export default class AutoComplete extends React.Component {
                         // this.props.onChooseAddress()
                     }}
                     getDefaultValue={() => {
-                        return this.state.currentaddress; // text input default value
+                        let address = this.props.currentAddress? this.props.currentAddress: '';
+                        return address;
+                        // return this.state.currentaddress; // text input default value
                     }}
                     query={{
 
@@ -87,7 +139,7 @@ export default class AutoComplete extends React.Component {
                             borderColor: '#ddd',
                             borderBottomWidth: 0,
                             shadowColor: '#000',
-                            shadowOffset: { width: 0, height: 2 },
+                            shadowOffset: {width: 0, height: 2},
                             shadowOpacity: 0.8,
                             shadowRadius: 2,
                             elevation: 1,
@@ -97,7 +149,7 @@ export default class AutoComplete extends React.Component {
                         },
                         listView: {
                             backgroundColor: '#fff',
-                            height: HH*3,
+                            height: HH * 3,
                             marginLeft: 5
                         }
 
@@ -109,50 +161,5 @@ export default class AutoComplete extends React.Component {
         );
     }
 
-
-
-
-    getUserLocationHandler = () => {
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                this.setState({
-                        currentLatlng: [
-                            latitude= position.coords.latitude,
-                            longitude= position.coords.longitude],
-                    },
-                    () => this.getData( position.coords.latitude,  position.coords.longitude)
-                );
-
-            }
-            , error => console.warn(error), { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 });
-    };
-
-    getData = (lat, lan) => {
-        Geocoder.setApiKey(myApiKey);
-        Geocoder.getFromLatLng(lat, lan).then(
-            json => {
-                var address_component = json.results[0].formatted_address;
-
-                this.setState({ currentaddress: address_component });
-
-            }, error => { alert(error); }
-        );
-    }
-
-
-    getlatlng =() => {
-        Geocoder.setApiKey('AIzaSyC0phAdvvYdwAk1LChuwnHJgEN3c_2GZjg');
-        Geocoder.getFromLocation("new york").then(res => {
-
-            this.setState({
-                currentLatlng: {
-                    latitude: res.results[0].geometry.location.lat,
-                    longitude: res.results[0].geometry.location.lng,
-                }
-            })
-
-        })
-            .catch(err => console.warn('get latlng erorr' + err))
-    }
 
 }

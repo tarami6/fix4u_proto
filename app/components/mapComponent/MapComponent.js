@@ -35,28 +35,7 @@ let usersMap = props => {
 
 
 
-    let usersPlaces = [
-        {
-            latitude: 32.0853,
-            longitude: 34.781768,
-            latitudeDelta: 0.0622*0.2,
-            longitudeDelta: 0.0421*0.2,
-        },
-        {
-            latitude: 32.0753,
-            longitude: 34.782768,
-            latitudeDelta: 0.0622*0.2,
-            longitudeDelta: 0.0421*0.2,
-        }
 
-    ]
-
-    const usersMarkers = usersPlaces.map(userPlace => (
-        <MapView.Marker coordinate={userPlace} key={userPlace.id++} pinColor={'#FF5500'} style={{ width:1, height: 1 }}
-            // identifier={1++}
-                        onPress={(yo)=>{this.onMarkerPress(yo)}}
-            //  image={require('../assets/images/map/icon1.png')}
-        />));
 
 
 
@@ -74,8 +53,6 @@ let usersMap = props => {
                 style={styles.map}
                 ref={c => this.mapView = c} >
                 {userLocationMarker}
-                { usersMarkers}
-
                 {/*<MapView.Polyline*/}
                     {/*coordinates={props.coords}*/}
                     {/*strokeWidth={4}*/}

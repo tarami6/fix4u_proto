@@ -33,7 +33,6 @@ export default class ChooseJobModal extends Component {
     }
 
     submitApply() {
-        console.warn(this.props.openJobsStore.focusedJob.id);
         let jobId = this.props.openJobsStore.focusedJob.id
         let route = applyForJobRoute(jobId);
         let headers = {
@@ -70,9 +69,6 @@ export default class ChooseJobModal extends Component {
     render() {
         ///////// and here is the data: ///////////
         let currentJob = this.props.openJobsStore.focusedJob;
-        console.warn('from the modal:', currentJob.user);
-        console.log('the user:', currentJob.user)
-        console.log('the job:', currentJob)
         return (
             <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
                 <View style={styles.modalView}>
