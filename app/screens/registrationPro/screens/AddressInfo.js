@@ -10,7 +10,7 @@ import {Keys} from "../../../config/keys";
 import  MapComponent from '../../../components/mapComponent'
 import Header from '../../../components/headers/Header'
 
-
+@inject("userDataStore")
 @inject("proAuthStore")
 @observer
 export default class AddressInfo extends React.Component {
@@ -24,8 +24,8 @@ export default class AddressInfo extends React.Component {
             company_address: '',
             text: 'כתובת',
             payment_type: '',
-            lat: 32.786842906668895,
-            lon: 34.972372709973115,
+            lat: 0,
+            lon: 0,
 
         };
     }
@@ -66,6 +66,15 @@ export default class AddressInfo extends React.Component {
     }
 
     render() {
+        let stateLocation = {
+            lat: this.state.lat,
+            lon: this.state.lon
+        }
+        let storeLocation = {
+            lat: this.props.userDataStore.userLocation.lat,
+            lon: this.props.userDataStore.userLocation.lon
+        }
+        let showLocation = this.state.lat === 0 ? storeLocation : stateLocation;
         return (
             <View style={styles.container}>
 
@@ -88,6 +97,7 @@ export default class AddressInfo extends React.Component {
                         </View>
                         <View style={styles.textInputView}>
                             <AutoComplete
+                                currentAddress={this.props.userDataStore.userLocation.currentAddress}
                                 handleLocationPress={this.handleLocationPress.bind(this)}
                             />
                         </View>
@@ -98,11 +108,9 @@ export default class AddressInfo extends React.Component {
                 <View style={styles.mapContainer}>
 
                     <MapComponent style={styles.map}
-                                  lat={this.state.lat}
-                                  lon={this.state.lon}
                                   userLocation={{
-                                      latitude: this.state.lat,
-                                      longitude: this.state.lon,
+                                      latitude: showLocation.lat,
+                                      longitude: showLocation.lon,
                                       latitudeDelta: 0.0622 * 0.1,
                                       longitudeDelta: 0.0421 * 0.1
                                   }}/>
