@@ -105,6 +105,7 @@ export default class ApplyBaseScreen extends React.Component {
     render() {
         //mobx "listener" for new jobs
         let job2 = this.props.userDataStore.focusedConsumerJob;
+        // console.warn('job2', job2);
         // let service =
         return (
             <View style={{flex: 1}}>
@@ -166,6 +167,7 @@ export default class ApplyBaseScreen extends React.Component {
                                   }}/>
                     {/*       applies.MAP         */}
                     {job2.post_applies && job2.post_applies.map((item, index) => {
+                        console.warn('item', item);
                         return (
                             <TouchableOpacity
                                 onPress={() => this.showPro(item)}
@@ -195,9 +197,9 @@ export default class ApplyBaseScreen extends React.Component {
                                     <Text style={{zIndex: 3, fontSize: 14}}>{item.services} </Text>
                                 </View>
                                 <View style={{flex: 0.4, alignItems: 'center', justifyContent: 'center'}}>
-                                    {item.pic ? <Image
+                                    {item.user_pro.profile_pic_thumb ? <Image
                                         style={{width: 50, height: 50, borderRadius: 100}}
-                                        source={item.user_pro.profile_pic_thumb}
+                                        source={{uri: item.user_pro.profile_pic_thumb}}
                                     /> : <View/>}
 
                                 </View>
