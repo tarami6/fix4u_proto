@@ -42,7 +42,7 @@ export default class ChooseJobModal extends Component {
         };
         fetcher(route, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), {
             time: '12:00:00',
-            service_fee: 45
+            service_fee: 130
         }, headers)
     }
 
@@ -172,7 +172,9 @@ export default class ChooseJobModal extends Component {
 
                                             }}
                                                        underlineColorAndroid="transparent"
-                                                       placeholder={data.price}/>
+                                                       placeholder={data.price}
+                                                       keyboardType={'phone-pad'}
+                                            onChangeText={(price)=>this.setState({price: price})}/>
                                             <Text style={{paddingLeft: 5}}>ש"ח</Text>
                                         </View>
                                     </View>

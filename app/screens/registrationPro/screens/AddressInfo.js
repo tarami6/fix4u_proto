@@ -23,7 +23,6 @@ export default class AddressInfo extends React.Component {
         this.state = {
             company_address: '',
             text: 'כתובת',
-            payment_type: '',
             lat: 0,
             lon: 0,
 
@@ -36,7 +35,10 @@ export default class AddressInfo extends React.Component {
             this.props.navigation.navigate('ChoosingService')
         }
         else {
-            Alert.alert('please fill in company_address to continue')
+            this.props.proAuthStore.updatePro({company_address: this.props.userDataStore.userLocation.currentAddress});
+            this.props.navigation.navigate('ChoosingService')
+
+            // Alert.alert('please fill in company_address to continue')
         }
     }
 
@@ -94,7 +96,7 @@ export default class AddressInfo extends React.Component {
                                 נא לציין כפי שרשום ברשויות
                             </Text>
                         </View>
-                        <View style={styles.textInputView}>
+                        <View style={styles.textInputView} pointerEvents="box-none">
                             <AutoComplete
                                 currentAddress={this.props.userDataStore.userLocation.currentAddress}
                                 handleLocationPress={this.handleLocationPress.bind(this)}

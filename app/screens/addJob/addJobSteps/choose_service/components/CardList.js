@@ -13,15 +13,24 @@ import { CardRow } from './index'
 
 import {SW, mainStyles} from "../../../../../config/styles";
 
+const data = [
+    {service: 'חשמלאי', state: 'Electrician'},
+    {service: 'אינסטלטור', state: 'Plumber'},
+    {service: 'מנקה', state: 'Cleaner'},
+    {service: 'שיפוצניק', state: 'Handyman'},
+    {service: 'מנעולן', state: 'Locksmith'},
+    {service: 'טכנאי מכונות כביסה', state: 'TechnicianWashingMachines'},
+    {service: 'תכנאי מזגנים', state: 'AirConditioningTechnician'},
+]
 
 const services = [
   {
-    name : 'Cleaner',
+    name : 'Locksmith',
     qty : 0,
     uri : require('../../../../../../assets/services/serviceIcons/CleanerIconOrange.png')
   },
   {
-    name : 'Doctor',
+    name : 'TechnicianWashingMachines',
     qty : 1,
     uri : require('../../../../../../assets/services/serviceIcons/ElectricianIcon.png')
   },
@@ -31,7 +40,7 @@ const services = [
     uri : require('../../../../../../assets/services/brush.png')
   },
   {
-    name : 'GeneralService',
+    name : 'Cleaner',
     qty : 34,
     uri : require('../../../../../../assets/services/broom.png')
   },
@@ -46,7 +55,7 @@ const services = [
     uri : require('../../../../../../assets/services/brush.png')
   },
   {
-    name : 'Veterinarian',
+    name : 'AirConditioningTechnician',
     qty : 34,
     uri : require('../../../../../../assets/services/broom.png')
   },

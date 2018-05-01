@@ -24,7 +24,17 @@ import {CardList, CustomHeader} from './components/index'
 import ChooseTime from "../../addJobRamiScreens/screens/ChooseTime";
 import {inject, observer} from "mobx-react/native";
 
-const {width, height} = Dimensions.get('window')
+const {width, height} = Dimensions.get('window');
+
+const data = [
+    {service: 'חשמלאי', state: 'Electrician'},
+    {service: 'אינסטלטור', state: 'Plumber'},
+    {service: 'מנקה', state: 'Cleaner'},
+    {service: 'שיפוצניק', state: 'Handyman'},
+    {service: 'מנעולן', state: 'Locksmith'},
+    {service: 'טכנאי מכונות כביסה', state: 'TechnicianWashingMachines'},
+    {service: 'תכנאי מזגנים', state: 'AirConditioningTechnician'},
+]
 
 @inject("navigationStore")
 @observer

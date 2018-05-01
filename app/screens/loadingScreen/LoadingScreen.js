@@ -3,6 +3,9 @@
  * here we check if the user have an open job or not and navigate him through the addJob navigator accordingly while displaying "LoadingScreen"
  **/
 
+/**
+ * this is AddJob loading screen, here it check if the user have open job, and if he does it navigates to this openJob page
+ **/
 
 import {inject, observer} from "mobx-react/native";
 import React, {Component} from "react";

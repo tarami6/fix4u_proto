@@ -1,5 +1,14 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View} from 'react-native';
+import {
+    Alert,
+    Image,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    View
+} from 'react-native';
 import {submitButton} from "../../../components/modalSubmitButton";
 import {SH, SW} from "../../../config/styles";
 import LinearViewBelowHeaderConsumer from '../components/LinearViewBelowHeaderPro';
@@ -31,13 +40,21 @@ export default class ExplainThePro extends React.Component {
     }
 
     handleSubmit() {
-        let company_description = this.state.text;
-        let sendObj = {
-            company_description: this.state.text,
-            profile_pic: this.state.picData
+        if (!this.state.profilePic) {
+            Alert.alert('אנא הכנס תמונה כדי שהמשתמש יוכל לזהותך')
         }
-        this.props.proAuthStore.updatePro(sendObj);
-        this.props.navigation.navigate('DataConfirmPro');
+        else if (!this.state.text) {
+            Alert.alert('אנא הכנס תיאור של העסק ')
+        }
+        else {
+            let company_description = this.state.text;
+            let sendObj = {
+                company_description: this.state.text,
+                profile_pic: this.state.picData
+            }
+            this.props.proAuthStore.updatePro(sendObj);
+            this.props.navigation.navigate('DataConfirmPro');
+        }
     }
 
     selectPhotoTapped(fieldName = 'profile_pic') {
@@ -55,7 +72,6 @@ export default class ExplainThePro extends React.Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-
                 let source = {uri: response.uri};
                 let data = new FormData();
                 data.append(fieldName, {uri: response.uri, name: response.fileName, type: response.type});
@@ -72,13 +88,15 @@ export default class ExplainThePro extends React.Component {
         });
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.textField.focus();
     }
 
     render() {
         return (
-            <TouchableWithoutFeedback onPress={()=>{this.textField.blur()}}>
+            <TouchableWithoutFeedback onPress={() => {
+                this.textField.blur()
+            }}>
                 <View style={styles.container}>
                     {/*Linear*/}
                     <View style={styles.linear}>
@@ -106,7 +124,8 @@ export default class ExplainThePro extends React.Component {
                     {/*text input*/}
                     <View style={styles.textInputView}>
                         <TextInput
-                            ref={(ref)=> this.textField=ref}
+                            placeholder={'תיאור מפורט של העסק והכנסת תמונה יעזרו לך להשיג יותר עבודות'}
+                            ref={(ref) => this.textField = ref}
                             returnKeyType="done"
                             multiline={true}
                             numberOfLines={20}
@@ -140,7 +159,7 @@ export default class ExplainThePro extends React.Component {
 
                     <View style={styles.footer}>
                         <View style={{alignItems: 'center'}}>
-                            {submitButton('סיום','consumer', () => {
+                            {submitButton('סיום', 'consumer', () => {
                                 this.handleSubmit();
                             })}
                         </View>

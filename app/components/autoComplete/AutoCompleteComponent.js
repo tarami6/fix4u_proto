@@ -83,7 +83,7 @@ export default class AutoComplete extends React.Component {
             <View style={styles}>
                 {/* <Button onPress={console.warn("buutun pressed") }/> */}
                 <GooglePlacesAutocomplete
-                    placeholder={'Enter Address..'}
+                    placeholder={this.props.currentAddress}
                     minLength={2} //length of text
                     textInputProps={{
                         onChangeText: (text) => {
@@ -102,11 +102,11 @@ export default class AutoComplete extends React.Component {
                         this.handleLocationPress(data, details)
                         // this.props.onChooseAddress()
                     }}
-                    getDefaultValue={() => {
-                        let address = this.props.currentAddress? this.props.currentAddress: '';
-                        return address;
-                        // return this.state.currentaddress; // text input default value
-                    }}
+                    // getDefaultValue={() => {
+                    //     let address = this.props.currentAddress? this.props.currentAddress: '';
+                    //     return address;
+                    //     // return this.state.currentaddress; // text input default value
+                    // }}
                     query={{
 
                         key: 'AIzaSyC0phAdvvYdwAk1LChuwnHJgEN3c_2GZjg',
