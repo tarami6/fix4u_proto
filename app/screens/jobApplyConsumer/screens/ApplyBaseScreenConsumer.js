@@ -7,6 +7,7 @@ import {fetcher} from "../../../generalFunc/fetcher";
 import {SH, SW, mainStyles} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 import InfoItem from '../../../components/InfoItem';
+import {hebrewServices } from "../../../generalFunc/generalObjects";
 
 const data = [
     {
@@ -32,11 +33,7 @@ const job = {
 
 let returnInHeb = (word) => {
     // console.warn('word', word)
-    switch (word) {
-        case 'Cleaner':
-            return 'מנקה';
-
-    }
+    return (hebrewServices[word])
 
 }
 

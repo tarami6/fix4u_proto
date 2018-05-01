@@ -16,7 +16,14 @@ export const
         };
     }
     else if(body.type){  //in case the body should be sent as formData
-       sendBody  = body.payload
+       sendBody  = body.payload;
+       if(headers.token){
+           headers = {
+                'Accept': `application/json`,
+                'content-type': 'multipart/form-data; boundary=6ff46e0b6b5148d984f148b6542e5a5d',
+                'Authorization': 'JWT ' + headers.token
+           }
+       }
     }
     else if(headers.token){
         headers = {

@@ -20,6 +20,9 @@ import StarIcon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import Communications from 'react-native-communications';
 
+// mobx
+import {inject, observer} from "mobx-react/index";
+
 data1 =
     {
         profilePic: require('../../../../../assets/avatars/handyManAvatar.jpg'),
@@ -52,6 +55,8 @@ const data = [
 
 ]
 
+@inject("userDataStore")
+@observer
 export default class OnTheWayConsumer extends Component {
     static navigationOptions = {
         header: null
@@ -104,6 +109,7 @@ export default class OnTheWayConsumer extends Component {
     };
 
     render() {
+        console.warn('this.props.userDataStore.focusedJob.user_pro', this.props.userDataStore.focusedJob.user_pro);
         return (
             <View style={{flex: 1,}}>
                 
@@ -113,7 +119,7 @@ export default class OnTheWayConsumer extends Component {
                     <View style={styles.infoView}>
                         {/*Image & service & full name*/}
                         <View style={{flex: 0.4}}>
-                            <InfoItem info={data1}/>
+                            <InfoItem info={this.props.userDataStore.focusedJob.user_pro}/>
                         </View>
                         {/*about*/}
                         <View style={styles.infoAboutView}>
@@ -254,7 +260,7 @@ export default class OnTheWayConsumer extends Component {
                         <Image source={require('../../../../../assets/icons/cancel.png')}/>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => Communications.phonecall('0507710091', true)}
+                    <TouchableOpacity onPress={() => Communications.phonecall(this.props.userDataStore.focusedJob.user_pro.phone_number, true)}
                                       style={{flex: 1, alignItems: 'center',}}>
                         <Image source={require('../../../../../assets/icons/call.png')}/>
                     </TouchableOpacity>
