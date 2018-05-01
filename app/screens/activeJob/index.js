@@ -38,9 +38,7 @@ export default class ActiveJob extends Component {
             case 'in_progress':
                 let InProgress = this.props.userDataStore.currentUserType === 'pro' ? InProgressPro : InProgressConsumer;
                 return (
-                    <View>
                         <InProgress/>
-                    </View>
                 );
             case 'pro_payment':
 
