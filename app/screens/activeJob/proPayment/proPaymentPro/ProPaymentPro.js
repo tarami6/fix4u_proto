@@ -221,7 +221,7 @@ export default class ProPaymentPro extends React.Component {
                 </View>
                 <View style={{flex: 0.3, justifyContent: 'center'}}>
                     <View style={{alignItems: 'center'}}>
-                        {submitButton('שלח', () => {
+                        {submitButton('שלח','pro', () => {
                             this.getPaid();
                         })}
                     </View>

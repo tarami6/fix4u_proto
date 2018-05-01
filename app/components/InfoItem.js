@@ -34,13 +34,13 @@ const InfoItem = (props) => {
 
             </View>
             <View style={{flex: 1, justifyContent: 'center'}}>
-                <Text style={{color: '#000'}}>{info.user_pro.name}</Text>
+                <Text style={{color: '#000'}}>{ info.name ||info.user_pro.name}</Text>
                 <Text>{info.service && info.service}</Text>
             </View>
             <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
                 <Image
                     style={{width: imageSize, height: imageSize, borderRadius: 100,}}
-                    source={info.user_pro.profile_pic_thumb}/>
+                    source={ info.profilePic||info.user_pro.profile_pic_thumb}/>
             </View>
         </View>
     )

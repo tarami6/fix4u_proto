@@ -66,38 +66,6 @@ export default class ApplyBaseScreen extends React.Component {
 
     }
 
-    // //Choose pro funcs:
-    // choosePro(proObj) {
-    //     console.warn(this.props.userDataStore.focusedConsumerJob.id, proObj.id);
-    //     let route = chooseApplyRoute(this.props.userDataStore.focusedConsumerJob.id);
-    //     console.warn('chose:', proObj);
-    //     let sendObj = {
-    //         user_pro: proObj.user_pro.id,
-    //         status: 'on_the_way'
-    //     };
-    //     let headers = {
-    //         'Accept': `application/json`,
-    //         'content-type': 'application/json',
-    //         'Authorization': 'JWT ' + this.props.userDataStore.userData.token
-    //     };
-    //
-    //     console.log('fetching::: ', route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers);
-    //     fetcher(route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers)
-    //
-    // }
-    //
-    // successCallback(res) {
-    //     console.warn(res)
-    //     this.props.userDataStore.updatePost(res);
-    //     this.props.userDataStore.focusJob(res);
-    //     this.props.navigation.navigate('ConsumerNavigator');
-    // }
-    //
-    // errorCallback(err) {
-    //     console.warn(err)
-    //     console.log(err);
-    //
-    // }
 
     showPro(pro){
         this.props.userDataStore.showPro(pro);

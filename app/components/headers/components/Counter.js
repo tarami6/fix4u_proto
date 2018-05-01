@@ -3,7 +3,7 @@ import {View,Text, StyleSheet, Platform} from 'react-native';
 
 const Counter = () => {
     const isIOS = Platform.OS == 'ios' ? {} : {top: 5}
-    const orderCounter = 10
+    const orderCounter = 0
     if (orderCounter == 0) {
         return (<View style={{position: 'absolute'}}/>)
     }

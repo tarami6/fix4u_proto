@@ -234,6 +234,7 @@ export default class ApplyBaseScreen extends React.Component {
                                         backgroundColor: 'white',
                                         flexDirection: "row"
                                     }}>
+                                        {/*Its the Camera ICON*/}
                                         <StarIcon style={{opacity: 0.7, alignSelf: 'center', marginLeft: 5}}
                                                     name="camera" size={30}
                                                     color="gray"/>
@@ -261,15 +262,8 @@ export default class ApplyBaseScreen extends React.Component {
                     </View>
                 </Modal>
 
-                <
-                    View
-                    style={
-                        {
-                            flex: 0.5
-                        }
-                    }>
-                    <
-                        LinearViewBelowHeaderConsumer>
+                <View style={{flex: 0.5}}>
+                    <LinearViewBelowHeaderConsumer>
                         < Header
                             head={'AddJob'}
                             previousPage={'ApplyBaseScreen'}

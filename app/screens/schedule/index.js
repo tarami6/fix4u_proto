@@ -4,7 +4,7 @@ import {View} from 'react-native';
 import {inject, observer} from "mobx-react/index";
 // screens:
 import SchedulePro from './schedulePro'
-import ScheduleConsumer from './scheduleConsumer'
+import ScheduleConsumer from './scheduleConsumer/ScheduleConsumer1'
 
 @inject("userDataStore")
 @observer
