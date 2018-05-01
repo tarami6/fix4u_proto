@@ -43,7 +43,7 @@ export default class ConsumerPaymentConsumer extends Component {
     }
 
     successCallback(res) {
-        console.warn('got success cb:', res);
+        // console.warn('got success cb:', res);
         this.activatePayment(res);
     }
 

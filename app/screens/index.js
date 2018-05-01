@@ -88,7 +88,6 @@ export default class ScreensBase extends Component<Props> {
                         }
                     },
                     () => {
-                        console.warn('state2:', this.state);
                         this.getData(position.coords.latitude, position.coords.longitude)
                     }
                 );

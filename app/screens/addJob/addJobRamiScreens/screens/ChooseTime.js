@@ -109,7 +109,7 @@ export default class ChooseTime extends React.Component {
                         </View>
                         <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
                             <Text>Choose the date</Text>
-                            <TouchableHighlight onPress={() => Alert.alert("coming soon")}>
+                            <TouchableHighlight onPress={() => this.props.navigation.navigate('DrawerOpen')}>
                                 <View style={{
                                     width: SW / 1.5,
                                     height: SH / 13,

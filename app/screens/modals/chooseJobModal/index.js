@@ -53,12 +53,14 @@ export default class ChooseJobModal extends Component {
     successCallback(res) {
         // console.warn('success cb chooseJob:', res);
         this.closeModal();
-        this.props.userDataStore.addApply(res)
         if (res.detail) {
             Alert.alert(res.detail)
             // this.closeModal();
         }
-        console.log('success cb chooseJob:', res);
+        else {
+            this.props.userDataStore.addApply(res)
+        }
+        // console.log('success cb chooseJob:', res);
     }
 
     errorCallback(err) {
@@ -67,6 +69,7 @@ export default class ChooseJobModal extends Component {
     }
 
     render() {
+
         ///////// and here is the data: ///////////
         let currentJob = this.props.openJobsStore.focusedJob;
         return (
@@ -111,14 +114,14 @@ export default class ChooseJobModal extends Component {
                                             fontWeight: 'bold',
                                             marginRight: 5,
                                             textAlign: 'center',
-                                        }}>{currentJob.user.name}</Text>
+                                        }}>{currentJob.user ? currentJob.user.name : ''}</Text>
                                     </View>
                                     <View style={{
                                         flex: 0.3,
                                         alignItems: 'flex-end',
                                         justifyContent: 'center'
                                     }}>
-                                        {currentJob.user.profile_pic_thumb ? <Image
+                                        {currentJob.user && currentJob.user.profile_pic_thumb ? <Image
                                             style={{width: SW / 5.5, height: SW / 5.5, borderRadius: 100}}
                                             source={{uri: currentJob.user.profile_pic_thumb}}/> : <View/>
 
@@ -198,6 +201,7 @@ export default class ChooseJobModal extends Component {
                                             flex: 1,
                                             justifyContent: 'flex-end'
                                         }}>
+
                                             <View style={{
                                                 flex: 0.6,
                                                 justifyContent: "center",
@@ -225,7 +229,7 @@ export default class ChooseJobModal extends Component {
                                                     borderColor: '#cbcbcb',
                                                     borderRadius: 7,
                                                     borderWidth: 2,
-                                                    textAlign: 'center',
+                                                    // textAlign: 'center',
                                                     fontSize: 18,
                                                     fontWeight: 'bold',
                                                     backgroundColor: '#e8e8e8'

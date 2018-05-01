@@ -59,7 +59,7 @@ export default class OnTheWayPro extends React.Component {
     }
 
     successCallback(res) {
-        console.warn('success cb:', res);
+        // console.warn('success cb:', res);
         this.setModalVisible(false);
         this.props.userDataStore.updatePost(res);
         this.props.userDataStore.focusJob(res)

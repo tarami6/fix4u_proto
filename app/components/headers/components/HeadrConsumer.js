@@ -14,7 +14,7 @@ const HeaderConsumer = (props) => {
 
             <Image source={require('../../../../assets/icons/fixU.png')}/>
             <TouchableOpacity
-                onPress={() => Alert.alert('coming Soon')}
+                onPress={() => props.navigation.navigate('Schedule')}
                 style={styles.rightButton}>
                 <Image source={require('../../../../assets/icons/noteMan.png')}/>
             </TouchableOpacity>
