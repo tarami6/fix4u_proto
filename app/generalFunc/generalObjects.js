@@ -16,3 +16,7 @@ export const ServicesArrToHebString = (arr: Array) => {
     returnWord += hebrewServices[arr[arr.length-1]];
     return returnWord;
 }
+
+export const consumerDummyData = {
+    
+};

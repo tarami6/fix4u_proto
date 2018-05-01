@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 //config
 import {fetcher} from "../../../../generalFunc/fetcher";
 import {startJobRoute} from "../../../../config/apiRoutes";
@@ -10,6 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {SW} from "../../../../config/styles";
 // import styles from './styles';
 import Header from '../../../../components/headers/Header'
+import {submitButton} from "../../../../components/modalSubmitButton";
 
 @inject("userDataStore")
 @observer
@@ -17,6 +18,7 @@ export default class InProgressPro extends Component {
     static navigationOptions = {
         header: null
     }
+
     constructor(props) {
         super(props)
     }
@@ -61,14 +63,24 @@ export default class InProgressPro extends Component {
                     <Header head={'Grey'} previousPage={'Home'} props={this.props}/>
 
                     <View id='picture and name' style={styles.topPicText}>
-                        <Text style={{flex: 0.5, fontWeight: 'bold', fontSize: 18, width: "60%", borderRadius: 100}}>
-                            אלכסנדרה{"\n"} קנדל</Text>
+                        <Text style={{
+                            flex: 0.5,
+                            fontWeight: 'bold',
+                            fontSize: 18,
+                            width: "60%",
+                            borderRadius: 100
+                        }}>{this.props.userDataStore.focusedJob.user.name}</Text>
+                        {this.props.userDataStore.focusedJob.user.profile_pic_thumb &&
                         <Image style={{flex: 0.2, margin: 20, width: 66, height: 58}}
-                               source={require('../../../../../assets/avatars/Loreal-Avatar.jpg')}/>
+                               source={{uri: this.props.userDataStore.focusedJob.user.profile_pic_thumb}}/>}
                     </View>
 
                     <View style={{flex: 0.3, marginRight: '3%'}}>
-                        <Text style={{flex: 1, fontWeight: 'bold', fontSize: 15}}>רבינו חננאל 26, תל אביב</Text>
+                        <Text style={{
+                            flex: 1,
+                            fontWeight: 'bold',
+                            fontSize: 15
+                        }}>{this.props.userDataStore.focusedJob.address}</Text>
                     </View>
 
                     <View style={{borderBottomWidth: 1.7, margin: 5, borderColor: 'rgba(0,0,0,0.3)',}}>
@@ -104,11 +116,12 @@ export default class InProgressPro extends Component {
                 </View>
 
                 <View id='bottom' style={styles.bottomView}>
+                    {submitButton('סיום עבודה', 'pro', this.finishJob.bind(this))}
 
-                    <TouchableOpacity onPress={() => this.finishJob()}
-                                      style={styles.bt}>
-                        <Text style={styles.btText}> סיום עבודה</Text>
-                    </TouchableOpacity>
+                    {/*<TouchableOpacity onPress={() => this.finishJob()}*/}
+                    {/*style={styles.bt}>*/}
+                    {/*<Text style={styles.btText}> סיום עבודה</Text>*/}
+                    {/*</TouchableOpacity>*/}
                 </View>
             </View>
         )
