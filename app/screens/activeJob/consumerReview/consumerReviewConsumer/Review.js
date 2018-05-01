@@ -121,7 +121,7 @@ export default class Review extends Component {
 
                             </View>
                             <View style={{flex: 1,}}>
-                                <Text>מחיר</Text>
+                                <Text>זמן עבודה</Text>
                             </View>
                         </View>
 
@@ -140,7 +140,7 @@ export default class Review extends Component {
 
                             </View>
                             <View style={{flex: 1, }}>
-                                <Text>מחיר</Text>
+                                <Text>שירות</Text>
                             </View>
                         </View>
                     </View>
@@ -167,7 +167,7 @@ export default class Review extends Component {
                     </View>
                     <View style={{flex: 1, justifyContent: 'center'}}>
                         <View style={{alignItems: 'center'}}>
-                                        {submitButton('סיים', () => {
+                                        {submitButton('סיים','consumer', () => {
                                             this.setModalVisible(true);
                                         })}
                                     </View>

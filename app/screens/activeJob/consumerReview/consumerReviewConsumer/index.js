@@ -1,2 +1,2 @@
-import ConsumerReview from './ConsumerReview';
+import ConsumerReview from './Review';
 export default ConsumerReview;
