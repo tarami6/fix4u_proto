@@ -28,7 +28,7 @@ import ChooseJob from './screens/chooseJob';
 import ScheduleConsumer1 from './screens/schedule/scheduleConsumer/ScheduleConsumer1';
 import OnTheWayConsumer1 from './screens/activeJob/onTheWay/onTheWayConsumer/OnTheWayConsumer1';
 import InProgressConsumer1 from './screens/activeJob/inProgress/inProgressConsumer/InProgressConsumer1';
-import Review from './screens/activeJob/inProgress/inProgressConsumer/Review';
+import Review from './screens/activeJob/consumerReview/consumerReviewConsumer/Review';
 import SchedulePro1 from './screens/schedule/schedulePro/SchedulePro1';
 
 //the usual consumer costumer auth process happens here
@@ -49,7 +49,7 @@ let openJobsStore = new OpenJobsStore();
 
 const HomeNavigation = StackNavigator({
     Home: {
-        screen: InProgressConsumer1
+        screen: Review
     }
 })
 

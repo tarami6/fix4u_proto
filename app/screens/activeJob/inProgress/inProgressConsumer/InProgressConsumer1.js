@@ -80,15 +80,15 @@ export default class InProgressConsumer extends Component {
                 </View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-between'}}>
                     <View style={{flex: 0.3, justifyContent: 'center'}}>
-                        <Text style={mainStyles.greyTitle}>{status.progress || status.done}</Text>
+                        <Text style={mainStyles.greyTitle}>{this.props.userDataStore.focusedJob.status === 'in_progress'}</Text>
                     </View>
                     <View style={{flex: 1}}>
                         <OrangeCircle size={'big'} style={{width: 180, height: 180}}>
-                            <Text style={{fontSize: 30, color: '#000', fontWeight: 'bold'}}>15:45</Text>
+                            <Text style={{fontSize: 30, color: '#000', fontWeight: 'bold'}}>15:46</Text>
                         </OrangeCircle>
                     </View>
                     <View style={{flex: 0.3}}>
-                        {status.done ? <View style={{alignItems: 'center'}}>
+                        {this.props.userDataStore.focusedJob.status === 'consumer_payment' ? <View style={{alignItems: 'center'}}>
                                 {submitButton('תשלום','consumer', () => {
                                     this.setModalVisible(true);
                                 })}
