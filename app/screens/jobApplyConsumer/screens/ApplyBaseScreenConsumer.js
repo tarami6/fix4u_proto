@@ -1,11 +1,12 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, FlatList,TouchableHighlight,TouchableOpacity, View, Alert} from 'react-native';
 import Header from '../../../components/headers/Header';
 import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHeaderConsumer'
 import MapComponent from '../../../components/mapComponent/MapComponent'
 import {fetcher} from "../../../generalFunc/fetcher";
-import {SH, SW} from "../../../config/styles";
+import {SH, SW, mainStyles} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
+import InfoItem from '../../../components/InfoItem';
 
 const data = [
     {
@@ -53,6 +54,7 @@ export default class ApplyBaseScreen extends React.Component {
             auctionTime: 60
         }
     }
+
 
     componentDidMount() {
         let time = this.state.auctionTime;
@@ -105,9 +107,6 @@ export default class ApplyBaseScreen extends React.Component {
     render() {
         //mobx "listener" for new jobs
         let job2 = this.props.userDataStore.focusedConsumerJob;
-        // console.warn('job2', job2);
-        // let service =
-        //loading
         if(!job2.appointment_time_start){
             return (
                 <View/>
@@ -131,16 +130,9 @@ export default class ApplyBaseScreen extends React.Component {
                             </View>
                             {/*Job Info*/}
                             <View style={{flex: 1, justifyContent: 'center', paddingRight: SW / 20}}>
-                                <Text style={{
-                                    color: '#fff',
-                                    fontSize: 16,
-                                    fontWeight: 'bold'
-                                }}>{returnInHeb(job2.service)}</Text>
-                                <Text style={{
-                                    color: '#fff',
-                                    fontSize: 16,
-                                    fontWeight: 'bold'
-                                }}>{job2.appointment_time_start.slice(0, 5) + '-' + job2.appointment_time_end.slice(0, 5)}
+                                <Text style={mainStyles.infoWhiteText}>{returnInHeb(job2.service)}</Text>
+                                <Text style={[mainStyles.infoWhiteText, {alignSelf: 'flex-end'}]}>
+                                    {job2.appointment_time_start ? job2.appointment_time_start.slice(0, 5) + '-' + job2.appointment_time_end.slice(0, 5) : null}
                                 </Text>
                             </View>
                             {/*Border*/}
@@ -172,49 +164,64 @@ export default class ApplyBaseScreen extends React.Component {
                                       longitudeDelta: 0.0421 * 0.1
                                   }}/>
                     {/*       applies.MAP         */}
-                    {job2.post_applies && job2.post_applies.map((item, index) => {
-                        console.warn('item', item);
-                        return (
-                            <TouchableOpacity
-                                onPress={() => this.showPro(item)}
-                                key={index}
-                                style={{
-                                    width: SW,
-                                    height: SH / 9,
-                                    backgroundColor: '#fff',
-                                    position: 'absolute',
-                                    top: index * (SH / 9),
-                                    flexDirection: 'row',
-                                    borderBottomWidth: 1,
-                                    borderBottomColor: '#7e7e7e'
-                                }}>
-                                <View style={{
-                                    flex: 0.5,
-                                    justifyContent: 'center',
-                                    alignItems: 'flex-start',
-                                    marginLeft: SW / 20
-                                }}>
-                                    <Text
-                                        style={{zIndex: 3, fontSize: 16, color: '#000'}}>{item.time.slice(0, 5)} </Text>
-                                    <Text style={{zIndex: 3, fontSize: 16}}>{item.service_fee} </Text>
-                                </View>
-                                <View style={{flex: 1, justifyContent: 'center'}}>
-                                    <Text style={{zIndex: 3, fontSize: 16, color: '#000'}}>{item.user_pro.name} </Text>
-                                    <Text style={{zIndex: 3, fontSize: 14}}>{item.services} </Text>
-                                </View>
-                                <View style={{flex: 0.4, alignItems: 'center', justifyContent: 'center'}}>
-                                    {item.user_pro.profile_pic_thumb ? <Image
-                                        style={{width: 50, height: 50, borderRadius: 100}}
-                                        source={{uri: item.user_pro.profile_pic_thumb}}
-                                    /> : <View/>}
 
-                                </View>
+                    <View style={{flex: 1, backgroundColor: 'red', position: 'absolute'}}>
+                        <FlatList
+                            data={job2.post_applies}
+                            renderItem={({item}) => <TouchableHighlight onPress={() => this.showPro(item)}
+                                                                        style={{
+                                                                            width: SW,
+                                                                            height: SH / 8,
+                                                                            borderBottomWidth: 1,
+                                                                            borderColor: 'grey'
+                                                                        }}>
+
+                                <InfoItem info={item}/>
+                            </TouchableHighlight>}
+                        />
+                    </View>
+
+                    {/*{job2.post_applies && job2.post_applies.map((item, index) => {*/}
+                    {/*return (*/}
+                    {/*<TouchableOpacity*/}
+                    {/*onPress={() => this.showPro(item)}*/}
+                    {/*key={index}*/}
+                    {/*style={{*/}
+                    {/*width: SW,*/}
+                    {/*height: SH / 9,*/}
+                    {/*backgroundColor: '#fff',*/}
+                    {/*position: 'absolute',*/}
+                    {/*top: index * (SH / 9),*/}
+                    {/*flexDirection: 'row',*/}
+                    {/*borderBottomWidth: 1,*/}
+                    {/*borderBottomColor: '#7e7e7e'*/}
+                    {/*}}>*/}
+                    {/*<View style={{*/}
+                    {/*flex: 0.5,*/}
+                    {/*justifyContent: 'center',*/}
+                    {/*alignItems: 'flex-start',*/}
+                    {/*marginLeft: SW / 20*/}
+                    {/*}}>*/}
+                    {/*<Text*/}
+                    {/*style={{zIndex: 3, fontSize: 16, color: '#000'}}>{item.time.slice(0, 5)} </Text>*/}
+                    {/*<Text style={{zIndex: 3, fontSize: 16}}>{item.service_fee} </Text>*/}
+                    {/*</View>*/}
+                    {/*<View style={{flex: 1, justifyContent: 'center'}}>*/}
+                    {/*<Text style={{zIndex: 3, fontSize: 16, color: '#000'}}>{item.user_pro.name} </Text>*/}
+                    {/*<Text style={{zIndex: 3, fontSize: 14}}>{item.services} </Text>*/}
+                    {/*</View>*/}
+                    {/*<View style={{flex: 0.4, alignItems: 'center', justifyContent: 'center'}}>*/}
+                    {/*{item.pic ? <Image*/}
+                    {/*style={{width: 50, height: 50, borderRadius: 100}}*/}
+                    {/*source={item.user_pro.profile_pic_thumb}*/}
+                    {/*/> : <View/>}*/}
+
+                    {/*</View>*/}
 
 
-                            </TouchableOpacity>
-                        )
-                    })}
-
+                    {/*</TouchableOpacity>*/}
+                    {/*)*/}
+                    {/*})}*/}
 
                 </View>
 

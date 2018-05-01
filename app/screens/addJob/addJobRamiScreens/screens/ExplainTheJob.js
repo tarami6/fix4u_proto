@@ -9,13 +9,12 @@ import {
     TouchableWithoutFeedback,
     TouchableOpacity
 } from 'react-native';
-import {SH, SW, HH} from "../../../../config/styles";
-import CustomHeaderAddJobStepsConsumer from '../../../../components/headers/CustomHeaderAddJobStepsConsumer'
+import {SH, SW, HH, fontGrey} from "../../../../config/styles";
 import {submitButton} from "../../../../components/modalSubmitButton";
-import CustomHeaderAddJob from '../../../../components/headers/CustomHeaderAddJob'
 import {inject, observer} from "mobx-react/native";
 import ImagePicker from "react-native-image-picker";
 import LinierView from '../../../../components/linierView';
+import Header from '../../../../components/headers/Header'
 
 //image picker options:
 var options = {
@@ -92,7 +91,7 @@ export default class ChooseTime extends React.Component {
                 }}>
                     {/*Linear*/}
                     <LinierView>
-                        <CustomHeaderAddJobStepsConsumer props={this.props}/>
+                        <Header head={'AddJob'} previousPage={'ChooseTime'} props={this.props} />
                         <View style={{flex: 1, marginLeft: SW / 30,  alignItems: 'center'}}>
                             <Image
                                     source={require('../../../../../assets/addJob/icons/stepIndicatorConsumer2.png')}
@@ -117,6 +116,7 @@ export default class ChooseTime extends React.Component {
                         ref={(ref) => this.textField = ref}
                         multiline={true}
                         numberOfLines={20}
+                        selectionColor={fontGrey}
                         underlineColorAndroid={'transparent'}
                         style={styles.textInput}
                         onChangeText={(text) => this.setState({text})}
@@ -154,7 +154,7 @@ export default class ChooseTime extends React.Component {
 
                 <View style={styles.footer}>
                     <View style={{alignItems: 'center'}}>
-                        {submitButton('המשך', this.submitJob.bind(this))}
+                        {submitButton('המשך','consumer', this.submitJob.bind(this))}
                     </View>
                 </View>
             </View>

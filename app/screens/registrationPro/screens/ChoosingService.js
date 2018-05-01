@@ -129,7 +129,7 @@ export default class AddressInfo extends React.Component {
                 </View>
                 <View style={styles.footer}>
                     <View style={{alignItems: 'center'}}>
-                        {submitButton('המשך', () => {
+                        {submitButton('המשך','consumer', () => {
                             this.handleSubmit()
                         })}
                     </View>

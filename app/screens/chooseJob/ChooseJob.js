@@ -1,6 +1,6 @@
 import {inject, observer} from "mobx-react/index";
 import React, {Component} from "react";
-import {Text, TouchableOpacity, View, KeyboardAvoidingView} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 //header stuff:
 import Header from '../../components/headerComponent'
 //fetch allJobs
@@ -49,8 +49,6 @@ export default class ChooseJob extends Component {
     }
 
     successCallback(res) {
-        // if there are no open jobs we show empty map, look at if statement in render
-        // if there are no open jobs we show empty map, look at if statement in render3
         if (res.length === 0) {
             loadEmptyMap = true;
         }
@@ -63,8 +61,7 @@ export default class ChooseJob extends Component {
     }
 
     onMarkerPress(openJob, index) {
-        // this.props.modalsStore.showModal('proPhoneVerifyModal');
-        // console.warn(openJob);
+
         this.props.openJobsStore.focusJob(openJob);
         this.props.modalsStore.showModal('chooseJobModal');
     }
@@ -85,16 +82,38 @@ export default class ChooseJob extends Component {
                     {/*Waiting for confirmation*/}
 
                     {this.props.userDataStore.sentApplies.length > 0 &&
-                    <TouchableOpacity onPress={() => console.warn(this.props.openJobsStore.openJobsList.length)} style={{
-                        width: SW,
-                        height: SH / 15,
-                        backgroundColor: 'rgba(255,255,255,1)',
-                        flexDirection: 'row',
-                        elevation: 3,
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
+                    <TouchableOpacity onPress={() => console.warn(this.props.openJobsStore.openJobsList.length)}
+                                      style={{
+                                          width: SW,
+                                          height: SH / 15,
+                                          backgroundColor: 'rgba(255,255,255,1)',
+                                          flexDirection: 'row',
+                                          elevation: 3,
+                                          alignItems: 'center',
+                                          justifyContent: 'flex-end',
 
-                    }}>
+                                      }}>
+                        <View style={{flex: 1}}>
+                            <Text style={{paddingLeft: 20,}}>{this.props.userDataStore.sentApplies.length}</Text>
+                        </View>
+                        <View style={{flex: 1}}>
+                            <Text style={{paddingRight: 20,}}>מחכה לאישור</Text>
+                        </View>
+                    </TouchableOpacity>
+                    }
+                    {/*Got Job*/}
+                    {this.props.userDataStore.focusedJob.id &&
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('ActiveJob')}
+                        style={{
+                            width: SW,
+                            height: SH / 15,
+                            backgroundColor: 'rgba(255,255,255,1)',
+                            flexDirection: 'row',
+                            elevation: 2,
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+                        }}>
                         <View style={{flex: 1}}>
                             <Text style={{paddingLeft: 20,}}>{this.props.userDataStore.sentApplies.length}</Text>
                         </View>
@@ -123,40 +142,9 @@ export default class ChooseJob extends Component {
                             <Text style={{paddingRight: 20,}}>עבודה חדשה</Text>
                         </View>
                     </TouchableOpacity>}
-                    {/*Contact request*/}
-
-                    {/*<TouchableOpacity onPress={() => Alert.alert('Will take you to ? soon')}*/}
-                    {/*style={{*/}
-                    {/*width: SW,*/}
-                    {/*height: SH / 15,*/}
-                    {/*backgroundColor: 'rgba(244,244,244,1)',*/}
-                    {/*flexDirection: 'row',*/}
-                    {/*elevation: 1,*/}
-                    {/*alignItems: 'center',*/}
-                    {/*justifyContent: 'flex-end',*/}
-                    {/*}}>*/}
-                    {/*<View style={{flex: 1}}>*/}
-                    {/*<Text style={{paddingLeft: 20,}}>3</Text>*/}
-                    {/*</View>*/}
-                    {/*<View style={{flex: 1}}>*/}
-                    {/*<Text style={{paddingRight: 20,}}>בקשת התחברות</Text>*/}
-                    {/*</View>*/}
-
-                    {/*</TouchableOpacity>*/}
-
                 </View>
             </View>
-
         )
-        // }
-        // else {
-        //     return (
-        //         <View>
-        //             <Text>
-        //                 loading all Open Jobs
-        //             </Text>
-        //         </View>
-        //     )
-        // }
+
     }
 }

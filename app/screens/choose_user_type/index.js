@@ -11,11 +11,12 @@ import {
 import {NavigationActions} from 'react-navigation';
 import {inject, observer} from 'mobx-react';
 import authStore from '../../state-manager/mobx/authStore';
-import {LinierBackground} from "../../config/styles";
+import {HH, LinierBackground} from "../../config/styles";
 import {fetcher} from "../../generalFunc/fetcher";
 import {handlePushyToken} from "../../generalFunc/pushyTokenHandler";
+import {SW, mainStyles} from "../../config/styles";
 
-const {width, height} = Dimensions.get('window')
+
 
 @inject("userDataStore")
 @inject("authStore")
@@ -79,9 +80,9 @@ export default class ChooseUserType extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={{fontWeight: 'bold', margin: 40}}>אני</Text>
+                <Text style={[mainStyles.greyTitle,{margin: 40}]}>אני</Text>
                 <ConsumerButton navigate={() => this.navigate('consumer')}/>
-                <Text style={{fontWeight: '100', fontSize: 12, color: '#9b9b9b', margin: 40}}>או</Text>
+                <Text style={ [mainStyles.greyTitle,{color: '#9b9b9b', margin: 40}]}>או</Text>
                 <ProButton navigate={() => this.navigate('pro')}/>
             </View>
         );
@@ -93,7 +94,7 @@ const
         return (
             <TouchableOpacity onPress={() => navigate('Consumer')}>
                 <LinierBackground>
-                    <Text style={{color: '#fff', fontWeight: 'bold'}}>מחפש איש מקצוע</Text>
+                    <Text style={mainStyles.buttonText}>מחפש איש מקצוע</Text>
                 </LinierBackground>
             </TouchableOpacity>
         )
@@ -105,8 +106,8 @@ const
             <TouchableOpacity onPress={() => navigate('Pro')}>
                 <LinierBackground>
                     <View style={{
-                        width: width - 122,
-                        height: 46,
+                        width: SW - 124,
+                        height: HH - 4 ,
                         borderRadius: 30,
                         margin: 1,
                         backgroundColor: '#fff',
@@ -115,7 +116,7 @@ const
                         paddingRight: 40,
                         paddingLeft: 40
                     }}>
-                        <Text style={{color: '#fd8724', fontWeight: 'bold'}}>נותן שירות</Text>
+                        <Text style={[mainStyles.buttonText,{color: '#fd8724'}]}>נותן שירות</Text>
                     </View>
                 </LinierBackground>
             </TouchableOpacity>
