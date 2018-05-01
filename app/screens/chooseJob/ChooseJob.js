@@ -1,6 +1,6 @@
 import {inject, observer} from "mobx-react/index";
 import React, {Component} from "react";
-import {Alert, Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 //header stuff:
 import Header from '../../components/headerComponent'
 //fetch allJobs
@@ -67,63 +67,84 @@ export default class ChooseJob extends Component {
     }
 
     render() {
+
         let openJobsList = this.props.openJobsStore.openJobsList
+        // if (openJobsList && openJobsList.length > 0 || loadEmptyMap) {
+        return (
+            <View style={{flex: 1}}>
+                <View style={{elevation: 5}}>
+                    <Header {...this.props}/>
+                </View>
+                {/*Map component: */}
+                <MapComponent onMarkerPress={this.onMarkerPress.bind(this)}
+                              usersPlaces={this.props.openJobsStore.openJobsList}/>
+                <View style={{position: 'absolute', top: HH}}>
+                    {/*Waiting for confirmation*/}
 
+                    {this.props.userDataStore.sentApplies.length > 0 &&
+                    <TouchableOpacity onPress={() => console.warn(this.props.openJobsStore.openJobsList.length)}
+                                      style={{
+                                          width: SW,
+                                          height: SH / 15,
+                                          backgroundColor: 'rgba(255,255,255,1)',
+                                          flexDirection: 'row',
+                                          elevation: 3,
+                                          alignItems: 'center',
+                                          justifyContent: 'flex-end',
 
-            return (
-                <View style={{flex: 1}}>
-                    <View style={{elevation: 5}}>
-                        <Header/>
-                    </View>
-                    {/*Map component: */}
-                    <MapComponent onMarkerPress={this.onMarkerPress.bind(this)}
-                                  usersPlaces={this.props.openJobsStore.openJobsList}/>
-                    <View style={{position: 'absolute', top: HH}}>
-                        {/*Waiting for confirmation*/}
-
-                        {this.props.userDataStore.sentApplies.length > 0 &&
-                        <TouchableOpacity onPress={() => Alert.alert('Will take you to ? soon')} style={{
+                                      }}>
+                        <View style={{flex: 1}}>
+                            <Text style={{paddingLeft: 20,}}>{this.props.userDataStore.sentApplies.length}</Text>
+                        </View>
+                        <View style={{flex: 1}}>
+                            <Text style={{paddingRight: 20,}}>מחכה לאישור</Text>
+                        </View>
+                    </TouchableOpacity>
+                    }
+                    {/*Got Job*/}
+                    {this.props.userDataStore.focusedJob.id &&
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('ActiveJob')}
+                        style={{
                             width: SW,
                             height: SH / 15,
                             backgroundColor: 'rgba(255,255,255,1)',
                             flexDirection: 'row',
-                            elevation: 3,
+                            elevation: 2,
                             alignItems: 'center',
                             justifyContent: 'flex-end',
-
                         }}>
-                            <View style={{flex: 1}}>
-                                <Text style={{paddingLeft: 20,}}>{this.props.userDataStore.sentApplies.length}</Text>
-                            </View>
-                            <View style={{flex: 1}}>
-                                <Text style={{paddingRight: 20,}}>מחכה לאישור</Text>
-                            </View>
-                        </TouchableOpacity>
-                        }
-                        {/*Got Job*/}
-                        {this.props.userDataStore.focusedJob.id &&
-                        <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('ActiveJob')}
-                            style={{
-                                width: SW,
-                                height: SH / 15,
-                                backgroundColor: 'rgba(255,255,255,1)',
-                                flexDirection: 'row',
-                                elevation: 2,
-                                alignItems: 'center',
-                                justifyContent: 'flex-end',
-                            }}>
-                            <View style={{flex: 1}}>
-                                <Text style={{paddingLeft: 20,}}>1</Text>
-                            </View>
-                            <View style={{flex: 1}}>
-                                <Text style={{paddingRight: 20,}}>עבודה חדשה</Text>
-                            </View>
-                        </TouchableOpacity>}
-                    </View>
+                        <View style={{flex: 1}}>
+                            <Text style={{paddingLeft: 20,}}>{this.props.userDataStore.sentApplies.length}</Text>
+                        </View>
+                        <View style={{flex: 1}}>
+                            <Text style={{paddingRight: 20,}}>מחכה לאישור</Text>
+                        </View>
+                    </TouchableOpacity>
+                    }
+                    {/*Got Job*/}
+                    {this.props.userDataStore.focusedJob.id &&
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('ActiveJob')}
+                        style={{
+                            width: SW,
+                            height: SH / 15,
+                            backgroundColor: 'rgba(255,255,255,1)',
+                            flexDirection: 'row',
+                            elevation: 2,
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+                        }}>
+                        <View style={{flex: 1}}>
+                            <Text style={{paddingLeft: 20,}}>1</Text>
+                        </View>
+                        <View style={{flex: 1}}>
+                            <Text style={{paddingRight: 20,}}>עבודה חדשה</Text>
+                        </View>
+                    </TouchableOpacity>}
                 </View>
-
-            )
+            </View>
+        )
 
     }
 }

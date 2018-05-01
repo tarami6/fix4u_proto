@@ -1,14 +1,13 @@
 // React
 import React from 'react';
-import {View, Text, Image, StyleSheet, Platform, TouchableWithoutFeedback,TouchableHighlight, Alert} from 'react-native';
+import {Image, Platform, StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback, View} from 'react-native';
 // Components
 import LinierView from '../../../../components/linierView';
-import CustomHeaderAddJobStepsConsumer from '../../../../components/headers/CustomHeaderAddJobStepsConsumer'
 import {submitButton} from "../../../../components/modalSubmitButton";
 // Mobx
 import {inject, observer} from "mobx-react/native";
 // Styles
-import {SH, SW, mainStyles} from "../../../../config/styles";
+import {mainStyles, SH, SW} from "../../../../config/styles";
 
 import Header from '../../../../components/headers/Header'
 
@@ -23,6 +22,10 @@ let data = {
 @observer
 export default class ChooseTime extends React.Component {
 
+    static navigationOptions = {
+        header: null,
+    };
+
     constructor(props) {
         super(props);
     }
@@ -30,10 +33,6 @@ export default class ChooseTime extends React.Component {
     goBack() {
         this.props.navigation.goBack()
     }
-
-    static navigationOptions = {
-        header: null,
-    };
 
     handleSubmit() {
         let date = new Date().toISOString().slice(0, 10);
@@ -60,7 +59,7 @@ export default class ChooseTime extends React.Component {
             <View style={{flex: 1}}>
                 {/*Orange Head*/}
                 <LinierView>
-                     <Header head={'AddJob'} previousPage={'ChooseService'} props={this.props} />
+                    <Header head={'AddJob'} previousPage={'ChooseService'} props={this.props}/>
                     <View style={{flex: 1, marginLeft: SW / 30, justifyContent: 'center', alignItems: 'center'}}>
                         <Image
                             source={require('../../../../../assets/icons/stepIndicatorConsumer1.png')}
@@ -112,8 +111,9 @@ export default class ChooseTime extends React.Component {
                             <Text style={{fontSize: 14, marginTop: 20}}>או</Text>
                         </View>
                         <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
-                            <Text style={mainStyles.greyTitle}>בחר תאריך</Text>
-                            <TouchableHighlight onPress={() => Alert.alert("coming soon")}>
+                            <Text>בחר תאריך</Text>
+                            <TouchableHighlight style={mainStyles.greyTitle}
+                                                onPress={() => this.props.navigation.navigate('DrawerOpen')}>
                                 <View style={{
                                     width: SW / 1.5,
                                     height: SH / 13,

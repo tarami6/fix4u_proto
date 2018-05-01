@@ -77,7 +77,6 @@ export default class AddressInfo extends React.Component {
         let showLocation = this.state.lat === 0 ? storeLocation : stateLocation;
         return (
             <View style={styles.container}>
-
                 <View style={styles.linear}>
                     <LinearViewBelowHeaderPro>
                         <Header head={'AddJob'} previousPage={'PersonalInfo'} props={this.props} />
@@ -101,12 +100,9 @@ export default class AddressInfo extends React.Component {
                                 handleLocationPress={this.handleLocationPress.bind(this)}
                             />
                         </View>
-
-
                     </LinearViewBelowHeaderPro>
                 </View>
                 <View style={styles.mapContainer}>
-
                     <MapComponent style={styles.map}
                                   userLocation={{
                                       latitude: showLocation.lat,
@@ -122,8 +118,6 @@ export default class AddressInfo extends React.Component {
                         })}
                     </View>
                 </View>
-
-
             </View>
         );
     }

@@ -7,12 +7,14 @@ import {
     Image,
     Dimensions,
     StyleSheet,
-    TouchableOpacity, AsyncStorage
+    TouchableOpacity, AsyncStorage, Alert
 } from 'react-native';
 import {Content, List, ListItem, Text, Icon} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 import Circle from '../../components/circle'
 import {inject, observer} from "mobx-react/native";
+import {logOutRoute} from "../../config/apiRoutes";
+import {fetcher} from "../../generalFunc/fetcher";
 
 
 
@@ -27,13 +29,27 @@ export default class Consumer extends Component {
     }
 
 
-
-    logout(){
+    logout() {
+        fetcher(logOutRoute, 'PATCH', this.successLogout.bind(this), this.errorLogout.bind(this), {push_token: ""}, {token: this.props.userDataStore.userData.token})
         // console.warn(this.props.navigation);
+        // AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
+        // ));
+        // this.props.userDataStore.logout()
+        // this.props.navigation.navigate('Intro');
+    }
+
+    successLogout(res) {
         AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
         ));
         this.props.userDataStore.logout()
         this.props.navigation.navigate('Intro');
+        console.warn('success cb at logout:', res);
+    }
+
+    errorLogout(err) {
+        console.warn('logout error:', err);
+        console.log('logout error:', err);
+        Alert.alert('there was a problem with the internet connection')
     }
 
     render() {

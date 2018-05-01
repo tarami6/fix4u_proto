@@ -14,7 +14,7 @@ export const tryLogin = (authStore, userDataStore, proAuthStore, callbackFunc) =
         userDataStore.setUserData(response);
         if(userType === 'pro'){
             let gotApplies = (res)=>{
-                console.warn('success cb applies:', res)
+                // console.warn('success cb applies:', res)
                 userDataStore.setSentApplies(res);
                 callbackFunc(response);
             };

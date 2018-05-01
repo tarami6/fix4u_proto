@@ -68,7 +68,6 @@ export default class AutoComplete extends React.Component {
                         }
                     },
                     () => {
-                        console.warn('state2:', this.state);
                         this.getData(position.coords.latitude, position.coords.longitude)
                 }
                 );
