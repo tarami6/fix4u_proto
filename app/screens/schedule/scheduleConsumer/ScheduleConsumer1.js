@@ -3,50 +3,21 @@ import {StyleSheet, FlatList, TouchableHighlight, View, Text, Alert} from 'react
 import Header from '../../../components/headers/Header';
 import InfoItem from '../../../components/InfoItem';
 import {SH, SW} from "../../../config/styles";
+//mobx
+import {inject, observer} from "mobx-react/native";
 
-data = [
-    {
-        profilePic: require('../../../../assets/avatars/handyManAvatar.jpg'),
-        name: 'אבי הבנאי',
-        service: 'חשמלאי',
-        time: '14:00',
-        jobStatus: 'progress'
-    },
-    {
-        profilePic: require('../../../../assets/avatars/handyManAvatar.jpg'),
-        name: 'אבי הבנאי',
-        service: 'חשמלאי',
-        time: '14:00',
-        jobStatus: 'onTheWay',
-        price: '100'
-    },
-    {
-        profilePic: require('../../../../assets/avatars/handyManAvatar.jpg'),
-        name: 'אבי הבנאי',
-        service: 'חשמלאי',
-        time: '14:00',
-        jobStatus: 'onTheWay',
-        price: '100'
-    },
-    {
-        profilePic: require('../../../../assets/avatars/handyManAvatar.jpg'),
-        name: 'אבי הבנאי',
-        service: 'חשמלאי',
-        time: '14:00',
-        price: '100'
-    },
-    {
-        profilePic: require('../../../../assets/avatars/handyManAvatar.jpg'),
-        name: 'אבי הבנאי',
-        service: 'חשמלאי',
-        time: '14:00',
-    }
-]
-
-
+@inject('userDataStore')
+@observer
 export default class ScheduleConsumer1 extends React.Component {
     static navigationOptions = {
         header: null,
+    }
+    chooseJob(job){
+        this.props.userDataStore.focusJob(job);
+        if(job.status==='open'){
+            this.props.navigation.navigate('AddJob');
+        }
+        this.props.navigation.navigate('ActiveJob');
     }
 
     render() {
@@ -55,8 +26,8 @@ export default class ScheduleConsumer1 extends React.Component {
                 <Header head={'Grey'}  previousPage={'ChooseService'} props={this.props}/>
                 <View style={{flex: 1}}>
                     <FlatList
-                        data={data}
-                        renderItem={({item}) => <TouchableHighlight onPress={() => Alert.alert('pressed')}
+                        data={this.props.userDataStore.userData.user.user_posts}
+                        renderItem={({item}) => <TouchableHighlight onPress={() => {this.chooseJob(item)}}
                                                                     style={{
                                                                         width: SW,
                                                                         height: SH / 8,

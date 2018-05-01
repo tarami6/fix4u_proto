@@ -1,2 +1,2 @@
-import OnTheWayConsumer from './OnTheWayConsumer';
+import OnTheWayConsumer from './OnTheWayConsumer1';
 export default OnTheWayConsumer;

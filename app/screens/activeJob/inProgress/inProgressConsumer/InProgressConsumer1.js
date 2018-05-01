@@ -9,21 +9,12 @@ import Icon from 'react-native-vector-icons/dist/Ionicons';
 //styles
 import {SH, SW, mainStyles} from "../../../../config/styles";
 import {submitButton} from "../../../../components/modalSubmitButton";
+//mobx
+import {inject, observer} from "mobx-react/index";
 
-data1 =
-    {
-        profilePic: require('../../../../../assets/avatars/handyManAvatar.jpg'),
-        name: 'אבי הבנאי',
-        service: 'חשמלאי',
-        time: '14:00',
-        jobStatus: 'onTheWay',
-        price: '100'
-    }
-status = {
-    // progress: 'בעבודה',
-    done: 'סה"כ שעות'
-}
 
+@inject("userDataStore")
+@observer
 export default class InProgressConsumer extends Component {
     static navigationOptions = {
         header: null,
@@ -56,7 +47,7 @@ export default class InProgressConsumer extends Component {
                     <View style={styles.infoView}>
                         {/*Image & service & full name*/}
                         <View style={{flex: 0.55}}>
-                            <InfoItem info={data1}/>
+                            <InfoItem info={this.props.userDataStore.focusedJob.user_pro}/>
                         </View>
                         {/*about*/}
                         <View style={styles.infoAboutView}>
