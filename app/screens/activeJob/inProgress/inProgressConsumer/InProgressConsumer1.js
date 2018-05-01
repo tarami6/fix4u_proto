@@ -232,7 +232,7 @@ export default class InProgressConsumer extends Component {
                                     </View>
                                 </View>
                                  <View style={{alignItems: 'center', justifyContent: 'center', flex: 0.3}}>
-                                        {submitButton('אשר', () => {
+                                        {submitButton('אשר','consumer', () => {
                                             this.setModalVisible(true);
                                         })}
                                     </View>

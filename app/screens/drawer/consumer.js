@@ -53,6 +53,7 @@ export default class Consumer extends Component {
     }
 
     render() {
+        console.log('drawer1', this.props.authStore)
         return (
             <View>
                 <LinearGradient
@@ -68,7 +69,7 @@ export default class Consumer extends Component {
                                 <Circle qty={22}/>
                             </View>
                             <TouchableOpacity>
-                                <Text style={{color: 'gray', fontWeight: 'bold'}}>Simon Mignoletss</Text>
+                                <Text style={{color: 'gray', fontWeight: 'bold'}}>Simon Mignoletss2</Text>
                             </TouchableOpacity>
                         </View>
                     </ListItem>

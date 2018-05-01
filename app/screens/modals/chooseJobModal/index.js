@@ -264,7 +264,7 @@ export default class ChooseJobModal extends Component {
                             <View style={{flex: 0.8}}>
                                 <View style={styles.footer}>
                                     <View style={{alignItems: 'center'}}>
-                                        {submitButton('שלח הצעה', () => {
+                                        {submitButton('שלח הצעה','consumer', () => {
                                             this.submitApply();
                                         })}
                                     </View>

@@ -52,7 +52,7 @@ export default class ScheduleConsumer1 extends React.Component {
     render() {
         return (
             <View style={{flex: 1,}}>
-                <Header head={'Grey'}/>
+                <Header head={'Grey'}  previousPage={'ChooseService'} props={this.props}/>
                 <View style={{flex: 1}}>
                     <FlatList
                         data={data}

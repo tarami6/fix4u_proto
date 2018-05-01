@@ -183,7 +183,7 @@ export default class OnTheWayPro extends React.Component {
                     </View>
                     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                         <View style={{alignItems: 'center'}}>
-                            {submitButton('התחל עבודה', () => {
+                            {submitButton('התחל עבודה','pro', () => {
                                 this.setModalVisible(true);
                             })}
                         </View>

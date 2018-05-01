@@ -3,8 +3,7 @@ import {TouchableOpacity, Text, View, StyleSheet} from 'react-native';
 import {LinierBackground} from "../config/styles";
 import {HH, SW, mainStyles} from "../config/styles";
 
-export const
-    submitButton = (title, onPress, color='red' ) => {
+export const submitButton = (title, color='red', onPress  ) => {
         switch (color) {
             case 'consumer':
                 return (
