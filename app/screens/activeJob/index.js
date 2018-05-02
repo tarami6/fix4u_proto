@@ -14,6 +14,7 @@ import ConsumerPaymentConsumer from "./consumerPayment/ConsumerPaymentConsumer/C
 //consumer payment step - here the consumer pays the pro
 import ConsumerPaymentPro from './consumerPayment/ConsumerPaymentPro'
 //Consumer review
+import ConsumerReview from './consumerReview/consumerReviewConsumer';
 // screens:
 
 
@@ -34,9 +35,14 @@ export default class ActiveJob extends Component {
                 );
             }
             else if (jobStatus === 'in_progress' || jobStatus === 'pro_payment'
-                || jobStatus === 'consumer_payment' || jobStatus === 'consumer_review') {
+                || jobStatus === 'consumer_payment' ) {
                 return (
                     <InProgressConsumer/>
+                );
+            }
+            else if ( jobStatus === 'consumer_review') {
+                return (
+                    <ConsumerReview navigation={this.props.navigation}/>
                 );
             }
             else {

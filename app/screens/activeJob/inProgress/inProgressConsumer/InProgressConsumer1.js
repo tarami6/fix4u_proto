@@ -9,6 +9,10 @@ import Icon from 'react-native-vector-icons/dist/Ionicons';
 //styles
 import {SH, SW, mainStyles} from "../../../../config/styles";
 import {submitButton} from "../../../../components/modalSubmitButton";
+//config
+import BraintreeDropIn from 'react-native-braintree-payments-drop-in';
+import {fetcher} from "../../../../generalFunc/fetcher";
+import {braintreeGetTokenRoute, braintreeSendTokenRoute} from "../../../../config/apiRoutes";
 //mobx
 import {inject, observer} from "mobx-react/index";
 
@@ -28,7 +32,60 @@ export default class InProgressConsumer extends Component {
     }
 
     componentWillMount() {
+
         // console.warn(this.props.userDataStore.userData.user.user_posts)
+    }
+    pay(){
+        let userToken = this.props.userDataStore.userData.token;
+        fetcher(braintreeGetTokenRoute, 'GET', this.successCallback.bind(this), this.errorCallback.bind(this), {token: userToken})
+    }
+
+    successCallback(res) {
+        // console.warn('got success cb:', res);
+        this.activatePayment(res);
+    }
+
+    activatePayment(token) {
+        BraintreeDropIn.show({
+            clientToken: token,
+        })
+            .then(result => {
+                this.fetchPayment(result)
+                // console.log(result)
+            })
+            .catch((error) => {
+                if (error.code === 'USER_CANCELLATION') {
+                    console.log(error)
+                    // update your UI to handle cancellation
+                } else {
+                    console.log(error)
+                    // update your UI to handle other errors
+                }
+            });
+
+    }
+
+    fetchPayment(result){
+        let route = braintreeSendTokenRoute(this.props.userDataStore.focusedJob.id)
+        let amount = this.props.userDataStore.focusedJob.total_fee;
+        let sendBody = {
+            nonce: result.nonce,
+            amount: amount
+        }
+        fetcher(route, 'POST', this.cardConfirmed.bind(this), this.errorCallback, sendBody, {token: this.props.userDataStore.userData.token});
+
+    }
+
+    cardConfirmed(res){
+        Alert.alert('Payment Confirmed!');
+        let postId = this.props.userDataStore.focusedJob.id
+        this.props.userDataStore.updatePostStatus(postId, 'consumer_review');
+        console.log('card confirmed:', res);
+    }
+
+    errorCallback(err) {
+        console.warn('got error in consumerPaymentConsumer:', err);
+        console.log('got error in consumerPaymentConsumer:', err);
     }
 
     startJob() {
@@ -83,7 +140,7 @@ export default class InProgressConsumer extends Component {
                         {console.log("inProgress",this.props.userDataStore.focusedJob.status)}
                         <Text style={mainStyles.greyTitle}>
                             {this.props.userDataStore.focusedJob.status === 'in_progress' ? 'בעבודה' : ''}
-                            {this.props.userDataStore.focusedJob.status === 'pro_payment' ? 'מכין חשבונית' : ''}
+                            {this.props.userDataStore.focusedJob.status === 'pro_payment' ? '' : ''}
                             </Text>
                     </View>
                     <View style={{flex: 1}}>
@@ -228,7 +285,7 @@ export default class InProgressConsumer extends Component {
                                 </View>
                                  <View style={{alignItems: 'center', justifyContent: 'center', flex: 0.3}}>
                                         {submitButton('אשר','consumer', () => {
-                                            this.setModalVisible(true);
+                                            this.pay();
                                         })}
                                     </View>
                             </View>

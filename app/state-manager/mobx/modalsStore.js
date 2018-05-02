@@ -11,6 +11,8 @@ export default class ModalsStore {
 
     @observable chooseJobModal = false;
 
+    @observable consumerPaymentModal = false;
+
 
     //display/hide modals
     @action showModal(str: string){

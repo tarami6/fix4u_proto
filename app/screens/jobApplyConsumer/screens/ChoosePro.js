@@ -30,7 +30,7 @@ import {hebrewServices} from "../../../generalFunc/generalObjects";
 import {fetcher} from "../../../generalFunc/fetcher";
 import {inject, observer} from "mobx-react/native";
 import {chooseApplyRoute, editUserRoute} from "../../../config/apiRoutes";
-
+import {getAvgRating, formatTime} from "../../../generalFunc/generalFunctions";
 
 //image picker options:
 var options = {
@@ -137,7 +137,7 @@ export default class ApplyBaseScreen extends React.Component {
                 let sendObj = {
                     name: this.state.name
                 }
-                if(this.state.profilePic){
+                if (this.state.profilePic) {
                     let newObj = this.state.picData;
                     newObj.append('name', this.state.name)
                     sendObj = {
@@ -214,315 +214,320 @@ export default class ApplyBaseScreen extends React.Component {
         });
     }
 
-        render()
-        {
+    render() {
 
-            let apply = this.props.userDataStore.shownPro;
-            let job = this.props.userDataStore.focusedConsumerJob;
-            console.warn('pro', this.props.userDataStore.shownPro);
-            console.log('pro313131', this.props.userDataStore.shownPro);
-            return (
+        let apply = this.props.userDataStore.shownPro;
+        let job = this.props.userDataStore.focusedConsumerJob;
+        console.warn('pro', this.props.userDataStore.shownPro);
+        console.log('pro313131', this.props.userDataStore.shownPro);
+        return (
 
-                <View style={{flex: 1}}>
+            <View style={{flex: 1}}>
 
-                    <Modal
-                        animationType="fade"
-                        transparent={true}
-                        visible={this.state.modalVisible}
-                        onRequestClose={() => {
-                            alert('Modal has been closed.');
-                        }}>
-                        <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
-                            <View style={styles.modalView}>
-                                {/*Exit Icon*/}
-                                <View style={styles.eXicon}>
-                                    <TouchableHighlight
-                                        onPress={() => {
-                                            this.setModalVisible(!this.state.modalVisible);
-                                        }}>
-                                        <Image
-                                            source={require('../../../../assets/icons/Exit.png')}
-                                        />
-                                    </TouchableHighlight>
-                                </View>
-                                <View style={styles.body}>
-                                    <View style={{flex: 2, alignItems: 'center'}}>
-                                        <Image style={{width: SW / 4.5, height: SW / 4.5, borderRadius: 100}}
-                                               source={{uri: apply.user_pro.profile_pic_thumb}}
-                                        />
-                                        <Text style={{
-                                            fontSize: 16,
-                                            color: '#000',
-                                            fontWeight: 'bold',
-                                            marginTop: SW / 20,
-                                            textAlign: 'center'
-                                        }}>{apply.user_pro.name}</Text>
-                                        <Text style={{fontSize: 16}}>{hebrewServices[job.service]}</Text>
-                                        <View style={{
-                                            marginTop: 20,
-                                            opacity: 0.65,
-                                            height: 1,
-                                            width: SW / 10,
-                                            borderBottomWidth: 1,
-                                            borderColor: '#000'
-                                        }}/>
-                                        <Text style={{
-                                            fontSize: 18,
-                                            color: '#000',
-                                            fontWeight: 'bold',
-                                            marginTop: SW / 20
-                                        }}> היום {apply.time.slice(0, 5)} </Text>
-                                        <Text style={{fontSize: 14}}> מחיר הגעה {apply.service_fee} ש"ח</Text>
-                                    </View>
-                                    {!this.props.userDataStore.userData.user.name &&
-                                    <View style={{
-                                        flex: 1,
-                                        alignItems: 'center',
-                                        justifyContent: 'flex-end',
-                                        paddingBottom: SH / 20
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => {
+                        alert('Modal has been closed.');
+                    }}>
+                    <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
+                        <View style={styles.modalView}>
+                            {/*Exit Icon*/}
+                            <View style={styles.eXicon}>
+                                <TouchableHighlight
+                                    onPress={() => {
+                                        this.setModalVisible(!this.state.modalVisible);
                                     }}>
-                                        <Text style={{fontSize: 15, color: 'black', margin: 5, opacity: 0.5}}>
-                                            הכנס
-                                            שם
-                                        </Text>
-
-                                        <View style={{
-                                            borderColor: '#e0e0e0',
-                                            borderWidth: 2,
-                                            borderRadius: 7,
-                                            width: SW / 1.4,
-                                            backgroundColor: 'white',
-                                            flexDirection: "row"
-                                        }}>
-                                            {/*Its the Camera ICON*/}
-                                            <StarIcon
-                                                onPress={() => this.selectPhotoTapped("profile_pic")}
-                                                style={{opacity: 0.7, alignSelf: 'center', marginLeft: 5}}
-                                                name="camera" size={30}
-                                                color="gray"/>
-                                            <TextInput underlineColorAndroid="transparent" style={{height: 40, flex: 1}}
-                                                       onChangeText={(name) => this.setState({name: name})}
-                                            />
-                                        </View>
-                                    </View>
-                                    }
-
-                                    <View style={{flex: 1.4, alignItems: 'center'}}>
-                                        <Text style={{opacity: 0.7}}>מתכנן את היציאה אליך</Text>
-                                        <View style={styles.footer}>
-                                            <View style={{alignItems: 'center'}}>
-                                                {submitButton('אשר', 'consumer', () => {
-                                                    this.choosePro(apply);
-                                                })}
-                                            </View>
-                                        </View>
-                                    </View>
-                                </View>
-
-
-                            </View>
-                        </View>
-                    </Modal>
-
-                    <View style={{flex: 0.5}}>
-                        <LinearViewBelowHeaderConsumer>
-                            < Header
-                                head={'AddJob'}
-                                previousPage={'ApplyBaseScreen'}
-                                props={this.props
-                                }
-                            />
-                            <View style={styles.row}>
-                                {/*Time counter*/}
-                                <View style={styles.headerTimeView}>
-                                    <Text style={styles.headerTimeText}>03:58</Text>
-                                </View>
-                                {/*Job Info*/}
-                                <View style={styles.serviceView}>
-                                    <Text style={styles.serviceText}>{hebrewServices[job.service]}</Text>
-                                    <Text
-                                        style={styles.serviceText}>היום {job.appointment_time_start.slice(0, 5) + '-' + job.appointment_time_end.slice(0, 5)}
-                                    </Text>
-                                </View>
-                                {/*Border*/}
-                                <View style={styles.headerBorder}/>
-                                {/*Service Icon*/}
-                                <View style={styles.serviceIconView}>
-                                    <Image source={require('../../../../assets/icons/serviceElectrician.png')}
+                                    <Image
+                                        source={require('../../../../assets/icons/Exit.png')}
                                     />
-                                </View>
+                                </TouchableHighlight>
                             </View>
-                        </LinearViewBelowHeaderConsumer>
-                    </View>
-
-                    <View style={{flex: 0.7}}>
-                        <View style={styles.infoView}>
-                            {/*Image & service & full name*/}
-                            <View style={styles.row}>
-                                <View style={styles.infoTimeAndPriceView}>
-                                    <Text style={{color: '#000'}}> היום {apply.time.slice(0, 5)}</Text>
-                                    <Text> {apply.service_fee} ש"ח</Text>
-                                </View>
-                                <View style={styles.infoService}>
-                                    {console.log('333',apply.user_pro )}
-                                    <Text style={{color: '#000'}}>{apply.user_pro.name}</Text>
-                                    <Text>{hebrewServices[job.service] }</Text>
-                                </View>
-                                <View
-                                    style={styles.infoProPicView}>
-                                    <Image style={styles.infoProPic}
+                            <View style={styles.body}>
+                                <View style={{flex: 2, alignItems: 'center'}}>
+                                    <Image style={{width: SW / 4.5, height: SW / 4.5, borderRadius: 100}}
                                            source={{uri: apply.user_pro.profile_pic_thumb}}
                                     />
+                                    <Text style={{
+                                        fontSize: 16,
+                                        color: '#000',
+                                        fontWeight: 'bold',
+                                        marginTop: SW / 20,
+                                        textAlign: 'center'
+                                    }}>{apply.user_pro.name}</Text>
+                                    <Text style={{fontSize: 16}}>{hebrewServices[job.service]}</Text>
+                                    <View style={{
+                                        marginTop: 20,
+                                        opacity: 0.65,
+                                        height: 1,
+                                        width: SW / 10,
+                                        borderBottomWidth: 1,
+                                        borderColor: '#000'
+                                    }}/>
+                                    <Text style={{
+                                        fontSize: 18,
+                                        color: '#000',
+                                        fontWeight: 'bold',
+                                        marginTop: SW / 20
+                                    }}> היום {apply.time.slice(0, 5)} </Text>
+                                    <Text style={{fontSize: 14}}> מחיר הגעה {apply.service_fee} ש"ח</Text>
                                 </View>
-                            </View>
-                            {/*about*/}
-                            <View style={styles.infoAboutView}>
-                                <Text>{apply.user_pro.company_description}</Text>
-                            </View>
-                            {/*Border*/}
-                            <View style={styles.infoBorder}/>
-                            {/*reviews*/}
-                            <View style={styles.infoReviews}>
-                                {/*Stars*/}
-                                <TouchableOpacity activeOpacity={0.7}
-                                                  onPress={this.expand_collapse_Function}
-                                                  style={{flex: 1, flexDirection: 'row'}}>
-                                    <View style={styles.infoStarsView}>
-                                        <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
-                                        <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
-                                        <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
-                                        <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
-                                        <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
+                                {!this.props.userDataStore.userData.user.name &&
+                                <View style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    justifyContent: 'flex-end',
+                                    paddingBottom: SH / 20
+                                }}>
+                                    <Text style={{fontSize: 15, color: 'black', margin: 5, opacity: 0.5}}>
+                                        הכנס
+                                        שם
+                                    </Text>
+
+                                    <View style={{
+                                        borderColor: '#e0e0e0',
+                                        borderWidth: 2,
+                                        borderRadius: 7,
+                                        width: SW / 1.4,
+                                        backgroundColor: 'white',
+                                        flexDirection: "row"
+                                    }}>
+                                        {/*Its the Camera ICON*/}
+                                        <StarIcon
+                                            onPress={() => this.selectPhotoTapped("profile_pic")}
+                                            style={{opacity: 0.7, alignSelf: 'center', marginLeft: 5}}
+                                            name="camera" size={30}
+                                            color="gray"/>
+                                        <TextInput underlineColorAndroid="transparent" style={{height: 40, flex: 1}}
+                                                   onChangeText={(name) => this.setState({name: name})}
+                                        />
                                     </View>
+                                </View>
+                                }
 
-                                    <View style={styles.slideDownArrow}>
-                                        <Icon name={this.state.buttonText} size={20} color="#000"/>
-                                    </View>
-
-                                    <View style={styles.infoReviewCount}>
-                                        <Text>0 חוות דעת</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.MainContainer}>
-
-                        <ScrollView style={styles.ChildView}>
-
-
-                            <View style={{
-                                height: this.state.updatedHeight,
-                                overflow: 'hidden'
-                            }}>
-
-                                <View style={[styles.ExpandViewInsideText, {height: this.state.height}]}
-                                      onLayout={(value) => this.getHeight(value.nativeEvent.layout.height)}>
-                                    {data.map((item, index) => {
-                                        return (
-                                            <View key={index} style={styles.proCard}>
-                                                {/*Name and Image*/}
-                                                <View style={styles.cardNameAndImageView}>
-                                                    <View style={styles.cardNameAndDate}>
-                                                        <Text style={styles.nameText}>{item.name}</Text>
-                                                        <Text style={{fontSize: 16}}>{item.date}</Text>
-                                                    </View>
-                                                    <View style={styles.cardPicProView}>
-                                                        <Image
-                                                            style={styles.proPic}
-                                                            source={item.pic}
-                                                        />
-                                                    </View>
-                                                </View>
-                                                {/*Review*/}
-                                                <View style={styles.cardReview}>
-                                                    <Text style={{fontSize: 16}}>{item.review}</Text>
-                                                </View>
-                                                <View style={styles.row}>
-                                                    <View style={styles.starsContainer}>
-                                                        <StarRating
-                                                            disabled={false}
-                                                            maxStars={5}
-                                                            rating={item.price}
-                                                            starSize={14}
-                                                            fullStarColor={'#ffd700'}
-                                                            emptyStar={'star'}
-                                                            iconSet={'FontAwesome'}
-                                                        />
-                                                    </View>
-                                                    <View style={styles.cardRightTitle}>
-                                                        <Text style={{fontSize: 16}}>מחיר</Text>
-                                                    </View>
-                                                </View>
-                                                <View style={styles.row}>
-                                                    <View style={styles.starsContainer}>
-                                                        <StarRating
-                                                            disabled={false}
-                                                            maxStars={5}
-                                                            rating={item.workTime}
-                                                            starSize={14}
-                                                            fullStarColor={'#ffd700'}
-                                                            emptyStar={'star'}
-                                                            iconSet={'FontAwesome'}
-                                                        />
-                                                    </View>
-                                                    <View style={styles.cardRightTitle}>
-                                                        <Text style={{fontSize: 16}}>זמן עבודה</Text>
-                                                    </View>
-                                                </View>
-                                                <View style={styles.row}>
-                                                    <View style={styles.starsContainer}>
-                                                        <StarRating
-                                                            disabled={false}
-                                                            maxStars={5}
-                                                            rating={item.service}
-                                                            starSize={14}
-                                                            fullStarColor={'#ffd700'}
-                                                            emptyStar={'star'}
-                                                            iconSet={'FontAwesome'}
-                                                        />
-                                                    </View>
-                                                    <View style={styles.cardRightTitle}>
-                                                        <Text style={{fontSize: 16}}>שירות</Text>
-                                                    </View>
-                                                </View>
-                                                {/*Bot Border*/}
-                                                <View style={styles.cardBottomBorder}/>
-                                            </View>
-                                        )
-                                    })}
+                                <View style={{flex: 1.4, alignItems: 'center'}}>
+                                    <Text style={{opacity: 0.7}}>מתכנן את היציאה אליך</Text>
                                     <View style={styles.footer}>
                                         <View style={{alignItems: 'center'}}>
-                                            {submitButton('הזמן עכשיו', 'consumer', () => {
-                                                this.setModalVisible(true);
+                                            {submitButton('אשר', 'consumer', () => {
+                                                this.choosePro(apply);
                                             })}
                                         </View>
                                     </View>
                                 </View>
-
-
                             </View>
 
-                        </ScrollView>
 
+                        </View>
                     </View>
-                    {/*Footer*/}
-                    {this.state.expand ? <View/>
-                        : <View style={styles.footer}>
-                            <View style={{alignItems: 'center'}}>
-                                {submitButton('הזמן עכשיו', 'consumer', () => {
-                                    this.setModalVisible(true);
-                                })}
-                            </View>
-                        </View>}
+                </Modal>
 
+                <View style={{flex: 0.5}}>
+                    <LinearViewBelowHeaderConsumer>
+                        < Header
+                            head={'AddJob'}
+                            previousPage={'ApplyBaseScreen'}
+                            props={this.props
+                            }
+                        />
+                        <View style={styles.row}>
+                            {/*Time counter*/}
+                            <View style={styles.headerTimeView}>
+                                <Text style={styles.headerTimeText}>03:58</Text>
+                            </View>
+                            {/*Job Info*/}
+                            <View style={styles.serviceView}>
+                                <Text style={styles.serviceText}>{hebrewServices[job.service]}</Text>
+                                <Text
+                                    style={styles.serviceText}>היום {job.appointment_time_start.slice(0, 5) + '-' + job.appointment_time_end.slice(0, 5)}
+                                </Text>
+                            </View>
+                            {/*Border*/}
+                            <View style={styles.headerBorder}/>
+                            {/*Service Icon*/}
+                            <View style={styles.serviceIconView}>
+                                <Image source={require('../../../../assets/icons/serviceElectrician.png')}
+                                />
+                            </View>
+                        </View>
+                    </LinearViewBelowHeaderConsumer>
                 </View>
 
-            )
-        }
-    }
+                <View style={{flex: 0.7}}>
+                    <View style={styles.infoView}>
+                        {/*Image & service & full name*/}
+                        <View style={styles.row}>
+                            <View style={styles.infoTimeAndPriceView}>
+                                <Text style={{color: '#000'}}> היום {apply.time.slice(0, 5)}</Text>
+                                <Text> {apply.service_fee} ש"ח</Text>
+                            </View>
+                            <View style={styles.infoService}>
+                                {console.log('333', apply.user_pro)}
+                                <Text style={{color: '#000'}}>{apply.user_pro.name}</Text>
+                                <Text>{hebrewServices[job.service]}</Text>
+                            </View>
+                            <View
+                                style={styles.infoProPicView}>
+                                <Image style={styles.infoProPic}
+                                       source={{uri: apply.user_pro.profile_pic_thumb}}
+                                />
+                            </View>
+                        </View>
+                        {/*about*/}
+                        <View style={styles.infoAboutView}>
+                            <Text>{apply.user_pro.company_description}</Text>
+                        </View>
+                        {/*Border*/}
+                        <View style={styles.infoBorder}/>
+                        {/*reviews*/}
+                        <View style={styles.infoReviews}>
+                            {/*Stars*/}
+                            <TouchableOpacity activeOpacity={0.7}
+                                              onPress={this.expand_collapse_Function}
+                                              style={{flex: 1, flexDirection: 'row'}}>
+                                <View style={styles.infoStarsView}>
 
-    const
+                                    <StarRating
+                                        disabled={false}
+                                        maxStars={5}
+                                        rating={getAvgRating(apply.user_pro.performance_rating_avg, apply.user_pro.price_rating_avg, apply.user_pro.time_rating_avg)}
+                                        starSize={14}
+                                        fullStarColor={'#ffd700'}
+                                        emptyStar={'star'}
+                                        iconSet={'FontAwesome'}
+                                    />
+                                </View>
+
+                                <View style={styles.slideDownArrow}>
+                                    <Icon name={this.state.buttonText} size={20} color="#000"/>
+                                </View>
+
+                                <View style={styles.infoReviewCount}>
+                                    <Text>{apply.user_pro.pro_reviews.length} חוות דעת </Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.MainContainer}>
+
+                    <ScrollView style={styles.ChildView}>
+
+
+                        <View style={{
+                            height: this.state.updatedHeight,
+                            overflow: 'hidden'
+                        }}>
+
+                            <View style={[styles.ExpandViewInsideText, {height: this.state.height}]}
+                                  onLayout={(value) => this.getHeight(value.nativeEvent.layout.height)}>
+                                {apply.user_pro.pro_reviews.map((item, index) => {
+                                    return (
+                                        <View key={index} style={styles.proCard}>
+                                            {/*Name and Image*/}
+                                            <View style={styles.cardNameAndImageView}>
+                                                <View style={styles.cardNameAndDate}>
+                                                    <Text style={styles.nameText}>{item.user.name}</Text>
+                                                    <Text style={{fontSize: 16}}>{formatTime(item.created_at)}</Text>
+                                                </View>
+                                                <View style={styles.cardPicProView}>
+                                                    {item.user.profile_pic_thumb &&
+                                                    <Image
+                                                        style={styles.proPic}
+                                                        source={{uri: item.user.profile_pic_thumb}}
+                                                    />}
+                                                </View>
+                                            </View>
+                                            {/*Review*/}
+                                            <View style={styles.cardReview}>
+                                                <Text style={{fontSize: 16}}>{item.review}</Text>
+                                            </View>
+                                            <View style={styles.row}>
+                                                <View style={styles.starsContainer}>
+                                                    <StarRating
+                                                        disabled={false}
+                                                        maxStars={5}
+                                                        rating={item.price_rating}
+                                                        starSize={14}
+                                                        fullStarColor={'#ffd700'}
+                                                        emptyStar={'star'}
+                                                        iconSet={'FontAwesome'}
+                                                    />
+                                                </View>
+                                                <View style={styles.cardRightTitle}>
+                                                    <Text style={{fontSize: 16}}>מחיר</Text>
+                                                </View>
+                                            </View>
+                                            <View style={styles.row}>
+                                                <View style={styles.starsContainer}>
+                                                    <StarRating
+                                                        disabled={false}
+                                                        maxStars={5}
+                                                        rating={item.time_rating}
+                                                        starSize={14}
+                                                        fullStarColor={'#ffd700'}
+                                                        emptyStar={'star'}
+                                                        iconSet={'FontAwesome'}
+                                                    />
+                                                </View>
+                                                <View style={styles.cardRightTitle}>
+                                                    <Text style={{fontSize: 16}}>זמן עבודה</Text>
+                                                </View>
+                                            </View>
+                                            <View style={styles.row}>
+                                                <View style={styles.starsContainer}>
+                                                    <StarRating
+                                                        disabled={false}
+                                                        maxStars={5}
+                                                        rating={item.performance_rating}
+                                                        starSize={14}
+                                                        fullStarColor={'#ffd700'}
+                                                        emptyStar={'star'}
+                                                        iconSet={'FontAwesome'}
+                                                    />
+                                                </View>
+                                                <View style={styles.cardRightTitle}>
+                                                    <Text style={{fontSize: 16}}>שירות</Text>
+                                                </View>
+                                            </View>
+                                            {/*Bot Border*/}
+                                            <View style={styles.cardBottomBorder}/>
+                                        </View>
+                                    )
+                                })}
+                                <View style={styles.footer}>
+                                    <View style={{alignItems: 'center'}}>
+                                        {submitButton('הזמן עכשיו', 'consumer', () => {
+                                            this.setModalVisible(true);
+                                        })}
+                                    </View>
+                                </View>
+                            </View>
+
+
+                        </View>
+
+                    </ScrollView>
+
+                </View>
+                {/*Footer*/}
+                {this.state.expand ? <View/>
+                    : <View style={styles.footer}>
+                        <View style={{alignItems: 'center'}}>
+                            {submitButton('הזמן עכשיו', 'consumer', () => {
+                                this.setModalVisible(true);
+                            })}
+                        </View>
+                    </View>}
+
+            </View>
+
+        )
+    }
+}
+
+const
     styles = StyleSheet.create({
         container: {
             flex: 1,
