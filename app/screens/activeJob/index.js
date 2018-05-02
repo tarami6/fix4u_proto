@@ -65,7 +65,7 @@ export default class ActiveJob extends Component {
                 }
                 else {
                     return (
-                        <ConsumerReview />
+                        <ConsumerReview navigation={this.props.navigation} />
                     );
                 }
 

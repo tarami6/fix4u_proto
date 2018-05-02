@@ -15,6 +15,7 @@ import {
 import {Circle} from './index';
 import {inject, observer} from "mobx-react/native";
 
+import {hebrewServices} from "../../../../../generalFunc/generalObjects";
 
 const {width, height} = Dimensions.get('window')
 const WIDTH_CARD = (width / 2) - 50
@@ -89,7 +90,7 @@ class CardRow extends Component {
                         style={[styles.image, animatedStyle]}
                         source={service.uri}
                     />
-                    <Text style={styles.textName}>{service.name}</Text>
+                    <Text style={styles.textName}>{hebrewServices[service.name]}</Text>
                 </View>
             </TouchableOpacity>
         )

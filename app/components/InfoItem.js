@@ -7,7 +7,6 @@ import StarRating from 'react-native-star-rating'
 const InfoItem = (props) => {
     let info = props.info;
     let imageSize = props.info.price || props.info.time ? 50 : 60;
-    console.warn('info', info.user_pro);
     // console.log('Userprofe', info.user_pro.price_rating_avg)
     if(info.user_pro){
                     return <JobList {...info} />;
@@ -105,9 +104,6 @@ const JobList = (info) => {
     )
 }
 const ProItemNoRating = (info) => {
-    console.warn('ProItemNoRating', info.user_pro);
-    console.log('jobLIST', info)
-    console.log('jobLIST1', info.user_pro)
     let imageSize = info.price || info.time ? 50 : 60;
     return (
         <View style={{flex: 1, flexDirection: 'row', backgroundColor: '#fff'}}>

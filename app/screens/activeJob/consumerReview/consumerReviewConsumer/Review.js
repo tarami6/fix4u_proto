@@ -1,15 +1,18 @@
 import React, {Component} from "react";
-import {Alert, Text, TouchableOpacity, View, StyleSheet, Image, TextInput} from 'react-native';
+import {Alert, StyleSheet, Text, TextInput, View} from 'react-native';
 import Header from '../../../../components/headers/Header'
 import InfoItem from '../../../../components/InfoItem'
 import StarRating from 'react-native-star-rating';
-
-
 //styles
-import {SH, SW} from "../../../../config/styles";
+import {SW} from "../../../../config/styles";
 import {submitButton} from "../../../../components/modalSubmitButton";
+//config
+import {fetcher} from "../../../../generalFunc/fetcher";
+import {sendReviewRoute} from "../../../../config/apiRoutes";
+//mobx
+import {inject, observer} from "mobx-react/index";
 
-data1 =
+let data1 =
     {
         profilePic: require('../../../../../assets/avatars/handyManAvatar.jpg'),
         name: 'אבי הבנאי',
@@ -17,6 +20,10 @@ data1 =
 
     }
 
+let starSize = 18;
+
+@inject("userDataStore")
+@observer
 export default class Review extends Component {
     static navigationOptions = {
         header: null,
@@ -25,11 +32,48 @@ export default class Review extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            modalVisible: false,
-            starCount: 0,
-            text: ''
+            price_rating: 0,
+            time_rating: 0,
+            performance_rating: 0,
+            review: ''
         }
     }
+
+
+    //send review start
+    sendReview() {
+        let route = sendReviewRoute(this.props.userDataStore.focusedJob.id);
+
+        let headers = {
+            token: this.props.userDataStore.userData.token
+        };
+        let sendable = true;
+        let body = this.state;
+        for (let item in this.state) {
+            if (!this.state[item]) {
+                sendable = false;
+                Alert.alert('please fill in:', item)
+            }
+        }
+        if (sendable) {
+            // console.warn('sendable:', body)
+            fetcher(route, 'POST', this.successCB.bind(this), this.errorCB.bind(this), body, headers);
+        }
+        // console.log('sentData:', route, 'POST', this.successCB.bind(this), this.errorCB, body, headers);
+    }
+
+    successCB(res) {
+        this.props.userDataStore.updatePost(res.post);
+        this.props.navigation.navigate('AddJob');
+        console.warn('success cb at consumer Review:', res);
+        console.log('success cb at consumer Review:', res);
+    }
+
+    errorCB(err) {
+        console.warn('error cb at consumer Review:', err);
+        // console.log('error cb at consumer Review:', err);
+    }
+    // //send review end
 
 
     onStarRatingPress(rating) {
@@ -59,7 +103,7 @@ export default class Review extends Component {
                 <View style={{flex: 0.23, backgroundColor: '#fff', borderBottomWidth: 1, borderColor: '#000'}}>
                     {/*Image & service & full name*/}
                     <View style={{flex: 0.9}}>
-                        <InfoItem info={data1}/>
+                        <InfoItem info={this.props.userDataStore.focusedJob.user_pro}/>
                     </View>
 
 
@@ -88,15 +132,17 @@ export default class Review extends Component {
                     <View style={{flex: 1, width: SW - 60}}>
 
                         <View style={{flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <View style={{flex: 0.5,  alignItems: 'flex-start'}}>
+                            <View style={{flex: 0.5, alignItems: 'flex-start'}}>
                                 <View style={{flex: 0.3, width: SW / 4,}}>
                                     <StarRating
                                         disabled={false}
                                         fullStarColor={'#ffd700'}
                                         maxStars={5}
-                                        starSize={15}
-                                        rating={this.state.starCount}
-                                        selectedStar={(rating) => this.onStarRatingPress(rating)}
+                                        starSize={starSize}
+                                        rating={this.state.price_rating}
+                                        selectedStar={(rating) =>
+                                            this.setState({price_rating: rating})
+                                        }
                                     />
                                 </View>
 
@@ -108,14 +154,14 @@ export default class Review extends Component {
 
                         <View style={{flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                             <View style={{flex: 0.5, alignItems: 'flex-start'}}>
-                                <View style={{flex: 0.3, width: SW / 4, }}>
+                                <View style={{flex: 0.3, width: SW / 4,}}>
                                     <StarRating
                                         disabled={false}
                                         fullStarColor={'#ffd700'}
                                         maxStars={5}
-                                        starSize={15}
-                                        rating={this.state.starCount}
-                                        selectedStar={(rating) => this.onStarRatingPress(rating)}
+                                        starSize={starSize}
+                                        rating={this.state.time_rating}
+                                        selectedStar={(rating) => this.setState({time_rating: rating})}
                                     />
                                 </View>
 
@@ -126,20 +172,20 @@ export default class Review extends Component {
                         </View>
 
                         <View style={{flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <View style={{flex: 0.5,  alignItems: 'flex-start'}}>
+                            <View style={{flex: 0.5, alignItems: 'flex-start'}}>
                                 <View style={{flex: 0.3, width: SW / 4,}}>
                                     <StarRating
                                         disabled={false}
                                         fullStarColor={'#ffd700'}
                                         maxStars={5}
-                                        starSize={15}
-                                        rating={this.state.starCount}
-                                        selectedStar={(rating) => this.onStarRatingPress(rating)}
+                                        starSize={starSize}
+                                        rating={this.state.performance_rating}
+                                        selectedStar={(rating) => this.setState({performance_rating: rating})}
                                     />
                                 </View>
 
                             </View>
-                            <View style={{flex: 1, }}>
+                            <View style={{flex: 1,}}>
                                 <Text>שירות</Text>
                             </View>
                         </View>
@@ -162,15 +208,17 @@ export default class Review extends Component {
                             textAlignVertical={'top'}
                             style={{textAlign: 'right',}}
                             underlineColorAndroid="transparent"
-                            onChangeText={(text) => this.setState({text})}
-                            value={this.state.text}/>
+                            onChangeText={(review) => this.setState({review})}
+                            value={this.state.text}
+
+                        />
                     </View>
                     <View style={{flex: 1, justifyContent: 'center'}}>
                         <View style={{alignItems: 'center'}}>
-                                        {submitButton('סיים','consumer', () => {
-                                            this.setModalVisible(true);
-                                        })}
-                                    </View>
+                            {submitButton('סיים', 'consumer', () => {
+                                this.sendReview();
+                            })}
+                        </View>
                     </View>
 
                 </View>

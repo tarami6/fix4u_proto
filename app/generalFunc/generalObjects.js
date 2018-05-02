@@ -18,5 +18,5 @@ export const ServicesArrToHebString = (arr: Array) => {
 }
 
 export const consumerDummyData = {
-    
+
 };
