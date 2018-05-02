@@ -75,7 +75,7 @@ export default class OnTheWayPro extends React.Component {
 
     render() {
         let focusedJob = this.props.userDataStore.focusedJob;
-        console.warn(focusedJob);
+        // console.warn(focusedJob);
         return (
             <View style={{flex: 1, backgroundColor: "#fff", alignItems: 'center'}}>
                 <Modal
@@ -153,7 +153,7 @@ export default class OnTheWayPro extends React.Component {
                     {/*Address Description*/}
                     <View style={{flex: 1.2, alignItems: 'flex-end', borderBottomWidth: 1,}}>
                         <View style={{flex: 1}}>
-                            <Text style={{paddingLeft: SW / 7}}>{data.description}</Text>
+                            <Text style={{paddingLeft: SW / 7}}>{focusedJob.description}</Text>
                         </View>
                         <View style={{flex: 1}}>
                             <Image style={{width: SW / 7, height: SW / 7}}

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Alert, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {HH, SH, SW, mainStyles} from "../../../../config/styles";
+import {HH, mainStyles, SH, SW} from "../../../../config/styles";
 import {submitButton} from "../../../../components/modalSubmitButton";
 import {inject, observer} from "mobx-react/native";
 import {fetcher} from "../../../../generalFunc/fetcher";
@@ -34,28 +34,36 @@ export default class ChooseAddress extends React.Component {
 
     handleSubmit() {
 
-            if (this.state.place_id) {
-                // if (this.state.details.address_components[0].long_name.length > 0) {
-                //     Alert.alert('please fill in building number as well');
-                // }
-                // else {
-                this.getCoordsAndSubmitData(this.state.place_id)
+        if (this.state.place_id) {
+            // if (this.state.details.address_components[0].long_name.length > 0) {
+            //     Alert.alert('please fill in building number as well');
+            // }
+            // else {
+            this.getCoordsAndSubmitData(this.state.place_id)
 
-                // }
+            // }
+        }
+        else {
+            let {lat, lon, currentAddress} = this.props.userDataStore.userLocation;
+            if (!lat || !lon || !currentAddress) {
+                Alert.alert('המערכת לא זיהתה את המיקום שלך, אנא הכנס מיקום')
             }
             else {
-                Alert.alert('please choose proper address')
+                this.submitJob(lat, lon, currentAddress)
             }
-            this.props.navigation.navigate('ApplyBaseScreen');
+            // console.warn(lat, lon, currentAddress);
+            // Alert.alert('please choose proper address')
+        }
+        // this.props.navigation.navigate('ApplyBaseScreen');
 
     }
 
-    submitJob(lat, lon) {
+    submitJob(lat, lon, address = this.state.address) {
 
         let objToSave = {
             lat: lat,
             lon: lon,
-            address: this.state.address,
+            address: address,
             payment_type: this.state.payment_type,
             service_fee: '100'
         }
@@ -161,7 +169,7 @@ export default class ChooseAddress extends React.Component {
             <View style={styles.container}>
                 {/*Linear under header 0.8 flex*/}
                 <LinierView>
-                    <Header head={'AddJob'} previousPage={'ExplainTheJob'} props={this.props} />
+                    <Header head={'AddJob'} previousPage={'ExplainTheJob'} props={this.props}/>
                     <View style={{flex: 1, alignItems: 'center'}}>
                         <Image
                             source={require('../../../../../assets/addJob/icons/stepIndicatorConsumer3.png')}
@@ -169,7 +177,7 @@ export default class ChooseAddress extends React.Component {
                     </View>
 
                     <View style={styles.textInputView} pointerEvents="box-none">
-                        <Text style={mainStyles.whiteTitle}>הכנסת כתובת</Text>
+                        <Text style={mainStyles.whiteTitle}>הכנס כתובת</Text>
 
                         <AutoComplete
                             currentAddress={this.props.userDataStore.userLocation.currentAddress}
@@ -224,7 +232,7 @@ export default class ChooseAddress extends React.Component {
                             {/*Button*/}
                             {/*<View style={styles.container}>*/}
                             <View style={{alignItems: 'center', width: SW, marginBottom: 30}}>
-                                {submitButton('המשך','consumer', this.handleSubmit.bind(this))}
+                                {submitButton('המשך', 'consumer', this.handleSubmit.bind(this))}
                             </View>
                             {/*</View>*/}
                         </View>

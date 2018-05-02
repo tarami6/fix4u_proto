@@ -54,10 +54,13 @@ export default class ChooseJobModal extends Component {
             'Content-Type': 'application/json',
             'Authorization': 'JWT ' + this.props.userDataStore.userData.token
         };
-        fetcher(route, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), {
-            time: '12:00:00',
-            service_fee: 45
-        }, headers)
+        let time = this.state.time || '12:00:00';
+        let service_fee = this.state.service_fee;
+        let sendBody = {
+            time: time,
+            service_fee: service_fee
+        };
+        fetcher(route, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendBody, headers)
     }
 
     closeModal() {
@@ -300,7 +303,7 @@ export default class ChooseJobModal extends Component {
                                 <View style={{flex: 0.8}}>
                                     <View style={styles.footer}>
                                         <View style={{alignItems: 'center'}}>
-                                            {submitButton('שלח הצעה', () => {
+                                            {submitButton('שלח הצעה', 'pro', () => {
                                                 this.submitApply();
                                             })}
                                         </View>
