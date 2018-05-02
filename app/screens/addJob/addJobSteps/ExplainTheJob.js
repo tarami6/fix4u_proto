@@ -9,12 +9,12 @@ import {
     TouchableWithoutFeedback,
     TouchableOpacity
 } from 'react-native';
-import {SH, SW, HH, fontGrey} from "../../../../config/styles";
-import {submitButton} from "../../../../components/modalSubmitButton";
+import {SH, SW, HH, fontGrey} from "../../../config/styles";
+import {submitButton} from "../../../components/modalSubmitButton";
 import {inject, observer} from "mobx-react/native";
 import ImagePicker from "react-native-image-picker";
-import LinierView from '../../../../components/linierView';
-import Header from '../../../../components/headers/Header'
+import LinierView from '../../../components/linierView';
+import Header from '../../../components/headers/Header'
 
 //image picker options:
 var options = {
@@ -94,7 +94,7 @@ export default class ChooseTime extends React.Component {
                         <Header head={'AddJob'} previousPage={'ChooseTime'} props={this.props} />
                         <View style={{flex: 1, marginLeft: SW / 30,  alignItems: 'center'}}>
                             <Image
-                                    source={require('../../../../../assets/addJob/icons/stepIndicatorConsumer2.png')}
+                                    source={require('../../../../assets/addJob/icons/stepIndicatorConsumer2.png')}
                                 />
                         </View>
                         <View style={styles.explainTitleView}>
@@ -145,7 +145,7 @@ export default class ChooseTime extends React.Component {
                                 {this.state.profilePic ?
                                     <Image style={{height: 100, width: 100}} source={this.state.profilePic}/> :
                                     <Image
-                                        source={require('../../../../../assets/addJob/icons/addPic.png')}
+                                        source={require('../../../../assets/addJob/icons/addPic.png')}
                                     />}
                             </TouchableOpacity>
                         </View>

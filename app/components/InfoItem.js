@@ -2,9 +2,11 @@ import React from 'react';
 import {Image, Text, View} from 'react-native';
 
 import StarRating from 'react-native-star-rating'
+import {SW} from "../config/styles";
 
 const InfoItem = (props) => {
     let info = props.info;
+
     let imageSize = props.info.price || props.info.time ? 50 : 60;
     // console.log('Userprofe', info.user_pro.price_rating_avg)
     if (info.user_pro) {
@@ -22,6 +24,7 @@ export default InfoItem;
 
 const ApplyScreen = (info) => {
     let imageSize = info.price || info.time ? 50 : 60;
+
     return (
         <View style={{flex: 1, flexDirection: 'row', backgroundColor: '#fff'}}>
 
@@ -89,11 +92,16 @@ const JobList = (info) => {
             </View>
             <View style={{flex: 1, justifyContent: 'center'}}>
                 <Text style={{color: '#000', textAlign: 'right'}}>{info.user_pro.name}</Text>
-                <StarRating
+                <View style={{width: SW /5, alignSelf: 'flex-end'}}>
+                    <StarRating
                     disabled={true}
                     maxStars={5}
+                    starSize={10}
+                    fullStarColor={'red'}
                     rating={info.user_pro.price_rating_avg ? info.user_pro.price_rating_avg : 0}
                 />
+                </View>
+
                 <Text>{info.service && info.service}</Text>
             </View>
             <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>

@@ -13,9 +13,9 @@ import ChooseUserType from '../screens/choose_user_type';
 //while displaying "LoadingScreen"
 import LoadingScreen from "../screens/loadingScreen/LoadingScreen";
 import ChooseService from '../screens/addJob/addJobSteps'
-import ChooseAddress from '../screens/addJob/addJobRamiScreens/screens/ChooseAddress';
-import ChooseTime from '../screens/addJob/addJobRamiScreens/screens/ChooseTime';
-import ExplainTheJob from '../screens/addJob/addJobRamiScreens/screens/ExplainTheJob';
+import ChooseAddress from '../screens/addJob/addJobSteps/ChooseAddress';
+import ChooseTime from '../screens/addJob/addJobSteps/ChooseTime';
+import ExplainTheJob from '../screens/addJob/addJobSteps/ExplainTheJob';
 
 import ApplyBaseScreen from '../screens/jobApplyConsumer/screens/ApplyBaseScreenConsumer'
 

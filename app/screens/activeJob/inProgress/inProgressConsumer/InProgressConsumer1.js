@@ -80,7 +80,11 @@ export default class InProgressConsumer extends Component {
                 </View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-between'}}>
                     <View style={{flex: 0.3, justifyContent: 'center'}}>
-                        <Text style={mainStyles.greyTitle}>{this.props.userDataStore.focusedJob.status === 'in_progress'}</Text>
+                        {console.log("inProgress",this.props.userDataStore.focusedJob.status)}
+                        <Text style={mainStyles.greyTitle}>
+                            {this.props.userDataStore.focusedJob.status === 'in_progress' ? 'בעבודה' : ''}
+                            {this.props.userDataStore.focusedJob.status === 'pro_payment' ? 'מכין חשבונית' : ''}
+                            </Text>
                     </View>
                     <View style={{flex: 1}}>
                         <OrangeCircle size={'big'} style={{width: 180, height: 180}}>

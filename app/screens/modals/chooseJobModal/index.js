@@ -54,7 +54,12 @@ export default class ChooseJobModal extends Component {
             'Content-Type': 'application/json',
             'Authorization': 'JWT ' + this.props.userDataStore.userData.token
         };
-        let time = this.state.time || '12:00:00';
+        let time = '12:00:00';
+        if (this.state.hour && this.state.minutes) {
+            let hour = this.state.hour < 10 ? '0' + this.state.hour : this.state.hour;
+            let minutes = this.state.minutes < 10 ? '0' + this.state.minutes : this.state.minutes;
+            time = hour + ":" + minutes + ":" + "00";
+        }
         let service_fee = this.state.service_fee;
         let sendBody = {
             time: time,
@@ -187,7 +192,9 @@ export default class ChooseJobModal extends Component {
                                             }}>
                                                 <TextInput
                                                     onChangeText={(service_fee) => this.setState({service_fee})}
-                                                    onSubmitEditing={()=>{this.nameField.focus()}}
+                                                    onSubmitEditing={() => {
+                                                        this.hourField.focus()
+                                                    }}
                                                     keyboardType={'phone-pad'}
                                                     style={{
                                                         height: 45,
@@ -240,7 +247,11 @@ export default class ChooseJobModal extends Component {
                                                     flexDirection: 'row'
                                                 }}>
                                                     <TextInput
-                                                        ref={(ref=> this.nameField = ref)}                                                        keyboardType={'phone-pad'}
+                                                        onChangeText={(hour) => this.setState({hour})}
+                                                        onSubmitEditing={() => {
+                                                            this.minutesField.focus()
+                                                        }}
+                                                        ref={(ref => this.hourField = ref)} keyboardType={'phone-pad'}
                                                         style={{
                                                             height: 45,
                                                             width: 45,
@@ -259,6 +270,11 @@ export default class ChooseJobModal extends Component {
                                                     <Text style={{paddingLeft: 5, paddingRight: 5}}>:</Text>
 
                                                     <TextInput
+                                                        onSubmitEditing={() => {
+                                                            this.submitApply()
+                                                        }}
+                                                        ref={(ref => this.minutesField = ref)}
+                                                        onChangeText={(minutes) => this.setState({minutes})}
                                                         keyboardType={'phone-pad'}
                                                         style={{
                                                             height: 45,
@@ -303,7 +319,9 @@ export default class ChooseJobModal extends Component {
                                 <View style={{flex: 0.8}}>
                                     <View style={styles.footer}>
                                         <View style={{alignItems: 'center'}}>
+
                                             {submitButton('שלח הצעה', 'pro', () => {
+
                                                 this.submitApply();
                                             })}
                                         </View>

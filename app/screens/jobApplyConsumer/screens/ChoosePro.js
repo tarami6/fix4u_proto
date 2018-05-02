@@ -31,6 +31,7 @@ import {fetcher} from "../../../generalFunc/fetcher";
 import {inject, observer} from "mobx-react/native";
 import {chooseApplyRoute, editUserRoute} from "../../../config/apiRoutes";
 
+
 //image picker options:
 var options = {
     title: 'Upload profile picture',
@@ -256,7 +257,7 @@ export default class ApplyBaseScreen extends React.Component {
                                             marginTop: SW / 20,
                                             textAlign: 'center'
                                         }}>{apply.user_pro.name}</Text>
-                                        <Text style={{fontSize: 16}}> חשמל, אינסטלציה, ביוב</Text>
+                                        <Text style={{fontSize: 16}}>{hebrewServices[job.service]}</Text>
                                         <View style={{
                                             marginTop: 20,
                                             opacity: 0.65,
@@ -271,7 +272,7 @@ export default class ApplyBaseScreen extends React.Component {
                                             fontWeight: 'bold',
                                             marginTop: SW / 20
                                         }}> היום {apply.time.slice(0, 5)} </Text>
-                                        <Text style={{fontSize: 14}}>{apply.service_fee} ש"ח</Text>
+                                        <Text style={{fontSize: 14}}> מחיר הגעה {apply.service_fee} ש"ח</Text>
                                     </View>
                                     {!this.props.userDataStore.userData.user.name &&
                                     <View style={{
@@ -363,8 +364,9 @@ export default class ApplyBaseScreen extends React.Component {
                                     <Text> {apply.service_fee} ש"ח</Text>
                                 </View>
                                 <View style={styles.infoService}>
+                                    {console.log('333',apply.user_pro )}
                                     <Text style={{color: '#000'}}>{apply.user_pro.name}</Text>
-                                    <Text>חשמל, אינסטלציה, ביוב</Text>
+                                    <Text>{hebrewServices[job.service] }</Text>
                                 </View>
                                 <View
                                     style={styles.infoProPicView}>
@@ -375,8 +377,7 @@ export default class ApplyBaseScreen extends React.Component {
                             </View>
                             {/*about*/}
                             <View style={styles.infoAboutView}>
-                                <Text>חשמלאי עם וותק של 30 שנה, מתקן כל דבר שקשור{"\n"}
-                                    לחשמל, מנוסה ונחמד. מחירים נוחים.</Text>
+                                <Text>{apply.user_pro.company_description}</Text>
                             </View>
                             {/*Border*/}
                             <View style={styles.infoBorder}/>

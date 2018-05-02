@@ -21,7 +21,7 @@ import Header from '../../../../components/headers/Header'
 
 import LinierView from '../../../../components/linierView'
 import {CardList, CustomHeader} from './components/index'
-import ChooseTime from "../../addJobRamiScreens/screens/ChooseTime";
+import ChooseTime from "../ChooseTime";
 import {inject, observer} from "mobx-react/native";
 
 const {width, height} = Dimensions.get('window');
