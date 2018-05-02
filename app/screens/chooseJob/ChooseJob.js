@@ -115,27 +115,6 @@ export default class ChooseJob extends Component {
                             justifyContent: 'flex-end',
                         }}>
                         <View style={{flex: 1}}>
-                            <Text style={{paddingLeft: 20,}}>{this.props.userDataStore.sentApplies.length}</Text>
-                        </View>
-                        <View style={{flex: 1}}>
-                            <Text style={{paddingRight: 20,}}>מחכה לאישור</Text>
-                        </View>
-                    </TouchableOpacity>
-                    }
-                    {/*Got Job*/}
-                    {this.props.userDataStore.focusedJob.id &&
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('ActiveJob')}
-                        style={{
-                            width: SW,
-                            height: SH / 15,
-                            backgroundColor: 'rgba(255,255,255,1)',
-                            flexDirection: 'row',
-                            elevation: 2,
-                            alignItems: 'center',
-                            justifyContent: 'flex-end',
-                        }}>
-                        <View style={{flex: 1}}>
                             <Text style={{paddingLeft: 20,}}>1</Text>
                         </View>
                         <View style={{flex: 1}}>

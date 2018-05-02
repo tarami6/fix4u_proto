@@ -72,13 +72,14 @@ const JobList = (info) => {
     console.log('jobLIST', info)
     console.log('jobLIST1', info.user_pro)
     let imageSize = info.price || info.time ? 50 : 60;
+    let time = info.time || info.appointment_time || info.appointment_time_start;
     return (
         <View style={{flex: 1, flexDirection: 'row', backgroundColor: '#fff'}}>
 
             <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
 
                 <View>
-                    <Text style={{color: '#000'}}> היום {info.appointment_time_start.slice(0, 5)}</Text>
+                    <Text style={{color: '#000'}}> היום {time.slice(0, 5)}</Text>
                     <View>
                         <Text>{info.service_fee} ש"ח </Text>
                     </View>

@@ -157,7 +157,9 @@ export default class ApplyBaseScreen extends React.Component {
         let route = chooseApplyRoute(this.props.userDataStore.focusedConsumerJob.id);
         let sendObj = {
             user_pro: proObj.user_pro.id,
-            status: 'on_the_way'
+            status: 'on_the_way',
+            service_fee: this.props.userDataStore.shownPro.service_fee,
+            appointment_time: this.props.userDataStore.shownPro.time
         };
         let headers = {
             'Accept': `application/json`,
@@ -216,7 +218,8 @@ export default class ApplyBaseScreen extends React.Component {
 
             let apply = this.props.userDataStore.shownPro;
             let job = this.props.userDataStore.focusedConsumerJob;
-            console.log('f13', apply)
+            console.warn('pro', this.props.userDataStore.shownPro);
+            console.log('pro313131', this.props.userDataStore.shownPro);
             return (
 
                 <View style={{flex: 1}}>

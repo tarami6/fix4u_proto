@@ -75,6 +75,7 @@ export default class OnTheWayPro extends React.Component {
 
     render() {
         let focusedJob = this.props.userDataStore.focusedJob;
+        console.warn(focusedJob);
         return (
             <View style={{flex: 1, backgroundColor: "#fff", alignItems: 'center'}}>
                 <Modal
@@ -136,14 +137,17 @@ export default class OnTheWayPro extends React.Component {
                         borderColor: 'grey'
                     }}>
                         <View style={{flexDirection: 'row', flex: 1, alignItems: 'center'}}>
-                            <Text style={{paddingRight: 20, fontSize: 16, color: '#000'}}>{data.name}</Text>
+                            <Text style={{paddingRight: 20, fontSize: 16, color: '#000'}}>{focusedJob.user.name}</Text>
+                            {focusedJob.user.profile_pic_thumb?
+                                <Image style={{width: SW / 7, height: SW / 7, borderRadius: 100}}
+                                source={{uri: focusedJob.user.profile_pic_thumb}}/>:
                             <Image style={{width: SW / 7, height: SW / 7, borderRadius: 100}}
                                    source={require('../../../../../assets/avatars/avatar-sitepal.jpg')}
-                            />
+                            />}
 
                         </View>
                         <View style={{flex: 1, justifyContent: 'center'}}>
-                            <Text style={{alignSelf: 'flex-end'}}>{data.address}</Text>
+                            <Text style={{alignSelf: 'flex-end'}}>{focusedJob.address}</Text>
                         </View>
                     </View>
                     {/*Address Description*/}
@@ -153,7 +157,7 @@ export default class OnTheWayPro extends React.Component {
                         </View>
                         <View style={{flex: 1}}>
                             <Image style={{width: SW / 7, height: SW / 7}}
-                                   source={data.jobImage}
+                                   source={{uri: focusedJob.image_thumb}}
                             />
                         </View>
                     </View>
@@ -165,7 +169,7 @@ export default class OnTheWayPro extends React.Component {
                     }}>
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                             <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                <Text style={{fontSize: 16, color: '#000'}}>{data.price} ש"ח</Text>
+                                <Text style={{fontSize: 16, color: '#000'}}>{focusedJob.service_fee} ש"ח</Text>
                             </View>
                             <View style={{flex: 1,}}>
                                 <Text style={{fontSize: 16, color: '#000'}}>מחיר הגעה</Text>
@@ -174,7 +178,7 @@ export default class OnTheWayPro extends React.Component {
 
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                             <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                <Text style={{fontSize: 16, color: '#000'}}>14:20</Text>
+                                <Text style={{fontSize: 16, color: '#000'}}>{focusedJob.appointment_time}</Text>
                             </View>
                             <View style={{flex: 1,}}>
                                 <Text style={{fontSize: 16, color: '#000'}}>שעה</Text>
