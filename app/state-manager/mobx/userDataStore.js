@@ -30,6 +30,10 @@ export default class UserDataStore {
     }
 
     @action setUserData(data: Object) {
+        if(!this.userData.user && data.user.pro_applies){
+            this.setSentApplies(data.user.pro_applies);
+            console.warn('applies I send:', this.sentApplies);
+        }
         this.userData = data;
     }
 
@@ -60,6 +64,8 @@ export default class UserDataStore {
     }
 
     // notification and upadating user handling:
+
+    //applies handling:
     @action setSentApplies(sendApplies: Array) {
         this.sentApplies = sendApplies;
     }
@@ -68,6 +74,7 @@ export default class UserDataStore {
         this.sentApplies.push(apply);
     }
 
+    //user update
     @action updateUser(data: Object) {
         this.userData.user = data;
     }
@@ -124,7 +131,7 @@ export default class UserDataStore {
 
 //    location handler:
     @observable userLocation = {
-        currentLocation: '',
+        currentAddress: '',
         lat: 0,
         lon: 0
     };

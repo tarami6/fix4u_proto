@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {Alert, Image, Modal, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import React from "react";
+import {Alert, StyleSheet, Text, TextInput, View} from 'react-native';
 //config
 import {fetcher} from "../../../../generalFunc/fetcher";
 import {startJobRoute} from "../../../../config/apiRoutes";
@@ -12,7 +12,7 @@ import Header from '../../../../components/headers/Header'
 @inject("userDataStore")
 @observer
 export default class ProPaymentPro extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             modalVisible: false,
@@ -20,7 +20,7 @@ export default class ProPaymentPro extends React.Component {
         };
     }
 
-    componentWillMount(){
+    componentWillMount() {
         let name = this.props.userDataStore.focusedJob.user.name;
         this.setState({
             name: name
@@ -68,62 +68,11 @@ export default class ProPaymentPro extends React.Component {
     }
 
     render() {
+        let a =new Date(this.props.userDataStore.focusedJob.job_start_time)
+        console.warn(a.getHours());
         return (
             <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center'}}>
-                {/*<Modal*/}
-                    {/*animationType="fade"*/}
-                    {/*transparent={true}*/}
-                    {/*visible={this.state.modalVisible}*/}
-                    {/*onRequestClose={() => {*/}
-                        {/*alert('Modal has been closed.');*/}
-                    {/*}}>*/}
-                    {/*<View style={{backgroundColor: 'rgba(0,0,0,0.3)', flex: 1}}>*/}
-                        {/*<View style={styles.modal}>*/}
-
-
-                            {/*<TouchableHighlight onPress={() => {*/}
-                                {/*this.setModalVisible(!this.state.modalVisible);*/}
-                                {/*this.props.navigation.navigate('Home')*/}
-                            {/*}} id='top' style={styles.TopView}>*/}
-                                {/*<Image style={styles.xicon}*/}
-                                       {/*source={require('../../../../../assets/icons/Exit.png')}/>*/}
-                            {/*</TouchableHighlight>*/}
-
-
-
-                            {/*<View id='middle' style={styles.middleView}>*/}
-
-                                {/*<View style={{*/}
-                                    {/*flex: 0.8,*/}
-                                    {/*width: '100%',*/}
-                                    {/*justifyContent: 'flex-end',*/}
-                                    {/*alignItems: 'center',*/}
-                                    {/*paddingBottom: '5%'*/}
-                                {/*}}>*/}
-
-                                    {/*<Image style={{width: 80, height: 80}}*/}
-                                           {/*source={require('../../../../../assets/icons/charge.png')}/>*/}
-                                {/*</View>*/}
-
-
-                                {/*<View style={{flex: 0.5, width: '100%', alignItems: 'center'}}>*/}
-                                    {/*<Text style={styles.middleText}> הלקוח חויב ב*/}
-                                    {/*</Text>*/}
-                                    {/*<Text style={styles.middleText}> ב390 ש"ח </Text>*/}
-                                {/*</View>*/}
-
-                            {/*</View>*/}
-
-
-                            {/*<View id="bottom" style={styles.bottomView}>*/}
-
-                            {/*</View>*/}
-                        {/*</View>*/}
-
-                    {/*</View>*/}
-                {/*</Modal>*/}
-                {/*Header*/}
-                <Header head={'Grey'} previousPage={'Home'} props={this.props} />
+                <Header head={'Grey'} previousPage={'Home'} props={this.props}/>
                 {/*Body*/}
                 <View style={{flex: 1, width: SW - 60}}>
                     <View style={{flex: 1.5, borderBottomWidth: 1, borderColor: 'grey', paddingBottom: 10}}>
@@ -135,7 +84,9 @@ export default class ProPaymentPro extends React.Component {
                                 <TextInput
                                     underlineColorAndroid="transparent"
                                     value={this.state.name}
-                                    onChangeText={(text)=>{this.setState({name: name})}}
+                                    onChangeText={(text) => {
+                                        this.setState({name: name})
+                                    }}
                                     placeholder={"אלכסנדר קנדל"}
                                     style={styles.textInput}
                                 />
@@ -148,7 +99,7 @@ export default class ProPaymentPro extends React.Component {
                             <View
                                 style={{flex: 1, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center'}}>
                                 <TextInput
-                                    onChangeText={(fee)=>this.setState({fee: fee})}
+                                    onChangeText={(fee) => this.setState({fee: fee})}
                                     underlineColorAndroid="transparent"
                                     style={{
                                         width: SW / 8,
@@ -173,7 +124,7 @@ export default class ProPaymentPro extends React.Component {
                     <View style={{flex: 1, borderBottomWidth: 1, borderColor: 'grey',}}>
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                             <View style={{flex: 1}}>
-                                <Text style={{fontSize: 14}}>2:15:37</Text>
+                                <Text style={{fontSize: 14}}></Text>
                             </View>
                             <View style={{flex: 1}}>
                                 <Text>זמן</Text>
@@ -221,7 +172,7 @@ export default class ProPaymentPro extends React.Component {
                 </View>
                 <View style={{flex: 0.3, justifyContent: 'center'}}>
                     <View style={{alignItems: 'center'}}>
-                        {submitButton('שלח','pro', () => {
+                        {submitButton('שלח', 'pro', () => {
                             this.getPaid();
                         })}
                     </View>
