@@ -2,7 +2,9 @@ import React, {Component} from "react";
 import {Text, View, TextInput, Alert, Image} from "react-native";
 import {inject, observer} from "mobx-react/native";
 import {submitButton} from "../../../components/modalSubmitButton";
+//config
 import {fetcher} from "../../../generalFunc/fetcher";
+import {phoneInputRoute} from "../../../config/apiRoutes";
 import styles from './styles';
 import {fontGrey, SW, mainStyles} from "../../../config/styles";
 
@@ -23,7 +25,7 @@ export default class PhoneInput extends Component {
         let sendObj = {
             phone_number: this.state.text
         }
-        fetcher('api/sms/verify/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
+        fetcher(phoneInputRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
     }
 
     successCallback(response) {

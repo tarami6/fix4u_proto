@@ -6,6 +6,8 @@ import {SH, SW, colors} from "../../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 import LinearGradient from 'react-native-linear-gradient';
 import {submitButton} from "../../../../components/modalSubmitButton";
+//config
+import {phoneVerifyRoute} from "../../../../config/apiRoutes";
 import {fetcher} from "../../../../generalFunc/fetcher";
 
 @inject("authStore")
@@ -20,7 +22,7 @@ export default class PhoneInput extends Component {
         let sendObj = {
             phone_number: this.state.text
         }
-        fetcher('api/sms/verify/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
+        fetcher(phoneVerifyRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
     }
 
     successCallback(response) {

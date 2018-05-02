@@ -5,6 +5,7 @@ import {SH, SW, HH} from "../../../config/styles";
 import {submitButton} from "../../../components/modalSubmitButton";
 import CustomHeaderGrey from '../components/CustomHeaderGrey'
 //config
+import {proRegistrationRoute} from "../../../config/apiRoutes";
 import {ServicesArrToHebString} from "../../../generalFunc/generalObjects";
 import {inject, observer} from "mobx-react/native";
 import {fetcher} from "../../../generalFunc/fetcher";
@@ -57,7 +58,7 @@ export default class ChooseTime extends React.Component {
         console.warn('finalSendObj',finalSendObj);
         console.log('finalSendObj',finalSendObj);
         console.warn('headers', headers);
-        fetcher('api/rest-auth/registration/pro/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), finalSendObj, headers)
+        fetcher(proRegistrationRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), finalSendObj, headers)
     }
 
     ///// success registration handles:

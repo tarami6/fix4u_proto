@@ -70,6 +70,8 @@ export default class ProPaymentPro extends React.Component {
     render() {
         let a =new Date(this.props.userDataStore.focusedJob.job_start_time)
         console.warn(a.getHours());
+        let currentJob = this.props.userDataStore.focusedJob;
+        console.warn('currentJob',currentJob);
         return (
             <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center'}}>
                 <Header head={'Grey'} previousPage={'Home'} props={this.props}/>
@@ -84,7 +86,7 @@ export default class ProPaymentPro extends React.Component {
                                 <TextInput
                                     underlineColorAndroid="transparent"
                                     value={this.state.name}
-                                    onChangeText={(text) => {
+                                    onChangeText={(name) => {
                                         this.setState({name: name})
                                     }}
                                     placeholder={"אלכסנדר קנדל"}
@@ -105,7 +107,6 @@ export default class ProPaymentPro extends React.Component {
                                         width: SW / 8,
                                         backgroundColor: '#FCFCFC',
                                         borderRadius: 7,
-                                        textAlign: 'right',
                                         borderBottomWidth: 0.5,
                                         borderTopWidth: 2,
                                         borderRightWidth: 1,
@@ -132,7 +133,7 @@ export default class ProPaymentPro extends React.Component {
                         </View>
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                             <View style={{flex: 1, alignItems: 'flex-start', justifyContent: 'center'}}>
-                                <Text style={{fontSize: 14}}>130 ש"ח</Text>
+                                <Text style={{fontSize: 14}}> {currentJob.service_fee} ש"ח</Text>
                             </View>
                             <View style={{flex: 1, justifyContent: 'center'}}>
                                 <Text>מחיר הגעה</Text>
@@ -143,7 +144,7 @@ export default class ProPaymentPro extends React.Component {
                     <View style={{flex: 1, borderBottomWidth: 1, borderColor: 'grey',}}>
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                             <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                <Text style={{fontSize: 14}}>330 ש"ח</Text>
+                                <Text style={{fontSize: 14}}>5 שעות</Text>
                             </View>
                             <View style={{flex: 1}}>
                                 <Text>זמן</Text>
@@ -162,7 +163,7 @@ export default class ProPaymentPro extends React.Component {
                     <View style={{flex: 0.5,}}>
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                             <View style={{flex: 1, alignItems: 'flex-start', justifyContent: 'center'}}>
-                                <Text style={{fontSize: 16, color: '#000'}}>390 ש"ח</Text>
+                                <Text style={{fontSize: 16, color: '#000'}}>{(currentJob.service_fee+parseInt(this.state.fee)|| currentJob.service_fee)} ש"ח</Text>
                             </View>
                             <View style={{flex: 1, justifyContent: 'center'}}>
                                 <Text style={{fontSize: 16, color: '#000'}}>סה"כ</Text>

@@ -12,6 +12,8 @@ import {NavigationActions} from 'react-navigation';
 import {inject, observer} from 'mobx-react';
 import authStore from '../../state-manager/mobx/authStore';
 import {HH, LinierBackground} from "../../config/styles";
+//config:
+import {consumerRegistrationRoute} from "../../config/apiRoutes";
 import {fetcher} from "../../generalFunc/fetcher";
 import {handlePushyToken} from "../../generalFunc/pushyTokenHandler";
 import {SW, mainStyles} from "../../config/styles";
@@ -35,7 +37,7 @@ export default class ChooseUserType extends Component {
                 let sendObj = {
                     phone_number: this.props.authStore.user.uid
                 }
-                fetcher('api/rest-auth/registration/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
+                fetcher(consumerRegistrationRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
                 // const actionToDispatch = NavigationActions.reset({
                 //     index: 0,
                 //     key: null,
