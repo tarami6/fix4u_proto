@@ -3,6 +3,7 @@ import {Image, Text, View} from 'react-native';
 
 import StarRating from 'react-native-star-rating'
 import {SW} from "../config/styles";
+import {hebrewServices} from "../generalFunc/generalObjects";
 
 const InfoItem = (props) => {
     let info = props.info;
@@ -60,7 +61,7 @@ const ApplyScreen = (info) => {
                     maxStars={5}
                     rating={info.user_pro.price_rating_avg ? info.user_pro.price_rating_avg : 0}
                 />
-                <Text>{info.service && info.service}</Text>
+                <Text>{hebrewServices[info.service] }</Text>
             </View>
             <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
                 <Image
@@ -102,7 +103,7 @@ const JobList = (info) => {
                 />
                 </View>
 
-                <Text>{info.service && info.service}</Text>
+                <Text>{hebrewServices[info.service] }</Text>
             </View>
             <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
                 <Image
