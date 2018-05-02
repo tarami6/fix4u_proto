@@ -10,7 +10,9 @@ import InProgressPro from './inProgress/inProgressPro';
 import InProgressConsumer from './inProgress/inProgressConsumer';
 //pro payment step here the decides what will be the payment
 import ProPaymentPro from './proPayment/proPaymentPro';
+import ConsumerPaymentConsumer from "./consumerPayment/ConsumerPaymentConsumer/ConsumerPaymentConsumer";
 //consumer payment step - here the consumer pays the pro
+import ConsumerPaymentPro from './consumerPayment/ConsumerPaymentPro'
 //Consumer review
 // screens:
 
@@ -57,11 +59,16 @@ export default class ActiveJob extends Component {
                 return (
                     <InProgressPro/>
                 );
-            } else if (jobStatus === 'pro_payment' || jobStatus === 'consumer_payment') {
+            } else if (jobStatus === 'pro_payment') {
                 return (
                     <ProPaymentPro/>
                 );
-            } else if (jobStatus === 'consumer_review') {
+            } else if (jobStatus === 'consumer_payment') {
+                return (
+                    <ConsumerPaymentPro/>
+                )
+            }
+            else if (jobStatus === 'consumer_review') {
                 this.props.navigation.navigate('Home');
                 return (
                     <View>
