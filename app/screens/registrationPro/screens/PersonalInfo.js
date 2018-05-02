@@ -116,33 +116,6 @@ export default class PersonalInfo extends React.Component {
                         </LinearViewBelowHeaderPro>
                     </View>
                     <View style={styles.contactForm}>
-                        {/*phone number title*/}
-                        {/*<View>*/}
-                            {/*<Text>מספר פלאפון</Text>*/}
-                        {/*</View>*/}
-                        {/*/!*phone number Input*!/*/}
-                        {/*<TextInput*/}
-                            {/*ref={(ref) => this.phoneInput = ref}*/}
-                            {/*underlineColorAndroid={'transparent'}*/}
-                            {/*style={{*/}
-                                {/*marginTop: SW / 30,*/}
-                                {/*borderColor: '#ECECEC',*/}
-                                {/*borderWidth: 2,*/}
-                                {/*backgroundColor: '#fcfcfc',*/}
-                                {/*borderRadius: 10,*/}
-                                {/*width: SW / 1.16,*/}
-                                {/*textAlign: 'right',*/}
-                                {/*paddingRight: 10,*/}
-                                {/*color: '#9b9b9b'*/}
-                            {/*}}*/}
-                            {/*placeholder={'הכנס מספר פלאפון'}*/}
-                            {/*keyboardType={'phone-pad'}*/}
-                            {/*onChangeText={(text) => this.setState({phone_number: text})}*/}
-                            {/*value={this.state.phone_number}*/}
-                            {/*returnKeyType={'next'}*/}
-                            {/*onSubmitEditing={()=>{this.companyNameInput.focus()}}*/}
-                        {/*/>*/}
-                        {/*business Info  Title*/}
                         <View>
                             <Text>נא לציין כפי שרשום ברשויות</Text>
                         </View>

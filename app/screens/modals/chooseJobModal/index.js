@@ -1,13 +1,20 @@
 import React, {Component} from 'react';
-import {Alert, Image, StyleSheet, Text, TextInput, TouchableHighlight, View, KeyboardAvoidingView,
-    TouchableWithoutFeedback,Dimensions  } from 'react-native';
+import {
+    Alert,
+    Image,
+    KeyboardAvoidingView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableWithoutFeedback,
+    View
+} from 'react-native';
 import {SH, SW} from "../../../config/styles";
 import {submitButton} from "../../../components/modalSubmitButton";
 import {inject, observer} from "mobx-react/index";
 import {applyForJobRoute} from "../../../config/apiRoutes";
 import {fetcher} from "../../../generalFunc/fetcher";
-import ImageZoom from 'react-native-image-pan-zoom';
-// import ImageModal from "./imageModal";
+
 
 const data = {
     name: 'אלכסנדרה קנדל',
@@ -82,12 +89,11 @@ export default class ChooseJobModal extends Component {
         return (
 
 
-
             <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
                 <KeyboardAvoidingView style={styles.modalContainer} behavior="position" enabled>
                     <View style={styles.modalView}>
 
-                        {/Exit Icon/}
+                        {/* Exit Icon */}
                         <View style={styles.eXicon}>
                             <TouchableWithoutFeedback
                                 onPress={() => {
@@ -98,18 +104,18 @@ export default class ChooseJobModal extends Component {
                                 />
                             </TouchableWithoutFeedback>
                         </View>
-                        {/The Content/}
+                        {/*The Content*/}
 
                         <View style={{flex: 1,}}>
-                            {/the body splitted in two views/}
-                            {/This the Top View/}
+                            {/*{/the body splitted in two views/}*/}
+                            {/*{/This the Top View/}*/}
                             <View style={{
                                 flex: 1.05, backgroundColor: '#fff', paddingRight: SW / 20,
                                 paddingLeft: SW / 20,
                                 borderBottomWidth: 1,
                                 borderColor: '#9f9f9f'
                             }}>
-                                {/Name And Image/}
+                                {/*{/Name And Image/}*/}
                                 <View style={{
                                     flex: 0.85,
                                     borderBottomWidth: 1,
@@ -141,24 +147,27 @@ export default class ChooseJobModal extends Component {
                                             }
                                         </View>
                                     </View>
-                                    <View style={{flex: 0.5, justifyContent: 'center',alignItems: 'flex-end'}}>
+                                    <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'flex-end'}}>
                                         <Text>כתובת :{currentJob.address}</Text>
                                     </View>
                                 </View>
-                                {/Description and Image/}
+                                {/*{/Description and Image/}*/}
                                 <View style={{flex: 1.15, backgroundColor: '#fff', alignItems: 'flex-end'}}>
-                                    <Text style={{lineHeight: 20, paddingTop: 10}}>תיאור : {currentJob.description}</Text>
+                                    <Text style={{lineHeight: 20, paddingTop: 10}}>תיאור
+                                        : {currentJob.description}</Text>
                                     {currentJob.image_thumb ?
                                         // <TouchableHighlight onPress={() => this.getImageModal()}>
-                                        <Image style={{height: SW / 6,width: SW / 6,alignSelf: 'flex-end',
-                                            marginTop: 10}} source={{uri: currentJob.image_thumb}} />
+                                        <Image style={{
+                                            height: SW / 6, width: SW / 6, alignSelf: 'flex-end',
+                                            marginTop: 10
+                                        }} source={{uri: currentJob.image_thumb}}/>
                                         // </TouchableHighlight>
 
-                                        :  < View/>
+                                        : < View/>
                                     }
                                 </View>
                             </View>
-                            {/This the bottom and the second view/}
+                            {/*{/This the bottom and the second view/}*/}
 
                             <View style={{flex: 0.95, backgroundColor: "#d8d8d8"}}>
                                 <View style={{flex: 1.2,}}>
@@ -173,22 +182,25 @@ export default class ChooseJobModal extends Component {
                                                 alignItems: 'center',
                                                 flexDirection: 'row'
                                             }}>
-                                                <TextInput style={{
-                                                    height: 45,
-                                                    width: SW / 6,
-                                                    borderColor: '#cbcbcb',
-                                                    borderRadius: 7,
-                                                    borderWidth: 2,
-                                                    textAlign: 'center',
-                                                    fontSize: 18,
-                                                    fontWeight: 'bold',
-                                                    backgroundColor: '#fff'
+                                                <TextInput
+                                                    onChangeText={(service_fee) => this.setState({service_fee})}
+                                                    onSubmitEditing={()=>{this.nameField.focus()}}
+                                                    keyboardType={'phone-pad'}
+                                                    style={{
+                                                        height: 45,
+                                                        width: SW / 6,
+                                                        borderColor: '#cbcbcb',
+                                                        borderRadius: 7,
+                                                        borderWidth: 2,
+                                                        textAlign: 'left',
+                                                        fontSize: 18,
+                                                        fontWeight: 'bold',
+                                                        backgroundColor: '#fff'
 
-                                                }}
-                                                           underlineColorAndroid="transparent"
-
-                                                           placeholderTextColor = 'black'
-                                                           placeholder={data.price}/>
+                                                    }}
+                                                    underlineColorAndroid="transparent"
+                                                    placeholderTextColor='black'
+                                                    placeholder={data.price}/>
                                                 <Text style={{paddingLeft: 5}}>ש"ח</Text>
                                             </View>
                                         </View>
@@ -205,7 +217,8 @@ export default class ChooseJobModal extends Component {
                                                 flexDirection: 'row'
                                             }}>
 
-                                                <Text style={{fontSize: 16, color: '#000', fontWeight: 'bold'}}>בחר מחיר הגעה</Text>
+                                                <Text style={{fontSize: 16, color: '#000', fontWeight: 'bold'}}>בחר מחיר
+                                                    הגעה</Text>
                                             </View>
                                         </View>
                                     </View>
@@ -223,37 +236,41 @@ export default class ChooseJobModal extends Component {
                                                     alignItems: 'center',
                                                     flexDirection: 'row'
                                                 }}>
-                                                    <TextInput style={{
-                                                        height: 45,
-                                                        width: 45,
-                                                        borderColor: '#cbcbcb',
-                                                        borderRadius: 7,
-                                                        borderWidth: 2,
-                                                        textAlign: 'center',
-                                                        fontSize: 18,
-                                                        fontWeight: 'bold',
-                                                        backgroundColor: '#fff'
+                                                    <TextInput
+                                                        ref={(ref=> this.nameField = ref)}                                                        keyboardType={'phone-pad'}
+                                                        style={{
+                                                            height: 45,
+                                                            width: 45,
+                                                            borderColor: '#cbcbcb',
+                                                            borderRadius: 7,
+                                                            borderWidth: 2,
+                                                            textAlign: 'center',
+                                                            fontSize: 18,
+                                                            fontWeight: 'bold',
+                                                            backgroundColor: '#fff'
 
-                                                    }}
-                                                               placeholderTextColor = 'black'
-                                                               underlineColorAndroid="transparent"
-                                                               placeholder={data.time.hour}/>
+                                                        }}
+                                                        placeholderTextColor='black'
+                                                        underlineColorAndroid="transparent"
+                                                        placeholder={data.time.hour}/>
                                                     <Text style={{paddingLeft: 5, paddingRight: 5}}>:</Text>
 
-                                                    <TextInput style={{
-                                                        height: 45,
-                                                        width: 45,
-                                                        borderColor: '#cbcbcb',
-                                                        borderRadius: 7,
-                                                        borderWidth: 2,
-                                                        textAlign: 'center',
-                                                        fontSize: 18,
-                                                        fontWeight: 'bold',
-                                                        backgroundColor: '#fff'
-                                                    }}
-                                                               placeholderTextColor = 'black'
-                                                               underlineColorAndroid="transparent"
-                                                               placeholder={data.time.minutes}/>
+                                                    <TextInput
+                                                        keyboardType={'phone-pad'}
+                                                        style={{
+                                                            height: 45,
+                                                            width: 45,
+                                                            borderColor: '#cbcbcb',
+                                                            borderRadius: 7,
+                                                            borderWidth: 2,
+                                                            textAlign: 'center',
+                                                            fontSize: 18,
+                                                            fontWeight: 'bold',
+                                                            backgroundColor: '#fff'
+                                                        }}
+                                                        placeholderTextColor='black'
+                                                        underlineColorAndroid="transparent"
+                                                        placeholder={data.time.minutes}/>
 
                                                 </View>
                                             </View>
@@ -283,7 +300,9 @@ export default class ChooseJobModal extends Component {
                                 <View style={{flex: 0.8}}>
                                     <View style={styles.footer}>
                                         <View style={{alignItems: 'center'}}>
-                                            {submitButton('שלח הצעה', () => {this.submitApply();})}
+                                            {submitButton('שלח הצעה', () => {
+                                                this.submitApply();
+                                            })}
                                         </View>
 
                                     </View>
