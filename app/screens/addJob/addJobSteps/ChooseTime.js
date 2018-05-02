@@ -2,18 +2,20 @@
 import React from 'react';
 import {Image, Platform, StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback, View} from 'react-native';
 // Components
-import LinierView from '../../../../components/linierView';
-import {submitButton} from "../../../../components/modalSubmitButton";
+import LinierView from '../../../components/linierView';
+import {submitButton} from "../../../components/modalSubmitButton";
 // Mobx
 import {inject, observer} from "mobx-react/native";
 // Styles
-import {mainStyles, SH, SW} from "../../../../config/styles";
+import {mainStyles, SH, SW} from "../../../config/styles";
 
-import Header from '../../../../components/headers/Header'
+import Header from '../../../components/headers/Header'
+// Config
+import {hebrewServices} from "../../../generalFunc/generalObjects";
 
 let data = {
     service: 'חשמלאי',
-    servicePic: require('../../../../../assets/icons/serviceElectrician.png'),
+    servicePic: require('../../../../assets/icons/serviceElectrician.png'),
 }
 
 
@@ -55,6 +57,7 @@ export default class ChooseTime extends React.Component {
 
 
     render() {
+        console.log("serviceJOB", this.props.addJobStore.newJobInfo.service)
         return (
             <View style={{flex: 1}}>
                 {/*Orange Head*/}
@@ -62,7 +65,7 @@ export default class ChooseTime extends React.Component {
                     <Header head={'AddJob'} previousPage={'ChooseService'} props={this.props}/>
                     <View style={{flex: 1, marginLeft: SW / 30, justifyContent: 'center', alignItems: 'center'}}>
                         <Image
-                            source={require('../../../../../assets/icons/stepIndicatorConsumer1.png')}
+                            source={require('../../../../assets/icons/stepIndicatorConsumer1.png')}
                         />
                     </View>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -72,7 +75,9 @@ export default class ChooseTime extends React.Component {
                         />
                     </View>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={mainStyles.whiteTitle}>{data.service}</Text>
+                        <Text style={mainStyles.whiteTitle}>
+                            {hebrewServices[this.props.addJobStore.newJobInfo.service]}
+                        </Text>
                     </View>
                 </LinierView>
                 {/*The Body*/}
@@ -112,8 +117,8 @@ export default class ChooseTime extends React.Component {
                         </View>
                         <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
                             <Text>בחר תאריך</Text>
-                            <TouchableHighlight style={mainStyles.greyTitle}
-                                                onPress={() => this.props.navigation.navigate('DrawerOpen')}>
+                            <TouchableHighlight
+                                onPress={() => this.props.navigation.navigate('DrawerOpen')}>
                                 <View style={{
                                     width: SW / 1.5,
                                     height: SH / 13,

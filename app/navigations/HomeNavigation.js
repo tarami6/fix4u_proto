@@ -4,10 +4,10 @@ import CustomDrawer from "../components/customDrawer";
 import {DrawerNavigator, StackNavigator} from "react-navigation";
 import ChooseJob from "../screens/chooseJob";
 import {SW} from "../config/styles";
-import ChooseAddress from "../screens/addJob/addJobRamiScreens/screens/ChooseAddress";
-import ExplainTheJob from "../screens/addJob/addJobRamiScreens/screens/ExplainTheJob";
+import ChooseAddress from "../screens/addJob/addJobSteps/ChooseAddress";
+import ExplainTheJob from "../screens/addJob/addJobSteps/ExplainTheJob";
 import ChooseService from "../screens/addJob/addJobSteps";
-import ChooseTime from "../screens/addJob/addJobRamiScreens/screens/ChooseTime";
+import ChooseTime from "../screens/addJob/addJobSteps/ChooseTime";
 
 @inject("userDataStore")
 @observer

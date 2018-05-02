@@ -53,7 +53,6 @@ export default class Consumer extends Component {
     }
 
     render() {
-        console.log('drawer1', this.props.userDataStore.userData.user)
         return (
             <View>
                 <LinearGradient
@@ -97,9 +96,6 @@ export default class Consumer extends Component {
 }
 
 const Navbar = (props) => {
-
-    console.log('drawer2', props)
-
     return (
         <View style={{width, height: Platform.OS == 'ios' ? 150 : 135,}}>
             <TouchableOpacity onPress={()=>props.navigation.navigate('DrawerClose')}>

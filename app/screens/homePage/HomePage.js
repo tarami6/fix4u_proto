@@ -1,11 +1,11 @@
 import {inject, observer} from "mobx-react/index";
 import React, {Component} from "react";
 import {View, Text, Alert} from 'react-native'
-import ChooseAddress from "../addJob/addJobRamiScreens/screens/ChooseAddress";
-import ExplainTheJob from "../addJob/addJobRamiScreens/screens/ExplainTheJob";
+import ChooseAddress from "../addJob/addJobSteps/ChooseAddress";
+import ExplainTheJob from "../addJob/addJobSteps/ExplainTheJob";
 import ChooseService from "../addJob/addJobSteps";
 import {StackNavigator} from "react-navigation";
-import ChooseTime from "../addJob/addJobRamiScreens/screens/ChooseTime";
+import ChooseTime from "../addJob/addJobSteps/ChooseTime";
 import ChooseJob from '../chooseJob'
 
 //mapbox:

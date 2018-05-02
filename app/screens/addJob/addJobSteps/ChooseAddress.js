@@ -1,15 +1,15 @@
 import React from 'react';
 import {Alert, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {HH, SH, SW, mainStyles} from "../../../../config/styles";
-import {submitButton} from "../../../../components/modalSubmitButton";
+import {HH, SH, SW, mainStyles} from "../../../config/styles";
+import {submitButton} from "../../../components/modalSubmitButton";
 import {inject, observer} from "mobx-react/native";
-import {fetcher} from "../../../../generalFunc/fetcher";
-import AutoComplete from '../../../../components/autoComplete'
-import {Keys} from "../../../../config/keys";
+import {fetcher} from "../../../generalFunc/fetcher";
+import AutoComplete from '../../../components/autoComplete/index'
+import {Keys} from "../../../config/keys";
 
-import MapComponent from '../../../../components/mapComponent'
-import LinierView from '../../../../components/linierView';
-import Header from '../../../../components/headers/Header'
+import MapComponent from '../../../components/mapComponent/index'
+import LinierView from '../../../components/linierView';
+import Header from '../../../components/headers/Header'
 
 @inject("userDataStore")
 @inject("addJobStore")
@@ -164,7 +164,7 @@ export default class ChooseAddress extends React.Component {
                     <Header head={'AddJob'} previousPage={'ExplainTheJob'} props={this.props} />
                     <View style={{flex: 1, alignItems: 'center'}}>
                         <Image
-                            source={require('../../../../../assets/addJob/icons/stepIndicatorConsumer3.png')}
+                            source={require('../../../../assets/addJob/icons/stepIndicatorConsumer3.png')}
                         />
                     </View>
 
@@ -206,7 +206,7 @@ export default class ChooseAddress extends React.Component {
                                     <TouchableOpacity onPress={() => this.setState({payment_type: 'cash'})}>
                                         <View style={[styles.iconViewLeft, leftPaymentIcon]}>
                                             <Image
-                                                source={require('../../../../../assets/addJob/icons/CashPayIcon.png')}
+                                                source={require('../../../../assets/addJob/icons/CashPayIcon.png')}
                                             />
                                         </View>
                                     </TouchableOpacity>
@@ -214,7 +214,7 @@ export default class ChooseAddress extends React.Component {
                                     <TouchableOpacity onPress={() => this.setState({payment_type: 'credit_card'})}>
                                         <View style={[styles.iconViewRight, rightPaymentIcon]}>
                                             <Image
-                                                source={require('../../../../../assets/addJob/icons/CreadiPayIcon.png')}
+                                                source={require('../../../../assets/addJob/icons/CreadiPayIcon.png')}
                                             />
                                         </View>
                                     </TouchableOpacity>

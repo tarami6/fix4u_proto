@@ -5,6 +5,7 @@ import StarRating from 'react-native-star-rating'
 
 const InfoItem = (props) => {
     let info = props.info;
+
     let imageSize = props.info.price || props.info.time ? 50 : 60;
     // console.log('Userprofe', info.user_pro.price_rating_avg)
     if (info.user_pro) {
@@ -22,6 +23,7 @@ export default InfoItem;
 
 const ApplyScreen = (info) => {
     let imageSize = info.price || info.time ? 50 : 60;
+
     return (
         <View style={{flex: 1, flexDirection: 'row', backgroundColor: '#fff'}}>
 

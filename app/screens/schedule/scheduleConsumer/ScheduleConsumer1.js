@@ -21,6 +21,7 @@ export default class ScheduleConsumer1 extends React.Component {
     }
 
     render() {
+
         return (
             <View style={{flex: 1,}}>
                 <Header head={'Grey'}  previousPage={'AddJob'} props={this.props}/>
