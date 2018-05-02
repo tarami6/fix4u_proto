@@ -6,7 +6,9 @@ import {inject, observer} from "mobx-react/native";
 import {fetcher} from "../../../../generalFunc/fetcher";
 import AutoComplete from '../../../../components/autoComplete'
 import {Keys} from "../../../../config/keys";
-
+//config:
+import {addJobRoute} from "../../../../config/apiRoutes";
+//components and styles
 import MapComponent from '../../../../components/mapComponent'
 import LinierView from '../../../../components/linierView';
 import Header from '../../../../components/headers/Header'
@@ -91,7 +93,7 @@ export default class ChooseAddress extends React.Component {
                 payload: item
             }
         }
-        fetcher('api/posts/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), item, headers);
+        fetcher(addJobRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), item, headers);
 
     }
 

@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {SH, SW, colors} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 import {submitButton} from "../../../components/modalSubmitButton";
+//config:
+import {phoneVerifyRoute} from "../../../config/apiRoutes";
 import {fetcher} from "../../../generalFunc/fetcher";
 import {styles} from './styles';
 import {NavigationActions} from "react-navigation";
@@ -25,7 +27,7 @@ export default class ProPhoneVerifyModal extends Component {
         }
         this.props.closeModal();
         // this is the fetch for the verify code for the phone, inactive on the server for now
-        fetcher('api/sms/verify/check/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
+        fetcher(phoneVerifyRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
     }
 
     successCallback(response) {

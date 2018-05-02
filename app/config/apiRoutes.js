@@ -4,8 +4,17 @@
 export const mainRoute = 'http://bang-israel-dev.eu-central-1.elasticbeanstalk.com';
 
 //generalAuth
+
+//loginroute:
 export const loginRoute = 'api/rest-auth/login/';
+/**send phone input route:**/
+export const phoneInputRoute = 'api/sms/verify/';
+//phone verify route:
 export const phoneVerifyRoute = 'api/sms/verify/check/';
+
+
+//consumer firest registration step:
+export const consumerRegistrationRoute = 'api/rest-auth/registration/'
 
 //routes to get open consumer posts for the pro
 export const getOpenPostsRoute = 'api/posts/open/pro/';
@@ -31,3 +40,10 @@ export const logOutRoute = editUserRoute;
 export const braintreeGetTokenRoute = 'api/payment/token/';
 //send amount , nonce
 export const braintreeSendTokenRoute = (postId) => {return( `api/posts/${postId}/payment/`)}
+
+// Add Job route: 'POST'
+export const addJobRoute = 'api/posts/';
+
+//Pro registration route: 'POST':
+export const proRegistrationRoute = 'api/rest-auth/registration/pro/';
+
