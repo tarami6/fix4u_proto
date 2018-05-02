@@ -26,16 +26,6 @@ import {inject, observer} from "mobx-react/native";
 
 const {width, height} = Dimensions.get('window');
 
-const data = [
-    {service: 'חשמלאי', state: 'Electrician'},
-    {service: 'אינסטלטור', state: 'Plumber'},
-    {service: 'מנקה', state: 'Cleaner'},
-    {service: 'שיפוצניק', state: 'Handyman'},
-    {service: 'מנעולן', state: 'Locksmith'},
-    {service: 'טכנאי מכונות כביסה', state: 'TechnicianWashingMachines'},
-    {service: 'תכנאי מזגנים', state: 'AirConditioningTechnician'},
-]
-
 @inject("navigationStore")
 @observer
 export default class ChooseService extends Component {
@@ -72,20 +62,7 @@ export default class ChooseService extends Component {
             dispatch(NavigationActions.back())
             return true
         }
-        // Alert.alert(
-        //     'Exit App',
-        //     'Exiting the application?'
-        // ),
-        //     [{
-        //         text: 'Cancel',
-        //         onPress: () => console.log('Cancel Pressed'),
-        //         style: 'cancel'
-        //     }, {
-        //         text: 'OK',
-        //         onPress: () => BackHandler.exitApp()
-        //     },], {
-        //     cancelable: false
-        // }
+
         // return true;
     }
 
@@ -104,16 +81,7 @@ export default class ChooseService extends Component {
 
     //after Submit info:
     nextStep() {
-        // const navigateAction = NavigationActions.navigate({
-        //     routeName: 'ChooseTime',
-        //
-        //     params: {},
-        // });
-        //
-        // this.props.navigationStore.dispatch(navigateAction);
         this.props.navigation.navigate('ChooseTime');
-        // console.log(this.props.navigationStore);
-        // console.warn(this.props.navigationStore);
     }
 
     render() {

@@ -23,8 +23,9 @@ export default class ScheduleConsumer1 extends React.Component {
     render() {
         return (
             <View style={{flex: 1,}}>
-                <Header head={'Grey'}  previousPage={'ChooseService'} props={this.props}/>
+                <Header head={'Grey'}  previousPage={'AddJob'} props={this.props}/>
                 <View style={{flex: 1}}>
+                    { this.props.userDataStore.userData.user.user_posts.length > 0?
                     <FlatList
                         data={this.props.userDataStore.userData.user.user_posts}
                         renderItem={({item}) => <TouchableHighlight onPress={() => {this.chooseJob(item)}}
@@ -37,7 +38,9 @@ export default class ScheduleConsumer1 extends React.Component {
 
                             <InfoItem info={item}/>
                         </TouchableHighlight>}
-                    />
+                    />:
+                    <Text>אין לך עבודות </Text>
+                    }
                 </View>
 
             </View>

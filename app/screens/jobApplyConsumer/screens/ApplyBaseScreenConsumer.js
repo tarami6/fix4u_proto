@@ -72,6 +72,7 @@ export default class ApplyBaseScreen extends React.Component {
     render() {
         //mobx "listener" for new jobs
         let job2 = this.props.userDataStore.focusedConsumerJob;
+        console.log("jobLIST", job2.post_applies)
         if(!job2.appointment_time_start){
             return (
                 <View/>
