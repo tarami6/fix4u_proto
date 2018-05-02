@@ -1,6 +1,5 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
-import OrangeCircle from './OrangeCircle';
+import {Image, Text, View} from 'react-native';
 
 import StarRating from 'react-native-star-rating'
 
@@ -8,10 +7,10 @@ const InfoItem = (props) => {
     let info = props.info;
     let imageSize = props.info.price || props.info.time ? 50 : 60;
     // console.log('Userprofe', info.user_pro.price_rating_avg)
-    if(info.user_pro){
-                    return <JobList {...info} />;
+    if (info.user_pro) {
+        return <JobList {...info} />;
     }
-    else if(info.time){
+    else if (info.time) {
         return <ApplyScreen {...info} />;
     }
     else {
@@ -80,6 +79,7 @@ const JobList = (info) => {
 
                 <View>
                     <Text style={{color: '#000'}}> היום {time.slice(0, 5)}</Text>
+
                     <View>
                         <Text>{info.service_fee} ש"ח </Text>
                     </View>

@@ -20,7 +20,7 @@ import {fetcher} from "../../generalFunc/fetcher";
 
 
 const {width, height} = Dimensions.get('window')
-
+@inject("userDataStore")
 @inject("authStore")
 @observer
 export default class Consumer extends Component {
@@ -53,14 +53,14 @@ export default class Consumer extends Component {
     }
 
     render() {
-        console.log('drawer1', this.props.authStore)
+        console.log('drawer1', this.props.userDataStore.userData.user)
         return (
             <View>
                 <LinearGradient
                     colors={['#fd8824', '#fdb82c']}
                     start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
                     style={styles.container}>
-                    <Navbar navigation={this.props.navigation}/>
+                    <Navbar navigation={this.props.navigation} user={this.props.userDataStore.userData.user}/>
                 </LinearGradient>
                 <List>
                     <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
@@ -97,16 +97,23 @@ export default class Consumer extends Component {
 }
 
 const Navbar = (props) => {
+
+    console.log('drawer2', props)
+
     return (
         <View style={{width, height: Platform.OS == 'ios' ? 150 : 135,}}>
             <TouchableOpacity onPress={()=>props.navigation.navigate('DrawerClose')}>
             <Icon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
             </TouchableOpacity>
             <View style={{flexDirection: 'row', position: 'absolute', bottom: 20, right: 20, alignItems: 'center'}}>
-                <Text style={{color: '#fff', marginRight: 20}}>asdasd</Text>
+                <Text style={{color: '#fff', marginRight: 20}}>{props.user.name ?props.user.name : 'הכנס שם +' }</Text>
+
+                {props.user.profile_pic_thumb ?
                 <Image
-                    source={require('../../../assets/drawer/icon-user.png')}
-                    style={{height: 60, width: 60}}/>
+                    source={{ uri: props.user.profile_pic_thumb }}
+                    style={{height: 60, width: 60, borderRadius: 100}}/> :
+                    <Text>הכנס תמונה +</Text>
+                }
             </View>
         </View>
     )

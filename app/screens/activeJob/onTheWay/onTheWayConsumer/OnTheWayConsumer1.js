@@ -119,7 +119,7 @@ export default class OnTheWayConsumer extends Component {
                     <View style={styles.infoView}>
                         {/*Image & service & full name*/}
                         <View style={{flex: 0.4}}>
-                            <InfoItem info={this.props.userDataStore.focusedJob.user_pro}/>
+                            <InfoItem info={this.props.userDataStore.focusedJob.user_pro} previousPage={'ScheduleConsumer'}/>
                         </View>
                         {/*about*/}
                         <View style={styles.infoAboutView}>
