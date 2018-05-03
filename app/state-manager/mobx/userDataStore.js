@@ -143,7 +143,7 @@ export default class UserDataStore {
     }
 
     // Loading - in case we want to display loading screen to the user
-    @observable loading = true;
+    @observable loading = false;
 
     @action setLoading(bol: boolean){
         this.loading = bol

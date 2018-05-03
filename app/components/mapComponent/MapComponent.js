@@ -48,8 +48,8 @@ let usersMap = props => {
                     latitudeDelta: 0.0622*0.2,
                     longitudeDelta: 0.0421*0.2}}
                 region={props.userLocation}
-                onRegionChange={this._handleMapRegionChange}
-                showsUserLocation = {true}
+                // onRegionChange={this._handleMapRegionChange}
+                // showsUserLocation = {true}
                 style={styles.map}
                 ref={c => this.mapView = c} >
                 {userLocationMarker}

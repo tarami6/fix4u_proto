@@ -26,6 +26,7 @@ export const tryLogin = (authStore, userDataStore, proAuthStore, callbackFunc) =
         return 1; //success
     };
     const errorCallback = (err) => {
+        userDataStore.setLoading(false);
         console.log('error in tryLogin func:', err)
         return 0; //err
     };
@@ -41,7 +42,7 @@ export const tryLogin = (authStore, userDataStore, proAuthStore, callbackFunc) =
             fetcher(loginRoute, 'POST', successCallback, errorCallback, sendObj);
         }
         else {
-            this.props.userDataStore.setLoading(false);
+            userDataStore.setLoading(false);
             console.warn('no user info on phone');
         }
         // //consumer autoLogin:

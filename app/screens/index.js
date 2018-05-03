@@ -49,7 +49,7 @@ export default class ScreensBase extends Component<Props> {
                 })
             ],
         });
-        this.setState({loginLoading: false});
+        this.props.userDataStore.setLoading(false);
         this.store.dispatch(actionToDispatch)
 
     }
@@ -73,6 +73,7 @@ export default class ScreensBase extends Component<Props> {
     componentDidMount() {
         // console.log('userData = ', this.props.userDataStore.userData)
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
+        this.props.userDataStore.setLoading(true);
         tryLogin(this.props.authStore, this.props.userDataStore, this.props.proAuthStore,  this.successLoginCallback.bind(this))
     //    get location and save to userDataStore
         this.getUserLocationHandler()
