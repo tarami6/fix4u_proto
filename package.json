@@ -9,6 +9,7 @@
   "dependencies": {
     "mobx": "^4.1.1",
     "mobx-react": "^5.0.0",
+    "moment": "^2.22.1",
     "native-base": "^2.4.1",
     "pushy-react-native": "^1.0.1",
     "react": "^16.3.1",
@@ -28,6 +29,7 @@
     "react-native-star-rating": "^1.0.9",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^1.5.11",
+    "react-timer-mixin": "^0.13.3",
     "rn-viewpager": "^1.2.9",
     "watchman": "^1.0.0"
   },

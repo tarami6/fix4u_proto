@@ -32,6 +32,7 @@ export let backgroundGrey = '#f6f6f6'
 export let fontGrey = '#7f7f7f';
 export let START = '#FFBA00';
 export let END = '#FF8D00';
+export let GOLD = "#ffd700"
 // SCREEN ZISE
 export let SW = Dimensions.get('window').width;
 export let SH = Dimensions.get('window').height;

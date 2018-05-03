@@ -39,6 +39,7 @@ export default class Consumer extends Component {
     }
 
     successLogout(res) {
+        this.props.navigation.navigate('DrawerClose');
         AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
         ));
         this.props.userDataStore.logout()
@@ -102,9 +103,9 @@ const Navbar = (props) => {
             <Icon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
             </TouchableOpacity>
             <View style={{flexDirection: 'row', position: 'absolute', bottom: 20, right: 20, alignItems: 'center'}}>
-                <Text style={{color: '#fff', marginRight: 20}}>{props.user.name ?props.user.name : 'הכנס שם +' }</Text>
+                <Text style={{color: '#fff', marginRight: 20}}>{props.user && props.user.name ?props.user.name : 'הכנס שם +' }</Text>
 
-                {props.user.profile_pic_thumb ?
+                {props.user && props.user.profile_pic_thumb ?
                 <Image
                     source={{ uri: props.user.profile_pic_thumb }}
                     style={{height: 60, width: 60, borderRadius: 100}}/> :

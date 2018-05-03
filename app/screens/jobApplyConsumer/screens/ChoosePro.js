@@ -222,7 +222,7 @@ export default class ApplyBaseScreen extends React.Component {
         console.log('pro313131', this.props.userDataStore.shownPro);
         return (
 
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, backgroundColor: '#f6f6f6'}}>
 
                 <Modal
                     animationType="fade"
@@ -376,16 +376,14 @@ export default class ApplyBaseScreen extends React.Component {
                         </View>
                         {/*about*/}
                         <View style={styles.infoAboutView}>
-                            <Text>{apply.user_pro.company_description}</Text>
+                            <Text style={{height: SH /13,width: SW / 1.15,overflow: 'hidden'}}>{apply.user_pro.company_description}</Text>
                         </View>
                         {/*Border*/}
                         <View style={styles.infoBorder}/>
                         {/*reviews*/}
                         <View style={styles.infoReviews}>
                             {/*Stars*/}
-                            <TouchableOpacity activeOpacity={0.7}
-                                              onPress={this.expand_collapse_Function}
-                                              style={{flex: 1, flexDirection: 'row'}}>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
                                 <View style={styles.infoStarsView}>
 
                                     <StarRating
@@ -399,32 +397,21 @@ export default class ApplyBaseScreen extends React.Component {
                                     />
                                 </View>
 
-                                <View style={styles.slideDownArrow}>
-                                    <Icon name={this.state.buttonText} size={20} color="#000"/>
-                                </View>
 
                                 <View style={styles.infoReviewCount}>
                                     <Text>{apply.user_pro.pro_reviews.length} חוות דעת </Text>
                                 </View>
-                            </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </View>
-                <View style={styles.MainContainer}>
 
+               <View style={styles.MainContainer}>
                     <ScrollView style={styles.ChildView}>
-
-
-                        <View style={{
-                            height: this.state.updatedHeight,
-                            overflow: 'hidden'
-                        }}>
-
-                            <View style={[styles.ExpandViewInsideText, {height: this.state.height}]}
-                                  onLayout={(value) => this.getHeight(value.nativeEvent.layout.height)}>
+                            <View style={styles.ExpandViewInsideText} >
                                 {apply.user_pro.pro_reviews.map((item, index) => {
                                     return (
-                                        <View key={index} style={styles.proCard}>
+                                         <View key={index} style={styles.proCard}>
                                             {/*Name and Image*/}
                                             <View style={styles.cardNameAndImageView}>
                                                 <View style={styles.cardNameAndDate}>
@@ -496,32 +483,19 @@ export default class ApplyBaseScreen extends React.Component {
                                         </View>
                                     )
                                 })}
-                                <View style={styles.footer}>
-                                    <View style={{alignItems: 'center'}}>
-                                        {submitButton('הזמן עכשיו', 'consumer', () => {
-                                            this.setModalVisible(true);
-                                        })}
-                                    </View>
-                                </View>
-                            </View>
-
-
                         </View>
-
                     </ScrollView>
 
                 </View>
                 {/*Footer*/}
-                {this.state.expand ? <View/>
-                    : <View style={styles.footer}>
-                        <View style={{alignItems: 'center'}}>
+
+                        <View style={styles.footer}>
                             {submitButton('הזמן עכשיו', 'consumer', () => {
                                 this.setModalVisible(true);
                             })}
                         </View>
-                    </View>}
+                    </View>
 
-            </View>
 
         )
     }
@@ -601,17 +575,20 @@ const
         infoAboutView: {
             flex: 0.6,
             marginRight: SW / 20,
-            justifyContent: 'center'
+            justifyContent: 'center',
+            alignItems: 'center',
+            overflow: 'hidden'
         },
         infoBorder: {
             width: SW,
-            height: 1,
+            height: 0,
             borderBottomWidth: 0.5,
             borderColor: '#000',
-            alignSelf: 'center'
+            alignSelf: 'center',
+            backgroundColor: '#fff'
         },
         infoReviews: {
-            flex: 0.5, alignSelf: 'center',
+            flex: 0.6, alignSelf: 'center',
             width: SW - ((SW / 20) * 2),
             flexDirection: 'row',
         },
@@ -658,7 +635,7 @@ const
         ExpandViewInsideText:
             {
                 width: SW,
-                backgroundColor: '#fff',
+                backgroundColor: '#F6F6F6',
                 alignSelf: 'center',
                 alignItems: 'center'
             },
@@ -716,7 +693,10 @@ const
 
         footer: {
             height: SH / 8,
-            justifyContent: 'center'
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            backgroundColor: '#f6f6f6',
+
         },
         //Modal
         modalView: {
@@ -737,11 +717,7 @@ const
             alignItems: 'center',
 
         },
-        footer: {
-            flex: 0.5,
-            justifyContent: 'center',
-            marginTop: SH / 30
-        }
+
 
     });
 

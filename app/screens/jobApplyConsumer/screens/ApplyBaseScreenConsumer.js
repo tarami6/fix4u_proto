@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, FlatList,TouchableHighlight,TouchableOpacity, View, Alert} from 'react-native';
+import {Image, StyleSheet, Text, FlatList, TouchableHighlight, TouchableOpacity, View, Alert} from 'react-native';
 import Header from '../../../components/headers/Header';
 import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHeaderConsumer'
 import MapComponent from '../../../components/mapComponent/MapComponent'
@@ -7,7 +7,9 @@ import {fetcher} from "../../../generalFunc/fetcher";
 import {SH, SW, mainStyles} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 import InfoItem from '../../../components/InfoItem';
-import {hebrewServices } from "../../../generalFunc/generalObjects";
+import {hebrewServices} from "../../../generalFunc/generalObjects";
+import Moment from 'moment';
+import TimerMixin from 'react-timer-mixin'
 
 const data = [
     {
@@ -48,37 +50,88 @@ export default class ApplyBaseScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            auctionTime: 60
+            auctionTime: 60,
+            diff: '00'
         }
     }
+
+    timeRemaining(time, diff = 7) {
+        let endDate = new Date(time);
+        let startDate = new Date();
+        let diffMs = ((endDate+(diff*6000))-startDate);
+        let diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+
+        console.warn('diffMins:', diffMins, diff);
+        if (diff < diffMins || diffMins<0) {
+            Alert.alert('finished');
+        }
+        else {
+            // console.log('timeeee', time);
+            //HERE YOU INSERT THE DATE FROM DATABASE
+            let endhours = endDate.getHours();
+            let endminutes = endDate.getMinutes();
+            endminutes = (endminutes + diff > 59) ? endminutes + diff - 60 : endminutes + diff;
+            let endseconds = endDate.getSeconds();
+            endDate.getMinutes();
+
+            this.interval = setInterval(() => {
+                let currentDate = new Date();
+                let starthours = currentDate.getHours();
+                let startminutes = currentDate.getMinutes();
+                let startseconds = currentDate.getSeconds();
+                let startTime = startminutes + ':' + startseconds
+                let endTime = endminutes + ':' + endseconds
+                var start = Moment.utc(startTime, "mm:ss");
+                var end = Moment.utc(endTime, "mm:ss");
+                var d = Moment.duration(end.diff(start));
+                var diff = Moment.utc(+d).format('mm:ss');
+                this.setState({diff: diff})
+
+                if (startminutes == endminutes - 1 && startseconds == 59) {
+                    this.setState({diff: '00:00'})
+                    clearInterval(this.interval);
+                    console.warn('finish')
+                }
+                else if (startminutes == 59 && startseconds == 59) {
+                    this.setState({diff: '00:00'})
+                    clearInterval(this.interval)
+                    console.warn('finish')
+                }
+
+            }, 1000);
+        }
+    }
+
+
+// get the diffrence between start date to current date
 
 
     componentDidMount() {
         let time = this.state.auctionTime;
-        if (this.state.auctionTime > 0) {
-            // setInterval(() => {
-            //     this.setState({auctionTime: this.state.auctionTime -= 1})
-            // }, 1000);
-        }
-
+        let newDate = new Date()
+        // this.timeRemaining(this.props.userDataStore.focusedConsumerJob.created_at);
+        // console.log('this.props.userDataStore.focusedConsumerJob',this.props.userDataStore.focusedConsumerJob.created_at)
     }
 
 
-    showPro(pro){
+    showPro(pro) {
         this.props.userDataStore.showPro(pro);
         this.props.navigation.navigate('ChoosePro')
     }
+
+    keyExtractor = (item) => item.id + '';
 
     render() {
         //mobx "listener" for new jobs
         let job2 = this.props.userDataStore.focusedConsumerJob;
         console.log("jobLIST", job2.post_applies)
-        if(!job2.appointment_time_start){
+        if (!job2.appointment_time_start) {
             return (
                 <View/>
             )
         }
         return (
+
             <View style={{flex: 1}}>
                 <View style={{flex: 0.23, backgroundColor: 'red'}}>
                     <LinearViewBelowHeaderConsumer>
@@ -92,7 +145,8 @@ export default class ApplyBaseScreen extends React.Component {
                                         fontSize: 22,
                                         fontWeight: 'bold',
                                         opacity: 0.5
-                                    }}>{this.state.auctionTime}</Text>
+                                    }}>{this.state.diff}</Text>
+                                {console.log("time", job2.appointment_date)}
                             </View>
                             {/*Job Info*/}
                             <View style={{flex: 1, justifyContent: 'center', paddingRight: SW / 20}}>
@@ -134,6 +188,7 @@ export default class ApplyBaseScreen extends React.Component {
                     <View style={{flex: 1, backgroundColor: 'red', position: 'absolute'}}>
                         <FlatList
                             data={job2.post_applies}
+                            keyExtractor={this.keyExtractor}
                             renderItem={({item}) => <TouchableHighlight onPress={() => this.showPro(item)}
                                                                         style={{
                                                                             width: SW,
