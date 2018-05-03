@@ -2,12 +2,12 @@ import React from 'react';
 import {Image, Text, View} from 'react-native';
 
 import StarRating from 'react-native-star-rating'
-import {SW} from "../config/styles";
+import {SW, GOLD} from "../config/styles";
 import {hebrewServices} from "../generalFunc/generalObjects";
 
 const InfoItem = (props) => {
     let info = props.info;
-
+    console.log('info', info)
     let imageSize = props.info.price || props.info.time ? 50 : 60;
     // console.log('Userprofe', info.user_pro.price_rating_avg)
     if (info.user_pro) {
@@ -25,7 +25,7 @@ export default InfoItem;
 
 const ApplyScreen = (info) => {
     let imageSize = info.price || info.time ? 50 : 60;
-
+    console.log('ApplyScreen', info)
     return (
         <View style={{flex: 1, flexDirection: 'row', backgroundColor: '#fff'}}>
 
@@ -59,9 +59,11 @@ const ApplyScreen = (info) => {
                 <StarRating
                     disabled={true}
                     maxStars={5}
+                    starSize={10}
+                    fullStarColor={GOLD}
                     rating={info.user_pro.price_rating_avg ? info.user_pro.price_rating_avg : 0}
                 />
-                <Text>{hebrewServices[info.service] }</Text>
+                <Text>{hebrewServices[info.service]}</Text>
             </View>
             <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
                 <Image
@@ -73,7 +75,6 @@ const ApplyScreen = (info) => {
 }
 const JobList = (info) => {
     console.log('jobLIST', info)
-    console.log('jobLIST1', info.user_pro)
     let imageSize = info.price || info.time ? 50 : 60;
     let time = info.time || info.appointment_time || info.appointment_time_start;
     return (
@@ -93,17 +94,17 @@ const JobList = (info) => {
             </View>
             <View style={{flex: 1, justifyContent: 'center'}}>
                 <Text style={{color: '#000', textAlign: 'right'}}>{info.user_pro.name}</Text>
-                <View style={{width: SW /5, alignSelf: 'flex-end'}}>
+                <View style={{width: SW / 5, alignSelf: 'flex-end'}}>
                     <StarRating
-                    disabled={true}
-                    maxStars={5}
-                    starSize={10}
-                    fullStarColor={'red'}
-                    rating={info.user_pro.price_rating_avg ? info.user_pro.price_rating_avg : 0}
-                />
+                        disabled={true}
+                        maxStars={5}
+                        starSize={10}
+                        fullStarColor={GOLD}
+                        rating={info.user_pro.price_rating_avg ? info.user_pro.price_rating_avg : 0}
+                    />
                 </View>
 
-                <Text>{hebrewServices[info.service] }</Text>
+                <Text>{hebrewServices[info.service]}</Text>
             </View>
             <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
                 <Image
@@ -115,6 +116,7 @@ const JobList = (info) => {
 }
 const ProItemNoRating = (info) => {
     let imageSize = info.price || info.time ? 50 : 60;
+    console.log("ProItemNoRating", info)
     return (
         <View style={{flex: 1, flexDirection: 'row', backgroundColor: '#fff'}}>
 
@@ -123,7 +125,7 @@ const ProItemNoRating = (info) => {
                 <View>
                     {/*<Text style={{color: '#000'}}> היום {info.appointment_time_start.slice(0, 5)}</Text>*/}
                     <View>
-                        {/*<Text>{info.service_fee} ש"ח </Text>*/}
+                        <Text>{info.status === 'open' ? 'מחפש בעל מקצוע' : ''}</Text>
                     </View>
                 </View>
 
@@ -131,7 +133,7 @@ const ProItemNoRating = (info) => {
             </View>
             <View style={{flex: 1, justifyContent: 'center'}}>
                 <Text style={{color: '#000', textAlign: 'right'}}>{info.name}</Text>
-                <Text>{info.service && info.service}</Text>
+                <Text>{hebrewServices[info.service]}</Text>
             </View>
             <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
                 <Image

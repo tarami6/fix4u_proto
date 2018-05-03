@@ -97,6 +97,7 @@ export default class InProgressConsumer extends Component {
     }
 
     render() {
+        let focusedJob = this.props.userDataStore.focusedJob;
         return (
             <View style={{flex: 1,}}>
                 <Header head={'Grey'}/>
@@ -104,7 +105,7 @@ export default class InProgressConsumer extends Component {
                     <View style={styles.infoView}>
                         {/*Image & service & full name*/}
                         <View style={{flex: 0.55}}>
-                            <InfoItem info={this.props.userDataStore.focusedJob.user_pro}/>
+                            <InfoItem info={focusedJob.user_pro}/>
                         </View>
                         {/*about*/}
                         <View style={styles.infoAboutView}>
@@ -137,10 +138,10 @@ export default class InProgressConsumer extends Component {
                 </View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-between'}}>
                     <View style={{flex: 0.3, justifyContent: 'center'}}>
-                        {console.log("inProgress",this.props.userDataStore.focusedJob.status)}
+                        {console.log("inProgress", focusedJob.status)}
                         <Text style={mainStyles.greyTitle}>
                             {this.props.userDataStore.focusedJob.status === 'in_progress' ? 'בעבודה' : ''}
-                            {this.props.userDataStore.focusedJob.status === 'pro_payment' ? '' : ''}
+                            {this.props.userDataStore.focusedJob.status === 'pro_payment' ?  focusedJob.user_pro.name + ' מכין חשבונית ' : ''}
                             </Text>
                     </View>
                     <View style={{flex: 1}}>
