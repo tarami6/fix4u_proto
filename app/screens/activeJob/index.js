@@ -36,7 +36,7 @@ export default class ActiveJob extends Component {
         if (this.props.userDataStore.currentUserType !== 'pro') {
             if (jobStatus === 'on_the_way') {
                 return (
-                    <OnTheWayConsumer/>
+                    <OnTheWayConsumer {...this.props}/>
                 );
             }
             else if (jobStatus === 'in_progress' || jobStatus === 'pro_payment'

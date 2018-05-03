@@ -121,7 +121,7 @@ export default class OnTheWayConsumer extends Component {
         return (
             <View style={{flex: 1,}}>
 
-                <Header head={'Grey'}/>
+                <Header head={'Grey'} props={this.props}/>
                 {/*Info*/}
                 <View style={{flex: 0.5}}>
                     <View style={styles.infoView}>
