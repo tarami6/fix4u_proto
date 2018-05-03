@@ -8,7 +8,7 @@ import CustomHeaderAddJobStepsConsumer from '../../../components/headers/CustomH
 //styles
 import {SW, SH, HH} from "../../../config/styles";
 import styles from './styles'
-
+import Header from '../../../components/headers/Header';
 @inject("userDataStore")
 @observer
 export default class SchedulePro extends Component {
@@ -33,11 +33,12 @@ export default class SchedulePro extends Component {
         return (
             <View>
                 <LinierView style={{height: HH}}>
-                    <CustomHeaderAddJobStepsConsumer props={this.props}/>
+                    <Header head={'AddJob'} props={this.props}/>
+                    {/*<CustomHeaderAddJobStepsConsumer props={this.props}/>*/}
                 </LinierView>
                 {/*Here is the list of jobs container and the jobList MAP */}
                 <View>
-                    {this.props.userDataStore.userData.user.pro_posts.map((item, index) => {
+                    {this.props.userDataStore.userData && this.props.userDataStore.userData.user.pro_posts.map((item, index) => {
                         return (
                             <TouchableOpacity onPress={()=>this.chooseJob(item)}
                                 key={item.id}>

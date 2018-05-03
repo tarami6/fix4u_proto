@@ -22,6 +22,11 @@ import ConsumerReview from './consumerReview/consumerReviewConsumer';
 @observer
 export default class ActiveJob extends Component {
 
+    constructor(props){
+        super(props);
+
+    }
+
     componentWillMount() {
         // console.warn(this.props.userDataStore.userData.user.user_posts)
     }
@@ -58,20 +63,20 @@ export default class ActiveJob extends Component {
         else {
             if (jobStatus === 'on_the_way') {
                 return (
-                    <OnTheWayPro/>
+                    <OnTheWayPro {...this.props}/>
                 );
             }
             else if (jobStatus === 'in_progress') {
                 return (
-                    <InProgressPro/>
+                    <InProgressPro {...this.props}/>
                 );
             } else if (jobStatus === 'pro_payment') {
                 return (
-                    <ProPaymentPro/>
+                    <ProPaymentPro {...this.props}/>
                 );
             } else if (jobStatus === 'consumer_payment') {
                 return (
-                    <ConsumerPaymentPro/>
+                    <ConsumerPaymentPro {...this.props}/>
                 )
             }
             else if (jobStatus === 'consumer_review') {
