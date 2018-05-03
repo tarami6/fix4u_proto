@@ -36,9 +36,6 @@ export default class ScreensBase extends Component<Props> {
     constructor(props, context) {
         super(props, context);
         this.store = new NavigationStore();
-        this.state = {
-            loginLoading: true
-        }
     }
 
     successLoginCallback() {
@@ -117,7 +114,7 @@ export default class ScreensBase extends Component<Props> {
     }
 
     render() {
-        if(this.state.loginLoading || this.props.userDataStore.loading){
+        if(this.props.userDataStore.loading){
             return (
                 <LoadingComponent/>
             )

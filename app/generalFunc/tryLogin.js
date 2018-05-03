@@ -41,6 +41,7 @@ export const tryLogin = (authStore, userDataStore, proAuthStore, callbackFunc) =
             fetcher(loginRoute, 'POST', successCallback, errorCallback, sendObj);
         }
         else {
+            this.props.userDataStore.setLoading(false);
             console.warn('no user info on phone');
         }
         // //consumer autoLogin:
