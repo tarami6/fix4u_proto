@@ -16,7 +16,7 @@ const CustomHeaderGrey = (props) => {
                 }}
             >
                 <TouchableOpacity
-                    onPress={() => props.props.navigation.navigate(props.previousPage)}
+                    onPress={() => props.props.navigation.goBack()}
                     style={{justifyContent: 'flex-start', flex: 1}}>
                     <ArrowIcon name="ios-arrow-back" size={35} color="#ff8500" style={{paddingLeft: SW / 20}}/>
                 </TouchableOpacity>

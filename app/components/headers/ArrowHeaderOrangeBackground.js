@@ -16,7 +16,7 @@ const ArrowHeaderOrangeBackground = (props) => {
                 height: HH,
             }}
         >
-            <TouchableOpacity onPress={() => props.props.navigation.navigate(props.previousPage)}
+            <TouchableOpacity onPress={() => props.props.navigation.goBack()}
                               style={{justifyContent: 'center', flex: 1}}>
                 <ArrowIcon name="ios-arrow-back" size={35} color="#fff" style={{paddingLeft: SW / 20}}/>
             </TouchableOpacity>

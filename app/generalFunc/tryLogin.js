@@ -14,10 +14,12 @@ export const tryLogin = (authStore, userDataStore, proAuthStore, callbackFunc) =
         userDataStore.setUserData(response);
         if(userType === 'pro'){
             let gotApplies = (res)=>{
+                userDataStore.setLoading(false);
                 // console.warn('success cb applies:', res)
                 userDataStore.setSentApplies(res);
                 callbackFunc(response);
             };
+            userDataStore.setLoading(true);
             fetcher(getAppliesRoute, 'GET', gotApplies, errorCallback, {token: response.token})
         }
         else {

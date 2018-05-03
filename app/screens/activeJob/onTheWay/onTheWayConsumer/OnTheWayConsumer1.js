@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import { Alert,
+import {
+    Alert,
     Image,
     LayoutAnimation,
     Modal,
@@ -11,7 +12,8 @@ import { Alert,
     TouchableHighlight,
     TouchableOpacity,
     UIManager,
-    View} from 'react-native';
+    View
+} from 'react-native';
 import Header from '../../../../components/headers/Header';
 import InfoItem from '../../../../components/InfoItem';
 import {SW, SH} from "../../../../config/styles";
@@ -19,6 +21,7 @@ import StarRating from 'react-native-star-rating';
 import StarIcon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import Communications from 'react-native-communications';
+import {formatTime} from "../../../../generalFunc/generalFunctions";
 
 // mobx
 import {inject, observer} from "mobx-react/index";
@@ -56,6 +59,7 @@ const data = [
 ]
 
 @inject("userDataStore")
+@inject("openJobsStore")
 @observer
 export default class OnTheWayConsumer extends Component {
     static navigationOptions = {
@@ -76,8 +80,6 @@ export default class OnTheWayConsumer extends Component {
             modalVisible: false,
         }
     }
-
-
 
 
     componentDidMount() {
@@ -104,27 +106,33 @@ export default class OnTheWayConsumer extends Component {
             });
         }
     }
+
     getHeight(height) {
         this.setState({textLayoutHeight: height});
     };
 
     render() {
-        console.warn('this.props.userDataStore.focusedJob.user_pro', this.props.userDataStore.focusedJob.user_pro);
+        let reviews = this.props.userDataStore.focusedJob.post_applies[0].user_pro.pro_reviews;
+        let job = this.props.userDataStore.focusedConsumerJob;
+
+         console.log('35345', this.props.userDataStore.userData.user.user_posts);
+         console.log('sdgf343', this.props.userDataStore.focusedJob.user_pro.description);
+
         return (
             <View style={{flex: 1,}}>
-                
-                <Header head={'Grey'}/>
+
+                <Header head={'Grey'} props={this.props}/>
                 {/*Info*/}
                 <View style={{flex: 0.5}}>
                     <View style={styles.infoView}>
                         {/*Image & service & full name*/}
                         <View style={{flex: 0.4}}>
-                            <InfoItem info={this.props.userDataStore.focusedJob.user_pro} previousPage={'ScheduleConsumer'}/>
+                            <InfoItem info={this.props.userDataStore.focusedJob}
+                                      previousPage={'ScheduleConsumer'}/>
                         </View>
                         {/*about*/}
                         <View style={styles.infoAboutView}>
-                            <Text>חשמלאי עם וותק של 30 שנה, מתקן כל דבר שקשור{"\n"}
-                                לחשמל, מנוסה ונחמד. מחירים נוחים.</Text>
+                            <Text>{this.props.userDataStore.focusedJob.user_pro.description}</Text>
                         </View>
                         {/*Border*/}
                         <View style={styles.infoBorder}/>
@@ -147,104 +155,95 @@ export default class OnTheWayConsumer extends Component {
                                 </View>
 
                                 <View style={styles.infoReviewCount}>
-                                    <Text>0 חוות דעת</Text>
+                                    <Text> {reviews.length}  חוות דעת </Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>
+
                 {/*Rating */}
                 <View style={styles.MainContainer}>
 
                     <ScrollView style={styles.ChildView}>
 
 
-                        <View style={{
-                            height: this.state.updatedHeight,
-                            overflow: 'hidden'
-                        }}>
-
-                            <View style={[styles.ExpandViewInsideText, {height: this.state.height}]}
-                                  onLayout={(value) => this.getHeight(value.nativeEvent.layout.height)}>
-                                {data.map((item, index) => {
-                                    return (
-                                        <View key={index} style={styles.proCard}>
-                                            {/*Name and Image*/}
-                                            <View style={styles.cardNameAndImageView}>
-                                                <View style={styles.cardNameAndDate}>
-                                                    <Text style={styles.nameText}>{item.name}</Text>
-                                                    <Text style={{fontSize: 16}}>{item.date}</Text>
-                                                </View>
-                                                <View style={styles.cardPicProView}>
-                                                    <Image
-                                                        style={styles.proPic}
-                                                        source={item.pic}
-                                                    />
-                                                </View>
+                        <View style={styles.ExpandViewInsideText}>
+                            {reviews.map((item, index) => {
+                                return (
+                                    <View key={index} style={styles.proCard}>
+                                        {/*Name and Image*/}
+                                        <View style={styles.cardNameAndImageView}>
+                                            <View style={styles.cardNameAndDate}>
+                                                <Text style={styles.nameText}>{item.user.name}</Text>
+                                                <Text style={{fontSize: 16}}>{formatTime(item.created_at)}</Text>
                                             </View>
-                                            {/*Review*/}
-                                            <View style={styles.cardReview}>
-                                                <Text style={{fontSize: 16}}>{item.review}</Text>
+                                            <View style={styles.cardPicProView}>
+                                                {item.user.profile_pic_thumb &&
+                                                <Image
+                                                    style={styles.proPic}
+                                                    source={{uri: item.user.profile_pic_thumb}}
+                                                />}
                                             </View>
-                                            <View style={styles.row}>
-                                                <View style={styles.starsContainer}>
-                                                    <StarRating
-                                                        disabled={false}
-                                                        maxStars={5}
-                                                        rating={item.price}
-                                                        starSize={14}
-                                                        fullStarColor={'#ffd700'}
-                                                        emptyStar={'star'}
-                                                        iconSet={'FontAwesome'}
-                                                    />
-                                                </View>
-                                                <View style={styles.cardRightTitle}>
-                                                    <Text style={{fontSize: 16}}>מחיר</Text>
-                                                </View>
-                                            </View>
-                                            <View style={styles.row}>
-                                                <View style={styles.starsContainer}>
-                                                    <StarRating
-                                                        disabled={false}
-                                                        maxStars={5}
-                                                        rating={item.workTime}
-                                                        starSize={14}
-                                                        fullStarColor={'#ffd700'}
-                                                        emptyStar={'star'}
-                                                        iconSet={'FontAwesome'}
-                                                    />
-                                                </View>
-                                                <View style={styles.cardRightTitle}>
-                                                    <Text style={{fontSize: 16}}>זמן עבודה</Text>
-                                                </View>
-                                            </View>
-                                            <View style={styles.row}>
-                                                <View style={styles.starsContainer}>
-                                                    <StarRating
-                                                        disabled={false}
-                                                        maxStars={5}
-                                                        rating={item.service}
-                                                        starSize={14}
-                                                        fullStarColor={'#ffd700'}
-                                                        emptyStar={'star'}
-                                                        iconSet={'FontAwesome'}
-                                                    />
-                                                </View>
-                                                <View style={styles.cardRightTitle}>
-                                                    <Text style={{fontSize: 16}}>שירות</Text>
-                                                </View>
-                                            </View>
-                                            {/*Bot Border*/}
-                                            <View style={styles.cardBottomBorder}/>
                                         </View>
-                                    )
-                                })}
-
-                            </View>
-
-
+                                        {/*Review*/}
+                                        <View style={styles.cardReview}>
+                                            <Text style={{fontSize: 16}}>{item.review}</Text>
+                                        </View>
+                                        <View style={styles.row}>
+                                            <View style={styles.starsContainer}>
+                                                <StarRating
+                                                    disabled={false}
+                                                    maxStars={5}
+                                                    rating={item.price_rating}
+                                                    starSize={14}
+                                                    fullStarColor={'#ffd700'}
+                                                    emptyStar={'star'}
+                                                    iconSet={'FontAwesome'}
+                                                />
+                                            </View>
+                                            <View style={styles.cardRightTitle}>
+                                                <Text style={{fontSize: 16}}>מחיר</Text>
+                                            </View>
+                                        </View>
+                                        <View style={styles.row}>
+                                            <View style={styles.starsContainer}>
+                                                <StarRating
+                                                    disabled={false}
+                                                    maxStars={5}
+                                                    rating={item.time_rating}
+                                                    starSize={14}
+                                                    fullStarColor={'#ffd700'}
+                                                    emptyStar={'star'}
+                                                    iconSet={'FontAwesome'}
+                                                />
+                                            </View>
+                                            <View style={styles.cardRightTitle}>
+                                                <Text style={{fontSize: 16}}>זמן עבודה</Text>
+                                            </View>
+                                        </View>
+                                        <View style={styles.row}>
+                                            <View style={styles.starsContainer}>
+                                                <StarRating
+                                                    disabled={false}
+                                                    maxStars={5}
+                                                    rating={item.performance_rating}
+                                                    starSize={14}
+                                                    fullStarColor={'#ffd700'}
+                                                    emptyStar={'star'}
+                                                    iconSet={'FontAwesome'}
+                                                />
+                                            </View>
+                                            <View style={styles.cardRightTitle}>
+                                                <Text style={{fontSize: 16}}>שירות</Text>
+                                            </View>
+                                        </View>
+                                        {/*Bot Border*/}
+                                        <View style={styles.cardBottomBorder}/>
+                                    </View>
+                                )
+                            })}
                         </View>
-
                     </ScrollView>
 
                 </View>
@@ -260,8 +259,9 @@ export default class OnTheWayConsumer extends Component {
                         <Image source={require('../../../../../assets/icons/cancel.png')}/>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => Communications.phonecall(this.props.userDataStore.focusedJob.user_pro.phone_number, true)}
-                                      style={{flex: 1, alignItems: 'center',}}>
+                    <TouchableOpacity
+                        onPress={() => Communications.phonecall(this.props.userDataStore.focusedJob.user_pro.phone_number, true)}
+                        style={{flex: 1, alignItems: 'center',}}>
                         <Image source={require('../../../../../assets/icons/call.png')}/>
                     </TouchableOpacity>
 

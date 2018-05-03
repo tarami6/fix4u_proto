@@ -18,7 +18,6 @@ export default class Header extends React.Component {
 
 
     header = ( props) => {
-        console.warn(props.head)
         switch (props.head) {
             case 'consumerHome':
                 return (<HeaderConsumer {...props}/>)

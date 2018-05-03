@@ -115,11 +115,11 @@ export default class ScreensBase extends Component<Props> {
     }
 
     render() {
-        if(this.props.userDataStore.loading){
-            return (
-                <LoadingComponent/>
-            )
-        }
+        // if(this.props.userDataStore.loading){
+        //     return (
+        //         <LoadingComponent/>
+        //     )
+        // }
         return (
             <View style={{flex: 1}}>
                 <AppNavigation

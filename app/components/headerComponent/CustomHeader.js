@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {Icon} from 'native-base'
 import {withNavigation} from 'react-navigation';
-
+import Counter from '../../components/headers/components/Counter'
 const CustomHeader = (props) => {
     return (
         <View style={styles.customHeader}>
@@ -26,22 +26,22 @@ const CustomHeader = (props) => {
             <Counter/>
         </View>
     )
-}
+};
 
-const Counter = () => {
-    const isIOS = Platform.OS == 'ios' ? {} : {top: 5}
-    const orderCounter = 10
-    if (orderCounter == 0) {
-        return (<View style={{position: 'absolute'}}/>)
-    }
-    return (
-        <View style={[styles.counter, isIOS]}>
-            <View style={styles.textWraper}>
-                <Text style={{fontSize: 11, color: '#fd8724'}}>{orderCounter}</Text>
-            </View>
-        </View>
-    )
-}
+// const Counter = () => {
+//     const isIOS = Platform.OS == 'ios' ? {} : {top: 5}
+//     const orderCounter = 10
+//     if (orderCounter == 0) {
+//         return (<View style={{position: 'absolute'}}/>)
+//     }
+//     return (
+//         <View style={[styles.counter, isIOS]}>
+//             <View style={styles.textWraper}>
+//                 <Text style={{fontSize: 11, color: '#fd8724'}}>{orderCounter}</Text>
+//             </View>
+//         </View>
+//     )
+// }
 
 export default withNavigation(CustomHeader);
 
