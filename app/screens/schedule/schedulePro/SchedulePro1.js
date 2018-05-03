@@ -53,7 +53,7 @@ export default class SchedulePro1 extends React.Component {
         return (
             <View style={{flex: 1}}>
                 <View style={{flex: 0.185, backgroundColor: '#FFBA00'}}>
-                    <Header head={'AddJob'}/>
+                    <Header head={'AddJob'} props={this.props}/>
                     <View style={{flex: 0.5, flexDirection: 'row', alignItems: 'center', alignSelf: 'flex-end', marginRight: 20}}>
                         <Text style={{marginRight: 20, fontSize: 18, color: '#fff'}}>יומן</Text>
                         <Image source={require('../../../../assets/icons/ScheduleIcon.png')}/>
