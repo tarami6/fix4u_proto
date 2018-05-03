@@ -22,7 +22,8 @@ export default class AutoComplete extends React.Component {
                 this.setState({currentaddress: address_component});
 
             }, error => {
-                alert(error);
+                console.warn('error in autComplete getData():', error);
+                console.log('error in autComplete getData():', error);
             }
         );
     }

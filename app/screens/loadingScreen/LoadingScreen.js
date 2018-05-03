@@ -48,6 +48,7 @@ export default class LoadingScreen extends Component {
     }
 
     errorCallback(err){
+        this.props.navigation.navigate('Home');
         console.warn('error cb at addJob LoadingScreen:', err);
         console.log('error cb at addJob LoadingScreen:', err);
     }

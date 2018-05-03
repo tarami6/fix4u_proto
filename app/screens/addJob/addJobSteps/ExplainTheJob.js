@@ -1,20 +1,22 @@
 import React from 'react';
 import {
-    View,
-    Text,
-    Image,
     Alert,
-    TextInput,
+    BackHandler,
+    Image,
     StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
     TouchableWithoutFeedback,
-    TouchableOpacity
+    View
 } from 'react-native';
-import {SH, SW, HH, fontGrey} from "../../../config/styles";
+import {fontGrey, HH, SH, SW} from "../../../config/styles";
 import {submitButton} from "../../../components/modalSubmitButton";
 import {inject, observer} from "mobx-react/native";
 import ImagePicker from "react-native-image-picker";
 import LinierView from '../../../components/linierView';
 import Header from '../../../components/headers/Header'
+import {NavigationActions} from "react-navigation";
 
 //image picker options:
 var options = {
@@ -25,6 +27,7 @@ var options = {
     }
 };
 
+@inject("navigationStore")
 @inject("addJobStore")
 @observer
 export default class ChooseTime extends React.Component {
@@ -32,10 +35,43 @@ export default class ChooseTime extends React.Component {
         header: null,
     };
 
+    handleBackButton = () => {
+        const {dispatch} = this.props.navigationStore;
+        const {navigationState} = this.props.navigationStore;
+        const routeName = navigationState.routes[0].routeName
+
+        if (routeName === 'ConsumerNavigator' || routeName === 'ProNavigator') {
+            if (navigationState.routes[0].routes[0].routes[0].index === 0) {
+                return false
+            }
+            else {
+                dispatch(NavigationActions.back())
+                return true;
+            }
+        }
+        else {
+            if (navigationState.index === 0) {
+                this.props.navigation.goBack()
+                // return false
+            }
+            dispatch(NavigationActions.back())
+            return true
+        }
+
+        // return true;
+    }
 
     constructor(props) {
         super(props);
         this.state = {text: ''};
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     selectPhotoTapped(fieldName = 'image') {
@@ -91,20 +127,19 @@ export default class ChooseTime extends React.Component {
                 }}>
                     {/*Linear*/}
                     <LinierView>
-                        <Header head={'AddJob'} previousPage={'ChooseTime'} props={this.props} />
-                        <View style={{flex: 1, marginLeft: SW / 30,  alignItems: 'center'}}>
+                        <Header head={'AddJob'} previousPage={'ChooseTime'} props={this.props}/>
+                        <View style={{flex: 1, marginLeft: SW / 30, alignItems: 'center'}}>
                             <Image
-                                    source={require('../../../../assets/addJob/icons/stepIndicatorConsumer2.png')}
-                                />
+                                source={require('../../../../assets/addJob/icons/stepIndicatorConsumer2.png')}
+                            />
                         </View>
                         <View style={styles.explainTitleView}>
-                                <Text style={styles.explainText}>
-                                    תאר את הבעיה
-                                </Text>
-                            </View>
+                            <Text style={styles.explainText}>
+                                תאר את הבעיה
+                            </Text>
+                        </View>
 
                     </LinierView>
-
 
 
                 </TouchableWithoutFeedback>
@@ -154,7 +189,7 @@ export default class ChooseTime extends React.Component {
 
                 <View style={styles.footer}>
                     <View style={{alignItems: 'center'}}>
-                        {submitButton('המשך','consumer', this.submitJob.bind(this))}
+                        {submitButton('המשך', 'consumer', this.submitJob.bind(this))}
                     </View>
                 </View>
             </View>
@@ -178,7 +213,7 @@ let styles = StyleSheet.create({
     },
     explainTitleView: {
         alignSelf: 'flex-end',
-        marginBottom: SH /10,
+        marginBottom: SH / 10,
         marginRight: (SW - (SW / 1.16)) / 1.5
     },
     explainText: {
@@ -205,7 +240,7 @@ let styles = StyleSheet.create({
     },
     // Middle
     middleView: {
-        marginTop: SH /20,
+        marginTop: SH / 20,
         flex: 1.5,
         justifyContent: 'center',
         alignItems: 'center'

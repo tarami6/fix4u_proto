@@ -13,6 +13,14 @@ export default class OpenJobsStore {
         this.openJobsList.push(job)
     }
 
+    @action removeJob(jobId: string){
+        for(let i=0; i<this.openJobsList.length; i++){
+            if(this.openJobsList[i].id === jobId){
+                this.openJobsList.splice(0,1);
+            }
+        }
+    }
+
     @observable focusedJob = {};
 
     @action focusJob(job: Object){

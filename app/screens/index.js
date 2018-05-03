@@ -17,11 +17,12 @@ import NavigationStore from "../state-manager/mobx/navigationStore";
 import {addNavigationHelpers, NavigationActions} from "react-navigation"
 import AppNavigation from '../navigations';
 // import NavigatorService from '../navigations/navigator';
-
 import Modals from './modals'
 import {tryLogin} from "../generalFunc/tryLogin";
 import Geocoder from "react-native-geocoding";
 import {Keys} from "../config/keys";
+//components:
+import LoadingComponent from '../components/LoadingComponent'
 
 
 type Props = {};
@@ -35,6 +36,9 @@ export default class ScreensBase extends Component<Props> {
     constructor(props, context) {
         super(props, context);
         this.store = new NavigationStore();
+        this.state = {
+            loginLoading: true
+        }
     }
 
     successLoginCallback() {
@@ -48,9 +52,12 @@ export default class ScreensBase extends Component<Props> {
                 })
             ],
         });
+        this.setState({loginLoading: false});
         this.store.dispatch(actionToDispatch)
 
     }
+
+
 
     onBackPress = () => {
         // console.log('backHandler pressed')
@@ -59,6 +66,7 @@ export default class ScreensBase extends Component<Props> {
         const {navigationState} = this.store;
         // console.log('navigationState',navigationState.index);
         if (navigationState.index === 0) {
+            console.warn('exiting app');
             return false;
         }
         dispatch(NavigationActions.back());
@@ -109,6 +117,11 @@ export default class ScreensBase extends Component<Props> {
     }
 
     render() {
+        if(this.state.loginLoading || this.props.userDataStore.loading){
+            return (
+                <LoadingComponent/>
+            )
+        }
         return (
             <View style={{flex: 1}}>
                 <AppNavigation
@@ -119,6 +132,7 @@ export default class ScreensBase extends Component<Props> {
                         }
                     })}
                 />
+
                 <Modals/>
             </View>
         )

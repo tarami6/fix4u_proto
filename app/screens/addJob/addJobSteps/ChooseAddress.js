@@ -1,7 +1,7 @@
 import React from 'react';
-import {Alert, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, BackHandler, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-import {HH, SH, SW, mainStyles} from "../../../config/styles";
+import {HH, mainStyles, SH, SW} from "../../../config/styles";
 import {submitButton} from "../../../components/modalSubmitButton";
 
 import {inject, observer} from "mobx-react/native";
@@ -15,7 +15,10 @@ import {addJobRoute} from "../../../config/apiRoutes";
 import MapComponent from '../../../components/mapComponent'
 import LinierView from '../../../components/linierView';
 import Header from '../../../components/headers/Header'
+import {NavigationActions} from "react-navigation";
 
+
+@inject("navigationStore")
 @inject("userDataStore")
 @inject("addJobStore")
 @inject("authStore")
@@ -24,7 +27,31 @@ export default class ChooseAddress extends React.Component {
     static navigationOptions = {
         header: null,
     };
+    handleBackButton = () => {
+        const {dispatch} = this.props.navigationStore;
+        const {navigationState} = this.props.navigationStore;
+        const routeName = navigationState.routes[0].routeName
 
+        if (routeName === 'ConsumerNavigator' || routeName === 'ProNavigator') {
+            if (navigationState.routes[0].routes[0].routes[0].index === 0) {
+                return false
+            }
+            else {
+                dispatch(NavigationActions.back())
+                return true;
+            }
+        }
+        else {
+            if (navigationState.index === 0) {
+                this.props.navigation.goBack()
+                // return false
+            }
+            dispatch(NavigationActions.back())
+            return true
+        }
+
+        // return true;
+    }
 
     constructor(props) {
         super(props);
@@ -35,6 +62,14 @@ export default class ChooseAddress extends React.Component {
             lon: 0,
             currentLatLng: {},
         };
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     handleSubmit() {

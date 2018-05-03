@@ -17,7 +17,8 @@ export default class UserDataStore {
     @observable focusedJob = {};
     @observable focusedConsumerJob = {}
     // Choose pro process:
-    @observable shownPro = {}
+    @observable shownPro = {};
+
 
     //user and userData editing:
     @action setUserType(type: string) {
@@ -139,6 +140,13 @@ export default class UserDataStore {
     @action saveUserLocation(location: Object){
         this.userLocation = location
         console.warn('got:', this.userLocation);
+    }
+
+    // Loading - in case we want to display loading screen to the user
+    @observable loading = false;
+
+    @action setLoading(bol: boolean){
+        this.loading = bol
     }
 
 }

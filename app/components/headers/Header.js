@@ -3,9 +3,10 @@ import {StyleSheet, Text, View, Platform, TouchableOpacity, Image} from 'react-n
 import HeaderConsumer from './components/HeadrConsumer';
 import ArrowHeaderOrangeBackground from './ArrowHeaderOrangeBackground';
 import CustomHeaderGrey from './CustomHeaderGrey';
+import {inject} from "mobx-react/native";
 
 
-
+@inject("navigationStore")
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -17,6 +18,7 @@ export default class Header extends React.Component {
 
 
     header = ( props) => {
+        console.warn(props.head)
         switch (props.head) {
             case 'consumerHome':
                 return (<HeaderConsumer {...props}/>)

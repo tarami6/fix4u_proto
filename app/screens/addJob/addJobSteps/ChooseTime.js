@@ -1,6 +1,15 @@
 // React
 import React from 'react';
-import {Image, Platform, StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback, View} from 'react-native';
+import {
+    BackHandler,
+    Image,
+    Platform,
+    StyleSheet,
+    Text,
+    TouchableHighlight,
+    TouchableWithoutFeedback,
+    View
+} from 'react-native';
 // Components
 import LinierView from '../../../components/linierView';
 import {submitButton} from "../../../components/modalSubmitButton";
@@ -12,6 +21,7 @@ import {mainStyles, SH, SW} from "../../../config/styles";
 import Header from '../../../components/headers/Header'
 // Config
 import {hebrewServices} from "../../../generalFunc/generalObjects";
+import {NavigationActions} from "react-navigation";
 
 let data = {
     service: 'חשמלאי',
@@ -27,6 +37,31 @@ export default class ChooseTime extends React.Component {
     static navigationOptions = {
         header: null,
     };
+    handleBackButton = () => {
+        const {dispatch} = this.props.navigationStore;
+        const {navigationState} = this.props.navigationStore;
+        const routeName = navigationState.routes[0].routeName
+
+        if (routeName === 'ConsumerNavigator' || routeName === 'ProNavigator') {
+            if (navigationState.routes[0].routes[0].routes[0].index === 0) {
+                return false
+            }
+            else {
+                dispatch(NavigationActions.back())
+                return true;
+            }
+        }
+        else {
+            if (navigationState.index === 0) {
+                this.props.navigation.goBack()
+                // return false
+            }
+            dispatch(NavigationActions.back())
+            return true
+        }
+
+        // return true;
+    }
 
     constructor(props) {
         super(props);
@@ -53,6 +88,14 @@ export default class ChooseTime extends React.Component {
     componentWillMount() {
         // console.warn('index is:', this.props.navigationStore.navigationState.index)
         // console.log('chooseTime navigationState:', this.props.navigationStore.navigationState)
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
 

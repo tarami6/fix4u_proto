@@ -119,6 +119,9 @@ let handleNotificationData = (type, payload) => {
             userDataStore.addProPost(payload);
             userDataStore.focusJob(payload);
             break;
+        case 'open_post_remove':
+            //here I get update of a post which is irrelevant for the pro, I handle it with the post id
+            openJobsStore.removeJob(payload)
         default:
             console.warn("notification wasn't handled:", type);
 

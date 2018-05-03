@@ -84,6 +84,9 @@ export default class ActiveJob extends Component {
                     </View>
                 );
             }
+            else {
+                return <View><Text> no idea </Text></View>
+            }
 
         }
     }

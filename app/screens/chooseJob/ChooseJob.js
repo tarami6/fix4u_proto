@@ -102,7 +102,7 @@ export default class ChooseJob extends Component {
                     </TouchableOpacity>
                     }
                     {/*Got Job*/}
-                    {this.props.userDataStore.focusedJob.id &&
+                    {this.props.userDataStore.focusedJob.status === 'on_the_way'?
                     <TouchableOpacity
                         onPress={() => this.props.navigation.navigate('ActiveJob')}
                         style={{
@@ -120,7 +120,7 @@ export default class ChooseJob extends Component {
                         <View style={{flex: 1}}>
                             <Text style={{paddingRight: 20,}}>עבודה חדשה</Text>
                         </View>
-                    </TouchableOpacity>}
+                    </TouchableOpacity>:<View/>}
                 </View>
             </View>
         )
