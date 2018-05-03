@@ -6,6 +6,7 @@ import {inject, observer} from "mobx-react/index";
 import SchedulePro from './schedulePro'
 import ScheduleConsumer from './scheduleConsumer/ScheduleConsumer1'
 
+@inject("notificationsStore")
 @inject("userDataStore")
 @observer
 export default class Schedule extends Component {
@@ -13,9 +14,9 @@ export default class Schedule extends Component {
         super(props)
     }
 
-    // componentWillMount() {
-    //     console.warn(this.props.userDataStore.currentUserType);
-    // }
+    componentWillMount() {
+        this.props.notificationsStore.setNewNotification(false)
+    }
 
 
     render() {

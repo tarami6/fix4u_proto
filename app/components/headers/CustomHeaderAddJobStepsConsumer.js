@@ -8,6 +8,8 @@ import {inject, observer} from "mobx-react/native";
 
 
 const CustomHeaderAddJobSteps = inject("navigationStore")(observer((props) => {
+
+
     const {dispatch} = props.navigationStore;
     // const {navigationState} = props.navigationStore;
     // const routeName = navigationState.routes[0].routeName
@@ -23,6 +25,7 @@ const CustomHeaderAddJobSteps = inject("navigationStore")(observer((props) => {
             >
                 <TouchableOpacity onPress={()=> {
                     dispatch(NavigationActions.back());
+
                 }}
                                   style={{justifyContent: 'flex-start', flex: 1}}>
                     <ArrowIcon name="ios-arrow-back" size={35} color="#fff" style={{paddingLeft: SW / 20}}/>
@@ -40,17 +43,3 @@ const CustomHeaderAddJobSteps = inject("navigationStore")(observer((props) => {
 
 export  default CustomHeaderAddJobSteps;
 
-
-// const {dispatch} = this.props.navigationStore;
-// const {navigationState} = this.props.navigationStore;
-// const routeName = navigationState.routes[0].routeName
-//
-// if(routeName === 'ConsumerNavigator' || routeName === 'ProNavigator'){
-//     if(navigationState.routes[0].routes[0].routes[0].index===0){
-//         return false
-//     }
-//     else {
-//         dispatch(NavigationActions.back())
-//         return true;
-//     }
-// }

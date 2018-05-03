@@ -16,7 +16,7 @@ import ProAuthStore from "./state-manager/mobx/proAuthStore";
 import ModalsStore from './state-manager/mobx/modalsStore'
 import NavigationStore from "./state-manager/mobx/navigationStore";
 import OpenJobsStore from './state-manager/mobx/openJobsStore';
-
+import NotificationsStore from './state-manager/mobx/notificationsStore'
 
 import {StackNavigator} from 'react-navigation';
 
@@ -45,6 +45,8 @@ let modalsStore = new ModalsStore();
 let navigationStore = new NavigationStore();
 //choose Job and all openJobs handling store:
 let openJobsStore = new OpenJobsStore();
+//as it sounds:
+let notificationsStore = new NotificationsStore();
 
 
 const HomeNavigation = StackNavigator({
@@ -93,6 +95,7 @@ Pushy.setNotificationListener(async (data) => {
 );
 
 let handleNotificationData = (type, payload) => {
+    notificationsStore.setNewNotification(true);
     switch (type) {
         case 'active_post_update':
             if (payload.id === userDataStore.focusedJob.id) {
@@ -185,7 +188,7 @@ export default class App extends Component<Props> {
         return (
             <Provider navigationStore={navigationStore} authStore={authStore} addJobStore={addJobStore}
                       userDataStore={userDataStore} proAuthStore={proAuthStore} modalsStore={modalsStore}
-                      openJobsStore={openJobsStore}>
+                      openJobsStore={openJobsStore} notificationsStore={notificationsStore}>
                 <ScreensBase/>
             </Provider>
         )

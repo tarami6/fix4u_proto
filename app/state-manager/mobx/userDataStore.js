@@ -89,6 +89,7 @@ export default class UserDataStore {
         let userPosts = this.userData.user.user_posts;
         for (let i = 0; i < userPosts.length; i++) {
             if (userPosts[i].id === post.id) {
+                console.warn('changed');
                 this.userData.user.user_posts[i] = post;
             }
             //not sure about that yet, after recheck
@@ -143,10 +144,17 @@ export default class UserDataStore {
     }
 
     // Loading - in case we want to display loading screen to the user
-    @observable loading = true;
+    @observable loading = false;
 
     @action setLoading(bol: boolean){
         this.loading = bol
+    }
+
+    //change:
+    @observable newNotification = false;
+
+    @action setNewNotification(bol: boolean){
+        this.newNotification = bol;
     }
 
 }
