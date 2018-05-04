@@ -5,6 +5,7 @@ import android.app.Application;
 import tech.bam.RNBraintreeDropIn.RNBraintreeDropInPackage;
 import me.pushy.sdk.react.PushyPackage;
 import com.facebook.react.ReactApplication;
+import com.airbnb.android.react.lottie.LottiePackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new LottiePackage(),
                     new LottiePackage(),
                     new MapsPackage(),
                     new ImagePickerPackage(),

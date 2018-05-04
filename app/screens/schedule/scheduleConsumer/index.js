@@ -1,2 +1,2 @@
-import ScheduleConsumer from './ScheduleConsumer';
+import ScheduleConsumer from './ScheduleConsumer1';
 export default ScheduleConsumer;

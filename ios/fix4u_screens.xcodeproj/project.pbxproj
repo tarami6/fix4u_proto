@@ -53,6 +53,7 @@
 		BE85192A286546709D9D496F /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E9479635BFC4D668166FE19 /* SimpleLineIcons.ttf */; };
 		FE1D7D84604A4DEB88D1B068 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5905E2285B144868A0F19D16 /* Zocial.ttf */; };
 		AA0735CE340143F5802A0EDA /* libRCTMGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBBA89E087914219AC5AC06B /* libRCTMGL.a */; };
+		19DFE07D80474B5CA9F709BD /* libLottieReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66532C31E6184505B1AAFD9A /* libLottieReactNative.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -393,6 +394,8 @@
 		5905E2285B144868A0F19D16 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		475D9DE2821D46ACA826864F /* RCTMGL.xcodeproj */ = {isa = PBXFileReference; name = "RCTMGL.xcodeproj"; path = "../node_modules/@mapbox/react-native-mapbox-gl/ios/RCTMGL.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		DBBA89E087914219AC5AC06B /* libRCTMGL.a */ = {isa = PBXFileReference; name = "libRCTMGL.a"; path = "libRCTMGL.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		952A8BD2B4BA4487906222F0 /* LottieReactNative.xcodeproj */ = {isa = PBXFileReference; name = "LottieReactNative.xcodeproj"; path = "../node_modules/lottie-react-native/src/ios/LottieReactNative.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		66532C31E6184505B1AAFD9A /* libLottieReactNative.a */ = {isa = PBXFileReference; name = "libLottieReactNative.a"; path = "libLottieReactNative.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -425,6 +428,7 @@
 				005D095EAA4A45C5B672E78E /* libRNImagePicker.a in Frameworks */,
 				80E522CDD70748E7B3A928D4 /* libAirMaps.a in Frameworks */,
 				AA0735CE340143F5802A0EDA /* libRCTMGL.a in Frameworks */,
+				19DFE07D80474B5CA9F709BD /* libLottieReactNative.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -617,6 +621,7 @@
 				91F01C9CC72846039B9D0478 /* RNImagePicker.xcodeproj */,
 				C96F65492B754EE1AB4502A1 /* AirMaps.xcodeproj */,
 				475D9DE2821D46ACA826864F /* RCTMGL.xcodeproj */,
+				952A8BD2B4BA4487906222F0 /* LottieReactNative.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1304,6 +1309,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1311,6 +1317,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/@mapbox/react-native-mapbox-gl/ios/RCTMGL/**",
+					"$(SRCROOT)\..\node_modules\lottie-react-native\src\ios\LottieReactNative",
 				);
 			};
 			name = Debug;
@@ -1332,6 +1339,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1339,6 +1347,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/@mapbox/react-native-mapbox-gl/ios/RCTMGL/**",
+					"$(SRCROOT)\..\node_modules\lottie-react-native\src\ios\LottieReactNative",
 				);
 			};
 			name = Release;
@@ -1364,6 +1373,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/@mapbox/react-native-mapbox-gl/ios/RCTMGL/**",
+					"$(SRCROOT)\..\node_modules\lottie-react-native\src\ios\LottieReactNative",
 				);
 			};
 			name = Debug;
@@ -1388,6 +1398,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/@mapbox/react-native-mapbox-gl/ios/RCTMGL/**",
+					"$(SRCROOT)\..\node_modules\lottie-react-native\src\ios\LottieReactNative",
 				);
 			};
 			name = Release;
@@ -1418,6 +1429,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1425,6 +1437,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/@mapbox/react-native-mapbox-gl/ios/RCTMGL/**",
+					"$(SRCROOT)\..\node_modules\lottie-react-native\src\ios\LottieReactNative",
 				);
 			};
 			name = Debug;
@@ -1455,6 +1468,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1462,6 +1476,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/@mapbox/react-native-mapbox-gl/ios/RCTMGL/**",
+					"$(SRCROOT)\..\node_modules\lottie-react-native\src\ios\LottieReactNative",
 				);
 			};
 			name = Release;
@@ -1491,6 +1506,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1498,6 +1514,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/@mapbox/react-native-mapbox-gl/ios/RCTMGL/**",
+					"$(SRCROOT)\..\node_modules\lottie-react-native\src\ios\LottieReactNative",
 				);
 			};
 			name = Debug;
@@ -1527,6 +1544,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1534,6 +1552,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/@mapbox/react-native-mapbox-gl/ios/RCTMGL/**",
+					"$(SRCROOT)\..\node_modules\lottie-react-native\src\ios\LottieReactNative",
 				);
 			};
 			name = Release;

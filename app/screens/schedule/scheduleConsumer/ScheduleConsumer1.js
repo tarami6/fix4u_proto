@@ -14,6 +14,7 @@ export default class ScheduleConsumer1 extends React.Component {
     }
 
     chooseJob(job) {
+        console.log("STATUS",job.status)
         this.props.userDataStore.focusJob(job);
         if (job.status === 'open') {
             this.props.navigation.navigate('AddJob');

@@ -9,29 +9,9 @@ import {inject, observer} from "mobx-react/native";
 import InfoItem from '../../../components/InfoItem';
 import {hebrewServices} from "../../../generalFunc/generalObjects";
 import Moment from 'moment';
-import TimerMixin from 'react-timer-mixin'
+import TimerMixin from 'react-timer-mixin';
+import LinearGradient from 'react-native-linear-gradient';
 
-const data = [
-    {
-        name: 'אבי חשמל בע"מ',
-        services: 'חשמל, אינסטלציה, ביוב',
-        pic: require('../../../../assets/avatars/electricianAvatar.jpg'),
-        price: '100 ש\"ח',
-        time: 'היום 15:30'
-    },
-    {
-        name: 'משה שוורץ',
-        services: 'חשמל, עבודות שיפוץ',
-        pic: require('../../../../assets/avatars/handyManAvatar.jpg'),
-        price: '110 ש\"ח',
-        time: 'היום 16:00'
-    },
-]
-const job = {
-    icon: require(' ../../../../assets/icons/serviceElectrician.png'),
-    service: 'חשמלאי',
-    appointmentTime: 'היום, 14:00-16:00',
-}
 
 let returnInHeb = (word) => {
     // console.warn('word', word)
@@ -58,11 +38,11 @@ export default class ApplyBaseScreen extends React.Component {
     timeRemaining(time, diff = 7) {
         let endDate = new Date(time);
         let startDate = new Date();
-        let diffMs = ((endDate+(diff*6000))-startDate);
+        let diffMs = ((endDate + (diff * 6000)) - startDate);
         let diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
 
         console.warn('diffMins:', diffMins, diff);
-        if (diff < diffMins || diffMins<0) {
+        if (diff < diffMins || diffMins < 0) {
             Alert.alert('finished');
         }
         else {
@@ -133,7 +113,7 @@ export default class ApplyBaseScreen extends React.Component {
         return (
 
             <View style={{flex: 1}}>
-                <View style={{flex: 0.23, backgroundColor: 'red'}}>
+                <View style={{flex: 0.23}}>
                     <LinearViewBelowHeaderConsumer>
                         <Header head={'consumerHome'}  {...this.props} />
                         <View style={{flex: 1, flexDirection: 'row'}}>
@@ -173,6 +153,7 @@ export default class ApplyBaseScreen extends React.Component {
                         </View>
                     </LinearViewBelowHeaderConsumer>
                 </View>
+
                 <View style={{flex: 1}}>
                     <MapComponent style={styles.map}
                                   lat={this.state.lat}
@@ -185,7 +166,7 @@ export default class ApplyBaseScreen extends React.Component {
                                   }}/>
                     {/*       applies.MAP         */}
 
-                    <View style={{flex: 1, backgroundColor: 'red', position: 'absolute'}}>
+                    <View style={{flex: 1,backgroundColor: '#fff', position: 'absolute'}}>
                         <FlatList
                             data={job2.post_applies}
                             keyExtractor={this.keyExtractor}
@@ -193,11 +174,14 @@ export default class ApplyBaseScreen extends React.Component {
                                                                         style={{
                                                                             width: SW,
                                                                             height: SH / 8,
-                                                                            borderBottomWidth: 1,
-                                                                            borderColor: 'grey'
                                                                         }}>
+                                <View style={{flex: 1}}>
+                                    {/*Using Linear For Shadow*/}
+                                    <LinearGradient colors={['rgba(0, 0, 0, 0.1)', 'rgba(246, 246, 246, 0)']}
+                                                    style={{height: 5, width: SW, zIndex:2,}}/>
+                                    <InfoItem info={item}/>
+                                </View>
 
-                                <InfoItem info={item}/>
                             </TouchableHighlight>}
                         />
                     </View>
