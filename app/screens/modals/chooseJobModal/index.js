@@ -99,7 +99,7 @@ export default class ChooseJobModal extends Component {
         return (
 
 
-            <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
+            <View style={{flex: 1, backgroundColor: 'transparent'}}>
                 <KeyboardAvoidingView style={styles.modalContainer} behavior="position" enabled>
                     <View style={styles.modalView}>
 

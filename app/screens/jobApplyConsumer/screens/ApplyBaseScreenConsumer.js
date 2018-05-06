@@ -8,8 +8,13 @@ import {inject, observer} from "mobx-react/native";
 import InfoItem from '../../../components/InfoItem';
 import {hebrewServices} from "../../../generalFunc/generalObjects";
 import Moment from 'moment';
+
+
+
+
 import TimerMixin from 'react-timer-mixin';
 import LinearGradient from 'react-native-linear-gradient';
+
 
 
 let returnInHeb = (word) => {
@@ -55,9 +60,11 @@ export default class ApplyBaseScreen extends React.Component {
         this.state = {auctionTime: 60, diff: '00:00'}
     }
 
+
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
+
 
     timeRemaining(time) {
         //HERE YOU INSERT THE DATE FROM DATABASE
@@ -70,6 +77,7 @@ export default class ApplyBaseScreen extends React.Component {
         let startSeconds = startDate.getSeconds();
         let FirststartTime = startDate.getTime();
 
+
         let checkDate = new Date();
         let checkHours = checkDate.getHours();
         let checkMinutes = checkDate.getMinutes();
@@ -80,12 +88,14 @@ export default class ApplyBaseScreen extends React.Component {
         let TheDiff = checkTime - FirststartTime
         TheDiff = TheDiff % 1000000 / 1000
         TheDiff.toFixed(0)
+
             
         if (TheDiff > diffrence * 60 || TheDiff< 1 ||checkHours-1 >startHours) {
             this.setState({ diff: '00:00' })
              console.warn("ur time already finished")
              clearInterval(this.interval)
             } 
+
         else {
             this.interval = setInterval(() => {
                 let currentDate = new Date();
@@ -127,7 +137,7 @@ export default class ApplyBaseScreen extends React.Component {
 
     showPro(pro) {
         this.props.userDataStore.showPro(pro);
-        this.props.navigation.navigate('ChoosePro')
+        this.props.navigation.navigate('ChoosePro', { time:this.state.diff})
     }
 
     render() {
@@ -142,7 +152,7 @@ export default class ApplyBaseScreen extends React.Component {
         return (
 
             <View style={{flex: 1}}>
-                <View style={{flex: 0.23}}>
+                <View style={{flex: 0.23, backgroundColor: '#ffffff', elevation: 5}}>
                     <LinearViewBelowHeaderConsumer>
                         <Header head={'consumerHome'}  {...this.props} />
                         <View style={{flex: 1, flexDirection: 'row'}}>
@@ -206,8 +216,6 @@ export default class ApplyBaseScreen extends React.Component {
                                                                         }}>
                                 <View style={{flex: 1}}>
                                     {/*Using Linear For Shadow*/}
-                                    <LinearGradient colors={['rgba(0, 0, 0, 0.1)', 'rgba(246, 246, 246, 0)']}
-                                                    style={{height: 5, width: SW, zIndex:2,}}/>
                                     <InfoItem info={item}/>
                                 </View>
 

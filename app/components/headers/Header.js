@@ -23,7 +23,7 @@ export default class Header extends React.Component {
                 return (<HeaderConsumer {...props}/>)
                 break;
             case 'proHome':
-                return (<HeaderConsumer background={'#fd8824'} {...props}/>)
+                return (<HeaderConsumer background={'#FFBA00'} {...props}/>)
                 break;
 
             case 'AddJob':

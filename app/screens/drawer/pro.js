@@ -78,7 +78,9 @@ export default class Pro extends Component {
                         colors={['#fd8824', '#fdb82c']}
                         start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
                         style={styles.container}>
+                        {console.log('DRAWERPRO',this.props.userDataStore.userData.user )}
                         <Navbar name={this.props.userDataStore.userData.user.name}
+                                pic={this.props.userDataStore.userData.user.profile_pic_thumb}
                                 navigation={this.props.navigation}/>
                     </LinearGradient>
                     <List>
@@ -176,8 +178,8 @@ const Navbar = (props) => {
             <View style={{flexDirection: 'row', position: 'absolute', bottom: 20, right: 20, alignItems: 'center'}}>
                 <Text style={{color: '#fff', marginRight: 20}}>{props.name}</Text>
                 <Image
-                    source={require('../../../assets/drawer/icon-user.png')}
-                    style={{height: 60, width: 60}}/>
+                    source={{uri: props.pic}}
+                    style={{height: 60, width: 60, borderRadius: 30}}/>
             </View>
         </View>
     )

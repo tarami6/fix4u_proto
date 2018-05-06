@@ -221,6 +221,7 @@ export default class ApplyBaseScreen extends React.Component {
 
         let apply = this.props.userDataStore.shownPro;
         let job = this.props.userDataStore.focusedConsumerJob;
+
         return (
 
             <View style={{flex: 1, backgroundColor: '#f6f6f6'}}>
