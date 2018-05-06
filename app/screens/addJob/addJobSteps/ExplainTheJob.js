@@ -39,7 +39,6 @@ export default class ChooseTime extends React.Component {
         const {dispatch} = this.props.navigationStore;
         const {navigationState} = this.props.navigationStore;
         const routeName = navigationState.routes[0].routeName
-
         if (routeName === 'ConsumerNavigator' || routeName === 'ProNavigator') {
             if (navigationState.routes[0].routes[0].routes[0].index === 0) {
                 return false
