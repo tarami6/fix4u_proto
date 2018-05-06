@@ -75,7 +75,7 @@ export default class OnTheWayPro extends React.Component {
 
     render() {
         let focusedJob = this.props.userDataStore.focusedJob;
-        // console.warn(focusedJob);
+         console.warn(focusedJob);
         return (
             <View style={{flex: 1, backgroundColor: "#fff", alignItems: 'center'}}>
                 <Modal

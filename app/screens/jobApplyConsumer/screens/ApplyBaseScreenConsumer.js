@@ -1,15 +1,16 @@
 import React from 'react';
-import {Image, StyleSheet, Text, FlatList, TouchableHighlight, TouchableOpacity, View, Alert} from 'react-native';
+import {Alert, BackHandler, FlatList, Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import Header from '../../../components/headers/Header';
 import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHeaderConsumer'
 import MapComponent from '../../../components/mapComponent/MapComponent'
-import { fetcher } from "../../../generalFunc/fetcher";
-import { SH, SW, mainStyles } from "../../../config/styles";
-import { inject, observer } from "mobx-react/native";
+import {mainStyles, SH, SW} from "../../../config/styles";
+import {inject, observer} from "mobx-react/native";
 import InfoItem from '../../../components/InfoItem';
 import {hebrewServices} from "../../../generalFunc/generalObjects";
 import Moment from 'moment';
+
 import TimerMixin from 'react-timer-mixin';
+
 
 
 
@@ -28,6 +29,31 @@ export default class ApplyBaseScreen extends React.Component {
         header: null,
     };
 
+    onButtonPress = () => {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+        // then navigate
+        navigate('NewScreen');
+    }
+
+    handleBackButton = () => {
+        Alert.alert(
+            'Exit App',
+            'Exiting the application?', [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel'
+                }, {
+                    text: 'OK',
+                    onPress: () => BackHandler.exitApp()
+                },], {
+                cancelable: false
+            }
+        )
+        return true;
+    }
+    keyExtractor = (item) => item.id + '';
+
     constructor(props) {
         super(props);
         this.state = {auctionTime: 60, diff: '00:00'}
@@ -35,13 +61,16 @@ export default class ApplyBaseScreen extends React.Component {
 
 
 
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
 
 
     timeRemaining(time) {
         //HERE YOU INSERT THE DATE FROM DATABASE
         let diffrence = 5
         let startDate = new Date(time);
-        console.warn("job post in: "+ time)
+        console.warn("job post in: " + time)
         let startDay = startDate.getDay();
         let startHours = startDate.getHours();
         let startMinutes = startDate.getMinutes();
@@ -60,10 +89,11 @@ export default class ApplyBaseScreen extends React.Component {
         let TheDiff = checkTime - FirststartTime
         TheDiff = TheDiff % 1000000 / 1000
         TheDiff.toFixed(0)
-        
 
 
-        if (TheDiff > diffrence * 60) { console.warn("ur time already finished")} 
+        if (TheDiff > diffrence * 60 || TheDiff < 1 || checkHours-1 > startHours) {
+            console.warn("ur time already finished")
+        }
         else {
             this.interval = setInterval(() => {
                 let currentDate = new Date();
@@ -78,18 +108,18 @@ export default class ApplyBaseScreen extends React.Component {
                 var end = Moment.utc(endTime, "mm:ss");
                 var d = Moment.duration(end.diff(start));
                 var diff = Moment.utc(+d).format('mm:ss');
-                this.setState({ diff: diff })
+                this.setState({diff: diff})
 
                 let timeToEndTimer = currentTime - FirststartTime
                 timeToEndTimer = timeToEndTimer % 1000000 / 1000
                 timeToEndTimer.toFixed(0)
-                timeToEndTimer = timeToEndTimer-diffrence*60
-                
+                timeToEndTimer = timeToEndTimer - diffrence * 60
+
                 if (timeToEndTimer > -1) {
                     console.warn("timer stoped by timeToEndTimer ==0 ")
-                    this.setState({ diff: '00:00' })
+                    this.setState({diff: '00:00'})
                     clearInterval(this.interval)
-                } 
+                }
 
             }, 1000);
 
@@ -97,21 +127,16 @@ export default class ApplyBaseScreen extends React.Component {
 
     }
 
-   
-
     componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         let time = this.state.auctionTime;
         this.timeRemaining(this.props.userDataStore.focusedConsumerJob.created_at)
     }
-
-
 
     showPro(pro) {
         this.props.userDataStore.showPro(pro);
         this.props.navigation.navigate('ChoosePro', { time:this.state.diff})
     }
-
-    keyExtractor = (item) => item.id + '';
 
     render() {
         //mobx "listener" for new jobs
@@ -157,10 +182,11 @@ export default class ApplyBaseScreen extends React.Component {
                             }}/>
                             {/*Service Icon*/}
                             <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
+                                {job2.image_thumb &&
                                 <Image
                                     style={{width: 50, height: 50}}
                                     source={{uri: job2.image_thumb}}
-                                />
+                                />}
                             </View>
                         </View>
                     </LinearViewBelowHeaderConsumer>
@@ -195,49 +221,6 @@ export default class ApplyBaseScreen extends React.Component {
                             </TouchableHighlight>}
                         />
                     </View>
-
-                    {/*{job2.post_applies && job2.post_applies.map((item, index) => {*/}
-                    {/*return (*/}
-                    {/*<TouchableOpacity*/}
-                    {/*onPress={() => this.showPro(item)}*/}
-                    {/*key={index}*/}
-                    {/*style={{*/}
-                    {/*width: SW,*/}
-                    {/*height: SH / 9,*/}
-                    {/*backgroundColor: '#fff',*/}
-                    {/*position: 'absolute',*/}
-                    {/*top: index * (SH / 9),*/}
-                    {/*flexDirection: 'row',*/}
-                    {/*borderBottomWidth: 1,*/}
-                    {/*borderBottomColor: '#7e7e7e'*/}
-                    {/*}}>*/}
-                    {/*<View style={{*/}
-                    {/*flex: 0.5,*/}
-                    {/*justifyContent: 'center',*/}
-                    {/*alignItems: 'flex-start',*/}
-                    {/*marginLeft: SW / 20*/}
-                    {/*}}>*/}
-                    {/*<Text*/}
-                    {/*style={{zIndex: 3, fontSize: 16, color: '#000'}}>{item.time.slice(0, 5)} </Text>*/}
-                    {/*<Text style={{zIndex: 3, fontSize: 16}}>{item.service_fee} </Text>*/}
-                    {/*</View>*/}
-                    {/*<View style={{flex: 1, justifyContent: 'center'}}>*/}
-                    {/*<Text style={{zIndex: 3, fontSize: 16, color: '#000'}}>{item.user_pro.name} </Text>*/}
-                    {/*<Text style={{zIndex: 3, fontSize: 14}}>{item.services} </Text>*/}
-                    {/*</View>*/}
-                    {/*<View style={{flex: 0.4, alignItems: 'center', justifyContent: 'center'}}>*/}
-                    {/*{item.pic ? <Image*/}
-                    {/*style={{width: 50, height: 50, borderRadius: 100}}*/}
-                    {/*source={item.user_pro.profile_pic_thumb}*/}
-                    {/*/> : <View/>}*/}
-
-                    {/*</View>*/}
-
-
-                    {/*</TouchableOpacity>*/}
-                    {/*)*/}
-                    {/*})}*/}
-
                 </View>
 
             </View>

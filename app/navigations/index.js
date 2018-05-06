@@ -75,6 +75,10 @@ const AddJobNavigation = StackNavigator({
             title: 'Choose Address'
         }
     },
+
+})
+
+const ChooseApplyNavigator = StackNavigator({
     ApplyBaseScreen: {
         screen: ApplyBaseScreen,
         navigationOptions: ({navigation}) => {
@@ -84,7 +88,6 @@ const AddJobNavigation = StackNavigator({
     ChoosePro: {
         screen: ChoosePro
     }
-
 })
 
 
@@ -98,6 +101,9 @@ const ProNavigator = DrawerNavigator({
     AddJob: {
         screen: AddJobNavigation,
     },
+    ApplyBaseScreen: {
+        screen: ChooseApplyNavigator
+    }
 }, {
     contentComponent: CustomDrawer,
     drawerWidth: width
@@ -112,6 +118,9 @@ const ConsumerNavigator = DrawerNavigator({
     AddJob: {
         screen: AddJobNavigation,
     },
+    ApplyBaseScreen: {
+        screen: ChooseApplyNavigator
+    }
 }, {
     contentComponent: CustomDrawer,
     drawerWidth: width

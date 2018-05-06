@@ -43,7 +43,7 @@ export default class UserDataStore {
 
     @action logout() {
         this.userType = '';
-        this.userData = {};
+        this.userData.token = '';
     }
 
     @action focusJob(job: Object) {

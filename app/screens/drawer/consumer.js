@@ -15,11 +15,12 @@ import Circle from '../../components/circle'
 import {inject, observer} from "mobx-react/native";
 import {logOutRoute} from "../../config/apiRoutes";
 import {fetcher} from "../../generalFunc/fetcher";
+import {addNavigationHelpers, NavigationActions} from "react-navigation";
+import PlusIcon from 'react-native-vector-icons/EvilIcons'
 
 
-
-
-const {width, height} = Dimensions.get('window')
+const {width, height} = Dimensions.get('window');
+@inject("navigationStore")
 @inject("userDataStore")
 @inject("authStore")
 @observer
@@ -42,8 +43,19 @@ export default class Consumer extends Component {
         this.props.navigation.navigate('DrawerClose');
         AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
         ));
-        this.props.userDataStore.logout()
         this.props.navigation.navigate('Intro');
+        // const actionToDispatch = NavigationActions.reset({
+        //     index: 0,
+        //     key: null,
+        //     actions: [
+        //         NavigationActions.navigate({
+        //             routeName: 'Intro',
+        //         })
+        //     ],
+        // });
+        // this.props.navigationStore.dispatch(actionToDispatch);
+        this.props.userDataStore.logout();
+
         console.warn('success cb at logout:', res);
     }
 
@@ -99,17 +111,29 @@ export default class Consumer extends Component {
 const Navbar = (props) => {
     return (
         <View style={{width, height: Platform.OS == 'ios' ? 150 : 135,}}>
-            <TouchableOpacity onPress={()=>props.navigation.navigate('DrawerClose')}>
-            <Icon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
+            <TouchableOpacity onPress={() => props.navigation.navigate('DrawerClose')}>
+                <Icon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
             </TouchableOpacity>
             <View style={{flexDirection: 'row', position: 'absolute', bottom: 20, right: 20, alignItems: 'center'}}>
-                <Text style={{color: '#fff', marginRight: 20}}>{props.user && props.user.name ?props.user.name : 'הכנס שם +' }</Text>
+                {props.user && props.user.name ?
+                <Text style={{
+                    color: '#fff',
+                    marginRight: 20
+                }}>{ props.user.name}</Text>:
+                    <TouchableOpacity >
+                        <Text style={{color:'#ffffff'}}>  הכנס שם +</Text>
+                    </TouchableOpacity>
+
+                }
 
                 {props.user && props.user.profile_pic_thumb ?
-                <Image
-                    source={{ uri: props.user.profile_pic_thumb }}
-                    style={{height: 60, width: 60, borderRadius: 100}}/> :
-                    <Text>הכנס תמונה +</Text>
+                    <Image
+                        source={{uri: props.user.profile_pic_thumb}}
+                        style={{height: 60, width: 60, borderRadius: 100}}/> :
+                    <TouchableOpacity style={{alignItems: 'center'}}>
+                        <PlusIcon name="plus" size={80} color={"#ffffff"}/>
+                        <Text style={{fontSize:10, color:'#ffffff'}}>הכנס תמונה</Text>
+                    </TouchableOpacity>
                 }
             </View>
         </View>
