@@ -15,11 +15,12 @@ import Circle from '../../components/circle'
 import {inject, observer} from "mobx-react/native";
 import {logOutRoute} from "../../config/apiRoutes";
 import {fetcher} from "../../generalFunc/fetcher";
+import {addNavigationHelpers, NavigationActions} from "react-navigation"
 
 
 
-
-const {width, height} = Dimensions.get('window')
+const {width, height} = Dimensions.get('window');
+@inject("navigationStore")
 @inject("userDataStore")
 @inject("authStore")
 @observer
@@ -42,8 +43,19 @@ export default class Consumer extends Component {
         this.props.navigation.navigate('DrawerClose');
         AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
         ));
-        this.props.userDataStore.logout()
         this.props.navigation.navigate('Intro');
+        // const actionToDispatch = NavigationActions.reset({
+        //     index: 0,
+        //     key: null,
+        //     actions: [
+        //         NavigationActions.navigate({
+        //             routeName: 'Intro',
+        //         })
+        //     ],
+        // });
+        // this.props.navigationStore.dispatch(actionToDispatch);
+        this.props.userDataStore.logout();
+
         console.warn('success cb at logout:', res);
     }
 

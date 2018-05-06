@@ -196,10 +196,11 @@ export default class ApplyBaseScreen extends React.Component {
                             }}/>
                             {/*Service Icon*/}
                             <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
+                                {job2.image_thumb &&
                                 <Image
                                     style={{width: 50, height: 50}}
                                     source={{uri: job2.image_thumb}}
-                                />
+                                />}
                             </View>
                         </View>
                     </LinearViewBelowHeaderConsumer>
