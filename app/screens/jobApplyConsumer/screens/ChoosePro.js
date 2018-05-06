@@ -218,7 +218,7 @@ export default class ApplyBaseScreen extends React.Component {
 
         let apply = this.props.userDataStore.shownPro;
         let job = this.props.userDataStore.focusedConsumerJob;
-        console.warn('pro', this.props.userDataStore.shownPro);
+        console.warn('pro', this.props.navigation.state.params.time);
         console.log('pro313131', this.props.userDataStore.shownPro);
         return (
 

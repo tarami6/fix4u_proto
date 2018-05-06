@@ -3,14 +3,15 @@ import {Image, StyleSheet, Text, FlatList, TouchableHighlight, TouchableOpacity,
 import Header from '../../../components/headers/Header';
 import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHeaderConsumer'
 import MapComponent from '../../../components/mapComponent/MapComponent'
-import {fetcher} from "../../../generalFunc/fetcher";
-import {SH, SW, mainStyles} from "../../../config/styles";
-import {inject, observer} from "mobx-react/native";
+import { fetcher } from "../../../generalFunc/fetcher";
+import { SH, SW, mainStyles } from "../../../config/styles";
+import { inject, observer } from "mobx-react/native";
 import InfoItem from '../../../components/InfoItem';
 import {hebrewServices} from "../../../generalFunc/generalObjects";
 import Moment from 'moment';
 import TimerMixin from 'react-timer-mixin';
-import LinearGradient from 'react-native-linear-gradient';
+
+
 
 
 let returnInHeb = (word) => {
@@ -29,74 +30,85 @@ export default class ApplyBaseScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            auctionTime: 60,
-            diff: '00'
-        }
+        this.state = {auctionTime: 60, diff: '00:00'}
     }
 
-    timeRemaining(time, diff = 7) {
-        let endDate = new Date(time);
-        let startDate = new Date();
-        let diffMs = ((endDate + (diff * 6000)) - startDate);
-        let diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
 
-        console.warn('diffMins:', diffMins, diff);
-        if (diff < diffMins || diffMins < 0) {
-            Alert.alert('finished');
-        }
+
+
+
+    timeRemaining(time) {
+        //HERE YOU INSERT THE DATE FROM DATABASE
+        let diffrence = 5
+        let startDate = new Date(time);
+        console.warn("job post in: "+ time)
+        let startDay = startDate.getDay();
+        let startHours = startDate.getHours();
+        let startMinutes = startDate.getMinutes();
+        (startMinutes + diffrence > 59) ? startMinutes = startMinutes + diffrence - 60 : startMinutes = startMinutes + diffrence;
+        let startSeconds = startDate.getSeconds();
+        let FirststartTime = startDate.getTime();
+
+
+        let checkDate = new Date();
+        let checkHours = checkDate.getHours();
+        let checkMinutes = checkDate.getMinutes();
+        let checkSeconds = checkDate.getSeconds();
+        let checkDay = checkDate.getDay();
+        let checkTime = checkDate.getTime();
+
+        let TheDiff = checkTime - FirststartTime
+        TheDiff = TheDiff % 1000000 / 1000
+        TheDiff.toFixed(0)
+        
+
+
+        if (TheDiff > diffrence * 60) { console.warn("ur time already finished")} 
         else {
-            // console.log('timeeee', time);
-            //HERE YOU INSERT THE DATE FROM DATABASE
-            let endhours = endDate.getHours();
-            let endminutes = endDate.getMinutes();
-            endminutes = (endminutes + diff > 59) ? endminutes + diff - 60 : endminutes + diff;
-            let endseconds = endDate.getSeconds();
-            endDate.getMinutes();
-
             this.interval = setInterval(() => {
                 let currentDate = new Date();
-                let starthours = currentDate.getHours();
-                let startminutes = currentDate.getMinutes();
-                let startseconds = currentDate.getSeconds();
-                let startTime = startminutes + ':' + startseconds
-                let endTime = endminutes + ':' + endseconds
+                let currentHours = currentDate.getHours();
+                let currentMinutes = currentDate.getMinutes();
+                let currentSeconds = currentDate.getSeconds();
+                let currentTime = currentDate.getTime();
+
+                let startTime = currentMinutes + ':' + currentSeconds
+                let endTime = startMinutes + ':' + startSeconds
                 var start = Moment.utc(startTime, "mm:ss");
                 var end = Moment.utc(endTime, "mm:ss");
                 var d = Moment.duration(end.diff(start));
                 var diff = Moment.utc(+d).format('mm:ss');
-                this.setState({diff: diff})
+                this.setState({ diff: diff })
 
-                if (startminutes == endminutes - 1 && startseconds == 59) {
-                    this.setState({diff: '00:00'})
-                    clearInterval(this.interval);
-                    console.warn('finish')
-                }
-                else if (startminutes == 59 && startseconds == 59) {
-                    this.setState({diff: '00:00'})
+                let timeToEndTimer = currentTime - FirststartTime
+                timeToEndTimer = timeToEndTimer % 1000000 / 1000
+                timeToEndTimer.toFixed(0)
+                timeToEndTimer = timeToEndTimer-diffrence*60
+                
+                if (timeToEndTimer > -1) {
+                    console.warn("timer stoped by timeToEndTimer ==0 ")
+                    this.setState({ diff: '00:00' })
                     clearInterval(this.interval)
-                    console.warn('finish')
-                }
+                } 
 
             }, 1000);
+
         }
+
     }
 
-
-// get the diffrence between start date to current date
-
+   
 
     componentDidMount() {
         let time = this.state.auctionTime;
-        let newDate = new Date()
-        // this.timeRemaining(this.props.userDataStore.focusedConsumerJob.created_at);
-        // console.log('this.props.userDataStore.focusedConsumerJob',this.props.userDataStore.focusedConsumerJob.created_at)
+        this.timeRemaining(this.props.userDataStore.focusedConsumerJob.created_at)
     }
+
 
 
     showPro(pro) {
         this.props.userDataStore.showPro(pro);
-        this.props.navigation.navigate('ChoosePro')
+        this.props.navigation.navigate('ChoosePro', { time:this.state.diff})
     }
 
     keyExtractor = (item) => item.id + '';
@@ -113,7 +125,7 @@ export default class ApplyBaseScreen extends React.Component {
         return (
 
             <View style={{flex: 1}}>
-                <View style={{flex: 0.23}}>
+                <View style={{flex: 0.23, backgroundColor: '#ffffff', elevation: 5}}>
                     <LinearViewBelowHeaderConsumer>
                         <Header head={'consumerHome'}  {...this.props} />
                         <View style={{flex: 1, flexDirection: 'row'}}>
@@ -177,8 +189,6 @@ export default class ApplyBaseScreen extends React.Component {
                                                                         }}>
                                 <View style={{flex: 1}}>
                                     {/*Using Linear For Shadow*/}
-                                    <LinearGradient colors={['rgba(0, 0, 0, 0.1)', 'rgba(246, 246, 246, 0)']}
-                                                    style={{height: 5, width: SW, zIndex:2,}}/>
                                     <InfoItem info={item}/>
                                 </View>
 

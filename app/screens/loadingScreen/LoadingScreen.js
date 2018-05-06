@@ -23,12 +23,14 @@ export default class LoadingScreen extends Component {
     }
 
     componentWillMount(){
+        // this.props.userDataStore.setLoading(true);
         this.props.userDataStore.findAndFocusConsumerJob();
     //    check for open posts made by the user
         fetcher(checkForOpenPost, 'GET', this.successCallback.bind(this), this.errorCallback.bind(this), {token: this.props.userDataStore.userData.token})
     }
 
     successCallback(res){
+        // this.props.userDataStore.setLoading(false);
         if(res.length>0) {
             // res is the openPost
             // console.warn('succcess cb at addJob:', res[0].status)
@@ -48,6 +50,7 @@ export default class LoadingScreen extends Component {
     }
 
     errorCallback(err){
+        // this.props.userDataStore.setLoading(false);
         this.props.navigation.navigate('Home');
         console.warn('error cb at addJob LoadingScreen:', err);
         console.log('error cb at addJob LoadingScreen:', err);

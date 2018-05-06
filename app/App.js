@@ -30,6 +30,7 @@ import OnTheWayConsumer1 from './screens/activeJob/onTheWay/onTheWayConsumer/OnT
 import InProgressConsumer1 from './screens/activeJob/inProgress/inProgressConsumer/InProgressConsumer1';
 import Review from './screens/activeJob/consumerReview/consumerReviewConsumer/Review';
 import SchedulePro1 from './screens/schedule/schedulePro/SchedulePro1';
+import LoadingPage from './screens/modals/Loader/LoadingPage'
 
 //the usual consumer costumer auth process happens here
 let authStore = new AuthStore();
@@ -51,7 +52,7 @@ let notificationsStore = new NotificationsStore();
 
 const HomeNavigation = StackNavigator({
     Home: {
-        screen: Review
+        screen: LoadingPage
     }
 })
 
