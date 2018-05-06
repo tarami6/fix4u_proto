@@ -48,27 +48,26 @@ export default class InProgressPro extends Component {
     }
 
     render() {
+        console.log('focusedJobbbbb',this.props.userDataStore.focusedJob);
         return (
             <View style={styles.Container}>
-
-
-                <View id='top' style={styles.TopView}>
-
+                {/*Top View */}
+                <View style={styles.TopView}>
                     <Header head={'Grey'} previousPage={'Home'} props={this.props}/>
-
-                    <View id='picture and name' style={styles.topPicText}>
+                    <View style={styles.topPicText}>
                         <Text style={{
                             flex: 0.5,
                             fontWeight: 'bold',
                             fontSize: 18,
                             width: "60%",
                             borderRadius: 100
-                        }}>{this.props.userDataStore.focusedJob.user.name}</Text>
-                        {this.props.userDataStore.focusedJob.user.profile_pic_thumb &&
+                        }}>
+                            {this.props.userDataStore.focusedJob.user.name}
+                        </Text>
+                        {this.props.userDataStore.focusedJob.user.profile_pic_thumb?
                         <Image style={{flex: 0.2, margin: 20, width: 66, height: 58}}
-                               source={{uri: this.props.userDataStore.focusedJob.user.profile_pic_thumb}}/>}
+                               source={{uri: this.props.userDataStore.focusedJob.user.profile_pic_thumb}}/>: null}
                     </View>
-
                     <View style={{flex: 0.3, marginRight: '3%'}}>
                         <Text style={{
                             flex: 1,
@@ -77,13 +76,12 @@ export default class InProgressPro extends Component {
                         }}>{this.props.userDataStore.focusedJob.address}</Text>
                     </View>
 
-                    <View style={{borderBottomWidth: 1.7, margin: 5, borderColor: 'rgba(0,0,0,0.3)',}}>
-                    </View>
+                    <View style={{borderBottomWidth: 1.7, margin: 5, borderColor: 'rgba(0,0,0,0.3)',}}/>
 
                 </View>
 
-
-                <View id='middle' style={styles.middleView}>
+                {/* Middle View */}
+                <View style={styles.middleView}>
                     <LinearGradient
                         colors={['#fd8824', '#fdb82c']}
                         start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
@@ -95,7 +93,7 @@ export default class InProgressPro extends Component {
                             borderRadius: 200
                         }}>
 
-                        <View id='circel' style={{
+                        <View style={{
                             backgroundColor: 'white', height: SW / 1.6, width: SW / 1.6, borderRadius: 200,
                             alignItems: 'center', justifyContent: 'center'
                         }}>
@@ -103,13 +101,15 @@ export default class InProgressPro extends Component {
                         </View>
                     </LinearGradient>
 
-                    <View id='image' style={{flex: 0.15, marginTop: 30}}>
+                    <View style={{flex: 0.15, marginTop: 30}}>
                         <Image
                             source={require('../../../../../assets/icons/call.png')}/>
                     </View>
                 </View>
 
-                <View id='bottom' style={styles.bottomView}>
+                {/*Bottom View*/}
+
+                <View style={styles.bottomView}>
                     {submitButton('סיום עבודה', 'pro', this.finishJob.bind(this))}
 
                     {/*<TouchableOpacity onPress={() => this.finishJob()}*/}

@@ -1,6 +1,6 @@
 // React -react naitve
 import React from 'react';
-import {StyleSheet, Text, View,Image, FlatList,TouchableHighlight} from 'react-native';
+import {FlatList, Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 // headr
 import Header from '../../../components/headers/Header'
 // pro Item
@@ -55,26 +55,31 @@ export default class SchedulePro1 extends React.Component {
     static navigationOptions = {
         header: null
     }
+
     constructor(props) {
         super(props)
     }
 
 
-
-    chooseJob(job){
+    chooseJob(job) {
+        console.log('choose job:', job);
         this.props.userDataStore.focusJob(job);
-        if(job.status==='open'){
-            this.props.navigation.navigate('ProNavigator');
-        }
         this.props.navigation.navigate('ActiveJob');
     }
 
     render() {
+        console.log('yoooooooo', this.props.userDataStore.userData.user.pro_posts);
         return (
             <View style={{flex: 1}}>
                 <View style={{flex: 0.185, backgroundColor: '#FFBA00', elevation: 5}}>
                     <Header head={'AddJob'} props={this.props}/>
-                    <View style={{flex: 0.5, flexDirection: 'row', alignItems: 'center', alignSelf: 'flex-end', marginRight: 20}}>
+                    <View style={{
+                        flex: 0.5,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        alignSelf: 'flex-end',
+                        marginRight: 20
+                    }}>
                         <Text style={{marginRight: 20, fontSize: 18, color: '#fff'}}>יומן</Text>
                         <Image source={require('../../../../assets/icons/ScheduleIcon.png')}/>
                     </View>
@@ -82,7 +87,7 @@ export default class SchedulePro1 extends React.Component {
                 <View style={{flex: 1}}>
                     <FlatList
                         data={this.props.userDataStore.userData.user.pro_posts}
-                        renderItem={({item}) => <TouchableHighlight onPress={()=>this.chooseJob(item)}
+                        renderItem={({item}) => <TouchableHighlight onPress={() => this.chooseJob(item)}
                                                                     style={{
                                                                         width: SW,
                                                                         height: SH / 8,

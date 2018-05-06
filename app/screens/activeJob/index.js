@@ -39,7 +39,7 @@ export default class ActiveJob extends Component {
             else if (jobStatus === 'in_progress' || jobStatus === 'pro_payment'
                 || jobStatus === 'consumer_payment' ) {
                 return (
-                    <InProgressConsumer/>
+                    <InProgressConsumer {...this.props}/>
                 );
             }
             else if ( jobStatus === 'consumer_review') {
@@ -58,12 +58,14 @@ export default class ActiveJob extends Component {
             }
         }
         else {
+            console.warn(1);
             if (jobStatus === 'on_the_way') {
                 return (
                     <OnTheWayPro {...this.props}/>
                 );
             }
             else if (jobStatus === 'in_progress') {
+                console.warn(2);
                 return (
                     <InProgressPro {...this.props}/>
                 );

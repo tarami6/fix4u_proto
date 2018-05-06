@@ -100,7 +100,7 @@ export default class InProgressConsumer extends Component {
         let focusedJob = this.props.userDataStore.focusedJob;
         return (
             <View style={{flex: 1,}}>
-                <Header head={'Grey'}/>
+                <Header head={'Grey'} props={this.props}/>
                 <View style={{flex: 0.45, backgroundColor: 'red'}}>
                     <View style={styles.infoView}>
                         {/*Image & service & full name*/}

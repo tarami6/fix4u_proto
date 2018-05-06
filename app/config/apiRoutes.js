@@ -2,7 +2,7 @@
 
 // main route
 // '-clone'
-export const mainRoute = 'http://bang-israel-dev-clone.eu-central-1.elasticbeanstalk.com';
+export const mainRoute = 'http://bang-israel-dev.eu-central-1.elasticbeanstalk.com';
 
 //generalAuth
 
