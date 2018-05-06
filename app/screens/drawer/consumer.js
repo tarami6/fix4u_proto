@@ -103,7 +103,7 @@ const Navbar = (props) => {
                 <Icon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
             </TouchableOpacity>
             <View style={{flexDirection: 'row', position: 'absolute', bottom: 20, right: 20, alignItems: 'center'}}>
-<<<<<<< HEAD
+
                 {props.user && props.user.name ?
                 <Text style={{
                     color: '#fff',
@@ -114,25 +114,18 @@ const Navbar = (props) => {
                     </TouchableOpacity>
 
                 }
-=======
-                <Text style={{
-                    color: '#fff',
-                    marginRight: 20
-                }}>{props.user && props.user.name ? props.user.name : 'הכנס שם +'}</Text>
->>>>>>> a90e5d6bc5c2ddd7615f71f188c95fb03bc12ca1
+
 
                 {props.user && props.user.profile_pic_thumb ?
                     <Image
                         source={{uri: props.user.profile_pic_thumb}}
                         style={{height: 60, width: 60, borderRadius: 100}}/> :
-<<<<<<< HEAD
+
                     <TouchableOpacity style={{alignItems: 'center'}}>
                         <PlusIcon name="plus" size={80} color={"#ffffff"}/>
                         <Text style={{fontSize:10, color:'#ffffff'}}>הכנס תמונה</Text>
                     </TouchableOpacity>
-=======
-                    <Text>הכנס תמונה +</Text>
->>>>>>> a90e5d6bc5c2ddd7615f71f188c95fb03bc12ca1
+
                 }
             </View>
         </View>
