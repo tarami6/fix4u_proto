@@ -81,8 +81,8 @@ const JobList = (info) => {
 
     let imageSize = info.price || info.time ? 50 : 60;
     let time = info.time || info.appointment_time || info.appointment_time_start;
-    let name = info.user.name  || info.user_pro.name
-    let image = info.user.profile_pic_thumb  || info.user_pro.profile_pic_thumb ;
+    let name =info.user_pro.name || info.user.name
+    let image =info.user_pro.profile_pic_thumb || info.user.profile_pic_thumb   ;
     return (
         <View style={{flex: 1, flexDirection: 'row', backgroundColor: '#fff'}}>
 

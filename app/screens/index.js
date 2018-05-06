@@ -18,6 +18,9 @@ import {tryLogin} from "../generalFunc/tryLogin";
 import Geocoder from "react-native-geocoding";
 import {Keys} from "../config/keys";
 //components:
+// Ramistesting
+import LoadingPage from '../screens/modals/Loader/LoadingPage'
+import modalLoader from '../screens/modals/Loader/modalLoader'
 
 
 type Props = {};
@@ -28,6 +31,14 @@ type Props = {};
 @inject("authStore")
 @observer
 export default class ScreensBase extends Component<Props> {
+    constructor(props, context){
+        super(props, context);
+        this.store = new NavigationStore();
+        this.state = {
+            tryLoginFetch: false,
+            userLocationFetch: false,
+        }
+    }
     onBackPress = () => {
         // console.log('backHandler pressed')
         const {dispatch} = this.store;
@@ -69,10 +80,7 @@ export default class ScreensBase extends Component<Props> {
         );
     }
 
-    constructor(props, context) {
-        super(props, context);
-        this.store = new NavigationStore();
-    }
+
 
     successLoginCallback() {
         let routeName = this.props.userDataStore.userType === 'pro' ? 'ProNavigator' : 'ConsumerNavigator';
@@ -94,8 +102,11 @@ export default class ScreensBase extends Component<Props> {
         // console.log('userData = ', this.props.userDataStore.userData)
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
         this.props.userDataStore.setLoading(true);
+        //try login fetch starts here
+        this.setState({ tryLoginFetch: true});
         tryLogin(this.props.userDataStore, this.successLoginCallback.bind(this))
-        //    get location and save to userDataStore
+        //    get location and save to userDataStore fetch starts here
+        this.setState({ userLocationFetch: true});
         this.getUserLocationHandler()
 
     }
@@ -123,11 +134,11 @@ export default class ScreensBase extends Component<Props> {
     };
 
     render() {
-        // if(this.props.userDataStore.loading){
-        //     return (
-        //         <LoadingComponent/>
-        //     )
-        // }
+        if(this.state.userLocationFetch || this.state.tryLoginFetch){
+            return (
+                <LoadingPage/>
+            )
+        }
         return (
             <View style={{flex: 1}}>
                 <AppNavigation

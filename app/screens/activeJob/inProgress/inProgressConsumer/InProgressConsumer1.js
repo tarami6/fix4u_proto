@@ -65,6 +65,7 @@ export default class InProgressConsumer extends Component {
 
     }
 
+
     fetchPayment(result){
         let route = braintreeSendTokenRoute(this.props.userDataStore.focusedJob.id)
         let amount = this.props.userDataStore.focusedJob.total_fee;

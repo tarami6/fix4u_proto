@@ -23,6 +23,7 @@ import {StackNavigator} from 'react-navigation';
 import Pushy from 'pushy-react-native';
 // Ramistesting
 import LoadingPage from './screens/modals/Loader/LoadingPage'
+import modalLoader from './screens/modals/Loader/modalLoader'
 
 //the usual consumer costumer auth process happens here
 let authStore = new AuthStore();
