@@ -8,7 +8,8 @@ import {
     Text,
     TouchableHighlight,
     TouchableWithoutFeedback,
-    View
+    View,
+    Alert
 } from 'react-native';
 // Components
 import LinierView from '../../../components/linierView';
@@ -160,8 +161,8 @@ export default class ChooseTime extends React.Component {
                         </View>
                         <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
                             <Text>בחר תאריך</Text>
-                            <TouchableHighlight
-                                onPress={() => this.props.navigation.navigate('DrawerOpen')}>
+                            <TouchableWithoutFeedback
+                                onPress={() => Alert.alert('Under Development')}>
                                 <View style={{
                                     width: SW / 1.5,
                                     height: SH / 13,
@@ -182,7 +183,7 @@ export default class ChooseTime extends React.Component {
                                         borderColor: '#000'
                                     }}/>
                                 </View>
-                            </TouchableHighlight>
+                            </TouchableWithoutFeedback>
                         </View>
                     </View>
                     {/*Button Next*/}

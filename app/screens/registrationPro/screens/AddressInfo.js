@@ -7,7 +7,7 @@ import {SH, SW, HH} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 import AutoComplete from '../../../components/autoComplete'
 import {Keys} from "../../../config/keys";
-import  MapComponent from '../../../components/mapComponent'
+import MapComponent from '../../../components/mapComponent'
 import Header from '../../../components/headers/Header'
 
 @inject("userDataStore")
@@ -29,8 +29,8 @@ export default class AddressInfo extends React.Component {
         };
     }
 
-    handleSubmit(){
-        if(this.state.company_address) {
+    handleSubmit() {
+        if (this.state.company_address) {
             this.props.proAuthStore.updatePro(this.state);
             this.props.navigation.navigate('ChoosingService')
         }
@@ -80,7 +80,7 @@ export default class AddressInfo extends React.Component {
             <View style={styles.container}>
                 <View style={styles.linear}>
                     <LinearViewBelowHeaderPro>
-                        <Header head={'AddJob'} previousPage={'PersonalInfo'} props={this.props} />
+                        <Header head={'AddJob'} previousPage={'PersonalInfo'} props={this.props}/>
                         {/*step indicator*/}
                         <View>
                             <Image
@@ -112,13 +112,13 @@ export default class AddressInfo extends React.Component {
                                       longitudeDelta: 0.0421 * 0.1
                                   }}/>
                 </View>
-                <View style={styles.footer}>
-                    <View style={{alignItems: 'center'}}>
-                        {submitButton('המשך','consumer', () => {
-                            this.handleSubmit()
-                        })}
-                    </View>
+
+                <View style={[styles.footer, {alignItems: 'center'}]}>
+                    {submitButton('המשך', 'consumer', () => {
+                        this.handleSubmit()
+                    })}
                 </View>
+
             </View>
         );
     }
@@ -129,7 +129,7 @@ let styles = StyleSheet.create({
         flex: 1
     },
     linear: {
-        flex:1
+        flex: 1
         // height: (SH - HH) / 3.5,
     },
     titles: {
@@ -158,16 +158,21 @@ let styles = StyleSheet.create({
         paddingRight: 10,
         color: '#9b9b9b'
     },
-    mapContainer:{
+    mapContainer: {
         flex: 1.5,
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: 1,
     },
-    footer:{
-        flex: 0.5,
+    footer: {
+        height: SH /5,
         justifyContent: 'center',
-        marginTop: SH / 40
+        width: SW,
+        position: 'absolute',
+        bottom: 0,
+        zIndex: 3,
+        alignItems: 'center',
+        backgroundColor: 'rgba(246, 246, 246, 0.5)'
     },
     textInputView: {
         // bottom: 10,

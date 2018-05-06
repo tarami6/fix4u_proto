@@ -31,6 +31,7 @@ import InProgressConsumer1 from './screens/activeJob/inProgress/inProgressConsum
 import Review from './screens/activeJob/consumerReview/consumerReviewConsumer/Review';
 import SchedulePro1 from './screens/schedule/schedulePro/SchedulePro1';
 import LoadingPage from './screens/modals/Loader/LoadingPage'
+import modalLoader from './screens/modals/Loader/modalLoader'
 
 //the usual consumer costumer auth process happens here
 let authStore = new AuthStore();

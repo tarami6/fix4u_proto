@@ -113,9 +113,6 @@ export default class ExplainThePro extends React.Component {
                                 <Text style={styles.explainText}>
                                     תאר את העסק
                                 </Text>
-                                <Text style={styles.explainTextOptional}>
-                                    לא חובה אך מומלץ
-                                </Text>
                             </View>
 
                         </LinearViewBelowHeaderConsumer>

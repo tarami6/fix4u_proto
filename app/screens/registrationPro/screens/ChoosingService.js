@@ -65,7 +65,7 @@ export default class AddressInfo extends React.Component {
         return (
             <View style={styles.container}>
                 {/*Header Gradient*/}
-                <View style={{flex: 0.3, backgroundColor: 'green'}}>
+                <View style={{flex: 0.5, backgroundColor: 'green'}}>
                     <LinearViewBelowHeaderPro>
                         <Header head={'AddJob'} previousPage={'AddressInfo'} props={this.props}/>
                         {/*step indicator*/}

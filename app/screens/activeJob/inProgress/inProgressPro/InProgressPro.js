@@ -60,16 +60,14 @@ export default class InProgressPro extends Component {
                         <Text style={{
                             flex: 0.5,
                             fontWeight: 'bold',
-                            fontSize: 18,
                             width: "60%",
-                            borderRadius: 100
                         }}>{this.props.userDataStore.focusedJob.user.name}</Text>
                         {this.props.userDataStore.focusedJob.user.profile_pic_thumb &&
-                        <Image style={{flex: 0.2, margin: 20, width: 66, height: 58}}
+                        <Image style={{ margin: 20, width: 66, height: 66, borderRadius: 100}}
                                source={{uri: this.props.userDataStore.focusedJob.user.profile_pic_thumb}}/>}
                     </View>
 
-                    <View style={{flex: 0.3, marginRight: '3%'}}>
+                    <View style={{flex: 0.3, marginRight: '5%', marginLeft: '5%'}}>
                         <Text style={{
                             flex: 1,
                             fontWeight: 'bold',
@@ -77,7 +75,7 @@ export default class InProgressPro extends Component {
                         }}>{this.props.userDataStore.focusedJob.address}</Text>
                     </View>
 
-                    <View style={{borderBottomWidth: 1.7, margin: 5, borderColor: 'rgba(0,0,0,0.3)',}}>
+                    <View style={{borderBottomWidth: 1.7, margin: 5,width:SW -40,alignSelf: 'center', borderColor: 'rgba(0,0,0,0.3)',}}>
                     </View>
 
                 </View>
