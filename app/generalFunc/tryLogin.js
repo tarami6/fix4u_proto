@@ -2,7 +2,7 @@ import {fetcher} from "./fetcher";
 import {AsyncStorage} from 'react-native'
 import {loginRoute, getAppliesRoute} from "../config/apiRoutes";
 
-export const tryLogin = (userDataStore, callbackFunc) => {
+export const tryLogin = (userDataStore, callbackFunc, errCB=(err)=>console.warn('err:', err)) => {
     console.log('tryLogin initiated');
 
     //fetch callbacks:
@@ -30,7 +30,8 @@ export const tryLogin = (userDataStore, callbackFunc) => {
         return 1; //success
     };
     const errorCallback = (err) => {
-        userDataStore.setLoading(false);
+        // userDataStore.setLoading(false);
+        errCB(err);
         console.log('error in tryLogin func:', err)
         return 0; //err
     };
@@ -46,7 +47,8 @@ export const tryLogin = (userDataStore, callbackFunc) => {
             fetcher(loginRoute, 'POST', successCallback, errorCallback, sendObj);
         }
         else {
-            userDataStore.setLoading(false);
+            errCB('no user data on phone');
+            // userDataStore.setLoading(false);
             console.warn('no user info on phone');
         }
     })

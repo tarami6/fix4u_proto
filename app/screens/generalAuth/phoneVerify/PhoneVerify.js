@@ -11,6 +11,7 @@ import styles from './styles'
 import {loginRoute, phoneVerifyRoute} from "../../../config/apiRoutes";
 import {handlePushyToken} from "../../../generalFunc/pushyTokenHandler";
 
+@inject('modalsStore')
 @inject("userDataStore")
 @inject("authStore")
 @observer
@@ -32,6 +33,7 @@ export default class PhoneVerify extends Component {
                 code: code
             }
             // this is the fetch for the verify code for the phone, inactive on the server for now
+            this.props.modalsStore.showModal('loaderModal');
             fetcher(phoneVerifyRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
         }
         else {
@@ -51,10 +53,12 @@ export default class PhoneVerify extends Component {
     }
 
     loginError(err) {
+        this.props.modalsStore.hideModal('loaderModal');
         console.warn('error:', err)
     }
 
     successCallback(response) {
+        this.props.modalsStore.hideModal('loaderModal');
         if (response.user) {
             this.props.authStore.updateUser(response);
             let sendObj = {

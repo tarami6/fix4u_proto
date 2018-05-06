@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {SW} from "../../../config/styles";
 
-export default class modalLoader extends React.Component {
+export default class ModalLoader extends React.Component {
     static navigationOptions={
         header: null
     }

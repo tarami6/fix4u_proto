@@ -8,7 +8,7 @@ import {phoneInputRoute} from "../../../config/apiRoutes";
 import styles from './styles';
 import {fontGrey, SW, mainStyles} from "../../../config/styles";
 
-
+@inject('modalsStore')
 @inject("authStore")
 @observer
 export default class PhoneInput extends Component {
@@ -25,10 +25,12 @@ export default class PhoneInput extends Component {
         let sendObj = {
             phone_number: this.state.text
         }
+        this.props.modalsStore.showModal('loaderModal');
         fetcher(phoneInputRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
     }
 
     successCallback(response) {
+        this.props.modalsStore.hideModal('loaderModal');
         if (response['success']) {
             this.props.authStore.updateUser({phone_number: this.state.text});
             this.props.navigation.navigate('PhoneVerify');
@@ -65,6 +67,7 @@ export default class PhoneInput extends Component {
     }
 
     errorCallback(error) {
+        this.props.modalsStore.hideModal('loaderModal');
         console.warn('error in phoneNumb post fetch', error);
     }
 

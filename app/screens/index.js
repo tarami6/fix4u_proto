@@ -20,7 +20,6 @@ import {Keys} from "../config/keys";
 //components:
 // Ramistesting
 import LoadingPage from '../screens/modals/Loader/LoadingPage'
-import modalLoader from '../screens/modals/Loader/modalLoader'
 
 
 type Props = {};
@@ -31,14 +30,6 @@ type Props = {};
 @inject("authStore")
 @observer
 export default class ScreensBase extends Component<Props> {
-    constructor(props, context){
-        super(props, context);
-        this.store = new NavigationStore();
-        this.state = {
-            tryLoginFetch: false,
-            userLocationFetch: false,
-        }
-    }
     onBackPress = () => {
         // console.log('backHandler pressed')
         const {dispatch} = this.store;
@@ -73,16 +64,26 @@ export default class ScreensBase extends Component<Props> {
             json => {
                 var address_component = json.results[0].formatted_address;
                 this.props.userDataStore.saveUserLocation({currentAddress: address_component, lat: lat, lon: lan});
+                this.setState({userLocationFetch: false});
 
             }, error => {
+                this.setState({userLocationFetch: false});
                 alert(error);
             }
         );
     }
 
-
+    constructor(props, context) {
+        super(props, context);
+        this.store = new NavigationStore();
+        this.state = {
+            tryLoginFetch: false,
+            userLocationFetch: false,
+        }
+    }
 
     successLoginCallback() {
+        this.setState({tryLoginFetch: false});
         let routeName = this.props.userDataStore.userType === 'pro' ? 'ProNavigator' : 'ConsumerNavigator';
         const actionToDispatch = NavigationActions.reset({
             index: 0,
@@ -99,16 +100,27 @@ export default class ScreensBase extends Component<Props> {
     }
 
     componentDidMount() {
+        // in case the fetch for location takes too long we want the app to continue running
+        setTimeout(()=>{
+            this.setState({userLocationFetch: false});
+        },5000)
+
+
         // console.log('userData = ', this.props.userDataStore.userData)
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
         this.props.userDataStore.setLoading(true);
         //try login fetch starts here
-        this.setState({ tryLoginFetch: true});
-        tryLogin(this.props.userDataStore, this.successLoginCallback.bind(this))
+        this.setState({tryLoginFetch: true});
+        tryLogin(this.props.userDataStore, this.successLoginCallback.bind(this), this.tryLoginError.bind(this))
         //    get location and save to userDataStore fetch starts here
-        this.setState({ userLocationFetch: true});
+        this.setState({userLocationFetch: true});
         this.getUserLocationHandler()
 
+    }
+
+    tryLoginError(err) {
+        this.setState({tryLoginFetch: false});
+        console.warn('err in try login:', err);
     }
 
     componentWillUnmount() {
@@ -130,11 +142,14 @@ export default class ScreensBase extends Component<Props> {
                 );
 
             }
-            , error => console.warn(error), {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000});
+            , error => {
+                console.warn(error);
+                this.setState({userLocationFetch: false});
+            }, {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000});
     };
 
     render() {
-        if(this.state.userLocationFetch || this.state.tryLoginFetch){
+        if (this.state.userLocationFetch || this.state.tryLoginFetch) {
             return (
                 <LoadingPage/>
             )

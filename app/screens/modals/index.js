@@ -6,6 +6,7 @@ import AuthModal from './authModal';
 import ProPhoneVerifyModal from './proPhoneVerifyModal';
 import ChooseJobModal from './chooseJobModal'
 import {SH, SW} from "../../config/styles";
+import ModalLoader from './Loader/ModalLoader'
 
 @inject("modalsStore")
 @observer
@@ -50,6 +51,15 @@ export default class Modals extends Component {
                     onBackdropPress={()=>{this.closeModal('chooseJobModal')}}
                 >
                     <ChooseJobModal />
+                </Modal>
+                <Modal
+                    isVisible={this.props.modalsStore.loaderModal && this.state.showModals}
+                    animationInTiming={100}
+                    animationOutTiming={1000}
+                    backdropTransitionInTiming={2000}
+                    backdropTransitionOutTiming={1000}
+                >
+                    <ModalLoader />
                 </Modal>
             </View>
         )
