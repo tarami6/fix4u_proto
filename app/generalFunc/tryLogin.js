@@ -7,6 +7,7 @@ export const tryLogin = (userDataStore, callbackFunc) => {
 
     //fetch callbacks:
     const successCallback = (response) => {
+        console.warn('response', response);
         let userType = response.user.services ? 'pro' : 'consumer';
         //setting the user type:
 
@@ -20,6 +21,7 @@ export const tryLogin = (userDataStore, callbackFunc) => {
                 callbackFunc(response);
             };
             userDataStore.setLoading(true);
+            console.warn('try login')
             fetcher(getAppliesRoute, 'GET', gotApplies, errorCallback, {token: response.token})
         }
         else {

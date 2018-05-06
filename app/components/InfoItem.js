@@ -11,11 +11,11 @@ const InfoItem = (props) => {
     console.log('info', info)
     let imageSize = props.info.price || props.info.time ? 50 : 60;
     // console.log('Userprofe', info.user_pro.price_rating_avg)
-    if (info.user_pro) {
-        return <JobList {...info} />;
-    }
-    else if (info.time) {
+    if (info.time) {
         return <ApplyScreen {...info} />;
+    }
+    else if (info.user_pro) {
+        return <JobList {...info} />;
     }
     else {
         return <ProItemNoRating {...info} />;
@@ -31,19 +31,7 @@ const ApplyScreen = (info) => {
         <View style={{flex: 1, flexDirection: 'row', backgroundColor: '#fff'}}>
 
             <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
-                {/*{info.jobStatus || info.price ?*/}
-                {/*/!*<View>*!/*/}
-                {/*/!*{console.warn('info3', props.info)}*!/*/}
-                {/*/!*{info.jobStatus === "progress" ?*!/*/}
-                {/*/!*<OrangeCircle style={{height: 50, width: 50}}>*!/*/}
-                {/*/!*<Text style={{color: '#000'}}>{info.time}</Text>*!/*/}
-                {/*/!*</OrangeCircle> :*!/*/}
-                {/*/!*<View>*!/*/}
-                {/*/!*<Text>{info.time}</Text>*!/*/}
-                {/*/!*{info.price ? <Text>{info.price} ש"ח </Text> : <View/>}*!/*/}
-                {/*/!*</View>*!/*/}
-                {/*/!*}</View>*!/*/}
-                {/*: <View/>}*/}
+
                 {
                     info.user_pro && <View>
                         <Text style={{color: '#000'}}> היום {info.time.slice(0, 5)}</Text>
@@ -53,9 +41,8 @@ const ApplyScreen = (info) => {
                     </View>
                 }
 
-
             </View>
-            <View style={{flex: 1, justifyContent: 'center'}}>
+            <View style={{flex: 0.8, justifyContent: 'center'}}>
                 <Text style={{color: '#000', textAlign: 'right'}}>{info.name || info.user_pro.name}</Text>
                 <StarRating
                     disabled={true}

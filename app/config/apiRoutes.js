@@ -1,7 +1,8 @@
 /// app routes
 
 // main route
-export const mainRoute = 'http://bang-israel-dev.eu-central-1.elasticbeanstalk.com';
+// '-clone'
+export const mainRoute = 'http://bang-israel-dev-clone.eu-central-1.elasticbeanstalk.com';
 
 //generalAuth
 
@@ -36,8 +37,8 @@ export const sendReviewRoute =  (postId) => {return(`api/posts/${postId}/review/
 export const logOutRoute = editUserRoute;
 
 //payments:
-
 export const braintreeGetTokenRoute = 'api/payment/token/';
+
 //send amount , nonce
 export const braintreeSendTokenRoute = (postId) => {return( `api/posts/${postId}/payment/`)}
 

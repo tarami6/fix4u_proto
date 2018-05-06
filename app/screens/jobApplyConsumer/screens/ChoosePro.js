@@ -176,7 +176,7 @@ export default class ApplyBaseScreen extends React.Component {
     successCallback(res) {
         console.warn(res)
         this.setModalVisible(!this.state.modalVisible);
-        this.props.userDataStore.updatePost(res);
+        this.props.userDataStore.openToActivePost(res);
         this.props.userDataStore.focusJob(res);
         this.props.navigation.navigate('ChooseService');
     }

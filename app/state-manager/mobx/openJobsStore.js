@@ -14,11 +14,7 @@ export default class OpenJobsStore {
     }
 
     @action removeJob(jobId: string){
-        for(let i=0; i<this.openJobsList.length; i++){
-            if(this.openJobsList[i].id === jobId){
-                this.openJobsList.splice(0,1);
-            }
-        }
+        this.openJobsList = this.openJobsList.filter(post => post.id !== jobId);
     }
 
     @observable focusedJob = {};

@@ -31,9 +31,9 @@ export default class ScheduleConsumer1 extends React.Component {
             <View style={{flex: 1,}}>
                 <Header head={'Grey'} previousPage={'AddJob'} props={this.props}/>
                 <View style={{flex: 1}}>
-                    {this.props.userDataStore.userData.user.user_posts.length > 0 ?
+                    {this.props.userDataStore.userData.user.user_active_posts.length > 0 ?
                         <FlatList
-                            data={this.props.userDataStore.userData.user.user_posts}
+                            data={this.props.userDataStore.userData.user.user_active_posts}
                             keyExtractor={this.keyExtractor}
                             renderItem={({item}) => <TouchableHighlight onPress={() => {
                                 this.chooseJob(item)

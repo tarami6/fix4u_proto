@@ -18,7 +18,19 @@ export default class UserDataStore {
     @observable focusedConsumerJob = {}
     // Choose pro process:
     @observable shownPro = {};
+//    location handler:
+    @observable userLocation = {
+        currentAddress: '',
+        lat: 0,
+        lon: 0
+    };
+    // Loading - in case we want to display loading screen to the user
+    @observable loading = false;
+    //change:
+    @observable newNotification = false;
 
+
+    /// consumer open Job handling:
 
     //user and userData editing:
     @action setUserType(type: string) {
@@ -31,19 +43,18 @@ export default class UserDataStore {
     }
 
     @action setUserData(data: Object) {
-        if(!this.userData.user && data.user.pro_applies){
+        if (!this.userData.user && data.user.pro_applies) {
             this.setSentApplies(data.user.pro_applies);
         }
         this.userData = data;
     }
 
-
-    /// consumer open Job handling:
-
     @action logout() {
         this.userType = '';
         this.userData.token = '';
     }
+
+    // notification and upadating user handling:
 
     @action focusJob(job: Object) {
         this.focusedJob = job;
@@ -55,15 +66,13 @@ export default class UserDataStore {
 
     // Use only when you know the user have an open Job!
     @action findAndFocusConsumerJob() {
-        let userPosts = this.userData.user.user_posts;
+        let userPosts = this.userData.user.user_open_posts;
         for (let i = 0; i < userPosts.length; i++) {
             if (userPosts[i].status === 'open') {
                 this.focusConsumerJob(userPosts[i]);
             }
         }
     }
-
-    // notification and upadating user handling:
 
     //applies handling:
     @action setSentApplies(sendApplies: Array) {
@@ -79,17 +88,54 @@ export default class UserDataStore {
         this.userData.user = data;
     }
 
+    //when a consumer added a job:
     @action addJob(job) {
-        this.userData.user.user_posts.push(job);
+        this.userData.user.user_open_posts.push(job);
+    }
+
+    @action updateOpenPost(post: Object) {
+        let openPosts = this.userData.user.user_open_posts;
+        for (let i = 0; i < openPosts.length; i++) {
+            if (post.id === openPosts[i].id) {
+                this.userData.user.user_open_posts[i] = post;
+            }
+        }
+        this.focusConsumerJob(post);
+    }
+
+    @action updateActivePost(post: Object) {
+        let activePosts = this.userData.user.user_active_posts;
+        for (let i = 0; i < activePosts.length; i++) {
+            if (post.id === activePosts[i].id) {
+                this.userData.user.user_active_posts[i] = post;
+            }
+        }
+    }
+
+    //when a consumer chooses a pro
+    @action openToActivePost(post: Object) {
+        this.removeOpenPost(post.id);
+        this.userData.user.user_active_posts.push(post);
+    }
+
+    @action removeOpenPost(postId) {
+        // this.userData.user.user_open_posts = [];
+        this.userData.user.user_open_posts = this.userData.user.user_open_posts.filter(post => post.id !== postId);
+        // let openPosts = this.userData.user.user_open_posts;
+        // console.warn(postId);
+        // for (let i = 0; i < openPosts.length; i++) {
+        //     if (openPosts[i].id === postId) {
+        //         this.userData.user.user_open_posts[i].splice(i, 1)
+        //     }
+        // }
     }
 
     //this is update for the user consumer post
     @action updatePost(post: Object) {
-        let userPosts = this.userData.user.user_posts;
+        let userPosts = this.userData.user.user_active_posts;
         for (let i = 0; i < userPosts.length; i++) {
             if (userPosts[i].id === post.id) {
-                console.warn('changed');
-                this.userData.user.user_posts[i] = post;
+                this.userData.user.user_active_posts[i] = post;
             }
             //not sure about that yet, after recheck
             if (post.status === 'open') {
@@ -100,11 +146,11 @@ export default class UserDataStore {
     }
 
     @action updatePostStatus(postId: string, status: string) {
-        let userPosts = this.userData.user.user_posts;
+        let userPosts = this.userData.user.user_active_posts;
         for (let i = 0; i < userPosts.length; i++) {
             if (userPosts[i].id === postId) {
-                this.userData.user.user_posts[i].status = status;
-                this.focusJob(this.userData.user.user_posts[i]);
+                this.userData.user.user_active_posts[i].status = status;
+                this.focusJob(this.userData.user.user_active_posts[i]);
             }
         }
     }
@@ -130,28 +176,15 @@ export default class UserDataStore {
         this.shownPro = pro;
     }
 
-//    location handler:
-    @observable userLocation = {
-        currentAddress: '',
-        lat: 0,
-        lon: 0
-    };
-
-    @action saveUserLocation(location: Object){
+    @action saveUserLocation(location: Object) {
         this.userLocation = location
     }
 
-    // Loading - in case we want to display loading screen to the user
-    @observable loading = false;
-
-    @action setLoading(bol: boolean){
+    @action setLoading(bol: boolean) {
         this.loading = bol
     }
 
-    //change:
-    @observable newNotification = false;
-
-    @action setNewNotification(bol: boolean){
+    @action setNewNotification(bol: boolean) {
         this.newNotification = bol;
     }
 

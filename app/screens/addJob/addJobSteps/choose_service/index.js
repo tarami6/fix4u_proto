@@ -5,22 +5,12 @@
 * */
 
 import React, {Component} from 'react';
-import {
-    View,
-    Image,
-    Platform,
-    Dimensions,
-    StyleSheet,
-    Alert,
-    BackHandler
-} from 'react-native';
-import {Container, Content, Card, CardItem, Body, Text, Icon} from 'native-base';
-
-import {addNavigationHelpers, NavigationActions} from "react-navigation";
+import {Alert, BackHandler, Dimensions} from 'react-native';
+import {Container, Content} from 'native-base';
 import Header from '../../../../components/headers/Header'
 
 import LinierView from '../../../../components/linierView'
-import {CardList, CustomHeader} from './components/index'
+import {CardList} from './components/index'
 import ChooseTime from "../ChooseTime";
 import {inject, observer} from "mobx-react/native";
 
@@ -41,42 +31,40 @@ export default class ChooseService extends Component {
         navigate('NewScreen');
     }
 
-    handleBackButton = () => {
-        const {dispatch} = this.props.navigationStore;
-        const {navigationState} = this.props.navigationStore;
-        const routeName = navigationState.routes[0].routeName
+    onBackPress = () => {
+        // // console.log('backHandler pressed')
+        // const {dispatch} = this.store;
+        // // console.log(this.store);
+        // const {navigationState} = this.store;
 
-        if(routeName === 'ConsumerNavigator' || routeName === 'ProNavigator'){
-            if(navigationState.routes[0].routes[0].routes[0].index===0){
-                return false
+        Alert.alert(
+            'Exit App',
+            'Exiting the application?', [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel'
+                }, {
+                    text: 'OK',
+                    onPress: () => BackHandler.exitApp()
+                },], {
+                cancelable: false
             }
-            else {
-                dispatch(NavigationActions.back())
-                return true;
-            }
-        }
-        else {
-            if(navigationState.index===0){
-                return false
-            }
-            dispatch(NavigationActions.back())
-            return true
-        }
-
-        // return true;
+        )
+        return true;
+        // return false;
+        // dispatch(NavigationActions.back());
+        return true;
+    };
+    x = () => {
     }
 
     componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
     }
 
     componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-    }
-
-
-
-    x = () => {
+        BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
     }
 
     //after Submit info:

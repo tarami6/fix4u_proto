@@ -102,15 +102,16 @@ let handleNotificationData = (type, payload) => {
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
             }
-            userDataStore.updatePost(payload);
+            userDataStore.updateActivePost(payload);
             break;
 
         case 'post_update': // when a consumer get post apply
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
             }
-            userDataStore.updatePost(payload);
+            userDataStore.updateOpenPost(payload);
             break;
+        // case 'open_post_remove':
         case 'pro_post_update': // this is the route for updating the pot_posts
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
@@ -125,7 +126,8 @@ let handleNotificationData = (type, payload) => {
             break;
         case 'open_post_remove':
             //here I get update of a post which is irrelevant for the pro, I handle it with the post id
-            openJobsStore.removeJob(payload)
+            openJobsStore.removeJob(payload.post_id);
+            break;
         default:
             console.warn("notification wasn't handled:", type);
 

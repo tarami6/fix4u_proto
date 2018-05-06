@@ -34,7 +34,7 @@ export default class ScheduleConsumer extends Component {
                 </LinierView>
                 {/*Here is the list of jobs container and the jobList MAP */}
                 <View>
-                    {this.props.userDataStore.userData.user.user_posts.map((item, index) => {
+                    {this.props.userDataStore.userData.user.user_active_posts.map((item, index) => {
                         return (
                             <TouchableOpacity onPress={()=>{this.chooseJob(item)}} key={item.id}>
                                 <View style={styles.jobContainer}>
