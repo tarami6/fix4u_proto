@@ -16,10 +16,6 @@ export default class OnTheWayConsumer extends Component {
         super(props)
     }
 
-    componentWillMount() {
-        // console.warn(this.props.userDataStore.userData.user.user_posts)
-    }
-
     startJob() {
         Alert.alert('job started maybe');
     }

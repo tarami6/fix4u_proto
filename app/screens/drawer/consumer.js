@@ -1,15 +1,8 @@
 /* @flow */
 
 import React, {Component} from 'react';
-import {
-    View,
-    Platform,
-    Image,
-    Dimensions,
-    StyleSheet,
-    TouchableOpacity, AsyncStorage, Alert
-} from 'react-native';
-import {Content, List, ListItem, Text, Icon} from 'native-base';
+import {Alert, AsyncStorage, Dimensions, Image, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Icon, List, ListItem, Text} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 import Circle from '../../components/circle'
 import {inject, observer} from "mobx-react/native";
@@ -17,16 +10,11 @@ import {logOutRoute} from "../../config/apiRoutes";
 import {fetcher} from "../../generalFunc/fetcher";
 
 
-
-
-const {width, height} = Dimensions.get('window')
+const {width, height} = Dimensions.get('window');
+@inject("navigationStore")
 @inject("userDataStore")
-@inject("authStore")
 @observer
 export default class Consumer extends Component {
-    changeToPro() {
-        this.props.authStore.changeNavigation('pro');
-    }
 
 
     logout() {
@@ -42,9 +30,18 @@ export default class Consumer extends Component {
         this.props.navigation.navigate('DrawerClose');
         AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
         ));
-        this.props.userDataStore.logout()
         this.props.navigation.navigate('Intro');
-        console.warn('success cb at logout:', res);
+        // const actionToDispatch = NavigationActions.reset({
+        //     index: 0,
+        //     key: null,
+        //     actions: [
+        //         NavigationActions.navigate({
+        //             routeName: 'Intro',
+        //         })
+        //     ],
+        // });
+        // this.props.navigationStore.dispatch(actionToDispatch);
+        this.props.userDataStore.logout();
     }
 
     errorLogout(err) {
@@ -73,8 +70,7 @@ export default class Consumer extends Component {
                             </TouchableOpacity>
                         </View>
                     </ListItem>
-                    <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}
-                              onPress={this.changeToPro.bind(this)}>
+                    <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
                         <Text style={{color: 'gray', fontWeight: 'bold'}}>Mignoletss</Text>
                     </ListItem>
                     <ListItem style={{borderBottomWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
@@ -99,16 +95,19 @@ export default class Consumer extends Component {
 const Navbar = (props) => {
     return (
         <View style={{width, height: Platform.OS == 'ios' ? 150 : 135,}}>
-            <TouchableOpacity onPress={()=>props.navigation.navigate('DrawerClose')}>
-            <Icon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
+            <TouchableOpacity onPress={() => props.navigation.navigate('DrawerClose')}>
+                <Icon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
             </TouchableOpacity>
             <View style={{flexDirection: 'row', position: 'absolute', bottom: 20, right: 20, alignItems: 'center'}}>
-                <Text style={{color: '#fff', marginRight: 20}}>{props.user && props.user.name ?props.user.name : 'הכנס שם +' }</Text>
+                <Text style={{
+                    color: '#fff',
+                    marginRight: 20
+                }}>{props.user && props.user.name ? props.user.name : 'הכנס שם +'}</Text>
 
                 {props.user && props.user.profile_pic_thumb ?
-                <Image
-                    source={{ uri: props.user.profile_pic_thumb }}
-                    style={{height: 60, width: 60, borderRadius: 100}}/> :
+                    <Image
+                        source={{uri: props.user.profile_pic_thumb}}
+                        style={{height: 60, width: 60, borderRadius: 100}}/> :
                     <Text>הכנס תמונה +</Text>
                 }
             </View>

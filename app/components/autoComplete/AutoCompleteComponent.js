@@ -30,7 +30,6 @@ export default class AutoComplete extends React.Component {
     getlatlng = () => {
         Geocoder.setApiKey('AIzaSyC0phAdvvYdwAk1LChuwnHJgEN3c_2GZjg');
         Geocoder.getFromLocation("new york").then(res => {
-            console.warn('state:', this.state);
             this.setState({
                 currentLatlng: {
                     latitude: res.results[0].geometry.location.lat,
@@ -54,7 +53,6 @@ export default class AutoComplete extends React.Component {
     }
 
     componentDidMount() {
-        console.warn('mounted');
         this.getUserLocationHandler();
         // this.getlatlng ();
     }

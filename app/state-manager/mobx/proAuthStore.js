@@ -87,7 +87,6 @@ export default class ProAuthStore {
                     else if(item === 'services'){
                         let servicesArr = this.proUser.services.slice(0);
                         for(let i = 0; i <servicesArr.length; i++ ){
-                            console.warn("services[" + i + "]", servicesArr[i]);
                             formDataObj.append("services", servicesArr[i])
                         }
                     }

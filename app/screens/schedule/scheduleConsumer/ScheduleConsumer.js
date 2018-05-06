@@ -16,9 +16,6 @@ export default class ScheduleConsumer extends Component {
         super(props)
     }
 
-    componentWillMount() {
-        // console.warn(this.props.userDataStore.userData.user.user_posts)
-    }
 
     chooseJob(job){
         this.props.userDataStore.focusJob(job);

@@ -50,7 +50,6 @@ export default class AddressInfo extends React.Component {
         else {
             Alert.alert('please choose at least one service')
         }
-        console.warn(this.state.chosenServices)
         // this.props.navigation.navigate('DataConfirmPro')
     }
 

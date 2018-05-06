@@ -45,7 +45,6 @@ const updateTokenToServer = (tokenObj, serverToken) => {
         .then(response => response.json())
         .then(responseJson => {
             console.log('registration finished fetch');
-            console.warn('backend got token', responseJson);
         }).catch(error => {
         console.log('RegisterSteps error pushy notification', error);
     });

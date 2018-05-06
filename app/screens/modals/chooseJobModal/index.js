@@ -74,7 +74,6 @@ export default class ChooseJobModal extends Component {
     }
 
     successCallback(res) {
-        // console.warn('success cb chooseJob:', res);
         this.closeModal();
         if (res.detail) {
             Alert.alert(res.detail)

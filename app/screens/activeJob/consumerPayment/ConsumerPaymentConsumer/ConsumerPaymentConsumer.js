@@ -39,11 +39,9 @@ export default class ConsumerPaymentConsumer extends Component {
         let userToken = this.props.userDataStore.userData.token;
         fetcher(braintreeGetTokenRoute, 'GET', this.successCallback.bind(this), this.errorCallback.bind(this), {token: userToken})
 
-        // console.warn(this.props.userDataStore.userData.user.user_posts)
     }
 
     successCallback(res) {
-        // console.warn('got success cb:', res);
         this.activatePayment(res);
     }
 

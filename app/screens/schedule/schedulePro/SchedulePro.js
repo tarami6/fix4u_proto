@@ -15,11 +15,6 @@ export default class SchedulePro extends Component {
     constructor(props) {
         super(props)
     }
-
-    componentWillMount() {
-        // console.warn(this.props.userDataStore.userData.user.user_posts)
-    }
-
     chooseJob(job){
         this.props.userDataStore.focusJob(job);
         if(job.status==='open'){

@@ -58,8 +58,6 @@ export default class ProPaymentPro extends React.Component {
         this.props.userDataStore.updatePost(res);
         this.props.userDataStore.focusJob(res)
         // this.props.navigation.navigate('ActiveJob');
-        // console.warn('get paid fetch success', res);
-        // console.log('start job fetch success', res);
     }
 
     errorCallback(err) {
@@ -69,9 +67,7 @@ export default class ProPaymentPro extends React.Component {
 
     render() {
         let a =new Date(this.props.userDataStore.focusedJob.job_start_time)
-        console.warn(a.getHours());
         let currentJob = this.props.userDataStore.focusedJob;
-        console.warn('currentJob',currentJob);
         return (
             <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center'}}>
                 <Header head={'Grey'} previousPage={'Home'} props={this.props}/>

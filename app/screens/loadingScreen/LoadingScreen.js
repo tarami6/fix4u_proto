@@ -33,7 +33,6 @@ export default class LoadingScreen extends Component {
         // this.props.userDataStore.setLoading(false);
         if(res.length>0) {
             // res is the openPost
-            // console.warn('succcess cb at addJob:', res[0].status)
             //case job is open
             if(res[0].status==='open') {
                 this.props.navigation.navigate('ApplyBaseScreen');
@@ -45,7 +44,6 @@ export default class LoadingScreen extends Component {
         }
         else{
             this.props.navigation.navigate('ChooseService');
-            // console.warn('yuio')
         }
     }
 
