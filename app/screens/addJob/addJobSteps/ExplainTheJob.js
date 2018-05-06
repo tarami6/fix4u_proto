@@ -107,7 +107,11 @@ export default class ChooseTime extends React.Component {
     submitJob() {
         // console.log('addJobStore info collected:', this.props.addJobStore.newJobInfo)
         if (!this.state.text) {
-            Alert.alert('please fill in description')
+            Alert.alert('אנא הוסיף תיאור של העבודה')
+        }
+        //this is the condition to set required image
+        else if(!this.state.profilePic){
+            Alert.alert('אנא הכנס תמונה לתיאור העבודה')
         }
         else {
             let sendObj = {

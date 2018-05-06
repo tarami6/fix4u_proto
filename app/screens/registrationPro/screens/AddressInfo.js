@@ -58,7 +58,6 @@ export default class AddressInfo extends React.Component {
         fetch(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${itemId}&key=${Keys.places_api_web_services}`)
             .then((response) => response.json())
             .then((responseJson) => {
-                console.warn(responseJson.result.geometry);
                 this.setState({
                     lat: responseJson.result.geometry.location.lat,
                     lon: responseJson.result.geometry.location.lng

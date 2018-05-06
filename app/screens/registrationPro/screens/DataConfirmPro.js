@@ -28,9 +28,6 @@ export default class ChooseTime extends React.Component {
         this.state = {text: ''};
     }
 
-    componentDidMount() {
-        console.warn(this.props.proAuthStore.proUser)
-    }
 
     //fetching and handling:
 
@@ -55,9 +52,6 @@ export default class ChooseTime extends React.Component {
                 payload: sendObj
             };
         }
-        console.warn('finalSendObj',finalSendObj);
-        console.log('finalSendObj',finalSendObj);
-        console.warn('headers', headers);
         fetcher(proRegistrationRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), finalSendObj, headers)
     }
 
@@ -69,11 +63,8 @@ export default class ChooseTime extends React.Component {
             this.props.proAuthStore.saveToAsync();
             this.props.userDataStore.setUserData(res)
             this.props.userDataStore.setUserType('pro');
-            console.warn('navigate:', this.props.navigation);
             this.props.navigation.navigate('ProNavigator');
         }
-        console.warn('success registration got:', res);
-        console.log('registration log:', res)
     }
 
     errorCallback(err) {
@@ -90,8 +81,6 @@ export default class ChooseTime extends React.Component {
 
     render() {
         let proUser = this.props.proAuthStore.proUser;
-        console.warn(proUser);
-        console.log('proUser', proUser);
         return (
             <View style={styles.container}>
                 <View style={styles.whiteHead}>

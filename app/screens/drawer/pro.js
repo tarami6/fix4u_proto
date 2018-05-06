@@ -50,7 +50,6 @@ export default class Pro extends Component {
         ));
         this.props.userDataStore.logout()
         this.props.navigation.navigate('Intro');
-        console.warn('success cb at logout:', res);
     }
 
     errorLogout(err) {

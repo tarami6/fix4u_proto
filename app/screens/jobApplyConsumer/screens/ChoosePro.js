@@ -131,7 +131,10 @@ export default class ApplyBaseScreen extends React.Component {
                 this.fetchChoosePro(proObj)
             }
             if (!this.state.name) {
-                Alert.alert('please fill in name to continue');
+                Alert.alert('אנא הכנס שם..');
+            }
+            else if(!this.state.profilePic){
+                Alert.alert('אנא הכנס תמונת פרופיל..')
             }
             else {
                 let sendObj = {
@@ -218,8 +221,7 @@ export default class ApplyBaseScreen extends React.Component {
 
         let apply = this.props.userDataStore.shownPro;
         let job = this.props.userDataStore.focusedConsumerJob;
-        console.warn('pro', this.props.navigation.state.params.time);
-        console.log('pro313131', this.props.userDataStore.shownPro);
+
         return (
 
             <View style={{flex: 1, backgroundColor: '#f6f6f6'}}>
@@ -334,7 +336,7 @@ export default class ApplyBaseScreen extends React.Component {
                         <View style={styles.row}>
                             {/*Time counter*/}
                             <View style={styles.headerTimeView}>
-                                <Text style={styles.headerTimeText}>03:58</Text>
+                                <Text style={styles.headerTimeText}></Text>
                             </View>
                             {/*Job Info*/}
                             <View style={styles.serviceView}>

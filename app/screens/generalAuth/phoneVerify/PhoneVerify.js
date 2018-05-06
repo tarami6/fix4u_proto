@@ -48,8 +48,6 @@ export default class PhoneVerify extends Component {
         this.props.authStore.saveToAsync();
         handlePushyToken(res.token);
         this.props.navigation.navigate(navigationEnd);
-        console.warn('success login got:', res);
-        console.log('success login got:', res);
     }
 
     loginError(err) {
@@ -72,8 +70,6 @@ export default class PhoneVerify extends Component {
             this.props.authStore.updateUser(response);
             this.props.navigation.navigate('ChooseUserType')
         }
-        console.warn('success cb:', response);
-        console.log('success cb:', response)
     }
 
     //

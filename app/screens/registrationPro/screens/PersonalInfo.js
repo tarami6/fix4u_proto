@@ -55,8 +55,6 @@ export default class PersonalInfo extends React.Component {
         else {
             Alert.alert('please fill in a proper phone number');
         }
-        console.warn('success callback got:', obj);
-        console.log('asdadadadadadada', obj);
     }
 
     errorCallback(err){

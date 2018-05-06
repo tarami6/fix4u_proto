@@ -59,13 +59,10 @@ export default class OnTheWayPro extends React.Component {
     }
 
     successCallback(res) {
-        // console.warn('success cb:', res);
         this.setModalVisible(false);
         this.props.userDataStore.updatePost(res);
         this.props.userDataStore.focusJob(res)
         // this.props.navigation.navigate('ActiveJob');
-        // console.warn('start job fetch success', res);
-        // console.log('start job fetch success', res);
     }
 
     errorCallback(err) {
@@ -75,7 +72,7 @@ export default class OnTheWayPro extends React.Component {
 
     render() {
         let focusedJob = this.props.userDataStore.focusedJob;
-         console.warn(focusedJob);
+
         return (
             <View style={{flex: 1, backgroundColor: "#fff", alignItems: 'center'}}>
                 <Modal

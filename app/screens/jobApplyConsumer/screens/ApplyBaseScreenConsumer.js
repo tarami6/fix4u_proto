@@ -9,14 +9,15 @@ import InfoItem from '../../../components/InfoItem';
 import {hebrewServices} from "../../../generalFunc/generalObjects";
 import Moment from 'moment';
 
+
+
+
 import TimerMixin from 'react-timer-mixin';
-
-
+import LinearGradient from 'react-native-linear-gradient';
 
 
 
 let returnInHeb = (word) => {
-    // console.warn('word', word)
     return (hebrewServices[word])
 
 }
@@ -60,7 +61,6 @@ export default class ApplyBaseScreen extends React.Component {
     }
 
 
-
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
@@ -70,7 +70,6 @@ export default class ApplyBaseScreen extends React.Component {
         //HERE YOU INSERT THE DATE FROM DATABASE
         let diffrence = 5
         let startDate = new Date(time);
-        console.warn("job post in: " + time)
         let startDay = startDate.getDay();
         let startHours = startDate.getHours();
         let startMinutes = startDate.getMinutes();
@@ -90,10 +89,13 @@ export default class ApplyBaseScreen extends React.Component {
         TheDiff = TheDiff % 1000000 / 1000
         TheDiff.toFixed(0)
 
+            
+        if (TheDiff > diffrence * 60 || TheDiff< 1 ||checkHours-1 >startHours) {
+            this.setState({ diff: '00:00' })
+             console.warn("ur time already finished")
+             clearInterval(this.interval)
+            } 
 
-        if (TheDiff > diffrence * 60 || TheDiff < 1 || checkHours-1 > startHours) {
-            console.warn("ur time already finished")
-        }
         else {
             this.interval = setInterval(() => {
                 let currentDate = new Date();
@@ -141,7 +143,7 @@ export default class ApplyBaseScreen extends React.Component {
     render() {
         //mobx "listener" for new jobs
         let job2 = this.props.userDataStore.focusedConsumerJob;
-        console.log("jobLIST", job2.post_applies)
+        console.log("job2", job2.image_thumb)
         if (!job2.appointment_time_start) {
             return (
                 <View/>
@@ -163,7 +165,6 @@ export default class ApplyBaseScreen extends React.Component {
                                         fontWeight: 'bold',
                                         opacity: 0.5
                                     }}>{this.state.diff}</Text>
-                                {console.log("time", job2.appointment_date)}
                             </View>
                             {/*Job Info*/}
                             <View style={{flex: 1, justifyContent: 'center', paddingRight: SW / 20}}>
@@ -182,11 +183,11 @@ export default class ApplyBaseScreen extends React.Component {
                             }}/>
                             {/*Service Icon*/}
                             <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
-                                {job2.image_thumb &&
+                                {job2.image_thumb?
                                 <Image
                                     style={{width: 50, height: 50}}
                                     source={{uri: job2.image_thumb}}
-                                />}
+                                />: <View/>}
                             </View>
                         </View>
                     </LinearViewBelowHeaderConsumer>
@@ -194,8 +195,8 @@ export default class ApplyBaseScreen extends React.Component {
 
                 <View style={{flex: 1}}>
                     <MapComponent style={styles.map}
-                                  lat={this.state.lat}
-                                  lon={this.state.lon}
+                                  lat={job2.lat}
+                                  lon={job2.lon}
                                   userLocation={{
                                       latitude: 32.7917735,
                                       longitude: 34.9829165,

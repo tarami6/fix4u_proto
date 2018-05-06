@@ -18,10 +18,6 @@ export default class ProPaymentConsumer extends Component {
         super(props)
     }
 
-    componentWillMount() {
-        // console.warn(this.props.userDataStore.userData.user.user_posts)
-    }
-
     startJob() {
         if(i===0) {
             Alert.alert('wait bro wait..');

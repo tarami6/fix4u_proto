@@ -20,12 +20,8 @@ export default class OnTheWayPro extends Component {
         super(props)
     }
 
-    componentWillMount() {
-        // console.warn(this.props.userDataStore.userData.user.user_posts)
-    }
-
     getPaid() {
-        console.warn(this.props.userDataStore.focusedJob);
+        // console.warn(this.props.userDataStore.focusedJob);
     }
 
     successCallback(res){

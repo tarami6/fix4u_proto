@@ -27,9 +27,6 @@ export default class ActiveJob extends Component {
 
     }
 
-    componentWillMount() {
-        // console.warn(this.props.userDataStore.userData.user.user_posts)
-    }
 
     render() {
         let jobStatus = this.props.userDataStore.focusedJob.status
