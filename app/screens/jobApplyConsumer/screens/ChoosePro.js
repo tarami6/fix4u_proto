@@ -334,7 +334,7 @@ export default class ApplyBaseScreen extends React.Component {
                         <View style={styles.row}>
                             {/*Time counter*/}
                             <View style={styles.headerTimeView}>
-                                <Text style={styles.headerTimeText}>03:58</Text>
+                                <Text style={styles.headerTimeText}></Text>
                             </View>
                             {/*Job Info*/}
                             <View style={styles.serviceView}>

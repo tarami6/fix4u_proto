@@ -76,10 +76,12 @@ export default class ApplyBaseScreen extends React.Component {
         let TheDiff = checkTime - FirststartTime
         TheDiff = TheDiff % 1000000 / 1000
         TheDiff.toFixed(0)
-        
-
-
-        if (TheDiff > diffrence * 60) { console.warn("ur time already finished")} 
+            
+        if (TheDiff > diffrence * 60 || TheDiff< 1 ||checkHours-1 >startHours) {
+            this.setState({ diff: '00:00' })
+             console.warn("ur time already finished")
+             clearInterval(this.interval)
+            } 
         else {
             this.interval = setInterval(() => {
                 let currentDate = new Date();
