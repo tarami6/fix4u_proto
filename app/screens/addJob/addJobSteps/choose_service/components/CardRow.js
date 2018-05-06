@@ -21,7 +21,6 @@ const {width, height} = Dimensions.get('window')
 const WIDTH_CARD = (width / 2) - 50
 
 
-@inject("authStore")
 @inject("addJobStore")
 @observer
 class CardRow extends Component {
@@ -56,16 +55,8 @@ class CardRow extends Component {
 
     //handle the choose service pree
     handlePress(serviceName) {
-        //  first we edit the newJobInfo with the service
         this.props.addJobStore.editNewJobInfo({service: serviceName});
-        //here we also check if user is authenticated to move on,
-        // if (this.props.authStore.user.token) {
         this.props.nextStep()
-        // }
-        // else {
-        //     //and then if user is not authenticated we send him to auth
-        //     this.props.authStore.setShowAuthModal(true);
-        // }
     }
 
     render() {

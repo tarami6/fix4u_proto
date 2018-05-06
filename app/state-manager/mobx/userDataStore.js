@@ -33,7 +33,6 @@ export default class UserDataStore {
     @action setUserData(data: Object) {
         if(!this.userData.user && data.user.pro_applies){
             this.setSentApplies(data.user.pro_applies);
-            console.warn('applies I send:', this.sentApplies);
         }
         this.userData = data;
     }
@@ -140,7 +139,6 @@ export default class UserDataStore {
 
     @action saveUserLocation(location: Object){
         this.userLocation = location
-        console.warn('got:', this.userLocation);
     }
 
     // Loading - in case we want to display loading screen to the user

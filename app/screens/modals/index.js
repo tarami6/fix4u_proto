@@ -8,7 +8,6 @@ import ChooseJobModal from './chooseJobModal'
 import {SH, SW} from "../../config/styles";
 
 @inject("modalsStore")
-@inject("authStore")
 @observer
 export default class Modals extends Component {
     state = {
@@ -23,10 +22,6 @@ export default class Modals extends Component {
     }
 
 
-    closeAuthModal() {
-        this.props.authStore.setShowAuthModal(false)
-    }
-
     closeModal(modalName){
         this.props.modalsStore.closeModal(modalName);
     }
@@ -34,17 +29,6 @@ export default class Modals extends Component {
     render() {
         return (
             <View>
-                <Modal
-                    isVisible={this.props.authStore.showAuthModal && this.state.showModals}
-                    animationInTiming={1000}
-                    animationOutTiming={1000}
-                    backdropTransitionInTiming={2000}
-                    backdropTransitionOutTiming={1000}
-                    onBackButtonPress={this.closeAuthModal.bind(this)}
-                    onBackdropPress={this.closeAuthModal.bind(this)}
-                >
-                    <AuthModal closeModal={this.closeAuthModal.bind(this)}/>
-                </Modal>
                 <Modal
                     isVisible={this.props.modalsStore.proPhoneVerifyModal && this.state.showModals}
                     animationInTiming={1000}

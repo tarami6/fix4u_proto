@@ -23,10 +23,6 @@ export default class InProgressPro extends Component {
         super(props)
     }
 
-    componentWillMount() {
-        // console.warn(this.props.userDataStore.userData.user.user_posts)
-    }
-
     finishJob() {
         let route = startJobRoute(this.props.userDataStore.focusedJob.id);
         let sendObj = {
@@ -44,8 +40,6 @@ export default class InProgressPro extends Component {
         this.props.userDataStore.updatePost(res);
         this.props.userDataStore.focusJob(res)
         // this.props.navigation.navigate('ActiveJob');
-        // console.warn('start job fetch success', res);
-        // console.log('start job fetch success', res);
     }
 
     errorCallback(err) {

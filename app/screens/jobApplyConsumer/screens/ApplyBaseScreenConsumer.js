@@ -33,7 +33,6 @@ const job = {
 }
 
 let returnInHeb = (word) => {
-    // console.warn('word', word)
     return (hebrewServices[word])
 
 }
@@ -85,7 +84,6 @@ export default class ApplyBaseScreen extends React.Component {
         //HERE YOU INSERT THE DATE FROM DATABASE
         let diffrence = 5
         let startDate = new Date(time);
-        console.warn("job post in: " + time)
         let startDay = startDate.getDay();
         let startHours = startDate.getHours();
         let startMinutes = startDate.getMinutes();
@@ -155,7 +153,7 @@ export default class ApplyBaseScreen extends React.Component {
     render() {
         //mobx "listener" for new jobs
         let job2 = this.props.userDataStore.focusedConsumerJob;
-        console.log("jobLIST", job2.post_applies)
+        console.log("job2", job2.image_thumb)
         if (!job2.appointment_time_start) {
             return (
                 <View/>
@@ -177,7 +175,6 @@ export default class ApplyBaseScreen extends React.Component {
                                         fontWeight: 'bold',
                                         opacity: 0.5
                                     }}>{this.state.diff}</Text>
-                                {console.log("time", job2.appointment_date)}
                             </View>
                             {/*Job Info*/}
                             <View style={{flex: 1, justifyContent: 'center', paddingRight: SW / 20}}>
@@ -196,19 +193,19 @@ export default class ApplyBaseScreen extends React.Component {
                             }}/>
                             {/*Service Icon*/}
                             <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
-                                {job2.image_thumb &&
+                                {job2.image_thumb?
                                 <Image
                                     style={{width: 50, height: 50}}
                                     source={{uri: job2.image_thumb}}
-                                />}
+                                />: <View/>}
                             </View>
                         </View>
                     </LinearViewBelowHeaderConsumer>
                 </View>
                 <View style={{flex: 1}}>
                     <MapComponent style={styles.map}
-                                  lat={this.state.lat}
-                                  lon={this.state.lon}
+                                  lat={job2.lat}
+                                  lon={job2.lon}
                                   userLocation={{
                                       latitude: 32.7917735,
                                       longitude: 34.9829165,

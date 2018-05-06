@@ -13,7 +13,6 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import {observer, inject} from 'mobx-react/native'
 
 
-import authStore from "../../../state-manager/mobx/authStore";
 
 const { width, height } = Dimensions.get('window')
 const sliderWidth = width
@@ -27,8 +26,6 @@ const images = [
 ]
 
 
-@inject("authStore")
-@observer
 export default class Intro1 extends Component {
 
     state = {
@@ -89,7 +86,6 @@ export default class Intro1 extends Component {
     skipIntro(){
         const { navigate } = this.props.navigation;
         navigate('ChooseUserType')
-        // this.props.authStore.skipIntro();
     }
 
     render() {
