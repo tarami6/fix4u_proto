@@ -2,7 +2,8 @@ import {inject, observer} from "mobx-react/index";
 import React, {Component} from "react";
 import {Text, TouchableOpacity, View} from 'react-native';
 //header stuff:
-import Header from '../../components/headerComponent'
+import Header from '../../components/headers/Header'
+
 //fetch allJobs
 import {fetcher} from "../../generalFunc/fetcher";
 import {getOpenPostsRoute} from "../../config/apiRoutes";
@@ -36,9 +37,7 @@ let loadEmptyMap = false
 @observer
 export default class ChooseJob extends Component {
     static navigationOptions = {
-        header: (
-            <Header {...this.props}/>
-        )
+        header: null
     };
 
     componentWillMount() {
@@ -72,8 +71,8 @@ export default class ChooseJob extends Component {
         // if (openJobsList && openJobsList.length > 0 || loadEmptyMap) {
         return (
             <View style={{flex: 1}}>
-                <View style={{elevation: 5}}>
-                    <Header {...this.props}/>
+                <View style={{elevation: 5, backgroundColor: '#fd8824'}}>
+                    <Header head={'proHome'} {...this.props}/>
                 </View>
                 {/*Map component: */}
                 <MapComponent onMarkerPress={this.onMarkerPress.bind(this)}

@@ -93,23 +93,34 @@ const JobList = (info) => {
 
             </View>
             <View style={{flex: 1, justifyContent: 'center'}}>
-                <Text style={{color: '#000', textAlign: 'right'}}>{info.user_pro.name}</Text>
-                <View style={{width: SW / 5, alignSelf: 'flex-end'}}>
-                    <StarRating
-                        disabled={true}
-                        maxStars={5}
-                        starSize={10}
-                        fullStarColor={GOLD}
-                        rating={info.user_pro.price_rating_avg ? info.user_pro.price_rating_avg : 0}
-                    />
-                </View>
+                <Text style={{color: '#000', textAlign: 'right'}}>{info.user_pro.name || info.user.name}</Text>
+                {info.user.name ? null :
+                    <View style={{width: SW / 5, alignSelf: 'flex-end'}}>
+                        <StarRating
+                            disabled={true}
+                            maxStars={5}
+                            starSize={10}
+                            fullStarColor={GOLD}
+                            rating={info.user_pro.price_rating_avg ? info.user_pro.price_rating_avg : 0}
+                        />
+                    </View>
+                }
 
                 <Text>{hebrewServices[info.service]}</Text>
             </View>
             <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
-                <Image
-                    style={{width: imageSize, height: imageSize, borderRadius: 100,}}
-                    source={{uri: info.user_pro.profile_pic_thumb}}/>
+                {info.user.name ?
+
+                    <Image
+                        style={{width: imageSize, height: imageSize, borderRadius: 100,}}
+                        source={{uri: info.user.profile_pic_thumb}}/>
+
+                    :
+                    <Image
+                        style={{width: imageSize, height: imageSize, borderRadius: 100,}}
+                        source={{uri: info.user_pro.profile_pic_thumb}}/>
+                }
+
             </View>
         </View>
     )

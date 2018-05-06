@@ -139,9 +139,7 @@ export default class OnTheWayConsumer extends Component {
                         {/*reviews*/}
                         <View style={styles.infoReviews}>
                             {/*Stars*/}
-                            <TouchableOpacity activeOpacity={0.3}
-                                              onPress={this.expand_collapse_Function}
-                                              style={{flex: 1, flexDirection: 'row'}}>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
                                 <View style={styles.infoStarsView}>
                                     <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
                                     <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
@@ -150,14 +148,10 @@ export default class OnTheWayConsumer extends Component {
                                     <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
                                 </View>
 
-                                <View style={styles.slideDownArrow}>
-                                    <Icon name={this.state.buttonText} size={20} color="#000"/>
-                                </View>
-
                                 <View style={styles.infoReviewCount}>
                                     <Text> {reviews.length}  חוות דעת </Text>
                                 </View>
-                            </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </View>

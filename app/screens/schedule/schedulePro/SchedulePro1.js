@@ -1,8 +1,14 @@
+// React -react naitve
 import React from 'react';
 import {StyleSheet, Text, View,Image, FlatList,TouchableHighlight} from 'react-native';
+// headr
 import Header from '../../../components/headers/Header'
+// pro Item
 import InfoItem from '../../../components/InfoItem';
+// styles
 import {SH, SW} from "../../../config/styles";
+// mobx
+import {inject, observer} from "mobx-react/index";
 
 data = [
     {
@@ -43,16 +49,30 @@ data = [
     }
 ]
 
-
+@inject("userDataStore")
+@observer
 export default class SchedulePro1 extends React.Component {
     static navigationOptions = {
         header: null
+    }
+    constructor(props) {
+        super(props)
+    }
+
+
+
+    chooseJob(job){
+        this.props.userDataStore.focusJob(job);
+        if(job.status==='open'){
+            this.props.navigation.navigate('ProNavigator');
+        }
+        this.props.navigation.navigate('ActiveJob');
     }
 
     render() {
         return (
             <View style={{flex: 1}}>
-                <View style={{flex: 0.185, backgroundColor: '#FFBA00'}}>
+                <View style={{flex: 0.185, backgroundColor: '#FFBA00', elevation: 5}}>
                     <Header head={'AddJob'} props={this.props}/>
                     <View style={{flex: 0.5, flexDirection: 'row', alignItems: 'center', alignSelf: 'flex-end', marginRight: 20}}>
                         <Text style={{marginRight: 20, fontSize: 18, color: '#fff'}}>יומן</Text>
@@ -61,13 +81,13 @@ export default class SchedulePro1 extends React.Component {
                 </View>
                 <View style={{flex: 1}}>
                     <FlatList
-                        data={data}
-                        renderItem={({item}) => <TouchableHighlight onPress={() => Alert.alert('pressed')}
+                        data={this.props.userDataStore.userData.user.pro_posts}
+                        renderItem={({item}) => <TouchableHighlight onPress={()=>this.chooseJob(item)}
                                                                     style={{
                                                                         width: SW,
                                                                         height: SH / 8,
                                                                         borderBottomWidth: 1,
-                                                                        borderColor: 'grey'
+                                                                        borderColor: '#AAAAAA'
                                                                     }}>
 
                             <InfoItem info={item}/>
