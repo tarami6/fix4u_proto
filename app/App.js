@@ -6,7 +6,7 @@
  */
 
 import React, {Component} from 'react';
-import {AppState, PermissionsAndroid, ToastAndroid} from 'react-native';
+import {AppState, PermissionsAndroid, ToastAndroid, Alert} from 'react-native';
 import ScreensBase from './screens';
 import {Provider} from "mobx-react";
 import AuthStore from './state-manager/mobx/authStore';
@@ -21,15 +21,7 @@ import NotificationsStore from './state-manager/mobx/notificationsStore'
 import {StackNavigator} from 'react-navigation';
 
 import Pushy from 'pushy-react-native';
-
-
 // Ramistesting
-import ChooseJob from './screens/chooseJob';
-import ScheduleConsumer1 from './screens/schedule/scheduleConsumer/ScheduleConsumer1';
-import OnTheWayConsumer1 from './screens/activeJob/onTheWay/onTheWayConsumer/OnTheWayConsumer1';
-import InProgressConsumer1 from './screens/activeJob/inProgress/inProgressConsumer/InProgressConsumer1';
-import Review from './screens/activeJob/consumerReview/consumerReviewConsumer/Review';
-import SchedulePro1 from './screens/schedule/schedulePro/SchedulePro1';
 import LoadingPage from './screens/modals/Loader/LoadingPage'
 
 //the usual consumer costumer auth process happens here
@@ -125,8 +117,15 @@ let handleNotificationData = (type, payload) => {
             userDataStore.focusJob(payload);
             break;
         case 'open_post_remove':
-            //here I get update of a post which is irrelevant for the pro, I handle it with the post id
-            openJobsStore.removeJob(payload.post_id);
+            if (openJobsStore.focusedJob.id === payload.post_id) {
+                modalsStore.hideModal('chooseJobModal');
+                Alert.alert('העבודה כבר לא רלוונטית(נתפסה על ידי מקצוען אחר או נמחקה על ידי המשתמש');
+                openJobsStore.removeJob(payload.post_id);
+            }
+            else {
+                //here I get update of a post which is irrelevant for the pro, I handle it with the post id
+                openJobsStore.removeJob(payload.post_id);
+            }
             break;
         default:
             console.warn("notification wasn't handled:", type);
