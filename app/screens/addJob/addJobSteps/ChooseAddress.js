@@ -17,11 +17,10 @@ import LinierView from '../../../components/linierView';
 import Header from '../../../components/headers/Header'
 import {NavigationActions} from "react-navigation";
 
-
+@inject("modalsStore")
 @inject("navigationStore")
 @inject("userDataStore")
 @inject("addJobStore")
-@inject("authStore")
 @observer
 export default class ChooseAddress extends React.Component {
     static navigationOptions = {
@@ -131,11 +130,13 @@ export default class ChooseAddress extends React.Component {
                 payload: item
             }
         }
+        this.props.modalsStore.showModal('loaderModal');
         fetcher(addJobRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), item, headers);
 
     }
 
     successCallback(response) {
+        this.props.modalsStore.hideModal('loaderModal');
         if (response.id) {
             this.props.userDataStore.addJob(response)
             this.props.userDataStore.focusConsumerJob(response);
@@ -147,6 +148,7 @@ export default class ChooseAddress extends React.Component {
     //autoCompleteHandling:
 
     errorCallback(response) {
+        this.props.modalsStore.hideModal('loaderModal');
         console.warn('error addJob');
         console.log('error in addJob:', response)
     }

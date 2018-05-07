@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, FlatList, TouchableHighlight, View, Text, Alert} from 'react-native';
+import {StyleSheet, FlatList, TouchableHighlight, View, Text, Alert, BackHandler} from 'react-native';
 import Header from '../../../components/headers/Header';
 import InfoItem from '../../../components/InfoItem';
 import {SH, SW} from "../../../config/styles";
@@ -11,6 +11,20 @@ import {inject, observer} from "mobx-react/native";
 export default class ScheduleConsumer1 extends React.Component {
     static navigationOptions = {
         header: null,
+    }
+
+    componentDidMount() {
+        //backHandler:
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    handleBackButton = () => {
+        this.props.navigation.navigate('DrawerClose');
+        return true;
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     chooseJob(job) {

@@ -53,6 +53,7 @@ export default class Modals extends Component {
                     <ChooseJobModal />
                 </Modal>
                 <Modal
+                    animation={'bounceIn'}
                     isVisible={this.props.modalsStore.loaderModal && this.state.showModals}
                     animationInTiming={100}
                     animationOutTiming={1000}
