@@ -249,7 +249,12 @@ export default class ChooseJobModal extends Component {
                                                     flexDirection: 'row'
                                                 }}>
                                                     <TextInput
-                                                        onChangeText={(hour) => this.setState({hour})}
+                                                        onChangeText={(hour) => {
+                                                            if(hour>10){
+                                                                this.minutesField.focus();
+                                                            }
+                                                            this.setState({hour})}
+                                                        }
                                                         onSubmitEditing={() => {
                                                             this.minutesField.focus()
                                                         }}

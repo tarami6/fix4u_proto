@@ -73,20 +73,10 @@ export default class ActiveJob extends Component {
                 return (
                     <ProPaymentPro {...this.props}/>
                 );
-            } else if (jobStatus === 'consumer_payment') {
+            } else if (jobStatus === 'consumer_payment' || jobStatus === 'consumer_review') {
                 return (
                     <ConsumerPaymentPro {...this.props}/>
                 )
-            }
-            else if (jobStatus === 'consumer_review') {
-                this.props.navigation.navigate('Home');
-                return (
-                    <View>
-                        <Text>
-                            The consumer is currently reviewing the job
-                        </Text>
-                    </View>
-                );
             }
             else {
                 return <View><Text> no idea </Text></View>

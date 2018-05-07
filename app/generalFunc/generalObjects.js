@@ -20,3 +20,8 @@ export const ServicesArrToHebString = (arr: Array) => {
 export const consumerDummyData = {
 
 };
+
+export const jobStepsInHeb = {
+    on_the_way: 'בדרך',
+    in_progress: 'בעבודה',
+};
