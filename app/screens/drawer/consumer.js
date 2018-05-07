@@ -62,21 +62,25 @@ export default class Consumer extends Component {
                 </LinearGradient>
                 <List>
                     <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                        <View style={{width, justifyContent: 'space-between', flexDirection: 'row'}}>
+                        <View style={{width, justifyContent: 'space-between',alignItems:'center', flexDirection: 'row'}}>
                             <View style={{marginLeft: 50}}>
                                 <Circle qty={22}/>
                             </View>
-                            <TouchableOpacity>
-                                <Text style={{color: 'gray', fontWeight: 'bold'}}>Simon Mignoletss2</Text>
+                            <TouchableOpacity onPress={() => {
+                                Alert.alert('בפיתוח... כאן יהיו כל ההתראות שלך')
+                            }}>
+                                <Text style={{color: 'gray', fontWeight: 'bold'}}>התראות</Text>
                             </TouchableOpacity>
                         </View>
                     </ListItem>
                     <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                        <Text style={{color: 'gray', fontWeight: 'bold'}}>Mignoletss</Text>
+                        <TouchableOpacity onPress={() => {
+                            Alert.alert('בפיתוח... כאן יהיה ניהול החשבון שלך')
+                        }}>
+                            <Text style={{color: 'gray', fontWeight: 'bold'}}>חשבון</Text>
+                        </TouchableOpacity>
                     </ListItem>
-                    <ListItem style={{borderBottomWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                        <Text style={{color: 'gray', fontWeight: 'bold'}}>Simon</Text>
-                    </ListItem>
+
                     <ListItem style={{borderBottomWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
                         <View>
                             <TouchableOpacity onPress={this.logout.bind(this)}>

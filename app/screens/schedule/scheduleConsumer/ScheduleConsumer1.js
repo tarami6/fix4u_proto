@@ -2,7 +2,8 @@ import React from 'react';
 import {StyleSheet, FlatList, TouchableHighlight, View, Text, Alert} from 'react-native';
 import Header from '../../../components/headers/Header';
 import InfoItem from '../../../components/InfoItem';
-import {SH, SW} from "../../../config/styles";
+import {HH, SH, SW} from "../../../config/styles";
+
 //mobx
 import {inject, observer} from "mobx-react/native";
 
@@ -14,7 +15,7 @@ export default class ScheduleConsumer1 extends React.Component {
     }
 
     chooseJob(job) {
-        console.log("STATUS",job.status)
+        console.log("STATUS", job.status)
         this.props.userDataStore.focusJob(job);
         if (job.status === 'open') {
             this.props.navigation.navigate('AddJob');
@@ -22,33 +23,47 @@ export default class ScheduleConsumer1 extends React.Component {
         this.props.navigation.navigate('ActiveJob');
     }
 
-    keyExtractor = (item) => item.id+'';
+    keyExtractor = (item) => item.id + '';
 
 
     render() {
 
         return (
             <View style={{flex: 1,}}>
-                <Header head={'Grey'} previousPage={'AddJob'} props={this.props}/>
+                <View style={{width: SW, height: HH, backgroundColor: '#ffffff', elevation: 1}}>
+                    <Header head={'Grey'} previousPage={'AddJob'} props={this.props}/>
+                </View>
+
                 <View style={{flex: 1}}>
                     {this.props.userDataStore.userData.user.user_active_posts.length > 0 ?
                         <FlatList
                             data={this.props.userDataStore.userData.user.user_active_posts}
                             keyExtractor={this.keyExtractor}
-                            renderItem={({item}) => <TouchableHighlight onPress={() => {
-                                this.chooseJob(item)
-                            }}
-                                                                        style={{
-                                                                            width: SW,
-                                                                            height: SH / 8,
-                                                                            borderBottomWidth: 1,
-                                                                            borderColor: 'grey'
-                                                                        }}>
+                            renderItem={({item, index}) =>
+                                <View style={{
+                                    width: SW,
+                                    height: SH / 8 + 3,
+                                    backgroundColor: 'transparent'
+                                }}>
+                                    <TouchableHighlight onPress={() => {
+                                        this.chooseJob(item)
+                                    }}
+                                                        style={{
+                                                            width: SW,
+                                                            height: SH / 8,
+                                                            backgroundColor: 'transparent',
+                                                        }}>
 
-                                <InfoItem info={item}/>
-                            </TouchableHighlight>}
+                                        <InfoItem info={item}/>
+                                    </TouchableHighlight>
+
+                                </View>
+                            }
                         /> :
-                        <Text>אין לך עבודות </Text>
+                        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                            <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>אין לך עבודות </Text>
+                        </View>
+
                     }
                 </View>
 

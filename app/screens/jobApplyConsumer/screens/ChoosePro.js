@@ -10,7 +10,7 @@ import {
     Text,
     TextInput,
     TouchableHighlight,
-    TouchableOpacity,
+    BackHandler,
     UIManager,
     View
 } from 'react-native';
@@ -31,7 +31,7 @@ import {fetcher} from "../../../generalFunc/fetcher";
 import {inject, observer} from "mobx-react/native";
 import {chooseApplyRoute, editUserRoute} from "../../../config/apiRoutes";
 import {getAvgRating, formatTime} from "../../../generalFunc/generalFunctions";
-
+import {addNavigationHelpers, NavigationActions} from "react-navigation"
 //image picker options:
 var options = {
     title: 'Upload profile picture',
@@ -64,6 +64,7 @@ const data = [
 
 ]
 
+@inject('navigationStore')
 @inject('userDataStore')
 @observer
 export default class ApplyBaseScreen extends React.Component {
@@ -112,6 +113,17 @@ export default class ApplyBaseScreen extends React.Component {
         this.setState({
             height: this.state.height * data.length + SH / 8
         })
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+    //handling backHandler:
+    handleBackButton = () => {
+        console.warn('success??');
+        this.props.navigation.goBack();
+        return true;
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     getHeight(height) {
