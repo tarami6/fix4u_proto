@@ -148,7 +148,8 @@ export default class ExplainThePro extends React.Component {
                                 {this.state.profilePic ?
                                     <Image style={{height: 100, width: 100}} source={this.state.profilePic}/> :
                                     <Image
-                                        source={require('../../../../assets/addJob/icons/addPic.png')}
+                                        style={{height: 50, width: 50}}
+                                        source={require('../../../../assets/addJob/icons/AddPic.png')}
                                     />}
                             </TouchableOpacity>
                         </View>

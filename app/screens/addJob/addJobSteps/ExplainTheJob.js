@@ -184,7 +184,8 @@ export default class ChooseTime extends React.Component {
                                 {this.state.profilePic ?
                                     <Image style={{height: 100, width: 100}} source={this.state.profilePic}/> :
                                     <Image
-                                        source={require('../../../../assets/addJob/icons/addPic.png')}
+                                        style={{height: 70, width: 80}}
+                                        source={require('../../../../assets/addJob/icons/AddPic.png')}
                                     />}
                             </TouchableOpacity>
                         </View>
