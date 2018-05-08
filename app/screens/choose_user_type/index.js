@@ -19,7 +19,7 @@ import {handlePushyToken} from "../../generalFunc/pushyTokenHandler";
 import {SW, mainStyles} from "../../config/styles";
 
 
-
+@inject('modalsStore')
 @inject("userDataStore")
 @inject("authStore")
 @inject("proAuthStore")
@@ -37,6 +37,7 @@ export default class ChooseUserType extends Component {
                 let sendObj = {
                     phone_number: this.props.authStore.user.uid
                 }
+                this.props.modalsStore.showModal('loaderModal');
                 fetcher(consumerRegistrationRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
                 // const actionToDispatch = NavigationActions.reset({
                 //     index: 0,
@@ -67,6 +68,8 @@ export default class ChooseUserType extends Component {
     }
 
     successCallback(response) {
+        this.props.modalsStore.hideModal('loaderModal');
+
         this.props.userDataStore.setUserData(response)
         this.props.userDataStore.setUserType('consumer');
         this.props.authStore.updateUser(response);
@@ -76,6 +79,8 @@ export default class ChooseUserType extends Component {
     }
 
     errorCallback(error) {
+        this.props.modalsStore.hideModal('loaderModal');
+
         console.warn('error in proPhoneVerifyModal:', error);
     }
 
@@ -136,88 +141,3 @@ const
         },
     });
 
-
-// /* @flow */
-//
-// import React, { Component } from 'react';
-// import {
-//     View,
-//     Text,
-//     Image,
-//     StyleSheet,
-//     Dimensions,
-//     TouchableOpacity
-// } from 'react-native';
-// import Carousel, { Pagination } from 'react-native-snap-carousel';
-// import {observer, inject} from 'mobx-react/native'
-// import { NavigationActions } from 'react-navigation';
-//
-// import authStore from "../../state-manager/mobx/authStore";
-//
-// const { width, height } = Dimensions.get('window')
-// const sliderWidth = width
-// const itemWidth = width
-// //static image for development
-// const images = [
-//     {uri:require('../../../assets/chooseUserType/choose_mode.png')}
-// ]
-//
-//
-// @inject("authStore")
-// @observer
-// export default class ChooseUserType extends Component {
-//
-//     state = {
-//         activeSlide : 0
-//     }
-//
-//     componentDidMount(){
-//
-//     }
-//
-//     handlePress = () => {
-//       // this.props.authStore.chooseUserType('consumer')
-//       const actionToDispatch = NavigationActions.reset({
-//         index: 0,
-//         key: null,
-//         actions: [
-//           NavigationActions.navigate({
-//             routeName: 'DrawerNavigation',
-//             action: NavigationActions.navigate({ routeName: 'B' }),
-//           })
-//         ],
-//       });
-//       this.props.navigation.dispatch(actionToDispatch);
-//     }
-//
-//     render() {
-//         return (
-//             <View style={styles.containerItem}>
-//                 <TouchableOpacity onPress={this.handlePress}>
-//                 <Image style={{width, height: height - 150}} resizeMode="cover"
-//                        source={images[0].uri}/>
-//                 </TouchableOpacity>
-//             </View>
-//         );
-//     }
-// }
-//
-// const styles = StyleSheet.create({
-//     containerItem: {
-//         width,
-//         height: height,
-//         // borderWidth:1,
-//         // justifyContent:'center',
-//         // alignItems:'center'
-//     },
-//     footer: {
-//         position: 'absolute',
-//         bottom: 30,
-//         width,
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//     },
-//     textFooter : {
-//         color :'#fff'
-//     }
-// });

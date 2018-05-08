@@ -44,10 +44,12 @@ export default class ChooseJob extends Component {
         let body = {
             token: this.props.userDataStore.userData.token
         }
+        this.props.modalsStore.showModal('loaderModal');
         fetcher(getOpenPostsRoute, 'GET', this.successCallback.bind(this), this.errorCallback.bind(this), body)
     }
 
     successCallback(res) {
+        this.props.modalsStore.hideModal('loaderModal');
         if (res.length === 0) {
             loadEmptyMap = true;
         }
@@ -55,6 +57,7 @@ export default class ChooseJob extends Component {
     }
 
     errorCallback(err) {
+        this.props.modalsStore.hideModal('loaderModal');
         console.warn('error in get open post in ChooseJob:', err);
         console.log('error in get open post in ChooseJob:', err);
     }

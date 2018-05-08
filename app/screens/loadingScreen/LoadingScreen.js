@@ -12,6 +12,8 @@ import React, {Component} from "react";
 import {View, Text, TouchableOpacity} from 'react-native'
 import {fetcher} from "../../generalFunc/fetcher";
 import {checkForOpenPost} from "../../config/apiRoutes";
+//component import:
+import LoadinPage from '../../screens/modals/Loader/LoadingPage'
 
 @inject("navigationStore")
 @inject("userDataStore")
@@ -56,11 +58,7 @@ export default class LoadingScreen extends Component {
 
     render(){
         return(
-            <View>
-                <Text>
-                    loading your HomePage
-                </Text>
-            </View>
+            <LoadinPage />
         )
     }
 }

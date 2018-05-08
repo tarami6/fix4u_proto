@@ -17,21 +17,22 @@ import {
 import Header from '../../../components/headers/Header';
 import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHeaderConsumer';
 import ImagePicker from "react-native-image-picker";
-
-
 import {SH, SW} from "../../../config/styles";
 import StarIcon from 'react-native-vector-icons/FontAwesome';
-import IconCamera from 'react-native-vector-icons/FontAwesome';
 import StarRating from 'react-native-star-rating';
-import Icon from 'react-native-vector-icons/dist/Ionicons';
 import {submitButton} from "../../../components/modalSubmitButton";
 // /config
 import {hebrewServices} from "../../../generalFunc/generalObjects";
 import {fetcher} from "../../../generalFunc/fetcher";
 import {inject, observer} from "mobx-react/native";
 import {chooseApplyRoute, editUserRoute} from "../../../config/apiRoutes";
+
 import {getAvgRating, formatTime} from "../../../generalFunc/generalFunctions";
-import {addNavigationHelpers, NavigationActions} from "react-navigation"
+
+
+import {NavigationActions} from "react-navigation"
+
+
 //image picker options:
 var options = {
     title: 'Upload profile picture',
@@ -64,6 +65,8 @@ const data = [
 
 ]
 
+
+@inject("modalsStore")
 @inject('navigationStore')
 @inject('userDataStore')
 @observer
@@ -71,6 +74,12 @@ export default class ApplyBaseScreen extends React.Component {
     static navigationOptions = {
         header: null,
     };
+
+    //handling backHandler:
+    handleBackButton = () => {
+        console.warn('success??');
+        this.props.navigationStore.dispatch(NavigationActions.back());
+    }
     expand_collapse_Function = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 
@@ -105,16 +114,25 @@ export default class ApplyBaseScreen extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
     setModalVisible(visible) {
         this.setState({modalVisible: visible});
     }
 
     componentDidMount() {
+        //backHandler:
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+
+
         this.setState({
             height: this.state.height * data.length + SH / 8
         })
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
+
     //handling backHandler:
     handleBackButton = () => {
         console.warn('success??');
@@ -122,8 +140,10 @@ export default class ApplyBaseScreen extends React.Component {
         return true;
     }
 
+
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+        // this.props.navigation.state.params.onClose()
     }
 
     getHeight(height) {
@@ -145,7 +165,7 @@ export default class ApplyBaseScreen extends React.Component {
             if (!this.state.name) {
                 Alert.alert('אנא הכנס שם..');
             }
-            else if(!this.state.profilePic){
+            else if (!this.state.profilePic) {
                 Alert.alert('אנא הכנס תמונת פרופיל..')
             }
             else {
@@ -160,7 +180,7 @@ export default class ApplyBaseScreen extends React.Component {
                         payload: newObj
                     }
                 }
-
+                this.props.modalsStore.showModal('loaderModal');
                 fetcher(editUserRoute, 'PATCH', successCB, this.errorCallback.bind(this), sendObj, {token: this.props.userDataStore.userData.token})
             }
 
@@ -182,11 +202,12 @@ export default class ApplyBaseScreen extends React.Component {
             'content-type': 'application/json',
             'Authorization': 'JWT ' + this.props.userDataStore.userData.token
         };
+        this.props.modalsStore.showModal('loaderModal');
         fetcher(route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers)
     }
 
     successCallback(res) {
-        console.warn(res)
+        this.props.modalsStore.hideModal('loaderModal');
         this.setModalVisible(!this.state.modalVisible);
         this.props.userDataStore.openToActivePost(res);
         this.props.userDataStore.focusJob(res);
@@ -194,6 +215,8 @@ export default class ApplyBaseScreen extends React.Component {
     }
 
     errorCallback(err) {
+        this.props.modalsStore.hideModal('loaderModal');
+
         console.warn(err)
         console.log(err);
 
@@ -390,7 +413,11 @@ export default class ApplyBaseScreen extends React.Component {
                         </View>
                         {/*about*/}
                         <View style={styles.infoAboutView}>
-                            <Text style={{height: SH /13,width: SW / 1.15,overflow: 'hidden'}}>{apply.user_pro.company_description}</Text>
+                            <Text style={{
+                                height: SH / 13,
+                                width: SW / 1.15,
+                                overflow: 'hidden'
+                            }}>{apply.user_pro.company_description}</Text>
                         </View>
                         {/*Border*/}
                         <View style={styles.infoBorder}/>
@@ -420,95 +447,95 @@ export default class ApplyBaseScreen extends React.Component {
                     </View>
                 </View>
 
-               <View style={styles.MainContainer}>
+                <View style={styles.MainContainer}>
                     <ScrollView style={styles.ChildView}>
-                            <View style={styles.ExpandViewInsideText} >
-                                {apply.user_pro.pro_reviews.map((item, index) => {
-                                    return (
-                                         <View key={index} style={styles.proCard}>
-                                            {/*Name and Image*/}
-                                            <View style={styles.cardNameAndImageView}>
-                                                <View style={styles.cardNameAndDate}>
-                                                    <Text style={styles.nameText}>{item.user.name}</Text>
-                                                    <Text style={{fontSize: 16}}>{formatTime(item.created_at)}</Text>
-                                                </View>
-                                                <View style={styles.cardPicProView}>
-                                                    {item.user.profile_pic_thumb &&
-                                                    <Image
-                                                        style={styles.proPic}
-                                                        source={{uri: item.user.profile_pic_thumb}}
-                                                    />}
-                                                </View>
+                        <View style={styles.ExpandViewInsideText}>
+                            {apply.user_pro.pro_reviews.map((item, index) => {
+                                return (
+                                    <View key={index} style={styles.proCard}>
+                                        {/*Name and Image*/}
+                                        <View style={styles.cardNameAndImageView}>
+                                            <View style={styles.cardNameAndDate}>
+                                                <Text style={styles.nameText}>{item.user.name}</Text>
+                                                <Text style={{fontSize: 16}}>{formatTime(item.created_at)}</Text>
                                             </View>
-                                            {/*Review*/}
-                                            <View style={styles.cardReview}>
-                                                <Text style={{fontSize: 16}}>{item.review}</Text>
+                                            <View style={styles.cardPicProView}>
+                                                {item.user.profile_pic_thumb &&
+                                                <Image
+                                                    style={styles.proPic}
+                                                    source={{uri: item.user.profile_pic_thumb}}
+                                                />}
                                             </View>
-                                            <View style={styles.row}>
-                                                <View style={styles.starsContainer}>
-                                                    <StarRating
-                                                        disabled={false}
-                                                        maxStars={5}
-                                                        rating={item.price_rating}
-                                                        starSize={14}
-                                                        fullStarColor={'#ffd700'}
-                                                        emptyStar={'star'}
-                                                        iconSet={'FontAwesome'}
-                                                    />
-                                                </View>
-                                                <View style={styles.cardRightTitle}>
-                                                    <Text style={{fontSize: 16}}>מחיר</Text>
-                                                </View>
-                                            </View>
-                                            <View style={styles.row}>
-                                                <View style={styles.starsContainer}>
-                                                    <StarRating
-                                                        disabled={false}
-                                                        maxStars={5}
-                                                        rating={item.time_rating}
-                                                        starSize={14}
-                                                        fullStarColor={'#ffd700'}
-                                                        emptyStar={'star'}
-                                                        iconSet={'FontAwesome'}
-                                                    />
-                                                </View>
-                                                <View style={styles.cardRightTitle}>
-                                                    <Text style={{fontSize: 16}}>זמן עבודה</Text>
-                                                </View>
-                                            </View>
-                                            <View style={styles.row}>
-                                                <View style={styles.starsContainer}>
-                                                    <StarRating
-                                                        disabled={false}
-                                                        maxStars={5}
-                                                        rating={item.performance_rating}
-                                                        starSize={14}
-                                                        fullStarColor={'#ffd700'}
-                                                        emptyStar={'star'}
-                                                        iconSet={'FontAwesome'}
-                                                    />
-                                                </View>
-                                                <View style={styles.cardRightTitle}>
-                                                    <Text style={{fontSize: 16}}>שירות</Text>
-                                                </View>
-                                            </View>
-                                            {/*Bot Border*/}
-                                            <View style={styles.cardBottomBorder}/>
                                         </View>
-                                    )
-                                })}
+                                        {/*Review*/}
+                                        <View style={styles.cardReview}>
+                                            <Text style={{fontSize: 16}}>{item.review}</Text>
+                                        </View>
+                                        <View style={styles.row}>
+                                            <View style={styles.starsContainer}>
+                                                <StarRating
+                                                    disabled={false}
+                                                    maxStars={5}
+                                                    rating={item.price_rating}
+                                                    starSize={14}
+                                                    fullStarColor={'#ffd700'}
+                                                    emptyStar={'star'}
+                                                    iconSet={'FontAwesome'}
+                                                />
+                                            </View>
+                                            <View style={styles.cardRightTitle}>
+                                                <Text style={{fontSize: 16}}>מחיר</Text>
+                                            </View>
+                                        </View>
+                                        <View style={styles.row}>
+                                            <View style={styles.starsContainer}>
+                                                <StarRating
+                                                    disabled={false}
+                                                    maxStars={5}
+                                                    rating={item.time_rating}
+                                                    starSize={14}
+                                                    fullStarColor={'#ffd700'}
+                                                    emptyStar={'star'}
+                                                    iconSet={'FontAwesome'}
+                                                />
+                                            </View>
+                                            <View style={styles.cardRightTitle}>
+                                                <Text style={{fontSize: 16}}>זמן עבודה</Text>
+                                            </View>
+                                        </View>
+                                        <View style={styles.row}>
+                                            <View style={styles.starsContainer}>
+                                                <StarRating
+                                                    disabled={false}
+                                                    maxStars={5}
+                                                    rating={item.performance_rating}
+                                                    starSize={14}
+                                                    fullStarColor={'#ffd700'}
+                                                    emptyStar={'star'}
+                                                    iconSet={'FontAwesome'}
+                                                />
+                                            </View>
+                                            <View style={styles.cardRightTitle}>
+                                                <Text style={{fontSize: 16}}>שירות</Text>
+                                            </View>
+                                        </View>
+                                        {/*Bot Border*/}
+                                        <View style={styles.cardBottomBorder}/>
+                                    </View>
+                                )
+                            })}
                         </View>
                     </ScrollView>
 
                 </View>
                 {/*Footer*/}
 
-                        <View style={styles.footer}>
-                            {submitButton('הזמן עכשיו', 'consumer', () => {
-                                this.setModalVisible(true);
-                            })}
-                        </View>
-                    </View>
+                <View style={styles.footer}>
+                    {submitButton('הזמן עכשיו', 'consumer', () => {
+                        this.setModalVisible(true);
+                    })}
+                </View>
+            </View>
 
 
         )

@@ -27,16 +27,10 @@ export default class OnTheWayPro extends Component {
     }
 
     componentDidMount() {
+        if(this.props.userDataStore.focusedJob.status === 'consumer_review'){
+            this.props.navigation.navigate('Home');
+        }
         this.animation1.play();
-        setTimeout(() => {
-            this.animation1.reset()
-            this.animation2.play()
-
-        },5000 )
-
-
-
-
     }
 
     getPaid() {
@@ -57,6 +51,14 @@ export default class OnTheWayPro extends Component {
     }
 
     render() {
+        if(this.props.userDataStore.focusedJob.status === 'consumer_review'){
+            console.warn('yoo')
+            this.animation1.reset()
+            this.animation2.play()
+            setTimeout(()=>{
+                this.props.navigation.navigate('Home');
+            },2000)
+        }
         return (
             <View style={{flex: 1}}>
                 <View style={{height: HH, backgroundColor: '#FFBA00'}}>

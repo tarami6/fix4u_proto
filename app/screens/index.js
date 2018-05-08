@@ -6,6 +6,7 @@
 
 import React, {Component} from 'react';
 import {Alert, BackHandler, View} from 'react-native';
+// mobx
 import {inject, observer} from 'mobx-react/native';
 import authStore from "../state-manager/mobx/authStore";
 //navigation:
@@ -13,9 +14,13 @@ import NavigationStore from "../state-manager/mobx/navigationStore";
 import {addNavigationHelpers, NavigationActions} from "react-navigation"
 import AppNavigation from '../navigations';
 // import NavigatorService from '../navigations/navigator';
+// modals
 import Modals from './modals'
+// config
 import {tryLogin} from "../generalFunc/tryLogin";
+// google
 import Geocoder from "react-native-geocoding";
+// keys
 import {Keys} from "../config/keys";
 //components:
 // Ramistesting

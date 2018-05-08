@@ -1,6 +1,6 @@
 // React -react naitve
 import React from 'react';
-import {FlatList, Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {FlatList, Image, StyleSheet, Text, TouchableHighlight, View, BackHandler} from 'react-native';
 // headr
 import Header from '../../../components/headers/Header'
 // pro Item
@@ -9,6 +9,7 @@ import InfoItem from '../../../components/InfoItem';
 import {SH, SW} from "../../../config/styles";
 // mobx
 import {inject, observer} from "mobx-react/index";
+import {NavigationActions} from "react-navigation";
 
 data = [
     {
@@ -56,8 +57,20 @@ export default class SchedulePro1 extends React.Component {
         header: null
     }
 
-    constructor(props) {
-        super(props)
+
+    componentDidMount() {
+        //backHandler:
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+        handleBackButton = () => {
+        console.warn('success??');
+            this.props.navigation.navigate('DrawerClose');
+            return true;
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
 

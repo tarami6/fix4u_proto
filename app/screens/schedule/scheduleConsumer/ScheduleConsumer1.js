@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, FlatList, TouchableHighlight, View, Text, Alert} from 'react-native';
+import {StyleSheet, FlatList, TouchableHighlight, View, Text, Alert, BackHandler} from 'react-native';
 import Header from '../../../components/headers/Header';
 import InfoItem from '../../../components/InfoItem';
 import {HH, SH, SW} from "../../../config/styles";
@@ -12,6 +12,20 @@ import {inject, observer} from "mobx-react/native";
 export default class ScheduleConsumer1 extends React.Component {
     static navigationOptions = {
         header: null,
+    }
+
+    componentDidMount() {
+        //backHandler:
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    handleBackButton = () => {
+        this.props.navigation.goBack();
+        return true;
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     chooseJob(job) {
@@ -42,7 +56,7 @@ export default class ScheduleConsumer1 extends React.Component {
                             renderItem={({item, index}) =>
                                 <View style={{
                                     width: SW,
-                                    height: SH / 8 + 3,
+                                    height: SH / 8 +0.5,
                                     backgroundColor: 'transparent'
                                 }}>
                                     <TouchableHighlight onPress={() => {

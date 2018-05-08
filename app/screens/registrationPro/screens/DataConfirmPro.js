@@ -12,6 +12,7 @@ import {fetcher} from "../../../generalFunc/fetcher";
 import {handlePushyToken} from "../../../generalFunc/pushyTokenHandler";
 import Header from "../../../components/headers/Header";
 
+@inject('modalsStore')
 @inject('authStore')
 @inject('userDataStore')
 @inject("proAuthStore")
@@ -52,11 +53,13 @@ export default class ChooseTime extends React.Component {
                 payload: sendObj
             };
         }
+        this.props.modalsStore.showModal('loaderModal');
         fetcher(proRegistrationRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), finalSendObj, headers)
     }
 
     ///// success registration handles:
     successCallback(res) {
+        this.props.modalsStore.hideModal('loaderModal');
         if(res.token){
             handlePushyToken(res.token)
             this.props.proAuthStore.updatePro(res);
@@ -68,6 +71,7 @@ export default class ChooseTime extends React.Component {
     }
 
     errorCallback(err) {
+        this.props.modalsStore.hideModal('loaderModal');
         console.warn('error in registration got:', err);
         console.log('error in registration got:', err)
 

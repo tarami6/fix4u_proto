@@ -15,6 +15,7 @@ export default class UserProRender extends React.Component {
     render(){
         let pro = this.props.pro;
         console.log('pro object:', pro);
+        console.log('pro object3232:', pro.services[0]);
         let rating = getAvgRating(
         pro.price_rating_avg,
         pro.time_rating_avg,
@@ -25,10 +26,7 @@ export default class UserProRender extends React.Component {
             flex: 1,
             flexDirection: 'row',
             backgroundColor: '#ffffff',
-            zIndex: 2,
-            borderBottomWidth: 0.5,
-            borderColor: 'grey',
-            elevation: 20
+
         }}>
 
             <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
@@ -55,7 +53,7 @@ export default class UserProRender extends React.Component {
                         {/*/>*/}
                     {/*</View>*/}
 
-                <Text>{()=>ServicesArrToHebString(pro.services)} </Text>
+                <Text>{ServicesArrToHebString(pro.services)}</Text>
             </View>
             <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
                 <Image

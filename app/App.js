@@ -118,7 +118,7 @@ let handleNotificationData = (type, payload) => {
             userDataStore.focusJob(payload);
             break;
         case 'open_post_remove':
-            if (openJobsStore.focusedJob.id === payload.post_id) {
+            if (openJobsStore.focusedJob.id === payload.post_id && modalsStore.chooseJobModal) {
                 modalsStore.hideModal('chooseJobModal');
                 Alert.alert('העבודה כבר לא רלוונטית(נתפסה על ידי מקצוען אחר או נמחקה על ידי המשתמש');
                 openJobsStore.removeJob(payload.post_id);

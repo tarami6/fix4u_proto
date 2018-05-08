@@ -25,6 +25,7 @@
     "react-native-maps": "^0.21.0",
     "react-native-maps-directions": "^1.6.0",
     "react-native-modal": "^5.4.0",
+    "react-native-picker": "^4.3.6",
     "react-native-progress": "^3.4.0",
     "react-native-snap-carousel": "^3.6.0",
     "react-native-star-rating": "^1.0.9",

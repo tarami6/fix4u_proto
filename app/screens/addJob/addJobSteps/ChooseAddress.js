@@ -17,11 +17,10 @@ import LinierView from '../../../components/linierView';
 import Header from '../../../components/headers/Header'
 import {NavigationActions} from "react-navigation";
 
-
+@inject("modalsStore")
 @inject("navigationStore")
 @inject("userDataStore")
 @inject("addJobStore")
-@inject("authStore")
 @observer
 export default class ChooseAddress extends React.Component {
     static navigationOptions = {
@@ -73,7 +72,7 @@ export default class ChooseAddress extends React.Component {
     }
 
     handleSubmit() {
-
+        this.props.modalsStore.showModal('loaderModal');
         if (this.state.place_id) {
             // if (this.state.details.address_components[0].long_name.length > 0) {
             //     Alert.alert('please fill in building number as well');
@@ -86,6 +85,7 @@ export default class ChooseAddress extends React.Component {
         else {
             let {lat, lon, currentAddress} = this.props.userDataStore.userLocation;
             if (!lat || !lon || !currentAddress) {
+                this.props.modalsStore.hideModal('loaderModal');
                 Alert.alert('המערכת לא זיהתה את המיקום שלך, אנא הכנס מיקום')
             }
             else {
@@ -99,7 +99,6 @@ export default class ChooseAddress extends React.Component {
     }
 
     submitJob(lat, lon, address = this.state.address) {
-
         let objToSave = {
             lat: lat,
             lon: lon,
@@ -136,6 +135,7 @@ export default class ChooseAddress extends React.Component {
     }
 
     successCallback(response) {
+        this.props.modalsStore.hideModal('loaderModal');
         if (response.id) {
             this.props.userDataStore.addJob(response)
             this.props.userDataStore.focusConsumerJob(response);
@@ -147,6 +147,7 @@ export default class ChooseAddress extends React.Component {
     //autoCompleteHandling:
 
     errorCallback(response) {
+        this.props.modalsStore.hideModal('loaderModal');
         console.warn('error addJob');
         console.log('error in addJob:', response)
     }
@@ -154,6 +155,7 @@ export default class ChooseAddress extends React.Component {
     //get the lat and lon with the place_id
     getCoordsAndSubmitData(itemId) {
         // https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJrTLr-GyuEmsRBfy61i59si0&key=YOUR_API_KEY
+        this.props.modalsStore.showModal('loaderModal');
         fetch(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${itemId}&key=${Keys.places_api_web_services}`)
             .then((response) => response.json())
             .then((responseJson) => {

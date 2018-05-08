@@ -100,7 +100,7 @@ export default class Review extends Component {
             <View style={{flex: 1,}}>
                 <Header head={'Grey'}/>
                 {/*Info*/}
-                <View style={{flex: 0.23, backgroundColor: '#fff', borderBottomWidth: 1, borderColor: '#000'}}>
+                <View style={{flex: 0.23, backgroundColor: '#fff', borderBottomWidth: 0.5, borderColor: '#000'}}>
                     {/*Image & service & full name*/}
                     <View style={{flex: 0.9}}>
                         <InfoItem info={this.props.userDataStore.focusedJob.user_pro}/>

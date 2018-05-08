@@ -68,7 +68,7 @@ export default class UserDataStore {
     @action findAndFocusConsumerJob() {
         let userPosts = this.userData.user.user_open_posts;
         for (let i = 0; i < userPosts.length; i++) {
-            if (userPosts[i].status === 'open') {
+            if (userPosts[i].status === 'open' || userPosts[i].status === 'pending') {
                 this.focusConsumerJob(userPosts[i]);
             }
         }

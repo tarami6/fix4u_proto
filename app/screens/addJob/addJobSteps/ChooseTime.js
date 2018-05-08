@@ -8,7 +8,8 @@ import {
     Text,
     TouchableHighlight,
     TouchableWithoutFeedback,
-    View
+    View,
+    Alert
 } from 'react-native';
 // Components
 import LinierView from '../../../components/linierView';
@@ -74,13 +75,14 @@ export default class ChooseTime extends React.Component {
     handleSubmit() {
         let date = new Date()
         let editedDate = date.toISOString().slice(0, 10);
-        let hours = date.getHours() < 12 ? '0' + date.getHours() : date.getHours();
-        let minutes = date.getMinutes() < 12 ? '0' + date.getMinutes() : date.getMinutes();
+        let hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
+        let minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
         let time_start = hours + ':' + minutes + ':' + "00";
         let editedHours = date.setHours(date.getHours() + 2);
         let timeSeted = new Date(editedHours)
         let hoursEnd = timeSeted.getHours() < 10 ? '0' + timeSeted.getHours() : timeSeted.getHours();
-        let time_end = hoursEnd + ':' + minutes + ":" + "00"
+        let time_end = hoursEnd + ':' + minutes + ":" + "00";
+        console.warn('time_start:', time_start);
         let sendObj = {
             appointment_date: editedDate,
             appointment_time_start: time_start,
@@ -166,7 +168,7 @@ export default class ChooseTime extends React.Component {
                         <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
                             <Text>בחר תאריך</Text>
                             <TouchableHighlight
-                                onPress={() => Alert.alert('under Development')}>
+                                onPress={() => Alert.alert('תחת פיתוח, בעתיד תוכל לעשות הזמנות בתאריך מסויים')}>
                                 <View style={{
                                     width: SW / 1.5,
                                     height: SH / 13,

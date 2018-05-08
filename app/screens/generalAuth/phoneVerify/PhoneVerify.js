@@ -78,6 +78,7 @@ export default class PhoneVerify extends Component {
 
     //
     errorCallback(error) {
+        this.props.modalsStore.hideModal('loaderModal');
         console.warn('error in proPhoneVerifyModal:', error);
         console.log(error)
     }
