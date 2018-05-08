@@ -153,6 +153,8 @@ export default class InProgressConsumer extends Component {
         }
     }
 
+
+
     componentWillUnmount() {
         clearInterval(this.interval);
     }
@@ -273,14 +275,14 @@ export default class InProgressConsumer extends Component {
                                             <Text style={{fontSize: 18, color: '#000'}}>חשבונית מס</Text>
                                         </View>
                                         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-                                            <Text style={{fontSize: 18, color: '#000'}}>עבור אלכסנדרה קנדל</Text>
+                                            <Text style={{fontSize: 18, color: '#000'}}>עבור {focusedJob.user_pro.name}</Text>
                                         </View>
                                     </View>
 
                                     <View style={{flex: 1, borderBottomWidth: 0.5, borderColor: 'grey',}}>
                                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                                             <View style={{flex: 1}}>
-                                                <Text style={{fontSize: 14}}>2:15:37</Text>
+                                                <Text style={{fontSize: 14}}>{this.state.timer}</Text>
                                             </View>
                                             <View style={{flex: 1}}>
                                                 <Text>זמן</Text>
@@ -293,7 +295,7 @@ export default class InProgressConsumer extends Component {
                                             justifyContent: 'center'
                                         }}>
                                             <View style={{flex: 1, alignItems: 'flex-start', justifyContent: 'center'}}>
-                                                <Text style={{fontSize: 14}}>130 ש"ח</Text>
+                                                <Text style={{fontSize: 14}}>{focusedJob.service_fee} ש"ח</Text>
                                             </View>
                                             <View style={{flex: 1, justifyContent: 'center'}}>
                                                 <Text>מחיר הגעה</Text>
@@ -306,7 +308,7 @@ export default class InProgressConsumer extends Component {
                                             justifyContent: 'center'
                                         }}>
                                             <View style={{flex: 1, alignItems: 'flex-start', justifyContent: 'center'}}>
-                                                <Text style={{fontSize: 14}}>320 ש"ח</Text>
+                                                <Text style={{fontSize: 14}}>{focusedJob.work_fee} ש"ח</Text>
                                             </View>
                                             <View style={{flex: 1, justifyContent: 'center'}}>
                                                 <Text>מחיר שירות</Text>
@@ -317,7 +319,7 @@ export default class InProgressConsumer extends Component {
                                     <View style={{flex: 1, borderBottomWidth: 0.5, borderColor: 'grey',}}>
                                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                                             <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                                <Text style={{fontSize: 14}}>450 ש"ח</Text>
+                                                <Text style={{fontSize: 14}}>{focusedJob.total_fee} ש"ח</Text>
                                             </View>
                                             <View style={{flex: 1}}>
                                                 <Text>סה"כ לפני מע"ם</Text>

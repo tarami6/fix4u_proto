@@ -55,7 +55,7 @@ export default class usersMap extends React.Component {
                                 //             onPress={(yo) => {
                                 //                 console.log('marker:', yo);
                                 //             }}
-                                //  image={require('../../../assets/images/map/18672972_1766504230032438_2439149980771512775_o.jpg')}
+                                 image={require('../../../assets/map_icon.png')}
                             />)
                     })}
 
