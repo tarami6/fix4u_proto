@@ -37,7 +37,7 @@ export default class LoadingScreen extends Component {
         if(res.length>0) {
             // res is the openPost
             //case job is open
-            if(res[0].status==='open') {
+            if(res[0].status==='open' || res[0].status==='pending') {
                 this.props.navigation.navigate('ApplyBaseScreen');
             }
             //job is no open so home is AddJob

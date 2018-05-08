@@ -97,8 +97,9 @@ export default class ApplyBaseScreen extends React.Component {
         else {
             let i=0;
             this.interval = setInterval(() => {
+                console.warn(this.props.navigation.state);
                 i++;
-                console.warn(i, this.mounted);
+                // console.warn(i, this.mounted);
                 let currentDate = new Date();
                 let currentMinutes = currentDate.getMinutes();
                 let currentSeconds = currentDate.getSeconds();
@@ -161,8 +162,8 @@ export default class ApplyBaseScreen extends React.Component {
                 <View/>
             )
         }
-        return (
 
+        return (
             <View style={{flex: 1}}>
                 <View style={{flex: 0.23, backgroundColor: '#ffffff', elevation: 5}}>
                     <LinearViewBelowHeaderConsumer>

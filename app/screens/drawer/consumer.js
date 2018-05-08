@@ -23,7 +23,6 @@ import {NavigationActions} from "react-navigation";
 
 
 const {width, height} = Dimensions.get('window');
-@inject("navigationStore")
 @inject("userDataStore")
 @observer
 export default class Consumer extends Component {
@@ -54,17 +53,17 @@ export default class Consumer extends Component {
         this.props.navigation.navigate('DrawerClose');
         AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
         ));
-        this.props.navigation.navigate('Intro');
-        // const actionToDispatch = NavigationActions.reset({
-        //     index: 0,
-        //     key: null,
-        //     actions: [
-        //         NavigationActions.navigate({
-        //             routeName: 'Intro',
-        //         })
-        //     ],
-        // });
-        // this.props.navigationStore.dispatch(actionToDispatch);
+        // this.props.navigation.navigate('Intro');
+        const actionToDispatch = NavigationActions.reset({
+            index: 0,
+            key: null,
+            actions: [
+                NavigationActions.navigate({
+                    routeName: 'Intro',
+                })
+            ],
+        });
+        this.props.navigation.dispatch(actionToDispatch)
         this.props.userDataStore.logout();
     }
 

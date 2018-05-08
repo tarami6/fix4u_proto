@@ -9,6 +9,7 @@ import {inject, observer} from "mobx-react/native";
 //func and config
 import {fetcher} from "../../generalFunc/fetcher";
 import {logOutRoute} from "../../config/apiRoutes";
+import {NavigationActions} from "react-navigation";
 
 const {width, height} = Dimensions.get('window')
 
@@ -62,8 +63,17 @@ export default class Pro extends Component {
     successLogout(res) {
         AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
         ));
-        this.props.userDataStore.logout()
-        this.props.navigation.navigate('Intro');
+        this.props.userDataStore.logout();
+        const actionToDispatch = NavigationActions.reset({
+            index: 0,
+            key: null,
+            actions: [
+                NavigationActions.navigate({
+                    routeName: 'Intro',
+                })
+            ],
+        });
+        this.props.navigation.dispatch(actionToDispatch)
     }
 
     errorLogout(err) {

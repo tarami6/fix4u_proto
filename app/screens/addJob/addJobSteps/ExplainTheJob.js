@@ -171,9 +171,9 @@ export default class ChooseTime extends React.Component {
                             <Text style={styles.addPicText}>
                                 הוסף תמונה
                             </Text>
-                            <Text style={styles.optionalTitleText}>
-                                לא חובה
-                            </Text>
+                            {/*<Text style={styles.optionalTitleText}>*/}
+                                {/*לא חובה*/}
+                            {/*</Text>*/}
                         </View>
                         {/*add pic icon*/}
                         <View style={styles.addPicIconView}>
