@@ -1,19 +1,18 @@
 import React, {Component} from "react";
-import {Alert, Text, TouchableOpacity, View, StyleSheet, Image, Modal, TouchableHighlight} from 'react-native';
+import {Alert, Image, Modal, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View} from 'react-native';
 import Header from '../../../../components/headers/Header'
 import InfoItem from '../../../../components/InfoItem'
 import OrangeCircle from '../../../../components/OrangeCircle'
 
 import StarRating from 'react-native-star-rating'
-import Icon from 'react-native-vector-icons/dist/Ionicons';
 //styles
-import {SH, SW, mainStyles, GOLD} from "../../../../config/styles";
+import {GOLD, mainStyles, SH, SW} from "../../../../config/styles";
 import {submitButton} from "../../../../components/modalSubmitButton";
 //config
 import BraintreeDropIn from 'react-native-braintree-payments-drop-in';
 import {fetcher} from "../../../../generalFunc/fetcher";
 import {braintreeGetTokenRoute, braintreeSendTokenRoute} from "../../../../config/apiRoutes";
-import {getAvgRating} from "../../../../generalFunc/generalFunctions";
+import {addZero, getAvgRating} from "../../../../generalFunc/generalFunctions";
 //mobx
 import {inject, observer} from "mobx-react/index";
 
@@ -122,19 +121,39 @@ export default class InProgressConsumer extends Component {
             }
             sec++
             this.setState({timer: newTimer})
-            if(this.props.userDataStore.focusedJob.status!=="in_progress"){
-                clearInterval(this.interval)
+            if (this.props.userDataStore.focusedJob.status !== 'in_progress') {
+                clearInterval(this.interval);
+                let startTime = new Date(this.props.userDataStore.focusedJob.job_start_time);
+                let completionTime = new Date(this.props.userDataStore.focusedJob.job_completion_time);
+                let sec2 = addZero(completionTime.getSeconds() - startTime.getSeconds());
+                let min2 = addZero(completionTime.getMinutes() - startTime.getMinutes());
+                let hour2 = addZero(completionTime.getHours() - startTime.getHours());
+                let jobTime = hour2 + ':' + min2 + ':' + sec2;
+                this.setState({
+                    timer: jobTime
+                })
             }
         }, 1000);
     }
 
-    componentDidMount(){
-        if(this.props.userDataStore.focusedJob.status === 'in_progress') {
+    componentDidMount() {
+        if (this.props.userDataStore.focusedJob.status === 'in_progress') {
             this.startTimer();
+        }
+        else {
+            let startTime = new Date(this.props.userDataStore.focusedJob.job_start_time);
+            let completionTime = new Date(this.props.userDataStore.focusedJob.job_completion_time);
+            let sec2 = addZero(completionTime.getSeconds() - startTime.getSeconds());
+            let min2 = addZero(completionTime.getMinutes() - startTime.getMinutes());
+            let hour2 = addZero(completionTime.getHours() - startTime.getHours());
+            let jobTime = hour2 + ':' + min2 + ':' + sec2;
+            this.setState({
+                timer: jobTime
+            })
         }
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         clearInterval(this.interval);
     }
 
@@ -216,7 +235,7 @@ export default class InProgressConsumer extends Component {
                 }}>
 
 
-                    <TouchableOpacity onPress={() => Communications.phonecall( focusedJob.user_pro.phone_number, true)}
+                    <TouchableOpacity onPress={() => Communications.phonecall(focusedJob.user_pro.phone_number, true)}
                                       style={{flex: 1, alignItems: 'center',}}>
                         <Image source={require('../../../../../assets/icons/call.png')}/>
                     </TouchableOpacity>
@@ -362,7 +381,7 @@ const styles = StyleSheet.create({
     infoAboutView: {
         flex: 0.6,
         marginRight: SW / 20,
-        marginLeft: SW /20,
+        marginLeft: SW / 20,
         justifyContent: 'center'
     },
     infoBorder: {
