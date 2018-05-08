@@ -14,10 +14,14 @@ const HeaderConsumer = (props) => {
                     drawerOpen: true,
                 });
             }}>
-                <Image source={require('../../../../assets/icons/Menu.png')}/>
+                <Image
+                    style={{width: 20, height: 20}}
+                    source={require('../../../../assets/icons/Menu.png')}/>
             </TouchableOpacity>
 
-            <Image source={require('../../../../assets/icons/fixU.png')}/>
+            <Image
+                style={{width: 65, height: 20}}
+                source={require('../../../../assets/icons/fix4U.png')}/>
             <TouchableOpacity
                 onPress={() => props.navigation.navigate('Schedule')}
                 style={styles.rightButton}>
