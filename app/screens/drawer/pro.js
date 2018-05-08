@@ -22,6 +22,20 @@ export default class Pro extends Component {
         }
     }
 
+    // componentDidMount(){
+    //     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    // }
+    //
+    // componentWillUnmount() {
+    //     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    // }
+    //
+    // handleBackButton = () => {
+    //     this.props.navigation.navigate('DrawerClose');
+    //     return true;
+    // }
+
+
     //switchTo is the new current user type for the pro, changes mobx state as well (changes currentUserType)
     handleSwitch(switchTo) {
         this.props.userDataStore.setCurrentUserType(switchTo)
@@ -59,7 +73,7 @@ export default class Pro extends Component {
     }
 
     render() {
-        if(!this.props.userDataStore.userData.user){
+        if (!this.props.userDataStore.userData.user) {
             console.log('err in drawer pro, this.props.userDataStore.userData=', this.props.userDataStore.userData)
             return (
                 <View>
@@ -78,7 +92,7 @@ export default class Pro extends Component {
                         colors={['#fd8824', '#fdb82c']}
                         start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
                         style={styles.container}>
-                        {console.log('DRAWERPRO',this.props.userDataStore.userData.user )}
+                        {console.log('DRAWERPRO', this.props.userDataStore.userData.user)}
                         <Navbar name={this.props.userDataStore.userData.user.name}
                                 pic={this.props.userDataStore.userData.user.profile_pic_thumb}
                                 navigation={this.props.navigation}/>
@@ -172,7 +186,13 @@ export default class Pro extends Component {
 const Navbar = (props) => {
     return (
         <View style={{width, height: Platform.OS == 'ios' ? 150 : 135,}}>
-            <TouchableOpacity onPress={() => props.navigation.navigate('DrawerClose')}>
+            <TouchableOpacity onPress={() => {
+                props.navigation.navigate('DrawerClose')
+                props.navigation.setParams({
+                    drawerOpen: false,
+                })
+            }
+            }>
                 <Icon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
             </TouchableOpacity>
             <View style={{flexDirection: 'row', position: 'absolute', bottom: 20, right: 20, alignItems: 'center'}}>

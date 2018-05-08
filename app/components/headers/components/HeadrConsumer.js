@@ -8,7 +8,12 @@ const HeaderConsumer = (props) => {
     return (
 
         <View style={[styles.customHeader,{backgroundColor: color}]}>
-            <TouchableOpacity  onPress={() => props.navigation.navigate('DrawerOpen')}>
+            <TouchableOpacity  onPress={() => {
+                props.navigation.navigate('DrawerOpen')
+                props.navigation.setParams({
+                    drawerOpen: true,
+                });
+            }}>
                 <Image source={require('../../../../assets/icons/Menu.png')}/>
             </TouchableOpacity>
 

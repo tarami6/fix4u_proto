@@ -130,7 +130,6 @@ export default class ApplyBaseScreen extends React.Component {
         this.setState({
             height: this.state.height * data.length + SH / 8
         })
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     //handling backHandler:
@@ -266,7 +265,7 @@ export default class ApplyBaseScreen extends React.Component {
                     transparent={true}
                     visible={this.state.modalVisible}
                     onRequestClose={() => {
-                        alert('Modal has been closed.');
+                        this.setState({modalVisible: false})
                     }}>
                     <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
                         <View style={styles.modalView}>

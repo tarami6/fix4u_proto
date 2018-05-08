@@ -1,11 +1,7 @@
 /* @flow */
 
 import React, {Component} from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-} from 'react-native';
+import {BackHandler, StyleSheet, View,} from 'react-native';
 import Consumer from '../screens/drawer/consumer'
 import Pro from '../screens/drawer/pro'
 import {inject, observer} from "mobx-react/native";
@@ -14,32 +10,45 @@ import {inject, observer} from "mobx-react/native";
 @observer
 export default class CustomDrawer extends Component {
 
+    handleBackButton = () => {
+        this.props.navigation.navigate('DrawerClose');
+        return true;
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
     render() {
         // consumer or pro, change based on login user props
         let currentUser = this.props.userDataStore.userType;
-        if (!this.props.userDataStore.userType){
+        if (!this.props.userDataStore.userType) {
             return (
                 <View/>
             );
         }
-            switch (currentUser) {
-                case 'NoToken':
-                    return (
-                        <View/>
-                    );
-                case 'consumer':
-                    return (
-                        <Consumer {...this.props}/>
-                    );
-                    break;
-                case 'pro':
-                    return (
-                        <Pro {...this.props}/>
-                    );
-                    break;
-                default:
-                    return <View/>
-            }
+        switch (currentUser) {
+            case 'NoToken':
+                return (
+                    <View/>
+                );
+            case 'consumer':
+                return (
+                    <Consumer {...this.props}/>
+                );
+                break;
+            case 'pro':
+                return (
+                    <Pro {...this.props}/>
+                );
+                break;
+            default:
+                return <View/>
+        }
     }
 }
 

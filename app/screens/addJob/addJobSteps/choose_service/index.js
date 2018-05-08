@@ -23,23 +23,24 @@ export default class ChooseService extends Component {
     static navigationOptions = {
         header: null
     }
-
-    //BackHandler s:
-    onButtonPress = () => {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-        // then navigate
-        navigate('NewScreen');
-    }
-
     onBackPress = () => {
         // // console.log('backHandler pressed')
         // const {dispatch} = this.store;
         // // console.log(this.store);
         // const {navigationState} = this.store;
-
+        if (this.props.navigation.state.params) {
+            if(this.props.navigation.state.params.drawerOpen){
+                this.props.navigation.navigate('DrawerClose');
+                this.props.navigation.setParams({
+                    drawerOpen: false,
+                });
+                return true;
+            }
+            console.log(this.props.navigation.state.params.drawerOpen);
+        }
         Alert.alert(
             'Exit App',
-            'Exiting the application?', [
+            'Exiting the applicationasdada?', [
                 {
                     text: 'Cancel',
                     onPress: () => console.log('Cancel Pressed'),
@@ -54,9 +55,10 @@ export default class ChooseService extends Component {
         return true;
         // return false;
         // dispatch(NavigationActions.back());
-        return true;
     };
-    x = () => {
+
+    constructor(props) {
+        super(props);
     }
 
     componentDidMount() {

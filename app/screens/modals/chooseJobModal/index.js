@@ -56,7 +56,6 @@ export default class ChooseJobModal extends Component {
             'Authorization': 'JWT ' + this.props.userDataStore.userData.token
         };
         let time = dateObjToTimeString(this.props.openJobsStore.focusedJob.created_at);
-        console.warn('timeemit:', time);
         if (this.state.hour && this.state.minutes) {
             let hour = this.state.hour < 10 ? '0' + this.state.hour : this.state.hour;
             let minutes = this.state.minutes < 10 ? '0' + this.state.minutes : this.state.minutes;

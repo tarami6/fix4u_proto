@@ -20,7 +20,7 @@ export default class ThankYouRegPro extends Component {
                         transparent={true}
                         visible={this.state.modalVisible}
                         onRequestClose={() => {
-                            alert('Modal has been closed.');
+                            this.setState({modalVisible: false})
                         }}>
 
                         <View style={styles.modalView}>

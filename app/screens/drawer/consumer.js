@@ -1,7 +1,17 @@
 /* @flow */
 
 import React, {Component} from 'react';
-import {Alert, AsyncStorage, Dimensions, Image, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+    Alert,
+    AsyncStorage,
+    BackHandler,
+    Dimensions,
+    Image,
+    Platform,
+    StyleSheet,
+    TouchableOpacity,
+    View
+} from 'react-native';
 import {Icon, List, ListItem, Text} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 import Circle from '../../components/circle'
@@ -9,6 +19,7 @@ import {inject, observer} from "mobx-react/native";
 import {logOutRoute} from "../../config/apiRoutes";
 import {fetcher} from "../../generalFunc/fetcher";
 import PlusIcon from 'react-native-vector-icons/EvilIcons'
+import {NavigationActions} from "react-navigation";
 
 
 const {width, height} = Dimensions.get('window');
@@ -17,6 +28,18 @@ const {width, height} = Dimensions.get('window');
 @observer
 export default class Consumer extends Component {
 
+    componentDidMount(){
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    handleBackButton = () => {
+        this.props.navigation.navigate('DrawerClose');
+        return true;
+    }
 
     logout() {
         fetcher(logOutRoute, 'PATCH', this.successLogout.bind(this), this.errorLogout.bind(this), {push_token: ""}, {token: this.props.userDataStore.userData.token})

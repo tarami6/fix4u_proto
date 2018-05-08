@@ -80,7 +80,7 @@ export default class OnTheWayPro extends React.Component {
                     transparent={true}
                     visible={this.state.modalVisible}
                     onRequestClose={() => {
-                        alert('Modal has been closed.');
+                        this.setState({modalVisible: false})
                     }}>
                     <View style={{backgroundColor: 'rgba(0,0,0,0.3)', flex: 1}}>
 

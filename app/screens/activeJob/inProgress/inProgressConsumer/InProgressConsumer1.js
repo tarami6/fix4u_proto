@@ -187,7 +187,7 @@ export default class InProgressConsumer extends Component {
                     transparent={true}
                     visible={this.state.modalVisible}
                     onRequestClose={() => {
-                        alert('Modal has been closed.');
+                        this.setState({modalVisible: false})
                     }}>
                     <View style={{flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
                         <View style={styles.modalView}>

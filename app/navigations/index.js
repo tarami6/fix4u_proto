@@ -39,12 +39,6 @@ import Schedule from "../screens/schedule";
 import ActiveJob from '../screens/activeJob'
 
 const {width} = Dimensions.get('window')
-//it is just example
-// const A = (props) => (
-//   <Icon
-//     style={{position:'absolute', left:20, top:20}}
-//     onPress={()=>props.navigation.navigate('DrawerOpen')} name="menu"/>)
-const B = () => (<Text>screen choose as PRO</Text>)
 
 
 const AddJobNavigation = StackNavigator({
@@ -125,6 +119,8 @@ const ConsumerNavigator = DrawerNavigator({
     contentComponent: CustomDrawer,
     drawerWidth: width
 })
+
+
 
 
 //auth navigators:
