@@ -131,10 +131,11 @@ export default class ChooseTime extends React.Component {
                     {/*Linear*/}
                     <LinierView>
                         <Header head={'AddJob'} previousPage={'ChooseTime'} props={this.props}/>
-                        <View style={{flex: 1, marginLeft: SW / 30, alignItems: 'center'}}>
+                        <View style={{flex: 1,  alignItems: 'center'}}>
                             <Image
-                                source={require('../../../../assets/addJob/icons/stepIndicatorConsumer2.png')}
-                            />
+                            style={{ width: SW /2, height: 30}}
+                            source={require('../../../../assets/icons/ThreeStepsIndicator/2.png')}
+                        />
                         </View>
                         <View style={styles.explainTitleView}>
                             <Text style={styles.explainText}>

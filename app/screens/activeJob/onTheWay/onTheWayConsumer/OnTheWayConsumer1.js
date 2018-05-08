@@ -22,7 +22,7 @@ import StarIcon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import Communications from 'react-native-communications';
 import {formatTime} from "../../../../generalFunc/generalFunctions";
-import {getAvgRating} from "../../../../generalFunc/generalObjects";
+import {getAvgRating} from "../../../../generalFunc/generalFunctions";
 
 // mobx
 import {inject, observer} from "mobx-react/index";
@@ -112,12 +112,12 @@ export default class OnTheWayConsumer extends Component {
 
     render() {
         let reviews = this.props.userDataStore.focusedJob.user_pro.pro_reviews;
-        let job = this.props.userDataStore.focusedConsumerJob;
-        console.log('review2',this.props.userDataStore.focusedJob.user_pro.pro_reviews[0]);
+        let job = this.props.userDataStore.focusedJob.user_pro;
+        console.log('review2',job);
         let rating = getAvgRating(
-            job.user_pro.price_rating_avg,
-            job.user_pro.time_rating_avg,
-            job.user_pro.performance_rating_avg,
+            job.price_rating_avg,
+            job.time_rating_avg,
+            job.performance_rating_avg,
         );
         return (
             <View style={{flex: 1,}}>
@@ -127,13 +127,13 @@ export default class OnTheWayConsumer extends Component {
                 <View style={{flex: 0.5}}>
                     <View style={styles.infoView}>
                         {/*Image & service & full name*/}
-                        <View style={{flex: 0.4}}>
+                        <View style={{flex: 0.5}}>
                             <InfoItem info={this.props.userDataStore.focusedJob}
                                       previousPage={'ScheduleConsumer'}/>
                         </View>
                         {/*about*/}
                         <View style={styles.infoAboutView}>
-                            <Text>{this.props.userDataStore.focusedJob.user_pro.description}</Text>
+                            <Text>{job.company_description}</Text>
                         </View>
                         {/*Border*/}
                         <View style={styles.infoBorder}/>
@@ -346,10 +346,9 @@ const styles = StyleSheet.create({
     },
     infoAboutView: {
         flex: 0.6,
-        marginRight: SW / 20,
-        marginLeft: SW /20,
-        width: SW - (SW / 40),
-        justifyContent: 'center'
+        width: SW - (SW / 10),
+        justifyContent: 'center',
+        alignSelf: 'center',
     },
     infoBorder: {
         width: SW,

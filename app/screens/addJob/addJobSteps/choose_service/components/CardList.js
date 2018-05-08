@@ -20,44 +20,44 @@ const data = [
     {service: 'שיפוצניק', state: 'Handyman'},
     {service: 'מנעולן', state: 'Locksmith'},
     {service: 'טכנאי מכונות כביסה', state: 'TechnicianWashingMachines'},
-    {service: 'תכנאי מזגנים', state: 'AirConditioningTechnician'},
+    {service: 'טכנאי מזגנים', state: 'AirConditioningTechnician'},
 ]
 
 const services = [
   {
     name : 'Locksmith',
     qty : 0,
-    uri : require('../../../../../../assets/services/broom.png')
+    uri : require('../../../../../../assets/icons/serviceColor/Locksmith.png')
   },
   {
     name : 'TechnicianWashingMachines',
     qty : 1,
-    uri : require('../../../../../../assets/services/lamp.png')
+    uri : require('../../../../../../assets/icons/serviceColor/TechnicianWashingMachines.png')
   },
   {
     name : 'Electrician',
     qty : 17,
-    uri : require('../../../../../../assets/services/brush.png')
+    uri : require('../../../../../../assets/icons/serviceColor/Electrician.png')
   },
   {
     name : 'Cleaner',
     qty : 34,
-    uri : require('../../../../../../assets/services/broom.png')
+    uri : require('../../../../../../assets/icons/serviceColor/Cleaner.png')
   },
   {
     name : 'Handyman',
     qty : 273,
-    uri : require('../../../../../../assets/services/lamp.png')
+    uri : require('../../../../../../assets/icons/serviceColor/Handyman.png')
   },
   {
     name : 'Plumber',
     qty : 17,
-    uri : require('../../../../../../assets/services/brush.png')
+    uri : require('../../../../../../assets/icons/serviceColor/Plumber.png')
   },
   {
     name : 'AirConditioningTechnician',
     qty : 34,
-    uri : require('../../../../../../assets/services/broom.png')
+    uri : require('../../../../../../assets/icons/serviceColor/AirConditioningTechnician.png')
   },
 ]
 

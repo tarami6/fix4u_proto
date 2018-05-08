@@ -26,7 +26,7 @@ import {NavigationActions} from "react-navigation";
 
 let data = {
     service: 'חשמלאי',
-    servicePic: require('../../../../assets/icons/serviceElectrician.png'),
+    servicePic: require('../../../../assets/whiteIcons/Plumber.png'),
 }
 
 
@@ -113,14 +113,15 @@ export default class ChooseTime extends React.Component {
                 {/*Orange Head*/}
                 <LinierView>
                     <Header head={'AddJob'} previousPage={'ChooseService'} props={this.props}/>
-                    <View style={{flex: 1, marginLeft: SW / 30, justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={{flex: 0.8, justifyContent: 'flex-start', alignItems: 'center'}}>
                         <Image
-                            source={require('../../../../assets/icons/stepIndicatorConsumer1.png')}
+                            style={{ width: SW /2, height: 30}}
+                            source={require('../../../../assets/icons/ThreeStepsIndicator/1.png')}
                         />
                     </View>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                         <Image
-                            style={{alignSelf: 'center'}}
+                            style={{alignSelf: 'center', width: SW /8, height: SW / 8}}
                             source={data.servicePic}
                         />
                     </View>

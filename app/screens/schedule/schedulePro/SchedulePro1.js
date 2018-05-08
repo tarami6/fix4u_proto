@@ -108,7 +108,7 @@ export default class SchedulePro1 extends React.Component {
                                                                         borderColor: '#AAAAAA'
                                                                     }}>
 
-                            <InfoItem info={item}/>
+                            <InfoItem type={'consumer'} info={item}/>
                         </TouchableHighlight>}
                     />
                 </View>

@@ -67,17 +67,24 @@ export default class Consumer extends Component {
                                 <Circle qty={22}/>
                             </View>
                             <TouchableOpacity onPress={() => {
-                                Alert.alert('בפיתוח... כאן יהיו כל ההתראות שלך')
+                                Alert.alert('בפיתוח... כאן יהיו כל חשבוניות שלך')
                             }}>
-                                <Text style={{color: 'gray', fontWeight: 'bold'}}>התראות</Text>
+                                <Text style={{color: 'gray', fontWeight: 'bold'}}>חשבוניות שלי</Text>
                             </TouchableOpacity>
                         </View>
                     </ListItem>
                     <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
                         <TouchableOpacity onPress={() => {
-                            Alert.alert('בפיתוח... כאן יהיה ניהול החשבון שלך')
+                            Alert.alert('בפיתוח... כאן יהיה הגדרות החשבון שלך')
                         }}>
-                            <Text style={{color: 'gray', fontWeight: 'bold'}}>חשבון</Text>
+                            <Text style={{color: 'gray', fontWeight: 'bold'}}>הגדרות חשבון</Text>
+                        </TouchableOpacity>
+                    </ListItem>
+                    <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                        <TouchableOpacity onPress={() => {
+                            Alert.alert('בפיתוח... כאן תוכל ליצור קשר עם תמיכה טכנית לכל שאלה')
+                        }}>
+                            <Text style={{color: 'gray', fontWeight: 'bold'}}>תמיכה טכנית</Text>
                         </TouchableOpacity>
                     </ListItem>
 

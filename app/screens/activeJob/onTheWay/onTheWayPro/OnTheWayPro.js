@@ -8,7 +8,7 @@ import {inject, observer} from "mobx-react/index";
 //config:
 import Communications from 'react-native-communications';
 //styles and components
-import {SW} from "../../../../config/styles";
+import {SW, mainStyles} from "../../../../config/styles";
 import {submitButton} from "../../../../components/modalSubmitButton";
 import Header from '../../../../components/headers/Header'
 
@@ -72,7 +72,7 @@ export default class OnTheWayPro extends React.Component {
 
     render() {
         let focusedJob = this.props.userDataStore.focusedJob;
-
+        console.log("sfdsdc",focusedJob);
         return (
             <View style={{flex: 1, backgroundColor: "#fff", alignItems: 'center'}}>
                 <Modal
@@ -113,7 +113,7 @@ export default class OnTheWayPro extends React.Component {
 
                                 <TouchableOpacity onPress={() => this.startJob()}
                                                   style={styles.bt}>
-                                    <Text style={styles.btText}> התחל</Text>
+                                    <Text style={mainStyles.buttonText}> התחל</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -175,7 +175,7 @@ export default class OnTheWayPro extends React.Component {
 
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                             <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                <Text style={{fontSize: 16, color: '#000'}}>{focusedJob.appointment_time}</Text>
+                                <Text style={{fontSize: 16, color: '#000'}}>{focusedJob.appointment_time? focusedJob.appointment_time.slice(0,5): null}</Text>
                             </View>
                             <View style={{flex: 1,}}>
                                 <Text style={{fontSize: 16, color: '#000'}}>שעה</Text>
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
         width: '70%',
         height: 50,
         backgroundColor: 'orange',
-        borderRadius: 20,
+        borderRadius: 30,
         alignItems: 'center',
         justifyContent: 'center'
 

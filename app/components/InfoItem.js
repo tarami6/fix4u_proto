@@ -7,6 +7,7 @@ import JobRender from './infoItem/JobRender';
 import UserProRender from './infoItem/UserProRender';
 import ActiveJobRender from './infoItem/ActiveJobRender';
 import ApplyRender from './infoItem/ApplyRender'
+import ConsumerRender from './infoItem/ConsumerRender'
 // mobx
 import {inject, observer} from "mobx-react/native";
 
@@ -30,11 +31,17 @@ import {inject, observer} from "mobx-react/native";
 export default class InfoItem extends React.Component {
 
     render() {
-        console.log("#@323", this.props)
+        console.log("#@323", this.props.info.user)
+        console.log("#@32323", this.props.info)
         let data = this.props.info;
         if (this.props.type === 'activeJob') {
             return (
                 <ActiveJobRender job={this.props.info}/>
+            )
+        }
+        if (this.props.type === 'consumer') {
+            return (
+                <ConsumerRender user={this.props.info}/>
             )
         }
         // data is a USER_PRO object

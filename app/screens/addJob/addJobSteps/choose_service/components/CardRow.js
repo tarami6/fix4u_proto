@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     image: {
-        width: WIDTH_CARD / 2.5,
+        width: WIDTH_CARD / 2,
     },
     textName: {
         position: 'absolute',
