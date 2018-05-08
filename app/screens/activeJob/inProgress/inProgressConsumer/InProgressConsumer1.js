@@ -348,7 +348,7 @@ export default class InProgressConsumer extends Component {
                                             justifyContent: 'center'
                                         }}>
                                             <View style={{flex: 1, alignItems: 'flex-start', justifyContent: 'center'}}>
-                                                <Text style={{fontSize: 16, color: '#000'}}>390 ש"ח</Text>
+                                                <Text style={{fontSize: 16, color: '#000'}}>{focusedJob.total_fee * 1.17} ש"ח</Text>
                                             </View>
                                             <View style={{flex: 1, justifyContent: 'center', alignItems: 'flex-end'}}>
                                                 <Text style={{fontSize: 16, color: '#000'}}>סה"כ</Text>
