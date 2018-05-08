@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Text, View} from 'react-native';
+import {Text, View, BackHandler} from 'react-native';
 //mobx
 import {inject, observer} from "mobx-react/index";
 //on the way
@@ -25,6 +25,19 @@ export default class ActiveJob extends Component {
     constructor(props){
         super(props);
 
+    }
+    componentDidMount() {
+        //backHandler:
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    handleBackButton = () => {
+        this.props.navigation.goBack();
+        return true;
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
 

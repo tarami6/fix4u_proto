@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     Alert,
-    BackHandler,
     Image,
     LayoutAnimation,
     Modal,
@@ -11,6 +10,8 @@ import {
     Text,
     TextInput,
     TouchableHighlight,
+
+    BackHandler,
     UIManager,
     View
 } from 'react-native';
@@ -26,8 +27,12 @@ import {hebrewServices} from "../../../generalFunc/generalObjects";
 import {fetcher} from "../../../generalFunc/fetcher";
 import {inject, observer} from "mobx-react/native";
 import {chooseApplyRoute, editUserRoute} from "../../../config/apiRoutes";
-import {formatTime, getAvgRating} from "../../../generalFunc/generalFunctions";
-import {NavigationActions} from "react-navigation";
+
+import {getAvgRating, formatTime} from "../../../generalFunc/generalFunctions";
+
+import {NavigationActions} from "react-navigation"
+
+
 //image picker options:
 var options = {
     title: 'Upload profile picture',
@@ -59,6 +64,7 @@ const data = [
 
 
 ]
+
 
 @inject("modalsStore")
 @inject('navigationStore')
@@ -126,6 +132,7 @@ export default class ApplyBaseScreen extends React.Component {
         })
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
+
     //handling backHandler:
     handleBackButton = () => {
         console.warn('success??');
@@ -133,8 +140,10 @@ export default class ApplyBaseScreen extends React.Component {
         return true;
     }
 
+
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+        // this.props.navigation.state.params.onClose()
     }
 
     getHeight(height) {

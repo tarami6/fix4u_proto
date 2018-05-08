@@ -11,12 +11,10 @@ import {getAvgRating} from "../../generalFunc/generalFunctions";
 export default class ActiveJobRender extends React.Component {
 
     render(){
+
         let job = this.props.job;
-        let rating = job.user_pro ? getAvgRating(
-        job.user_pro.price_rating_avg,
-        job.user_pro.time_rating_avg,
-        job.user_pro.performance_rating_avg,
-    ) : 0;
+
+        console.log("ASDas",job)
         return (
              <View style={{
             flex: 1,

@@ -20,7 +20,7 @@ export default class ScheduleConsumer1 extends React.Component {
     }
 
     handleBackButton = () => {
-        this.props.navigation.navigate('DrawerClose');
+        this.props.navigation.goBack();
         return true;
     }
 
@@ -56,7 +56,7 @@ export default class ScheduleConsumer1 extends React.Component {
                             renderItem={({item, index}) =>
                                 <View style={{
                                     width: SW,
-                                    height: SH / 8 + 3,
+                                    height: SH / 8 +0.5,
                                     backgroundColor: 'transparent'
                                 }}>
                                     <TouchableHighlight onPress={() => {

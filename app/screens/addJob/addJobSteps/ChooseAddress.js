@@ -72,7 +72,7 @@ export default class ChooseAddress extends React.Component {
     }
 
     handleSubmit() {
-
+        this.props.modalsStore.showModal('loaderModal');
         if (this.state.place_id) {
             // if (this.state.details.address_components[0].long_name.length > 0) {
             //     Alert.alert('please fill in building number as well');
@@ -85,6 +85,7 @@ export default class ChooseAddress extends React.Component {
         else {
             let {lat, lon, currentAddress} = this.props.userDataStore.userLocation;
             if (!lat || !lon || !currentAddress) {
+                this.props.modalsStore.hideModal('loaderModal');
                 Alert.alert('המערכת לא זיהתה את המיקום שלך, אנא הכנס מיקום')
             }
             else {
@@ -98,7 +99,6 @@ export default class ChooseAddress extends React.Component {
     }
 
     submitJob(lat, lon, address = this.state.address) {
-
         let objToSave = {
             lat: lat,
             lon: lon,
@@ -130,7 +130,6 @@ export default class ChooseAddress extends React.Component {
                 payload: item
             }
         }
-        this.props.modalsStore.showModal('loaderModal');
         fetcher(addJobRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), item, headers);
 
     }
@@ -156,6 +155,7 @@ export default class ChooseAddress extends React.Component {
     //get the lat and lon with the place_id
     getCoordsAndSubmitData(itemId) {
         // https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJrTLr-GyuEmsRBfy61i59si0&key=YOUR_API_KEY
+        this.props.modalsStore.showModal('loaderModal');
         fetch(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${itemId}&key=${Keys.places_api_web_services}`)
             .then((response) => response.json())
             .then((responseJson) => {

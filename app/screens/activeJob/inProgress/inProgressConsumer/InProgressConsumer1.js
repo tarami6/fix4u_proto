@@ -17,6 +17,7 @@ import {getAvgRating} from "../../../../generalFunc/generalFunctions";
 //mobx
 import {inject, observer} from "mobx-react/index";
 
+import Communications from 'react-native-communications';
 
 @inject("userDataStore")
 @observer
@@ -32,10 +33,6 @@ export default class InProgressConsumer extends Component {
         }
     }
 
-    componentWillMount() {
-
-        // console.warn(this.props.userDataStore.userData.user.user_posts)
-    }
 
     pay() {
         let userToken = this.props.userDataStore.userData.token;
@@ -101,7 +98,7 @@ export default class InProgressConsumer extends Component {
 
     render() {
         let focusedJob = this.props.userDataStore.focusedJob;
-        console.warn('focusedJob1232', focusedJob.user_pro);
+        console.warn('focusedJob1232', focusedJob.user_pro.phone_number);
         console.log('focusedJob', focusedJob.service);
         let rating = getAvgRating(
             focusedJob.user_pro.price_rating_avg,
@@ -171,13 +168,13 @@ export default class InProgressConsumer extends Component {
                     </View>
                 </View>
                 <View style={{
-                    flex: 0.16, backgroundColor: 'white', width: SW, flexDirection: 'row', borderTopWidth: 1,
+                    flex: 0.16, backgroundColor: 'white', width: SW, flexDirection: 'row', borderTopWidth: 0.5,
                     borderColor: 'grey',
                     alignItems: 'center'
                 }}>
 
 
-                    <TouchableOpacity onPress={() => Communications.phonecall('0507710091', true)}
+                    <TouchableOpacity onPress={() => Communications.phonecall( focusedJob.user_pro.phone_number, true)}
                                       style={{flex: 1, alignItems: 'center',}}>
                         <Image source={require('../../../../../assets/icons/call.png')}/>
                     </TouchableOpacity>
@@ -219,7 +216,7 @@ export default class InProgressConsumer extends Component {
                                         </View>
                                     </View>
 
-                                    <View style={{flex: 1, borderBottomWidth: 1, borderColor: 'grey',}}>
+                                    <View style={{flex: 1, borderBottomWidth: 0.5, borderColor: 'grey',}}>
                                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                                             <View style={{flex: 1}}>
                                                 <Text style={{fontSize: 14}}>2:15:37</Text>
@@ -256,7 +253,7 @@ export default class InProgressConsumer extends Component {
                                         </View>
                                     </View>
 
-                                    <View style={{flex: 1, borderBottomWidth: 1, borderColor: 'grey',}}>
+                                    <View style={{flex: 1, borderBottomWidth: 0.5, borderColor: 'grey',}}>
                                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                                             <View style={{flex: 1, alignItems: 'flex-start'}}>
                                                 <Text style={{fontSize: 14}}>450 ש"ח</Text>
@@ -317,12 +314,13 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         backgroundColor: '#fff',
         flex: 1,
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.5,
         borderColor: '#9b9b9b'
     },
     infoAboutView: {
         flex: 0.6,
         marginRight: SW / 20,
+        marginLeft: SW /20,
         justifyContent: 'center'
     },
     infoBorder: {

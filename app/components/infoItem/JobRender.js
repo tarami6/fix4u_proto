@@ -16,7 +16,9 @@ export default class JobRender extends React.Component {
 
     render(){
         let job = this.props.job;
-
+        console.log("adas", job)
+        console.log("ad323" +
+            "as", job.service)
         return (
              <View style={{
             flex: 1,
@@ -30,7 +32,7 @@ export default class JobRender extends React.Component {
                     <Text style={{color: '#000'}}> היום {job.appointment_time? job.appointment_time.slice(0, 5) : null}</Text>
 
                     <View>
-                        <Text>{job.service_fee} ש"ח </Text>
+                        <Text style={{textAlign:'left'}}>{job.service_fee} ש"ח </Text>
                     </View>
                 </View>
 
@@ -40,7 +42,7 @@ export default class JobRender extends React.Component {
                 <Text style={{color: '#000', textAlign: 'right'}}>{job.user_pro.name}</Text>
 
 
-                <Text>{hebrewServices[job.service]} {jobStepsInHeb[job.status]} </Text>
+                <Text>{hebrewServices[job.service]} - {jobStepsInHeb[job.status]} </Text>
             </View>
             <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
                 <Image
