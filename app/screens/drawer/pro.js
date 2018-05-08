@@ -108,26 +108,45 @@ export default class Pro extends Component {
                                 navigation={this.props.navigation}/>
                     </LinearGradient>
                     <List>
-                        <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                            <View style={{width, justifyContent: 'space-between', flexDirection: 'row'}}>
-                                <View style={{marginLeft: 50}}>
-                                    <Circle qty={22}/>
-                                </View>
-                                <TouchableOpacity>
-                                    <Text style={{color: 'gray', fontWeight: 'bold'}}>Simon Mignoletss</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </ListItem>
                         {/*Switch drawer type consumer/pro*/}
                         <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
                             <TouchableOpacity onPress={() => this.handleSwitch('consumer')}>
-                                <Text style={{color: 'gray', fontWeight: 'bold'}}>Switch to Consumer mode</Text>
+                                <Text style={{color: 'gray', fontWeight: 'bold'}}>החלף למצב לקוח</Text>
                             </TouchableOpacity>
                         </ListItem>
-                        <ListItem
-                            style={{borderBottomWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                            <Text style={{color: 'gray', fontWeight: 'bold'}}>Simon</Text>
+
+                        <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                            <View style={{
+                                width,
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                flexDirection: 'row'
+                            }}>
+                                <View style={{marginLeft: 50}}>
+                                    <Circle qty={22}/>
+                                </View>
+                                <TouchableOpacity onPress={() => {
+                                    Alert.alert('בפיתוח... כאן יהיו כל חשבוניות שלך')
+                                }}>
+                                    <Text style={{color: 'gray', fontWeight: 'bold'}}>חשבוניות שלי</Text>
+                                </TouchableOpacity>
+                            </View>
                         </ListItem>
+                        <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                            <TouchableOpacity onPress={() => {
+                                Alert.alert('בפיתוח... כאן יהיה הגדרות החשבון שלך')
+                            }}>
+                                <Text style={{color: 'gray', fontWeight: 'bold'}}>הגדרות חשבון</Text>
+                            </TouchableOpacity>
+                        </ListItem>
+                        <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                            <TouchableOpacity onPress={() => {
+                                Alert.alert('בפיתוח... כאן תוכל ליצור קשר עם תמיכה טכנית לכל שאלה')
+                            }}>
+                                <Text style={{color: 'gray', fontWeight: 'bold'}}>תמיכה טכנית</Text>
+                            </TouchableOpacity>
+                        </ListItem>
+
                         <ListItem
                             style={{borderBottomWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
                             <View>
@@ -155,26 +174,44 @@ export default class Pro extends Component {
                                 navigation={this.props.navigation}/>
                     </LinearGradient>
                     <List>
-                        <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                            <View style={{width, justifyContent: 'space-between', flexDirection: 'row'}}>
-                                <View style={{marginLeft: 50}}>
-                                    <Circle qty={22}/>
-                                </View>
-                                <TouchableOpacity>
-                                    <Text style={{color: 'gray', fontWeight: 'bold'}}>Simon Mignoletss</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </ListItem>
                         {/*Switch drawer type consumer/pro*/}
                         <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
                             <TouchableOpacity onPress={() => this.handleSwitch('pro')}>
-                                <Text style={{color: 'gray', fontWeight: 'bold'}}>Switch to pro mode</Text>
+                                <Text style={{color: 'gray', fontWeight: 'bold'}}>החלף למצב איש מקצוע</Text>
                             </TouchableOpacity>
                         </ListItem>
-                        <ListItem
-                            style={{borderBottomWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                            <Text style={{color: 'gray', fontWeight: 'bold'}}>Simon</Text>
+                        <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                            <View style={{
+                                width,
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                flexDirection: 'row'
+                            }}>
+                                <View style={{marginLeft: 50}}>
+                                    <Circle qty={22}/>
+                                </View>
+                                <TouchableOpacity onPress={() => {
+                                    Alert.alert('בפיתוח... כאן יהיו כל חשבוניות שלך')
+                                }}>
+                                    <Text style={{color: 'gray', fontWeight: 'bold'}}>חשבוניות שלי</Text>
+                                </TouchableOpacity>
+                            </View>
                         </ListItem>
+                        <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                            <TouchableOpacity onPress={() => {
+                                Alert.alert('בפיתוח... כאן יהיה הגדרות החשבון שלך')
+                            }}>
+                                <Text style={{color: 'gray', fontWeight: 'bold'}}>הגדרות חשבון</Text>
+                            </TouchableOpacity>
+                        </ListItem>
+                        <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                            <TouchableOpacity onPress={() => {
+                                Alert.alert('בפיתוח... כאן תוכל ליצור קשר עם תמיכה טכנית לכל שאלה')
+                            }}>
+                                <Text style={{color: 'gray', fontWeight: 'bold'}}>תמיכה טכנית</Text>
+                            </TouchableOpacity>
+                        </ListItem>
+
                         <ListItem
                             style={{borderBottomWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
                             <View>

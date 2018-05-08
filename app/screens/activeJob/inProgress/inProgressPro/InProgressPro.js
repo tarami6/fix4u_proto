@@ -90,6 +90,7 @@ export default class InProgressPro extends Component {
 
 
     render() {
+        console.log("dasd", this.state.timer)
         return (
             <View style={styles.Container}>
                 {/*Top View */}

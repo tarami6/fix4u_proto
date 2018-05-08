@@ -5,7 +5,7 @@ export const hebrewServices = {
     Handyman: 'שיפוצניק',
     Locksmith: 'מנעולן',
     TechnicianWashingMachines: 'טכנאי מכונות כביסה',
-    AirConditioningTechnician: 'תכנאי מזגנים'
+    AirConditioningTechnician: 'טכנאי מזגנים'
 }
 
 export const ServicesArrToHebString = (arr: Array) => {

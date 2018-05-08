@@ -214,7 +214,8 @@ export default class ChooseAddress extends React.Component {
                     <Header head={'AddJob'} previousPage={'ExplainTheJob'} props={this.props}/>
                     <View style={{flex: 1, alignItems: 'center'}}>
                         <Image
-                            source={require('../../../../assets/addJob/icons/stepIndicatorConsumer3.png')}
+                            style={{ width: SW /2, height: 30}}
+                            source={require('../../../../assets/icons/ThreeStepsIndicator/3.png')}
                         />
                     </View>
 

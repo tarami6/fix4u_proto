@@ -69,7 +69,7 @@ export default class ChooseJob extends Component {
     }
 
     render() {
-
+        console.log("sdsd",this.props.userDataStore.focusedJob.status)
         let openJobsList = this.props.openJobsStore.openJobsList
         // if (openJobsList && openJobsList.length > 0 || loadEmptyMap) {
         return (
