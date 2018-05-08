@@ -21,7 +21,8 @@ import {mainStyles, SH, SW} from "../../../config/styles";
 
 import Header from '../../../components/headers/Header'
 // Config
-import {hebrewServices} from "../../../generalFunc/generalObjects";
+import {hebrewServices, PicService} from "../../../generalFunc/generalObjects";
+
 import {NavigationActions} from "react-navigation";
 
 let data = {
@@ -115,14 +116,14 @@ export default class ChooseTime extends React.Component {
                     <Header head={'AddJob'} previousPage={'ChooseService'} props={this.props}/>
                     <View style={{flex: 0.8, justifyContent: 'flex-start', alignItems: 'center'}}>
                         <Image
-                            style={{ width: SW /2, height: 30}}
+                            style={{width: SW / 2, height: 30}}
                             source={require('../../../../assets/icons/ThreeStepsIndicator/1.png')}
                         />
                     </View>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                         <Image
-                            style={{alignSelf: 'center', width: SW /8, height: SW / 8}}
-                            source={data.servicePic}
+                            style={{alignSelf: 'center', width: SW / 8, height: SW / 8}}
+                            source={PicService[this.props.addJobStore.newJobInfo.service]}
                         />
                     </View>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -140,9 +141,11 @@ export default class ChooseTime extends React.Component {
                             <Text style={mainStyles.greyTitle}>
                                 מחיר הגעה מומלץ 130 ש"ח
                             </Text>
-                            <Text style={{fontSize: 14}}>
-                                צפה במחירון
-                            </Text>
+                            <TouchableWithoutFeedback onPress={()=> Alert.alert("בעתיד תוכל לצפות במחירון ")}>
+                                <Text style={{fontSize: 14}}>
+                                    צפה במחירון
+                                </Text>
+                            </TouchableWithoutFeedback>
                         </View>
 
                         <View style={{flex: 1, justifyContent: 'center'}}>

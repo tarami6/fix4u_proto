@@ -7,6 +7,15 @@ export const hebrewServices = {
     TechnicianWashingMachines: 'טכנאי מכונות כביסה',
     AirConditioningTechnician: 'טכנאי מזגנים'
 }
+export const PicService = {
+    Electrician: require('../../assets/whiteIcons/Electrician.png'),
+    Plumber: require('../../assets/whiteIcons/Plumber.png'),
+    Cleaner: require('../../assets/whiteIcons/Cleaner.png'),
+    Handyman: require('../../assets/whiteIcons/Handyman.png'),
+    Locksmith: require('../../assets/whiteIcons/Locksmith.png'),
+    TechnicianWashingMachines: require('../../assets/whiteIcons/TechnicianWashingMachines.png'),
+    AirConditioningTechnician: require('../../assets/whiteIcons/AirConditioningTechnician.png')
+}
 
 export const ServicesArrToHebString = (arr: Array) => {
     let returnWord = '';

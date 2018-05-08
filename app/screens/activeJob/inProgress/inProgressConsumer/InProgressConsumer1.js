@@ -122,6 +122,9 @@ export default class InProgressConsumer extends Component {
             }
             sec++
             this.setState({timer: newTimer})
+            if(this.props.userDataStore.focusedJob.status!=="in_progress"){
+                clearInterval(this.interval)
+            }
         }, 1000);
     }
 
