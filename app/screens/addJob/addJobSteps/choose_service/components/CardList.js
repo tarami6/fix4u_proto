@@ -27,12 +27,12 @@ const services = [
   {
     name : 'Locksmith',
     qty : 0,
-    uri : require('../../../../../../assets/services/serviceIcons/CleanerIconOrange.png')
+    uri : require('../../../../../../assets/services/broom.png')
   },
   {
     name : 'TechnicianWashingMachines',
     qty : 1,
-    uri : require('../../../../../../assets/services/serviceIcons/ElectricianIcon.png')
+    uri : require('../../../../../../assets/services/lamp.png')
   },
   {
     name : 'Electrician',

@@ -8,13 +8,9 @@ import {inject, observer} from "mobx-react/native";
 import InfoItem from '../../../components/InfoItem';
 import {hebrewServices} from "../../../generalFunc/generalObjects";
 import Moment from 'moment';
-
-
-
-
-import TimerMixin from 'react-timer-mixin';
 import LinearGradient from 'react-native-linear-gradient';
 
+import TimerMixin from 'react-timer-mixin';
 
 
 let returnInHeb = (word) => {
@@ -29,6 +25,8 @@ export default class ApplyBaseScreen extends React.Component {
     static navigationOptions = {
         header: null,
     };
+
+    mixins: [TimerMixin]
 
     onButtonPress = () => {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
@@ -46,7 +44,7 @@ export default class ApplyBaseScreen extends React.Component {
                     style: 'cancel'
                 }, {
                     text: 'OK',
-                    onPress: () => BackHandler.exitApp()
+                    onPress: () => {BackHandler.exitApp()}
                 },], {
                 cancelable: false
             }
@@ -57,69 +55,71 @@ export default class ApplyBaseScreen extends React.Component {
 
     constructor(props) {
         super(props);
+        this.timeRemaining = this.timeRemaining.bind(this);
         this.state = {auctionTime: 60, diff: '00:00'}
     }
 
 
     componentWillUnmount() {
+        this.mounted = false;
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+        clearInterval(this.interval)
     }
 
 
     timeRemaining(time) {
         //HERE YOU INSERT THE DATE FROM DATABASE
+        console.log('cesdc', time)
         let diffrence = 5
         let startDate = new Date(time);
-        let startDay = startDate.getDay();
-        let startHours = startDate.getHours();
         let startMinutes = startDate.getMinutes();
         (startMinutes + diffrence > 59) ? startMinutes = startMinutes + diffrence - 60 : startMinutes = startMinutes + diffrence;
         let startSeconds = startDate.getSeconds();
         let FirststartTime = startDate.getTime();
 
-
         let checkDate = new Date();
-        let checkHours = checkDate.getHours();
-        let checkMinutes = checkDate.getMinutes();
-        let checkSeconds = checkDate.getSeconds();
-        let checkDay = checkDate.getDay();
+
         let checkTime = checkDate.getTime();
 
         let TheDiff = checkTime - FirststartTime
         TheDiff = TheDiff % 1000000 / 1000
         TheDiff.toFixed(0)
 
-            
-        if (TheDiff > diffrence * 60 || TheDiff< 1 ||checkHours-1 >startHours) {
-            this.setState({ diff: '00:00' })
-             console.warn("ur time already finished")
-             clearInterval(this.interval)
-            } 
+        let currentDate = new Date();
+        let jobDate = new Date(this.props.userDataStore.focusedConsumerJob.created_at);
+        jobDate.setMinutes(jobDate.getMinutes() + 5);
+        if (currentDate.getTime() > jobDate.getTime()) {
+            this.setState({diff: '00:00'})
+            console.warn("ur time already finished");
+            clearInterval(this.interval)
+        }
 
         else {
+            let i=0;
             this.interval = setInterval(() => {
+                i++;
+                console.warn(i, this.mounted);
                 let currentDate = new Date();
-                let currentHours = currentDate.getHours();
                 let currentMinutes = currentDate.getMinutes();
                 let currentSeconds = currentDate.getSeconds();
                 let currentTime = currentDate.getTime();
 
-                let startTime = currentMinutes + ':' + currentSeconds
-                let endTime = startMinutes + ':' + startSeconds
-                var start = Moment.utc(startTime, "mm:ss");
-                var end = Moment.utc(endTime, "mm:ss");
-                var d = Moment.duration(end.diff(start));
-                var diff = Moment.utc(+d).format('mm:ss');
+                let startTime = currentMinutes + ':' + currentSeconds;
+                let endTime = startMinutes + ':' + startSeconds;
+                let start = Moment.utc(startTime, "mm:ss");
+                let end = Moment.utc(endTime, "mm:ss");
+                let d = Moment.duration(end.diff(start));
+                let diff = Moment.utc(+d).format('mm:ss');
                 this.setState({diff: diff})
 
-                let timeToEndTimer = currentTime - FirststartTime
-                timeToEndTimer = timeToEndTimer % 1000000 / 1000
+                let timeToEndTimer = currentTime - FirststartTime;
+                timeToEndTimer = timeToEndTimer % 1000000 / 1000;
                 timeToEndTimer.toFixed(0)
-                timeToEndTimer = timeToEndTimer - diffrence * 60
+                timeToEndTimer = timeToEndTimer - diffrence * 60;
 
                 if (timeToEndTimer > -1) {
-                    console.warn("timer stoped by timeToEndTimer ==0 ")
-                    this.setState({diff: '00:00'})
+                    console.warn("timer stoped by timeToEndTimer ==0 ");
+                    this.setState({diff: '00:00'});
                     clearInterval(this.interval)
                 }
 
@@ -130,20 +130,32 @@ export default class ApplyBaseScreen extends React.Component {
     }
 
     componentDidMount() {
+
+        this.mounted = true;
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-        let time = this.state.auctionTime;
+        let currentDate = new Date();
+        let jobDate = new Date(this.props.userDataStore.focusedConsumerJob.created_at);
+        jobDate.setMinutes(jobDate.getMinutes() + 5);
+        if (currentDate.getTime() > jobDate.getTime()) {
+            console.warn('times up!');
+        }
+
+        console.log('timerrrr', this.props.userDataStore.focusedConsumerJob.created_at)
         this.timeRemaining(this.props.userDataStore.focusedConsumerJob.created_at)
     }
 
+
+
     showPro(pro) {
+        clearInterval(this.interval);
         this.props.userDataStore.showPro(pro);
-        this.props.navigation.navigate('ChoosePro', { time:this.state.diff})
+        this.props.navigation.navigate('ChoosePro', {time: this.state.diff})
     }
 
     render() {
+        console.warn(this.props.navigation.state);
         //mobx "listener" for new jobs
         let job2 = this.props.userDataStore.focusedConsumerJob;
-        console.log("job2", job2.image_thumb)
         if (!job2.appointment_time_start) {
             return (
                 <View/>
@@ -183,11 +195,11 @@ export default class ApplyBaseScreen extends React.Component {
                             }}/>
                             {/*Service Icon*/}
                             <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
-                                {job2.image_thumb?
-                                <Image
-                                    style={{width: 50, height: 50}}
-                                    source={{uri: job2.image_thumb}}
-                                />: <View/>}
+                                {job2.image_thumb ?
+                                    <Image
+                                        style={{width: 50, height: 50}}
+                                        source={{uri: job2.image_thumb}}
+                                    /> : <View/>}
                             </View>
                         </View>
                     </LinearViewBelowHeaderConsumer>
@@ -205,21 +217,37 @@ export default class ApplyBaseScreen extends React.Component {
                                   }}/>
                     {/*       applies.MAP         */}
 
-                    <View style={{flex: 1,backgroundColor: '#fff', position: 'absolute'}}>
+                    <View style={{flex: 1, backgroundColor: 'transparent', position: 'absolute'}}>
                         <FlatList
                             data={job2.post_applies}
                             keyExtractor={this.keyExtractor}
-                            renderItem={({item}) => <TouchableHighlight onPress={() => this.showPro(item)}
-                                                                        style={{
-                                                                            width: SW,
-                                                                            height: SH / 8,
-                                                                        }}>
-                                <View style={{flex: 1}}>
-                                    {/*Using Linear For Shadow*/}
-                                    <InfoItem info={item}/>
+                            renderItem={({item, index}) =>
+                                <View style={{
+                                    width: SW,
+                                    backgroundColor: 'transparent',
+                                    height: SH / 8,
+                                }}>
+                                    <TouchableHighlight onPress={() => this.showPro(item)}
+                                                        style={{
+                                                            flex: 1,
+                                                            backgroundColor: 'transparent',
+                                                        }}>
+
+                                        {/*Using Linear For Shadow*/}
+                                        <InfoItem info={item}/>
+
+
+                                    </TouchableHighlight>
+                                    {index === job2.post_applies.length - 1 ?
+                                        <LinearGradient colors={['rgba(0, 0, 0, 0.2)', 'rgba(0, 0, 0, 0)']}
+                                                        style={{width: SW, height: 3}}/>
+                                        :
+                                        <LinearGradient colors={['#c0c0c0', 'rgba(255, 255, 255, 1)']}
+                                                        style={{width: SW, height: 3}}/>
+                                    }
                                 </View>
 
-                            </TouchableHighlight>}
+                            }
                         />
                     </View>
                 </View>

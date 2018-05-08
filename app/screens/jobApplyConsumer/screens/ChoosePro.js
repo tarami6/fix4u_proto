@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     Alert,
-    BackHandler,
     Image,
     LayoutAnimation,
     Modal,
@@ -11,6 +10,7 @@ import {
     Text,
     TextInput,
     TouchableHighlight,
+    BackHandler,
     UIManager,
     View
 } from 'react-native';
@@ -26,7 +26,10 @@ import {hebrewServices} from "../../../generalFunc/generalObjects";
 import {fetcher} from "../../../generalFunc/fetcher";
 import {inject, observer} from "mobx-react/native";
 import {chooseApplyRoute, editUserRoute} from "../../../config/apiRoutes";
-import {formatTime, getAvgRating} from "../../../generalFunc/generalFunctions";
+
+import {getAvgRating, formatTime} from "../../../generalFunc/generalFunctions";
+
+
 import {NavigationActions} from "react-navigation"
 
 
@@ -61,6 +64,7 @@ const data = [
 
 
 ]
+
 
 @inject("modalsStore")
 @inject('navigationStore')
@@ -126,6 +130,20 @@ export default class ApplyBaseScreen extends React.Component {
         this.setState({
             height: this.state.height * data.length + SH / 8
         })
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    //handling backHandler:
+    handleBackButton = () => {
+        console.warn('success??');
+        this.props.navigation.goBack();
+        return true;
+    }
+
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+        // this.props.navigation.state.params.onClose()
     }
 
     getHeight(height) {

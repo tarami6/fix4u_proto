@@ -16,12 +16,13 @@ import {
 } from 'react-native';
 import Header from '../../../../components/headers/Header';
 import InfoItem from '../../../../components/InfoItem';
-import {SW, SH} from "../../../../config/styles";
+import {SW, SH, GOLD} from "../../../../config/styles";
 import StarRating from 'react-native-star-rating';
 import StarIcon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import Communications from 'react-native-communications';
 import {formatTime} from "../../../../generalFunc/generalFunctions";
+import {getAvgRating} from "../../../../generalFunc/generalObjects";
 
 // mobx
 import {inject, observer} from "mobx-react/index";
@@ -107,13 +108,17 @@ export default class OnTheWayConsumer extends Component {
         }
     }
 
-    getHeight(height) {
-        this.setState({textLayoutHeight: height});
-    };
+
 
     render() {
-        let reviews = this.props.userDataStore.focusedJob.post_applies[0].user_pro.pro_reviews;
+        let reviews = this.props.userDataStore.focusedJob.user_pro.pro_reviews;
         let job = this.props.userDataStore.focusedConsumerJob;
+        console.log('review2',this.props.userDataStore.focusedJob.user_pro.pro_reviews[0]);
+        let rating = getAvgRating(
+            job.user_pro.price_rating_avg,
+            job.user_pro.time_rating_avg,
+            job.user_pro.performance_rating_avg,
+        );
         return (
             <View style={{flex: 1,}}>
 
@@ -137,11 +142,13 @@ export default class OnTheWayConsumer extends Component {
                             {/*Stars*/}
                             <View style={{flex: 1, flexDirection: 'row'}}>
                                 <View style={styles.infoStarsView}>
-                                    <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
-                                    <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
-                                    <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
-                                    <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
-                                    <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
+                                    <StarRating
+                                        disabled={true}
+                                        maxStars={5}
+                                        starSize={15}
+                                        fullStarColor={GOLD}
+                                        rating={rating}
+                                    />
                                 </View>
 
                                 <View style={styles.infoReviewCount}>
@@ -340,6 +347,8 @@ const styles = StyleSheet.create({
     infoAboutView: {
         flex: 0.6,
         marginRight: SW / 20,
+        marginLeft: SW /20,
+        width: SW - (SW / 40),
         justifyContent: 'center'
     },
     infoBorder: {

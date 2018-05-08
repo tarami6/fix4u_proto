@@ -17,11 +17,11 @@ export const ServicesArrToHebString = (arr: Array) => {
     return returnWord;
 }
 
-export const consumerDummyData = {
-
-};
-
 export const jobStepsInHeb = {
-    on_the_way: 'בדרך',
-    in_progress: 'בעבודה',
-};
+    on_the_way: '-בדרך',
+    in_progress: '-בעבודה',
+    consumer_payment: '-תשלום',
+    consumer_review: 'ציון',
+    completed: 'התסיים',
+
+}
