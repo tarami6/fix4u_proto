@@ -13,7 +13,7 @@ import {submitButton} from "../../../../components/modalSubmitButton";
 import BraintreeDropIn from 'react-native-braintree-payments-drop-in';
 import {fetcher} from "../../../../generalFunc/fetcher";
 import {braintreeGetTokenRoute, braintreeSendTokenRoute} from "../../../../config/apiRoutes";
-import {getAvgRating} from "../../../../generalFunc/generalFunctions";
+import {getAvgRating, addZero} from "../../../../generalFunc/generalFunctions";
 //mobx
 import {inject, observer} from "mobx-react/index";
 
@@ -122,6 +122,18 @@ export default class InProgressConsumer extends Component {
             }
             sec++
             this.setState({timer: newTimer})
+            if(this.props.userDataStore.focusedJob.status!=='in_progress'){
+                clearInterval(this.interval);
+                let startTime = new Date(this.props.userDataStore.focusedJob.job_start_time);
+                let completionTime = new Date(this.props.userDataStore.focusedJob.job_completion_time);
+                let sec2 = addZero(completionTime.getSeconds() - startTime.getSeconds());
+                let min2 = addZero(completionTime.getMinutes() - startTime.getMinutes());
+                let hour2 = addZero(completionTime.getHours() - startTime.getHours());
+                let jobTime = hour2 + ':' + min2 + ':' + sec2;
+                this.setState({
+                    timer: jobTime
+                })
+            }
         }, 1000);
     }
 
