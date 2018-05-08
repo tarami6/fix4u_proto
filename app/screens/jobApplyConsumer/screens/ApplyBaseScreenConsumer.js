@@ -6,7 +6,7 @@ import MapComponent from '../../../components/mapComponent/MapComponent'
 import {mainStyles, SH, SW} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 import InfoItem from '../../../components/InfoItem';
-import {hebrewServices} from "../../../generalFunc/generalObjects";
+import {hebrewServices, PicService} from "../../../generalFunc/generalObjects";
 import Moment from 'moment';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -199,7 +199,7 @@ export default class ApplyBaseScreen extends React.Component {
                                 {job2.image_thumb ?
                                     <Image
                                         style={{width: 50, height: 50}}
-                                        source={{uri: job2.image_thumb}}
+                                        source={PicService[job2.service]}
                                     /> : <View/>}
                             </View>
                         </View>
