@@ -30,6 +30,7 @@ export default class InProgressConsumer extends Component {
         super(props);
         this.state = {
             modalVisible: false,
+            timer: 'טוען סטופר...'
         }
     }
 
@@ -96,6 +97,44 @@ export default class InProgressConsumer extends Component {
         this.setState({modalVisible: visible});
     }
 
+    startTimer() {
+        let basicDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
+        let currentDate = new Date();
+        let sec = currentDate.getSeconds() - basicDate.getSeconds();
+        let min = currentDate.getMinutes() - basicDate.getMinutes();
+        let hour = currentDate.getHours() - basicDate.getHours();
+        let newTimer = '';
+        this.interval = setInterval(() => {
+            if (min <= 9) {
+                newTimer = (sec <= 9) ? hour + ':0' + min + ':0' + sec : hour + ':0' + min + ':' + sec;
+
+            } else {
+                newTimer = (sec <= 9) ? hour + ':' + min + ':0' + sec : hour + ':' + min + ':' + sec;
+            }
+
+            if (sec == 59) {
+                min++
+                sec = 0
+            }
+            if (min == 59 && sec == 59) {
+                hour++
+                min = 0
+            }
+            sec++
+            this.setState({timer: newTimer})
+        }, 1000);
+    }
+
+    componentDidMount(){
+        if(this.props.userDataStore.focusedJob.status === 'in_progress') {
+            this.startTimer();
+        }
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.interval);
+    }
+
     render() {
         let focusedJob = this.props.userDataStore.focusedJob;
         console.warn('focusedJob1232', focusedJob.user_pro.phone_number);
@@ -154,7 +193,7 @@ export default class InProgressConsumer extends Component {
                     </View>
                     <View style={{flex: 1}}>
                         <OrangeCircle size={'big'} style={{width: 180, height: 180}}>
-                            <Text style={{fontSize: 30, color: '#000', fontWeight: 'bold'}}>15:46</Text>
+                            <Text style={{fontSize: 30, color: '#000', fontWeight: 'bold'}}>{this.state.timer}</Text>
                         </OrangeCircle>
                     </View>
                     <View style={{flex: 0.3}}>

@@ -23,7 +23,7 @@ export default class InProgressPro extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            timer: 'loading time...'
+            timer: 'טוען סטופר...'
         }
     }
 
@@ -59,9 +59,10 @@ export default class InProgressPro extends Component {
 
     startTimer() {
         let basicDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
-        let sec = basicDate.getSeconds();
-        let min = basicDate.getMinutes();
-        let hour = basicDate.getHours();
+        let currentDate = new Date();
+        let sec = currentDate.getSeconds() - basicDate.getSeconds();
+        let min = currentDate.getMinutes() - basicDate.getMinutes();
+        let hour = currentDate.getHours() - basicDate.getHours();
         let newTimer = '';
         this.interval = setInterval(() => {
             if (min <= 9) {
@@ -90,7 +91,6 @@ export default class InProgressPro extends Component {
 
 
     render() {
-        console.log("dasd", this.state.timer)
         return (
             <View style={styles.Container}>
                 {/*Top View */}
