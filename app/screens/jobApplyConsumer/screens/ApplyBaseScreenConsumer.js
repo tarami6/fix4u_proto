@@ -8,12 +8,9 @@ import {inject, observer} from "mobx-react/native";
 import InfoItem from '../../../components/InfoItem';
 import {hebrewServices} from "../../../generalFunc/generalObjects";
 import Moment from 'moment';
-
-
-
+import LinearGradient from 'react-native-linear-gradient';
 
 import TimerMixin from 'react-timer-mixin';
-import LinearGradient from 'react-native-linear-gradient';
 
 
 
@@ -68,6 +65,7 @@ export default class ApplyBaseScreen extends React.Component {
 
     timeRemaining(time) {
         //HERE YOU INSERT THE DATE FROM DATABASE
+        console.log('cesdc', time)
         let diffrence = 5
         let startDate = new Date(time);
         let startDay = startDate.getDay();
@@ -89,12 +87,12 @@ export default class ApplyBaseScreen extends React.Component {
         TheDiff = TheDiff % 1000000 / 1000
         TheDiff.toFixed(0)
 
-            
-        if (TheDiff > diffrence * 60 || TheDiff< 1 ||checkHours-1 >startHours) {
-            this.setState({ diff: '00:00' })
-             console.warn("ur time already finished")
-             clearInterval(this.interval)
-            } 
+
+        if (TheDiff > diffrence * 60 || TheDiff < 1 || checkHours - 1 > startHours) {
+            this.setState({diff: '00:00'})
+            console.warn("ur time already finished")
+            clearInterval(this.interval)
+        }
 
         else {
             this.interval = setInterval(() => {
@@ -132,18 +130,18 @@ export default class ApplyBaseScreen extends React.Component {
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         let time = this.state.auctionTime;
-        this.timeRemaining(this.props.userDataStore.focusedConsumerJob.created_at)
+        // this.timeRemaining(this.props.userDataStore.focusedConsumerJob.created_at)
     }
 
     showPro(pro) {
         this.props.userDataStore.showPro(pro);
-        this.props.navigation.navigate('ChoosePro', { time:this.state.diff})
+        this.props.navigation.navigate('ChoosePro', {time: this.state.diff})
     }
 
     render() {
         //mobx "listener" for new jobs
         let job2 = this.props.userDataStore.focusedConsumerJob;
-        console.log("job2", job2.image_thumb)
+        console.log("job2323", job2.post_applies[0])
         if (!job2.appointment_time_start) {
             return (
                 <View/>
@@ -183,11 +181,11 @@ export default class ApplyBaseScreen extends React.Component {
                             }}/>
                             {/*Service Icon*/}
                             <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
-                                {job2.image_thumb?
-                                <Image
-                                    style={{width: 50, height: 50}}
-                                    source={{uri: job2.image_thumb}}
-                                />: <View/>}
+                                {job2.image_thumb ?
+                                    <Image
+                                        style={{width: 50, height: 50}}
+                                        source={{uri: job2.image_thumb}}
+                                    /> : <View/>}
                             </View>
                         </View>
                     </LinearViewBelowHeaderConsumer>
@@ -205,21 +203,35 @@ export default class ApplyBaseScreen extends React.Component {
                                   }}/>
                     {/*       applies.MAP         */}
 
-                    <View style={{flex: 1,backgroundColor: '#fff', position: 'absolute'}}>
+                    <View style={{flex: 1, backgroundColor: 'transparent',  position: 'absolute'}}>
                         <FlatList
                             data={job2.post_applies}
                             keyExtractor={this.keyExtractor}
-                            renderItem={({item}) => <TouchableHighlight onPress={() => this.showPro(item)}
-                                                                        style={{
-                                                                            width: SW,
-                                                                            height: SH / 8,
-                                                                        }}>
-                                <View style={{flex: 1}}>
-                                    {/*Using Linear For Shadow*/}
-                                    <InfoItem info={item}/>
+                            renderItem={({item, index}) =>
+                                <View style={{
+                                    width: SW,
+                                    backgroundColor: 'transparent',
+                                    height: SH / 8,
+                                }}>
+                                    <TouchableHighlight onPress={() => this.showPro(item)}
+                                                        style={{
+                                                            flex:1,
+                                                            backgroundColor: 'transparent',
+                                                        }}>
+
+                                        {/*Using Linear For Shadow*/}
+                                        <InfoItem info={item}/>
+
+
+                                    </TouchableHighlight>
+                                    {index === job2.post_applies.length-1 ?
+                                    <LinearGradient colors={['rgba(0, 0, 0, 0.2)',  'rgba(0, 0, 0, 0)']} style={{width:SW, height:3}}/>
+                                        :
+                                    <LinearGradient colors={['#c0c0c0',  'rgba(255, 255, 255, 1)']} style={{width:SW, height:3}}/>
+                                    }
                                 </View>
 
-                            </TouchableHighlight>}
+                            }
                         />
                     </View>
                 </View>

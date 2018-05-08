@@ -13,7 +13,7 @@ import {View, Text, TouchableOpacity} from 'react-native'
 import {fetcher} from "../../generalFunc/fetcher";
 import {checkForOpenPost} from "../../config/apiRoutes";
 //component import:
-import LoadinPage from '../../components/LoadinPage'
+import LoadinPage from '../../screens/modals/Loader/LoadingPage';
 
 @inject("navigationStore")
 @inject("userDataStore")

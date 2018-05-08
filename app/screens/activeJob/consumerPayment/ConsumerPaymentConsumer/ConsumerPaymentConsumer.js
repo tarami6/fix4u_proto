@@ -27,6 +27,7 @@ import BraintreeDropIn from 'react-native-braintree-payments-drop-in';
 //     });
 
 let i = 0;
+@inject("modalsStore")
 
 @inject("userDataStore")
 @observer

@@ -27,9 +27,7 @@ import {fetcher} from "../../../generalFunc/fetcher";
 import {inject, observer} from "mobx-react/native";
 import {chooseApplyRoute, editUserRoute} from "../../../config/apiRoutes";
 import {formatTime, getAvgRating} from "../../../generalFunc/generalFunctions";
-import {NavigationActions} from "react-navigation"
-
-
+import {NavigationActions} from "react-navigation";
 //image picker options:
 var options = {
     title: 'Upload profile picture',
@@ -126,6 +124,17 @@ export default class ApplyBaseScreen extends React.Component {
         this.setState({
             height: this.state.height * data.length + SH / 8
         })
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+    //handling backHandler:
+    handleBackButton = () => {
+        console.warn('success??');
+        this.props.navigation.goBack();
+        return true;
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     getHeight(height) {

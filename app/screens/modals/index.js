@@ -31,6 +31,7 @@ export default class Modals extends Component {
         return (
             <View>
                 <Modal
+                    animation={'bounceIn'}
                     isVisible={this.props.modalsStore.proPhoneVerifyModal && this.state.showModals}
                     animationInTiming={1000}
                     animationOutTiming={1000}
@@ -42,9 +43,11 @@ export default class Modals extends Component {
                     <ProPhoneVerifyModal closeModal={()=>{this.closeModal('proPhoneVerifyModal')}}/>
                 </Modal>
                 <Modal
+                    animation={'bounceIn'}
                     isVisible={this.props.modalsStore.chooseJobModal && this.state.showModals}
                     animationInTiming={1000}
                     animationOutTiming={1000}
+                    animationType={'fade'}
                     backdropTransitionInTiming={2000}
                     backdropTransitionOutTiming={1000}
                     onBackButtonPress={()=>{this.closeModal('chooseJobModal')}}
@@ -55,6 +58,7 @@ export default class Modals extends Component {
                 <Modal
                     animation={'bounceIn'}
                     isVisible={this.props.modalsStore.loaderModal && this.state.showModals}
+                    animationType={'fade'}
                     animationInTiming={100}
                     animationOutTiming={1000}
                     backdropTransitionInTiming={2000}

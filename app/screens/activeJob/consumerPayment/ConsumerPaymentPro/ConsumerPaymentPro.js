@@ -52,9 +52,8 @@ export default class OnTheWayPro extends Component {
 
     render() {
         if(this.props.userDataStore.focusedJob.status === 'consumer_review'){
-            console.warn('yoo')
-            this.animation1.reset()
-            this.animation2.play()
+            this.animation1.reset();
+            this.animation2.play();
             setTimeout(()=>{
                 this.props.navigation.navigate('Home');
             },2000)

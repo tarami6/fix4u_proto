@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Image, StyleSheet, Text, View} from 'react-native';
 //config
+import {dateObjToTimeString} from "../../../../generalFunc/generalFunctions";
 import {fetcher} from "../../../../generalFunc/fetcher";
 import {startJobRoute} from "../../../../config/apiRoutes";
 //mobx
@@ -21,6 +22,9 @@ export default class InProgressPro extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            timer: 'loading time...'
+        }
     }
 
     finishJob() {
@@ -47,8 +51,45 @@ export default class InProgressPro extends Component {
         console.log('error:', err)
     }
 
+    componentDidMount() {
+
+        // let currentTime = dateObjToTimeString()
+        this.startTimer();
+    }
+
+    startTimer() {
+        let basicDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
+        let sec = basicDate.getSeconds();
+        let min = basicDate.getMinutes();
+        let hour = basicDate.getHours();
+        let newTimer = '';
+        this.interval = setInterval(() => {
+            if (min <= 9) {
+                newTimer = (sec <= 9) ? hour + ':0' + min + ':0' + sec : hour + ':0' + min + ':' + sec;
+
+            } else {
+                newTimer = (sec <= 9) ? hour + ':' + min + ':0' + sec : hour + ':' + min + ':' + sec;
+            }
+
+            if (sec == 59) {
+                min++
+                sec = 0
+            }
+            if (min == 59 && sec == 59) {
+                hour++
+                min = 0
+            }
+            sec++
+            this.setState({timer: newTimer})
+        }, 1000);
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.interval);
+    }
+
+
     render() {
-        console.log('focusedJobbbbb',this.props.userDataStore.focusedJob);
         return (
             <View style={styles.Container}>
                 {/*Top View */}
@@ -61,7 +102,7 @@ export default class InProgressPro extends Component {
                             width: "60%",
                         }}>{this.props.userDataStore.focusedJob.user.name}</Text>
                         {this.props.userDataStore.focusedJob.user.profile_pic_thumb &&
-                        <Image style={{ margin: 20, width: 66, height: 66, borderRadius: 100}}
+                        <Image style={{margin: 20, width: 66, height: 66, borderRadius: 100}}
                                source={{uri: this.props.userDataStore.focusedJob.user.profile_pic_thumb}}/>}
                     </View>
 
@@ -74,7 +115,13 @@ export default class InProgressPro extends Component {
                     </View>
 
 
-                    <View style={{borderBottomWidth: 1.7, margin: 5,width:SW -40,alignSelf: 'center', borderColor: 'rgba(0,0,0,0.3)',}}/>
+                    <View style={{
+                        borderBottomWidth: 1.7,
+                        margin: 5,
+                        width: SW - 40,
+                        alignSelf: 'center',
+                        borderColor: 'rgba(0,0,0,0.3)',
+                    }}/>
                 </View>
 
                 {/* Middle View */}
@@ -94,7 +141,7 @@ export default class InProgressPro extends Component {
                             backgroundColor: 'white', height: SW / 1.6, width: SW / 1.6, borderRadius: 200,
                             alignItems: 'center', justifyContent: 'center'
                         }}>
-                            <Text style={{fontSize: 30, fontWeight: 'bold', color: '#474747'}}> 2:15:37 </Text>
+                            <Text style={{fontSize: 30,  color: '#474747'}}> {this.state.timer} </Text>
                         </View>
                     </LinearGradient>
 

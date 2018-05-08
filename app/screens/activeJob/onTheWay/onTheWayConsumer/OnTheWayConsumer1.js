@@ -112,8 +112,9 @@ export default class OnTheWayConsumer extends Component {
     };
 
     render() {
-        let reviews = this.props.userDataStore.focusedJob.post_applies[0].user_pro.pro_reviews;
+        let reviews = this.props.userDataStore.focusedJob.user_pro.pro_reviews;
         let job = this.props.userDataStore.focusedConsumerJob;
+        console.log('review2',this.props.userDataStore.focusedJob.user_pro.pro_reviews)
         return (
             <View style={{flex: 1,}}>
 

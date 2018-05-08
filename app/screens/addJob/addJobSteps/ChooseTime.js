@@ -8,8 +8,7 @@ import {
     Text,
     TouchableHighlight,
     TouchableWithoutFeedback,
-    View,
-    Alert
+    View
 } from 'react-native';
 // Components
 import LinierView from '../../../components/linierView';
@@ -73,12 +72,17 @@ export default class ChooseTime extends React.Component {
     }
 
     handleSubmit() {
-        let date = new Date().toISOString().slice(0, 10);
-        ;
-        let time_start = '10:00:00';
-        let time_end = '12:00:00';
+        let date = new Date()
+        let editedDate = date.toISOString().slice(0, 10);
+        let hours = date.getHours() < 12 ? '0' + date.getHours() : date.getHours();
+        let minutes = date.getMinutes() < 12 ? '0' + date.getMinutes() : date.getMinutes();
+        let time_start = hours + ':' + minutes + ':' + "00";
+        let editedHours = date.setHours(date.getHours() + 2);
+        let timeSeted = new Date(editedHours)
+        let hoursEnd = timeSeted.getHours() < 10 ? '0' + timeSeted.getHours() : timeSeted.getHours();
+        let time_end = hoursEnd + ':' + minutes + ":" + "00"
         let sendObj = {
-            appointment_date: date,
+            appointment_date: editedDate,
             appointment_time_start: time_start,
             appointment_time_end: time_end
         }
@@ -161,8 +165,8 @@ export default class ChooseTime extends React.Component {
                         </View>
                         <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
                             <Text>בחר תאריך</Text>
-                            <TouchableWithoutFeedback
-                                onPress={() => Alert.alert('Under Development')}>
+                            <TouchableHighlight
+                                onPress={() => Alert.alert('under Development')}>
                                 <View style={{
                                     width: SW / 1.5,
                                     height: SH / 13,
@@ -183,7 +187,7 @@ export default class ChooseTime extends React.Component {
                                         borderColor: '#000'
                                     }}/>
                                 </View>
-                            </TouchableWithoutFeedback>
+                            </TouchableHighlight>
                         </View>
                     </View>
                     {/*Button Next*/}

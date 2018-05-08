@@ -14,7 +14,7 @@ import {submitButton} from "../../../components/modalSubmitButton";
 import {inject, observer} from "mobx-react/index";
 import {applyForJobRoute} from "../../../config/apiRoutes";
 import {fetcher} from "../../../generalFunc/fetcher";
-
+import {addZero, dateObjToTimeString} from "../../../generalFunc/generalFunctions";
 
 const data = {
     name: 'אלכסנדרה קנדל',
@@ -55,13 +55,14 @@ export default class ChooseJobModal extends Component {
             'Content-Type': 'application/json',
             'Authorization': 'JWT ' + this.props.userDataStore.userData.token
         };
-        let time = '12:00:00';
+        let time = dateObjToTimeString(this.props.openJobsStore.focusedJob.created_at);
+        console.warn('timeemit:', time);
         if (this.state.hour && this.state.minutes) {
             let hour = this.state.hour < 10 ? '0' + this.state.hour : this.state.hour;
             let minutes = this.state.minutes < 10 ? '0' + this.state.minutes : this.state.minutes;
             time = hour + ":" + minutes + ":" + "00";
         }
-        let service_fee = this.state.service_fee;
+        let service_fee = this.state.service_fee? this.state.service_fee: this.props.openJobsStore.focusedJob.service_fee;
         let sendBody = {
             time: time,
             service_fee: service_fee
@@ -92,10 +93,14 @@ export default class ChooseJobModal extends Component {
         console.log('error in chooseJob:', err)
     }
 
+
+
     render() {
 
         ///////// and here is the data: ///////////
         let currentJob = this.props.openJobsStore.focusedJob;
+        let jobMinutes = new Date(currentJob.created_at).getMinutes().toString();
+        let jobHours = new Date(currentJob.created_at).getHours().toString();
         return (
 
 
@@ -212,7 +217,7 @@ export default class ChooseJobModal extends Component {
                                                     }}
                                                     underlineColorAndroid="transparent"
                                                     placeholderTextColor='black'
-                                                    placeholder={data.price}/>
+                                                    placeholder={this.props.openJobsStore.focusedJob.service_fee.toString()}/>
                                                 <Text style={{paddingLeft: 5}}>ש"ח</Text>
                                             </View>
                                         </View>
@@ -273,7 +278,7 @@ export default class ChooseJobModal extends Component {
                                                         }}
                                                         placeholderTextColor='black'
                                                         underlineColorAndroid="transparent"
-                                                        placeholder={data.time.hour}/>
+                                                        placeholder={addZero(jobHours)}/>
                                                     <Text style={{paddingLeft: 5, paddingRight: 5}}>:</Text>
 
                                                     <TextInput
@@ -296,7 +301,7 @@ export default class ChooseJobModal extends Component {
                                                         }}
                                                         placeholderTextColor='black'
                                                         underlineColorAndroid="transparent"
-                                                        placeholder={data.time.minutes}/>
+                                                        placeholder={addZero(jobMinutes)}/>
 
                                                 </View>
                                             </View>

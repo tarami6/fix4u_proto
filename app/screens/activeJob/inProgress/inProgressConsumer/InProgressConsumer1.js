@@ -4,15 +4,16 @@ import Header from '../../../../components/headers/Header'
 import InfoItem from '../../../../components/InfoItem'
 import OrangeCircle from '../../../../components/OrangeCircle'
 
-import StarIcon from 'react-native-vector-icons/FontAwesome';
+import StarRating from 'react-native-star-rating'
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 //styles
-import {SH, SW, mainStyles} from "../../../../config/styles";
+import {SH, SW, mainStyles, GOLD} from "../../../../config/styles";
 import {submitButton} from "../../../../components/modalSubmitButton";
 //config
 import BraintreeDropIn from 'react-native-braintree-payments-drop-in';
 import {fetcher} from "../../../../generalFunc/fetcher";
 import {braintreeGetTokenRoute, braintreeSendTokenRoute} from "../../../../config/apiRoutes";
+import {getAvgRating} from "../../../../generalFunc/generalFunctions";
 //mobx
 import {inject, observer} from "mobx-react/index";
 
@@ -35,7 +36,8 @@ export default class InProgressConsumer extends Component {
 
         // console.warn(this.props.userDataStore.userData.user.user_posts)
     }
-    pay(){
+
+    pay() {
         let userToken = this.props.userDataStore.userData.token;
         fetcher(braintreeGetTokenRoute, 'GET', this.successCallback.bind(this), this.errorCallback.bind(this), {token: userToken})
     }
@@ -66,7 +68,7 @@ export default class InProgressConsumer extends Component {
     }
 
 
-    fetchPayment(result){
+    fetchPayment(result) {
         let route = braintreeSendTokenRoute(this.props.userDataStore.focusedJob.id)
         let amount = this.props.userDataStore.focusedJob.total_fee;
         let sendBody = {
@@ -77,7 +79,7 @@ export default class InProgressConsumer extends Component {
 
     }
 
-    cardConfirmed(res){
+    cardConfirmed(res) {
         Alert.alert('Payment Confirmed!');
         let postId = this.props.userDataStore.focusedJob.id
         this.props.userDataStore.updatePostStatus(postId, 'consumer_review');
@@ -99,6 +101,13 @@ export default class InProgressConsumer extends Component {
 
     render() {
         let focusedJob = this.props.userDataStore.focusedJob;
+        console.warn('focusedJob1232', focusedJob.user_pro);
+        console.log('focusedJob', focusedJob.service);
+        let rating = getAvgRating(
+            focusedJob.user_pro.price_rating_avg,
+            focusedJob.user_pro.time_rating_avg,
+            focusedJob.user_pro.performance_rating_avg,
+        );
         return (
             <View style={{flex: 1,}}>
                 <Header head={'Grey'} props={this.props}/>
@@ -106,12 +115,11 @@ export default class InProgressConsumer extends Component {
                     <View style={styles.infoView}>
                         {/*Image & service & full name*/}
                         <View style={{flex: 0.55}}>
-                            <InfoItem info={focusedJob.user_pro}/>
+                            <InfoItem info={focusedJob} type={'activeJob'}/>
                         </View>
                         {/*about*/}
                         <View style={styles.infoAboutView}>
-                            <Text>חשמלאי עם וותק של 30 שנה, מתקן כל דבר שקשור{"\n"}
-                                לחשמל, מנוסה ונחמד. מחירים נוחים.</Text>
+                            <Text>{focusedJob.user_pro.company_description}</Text>
                         </View>
                         {/*Border*/}
                         <View style={styles.infoBorder}/>
@@ -122,16 +130,18 @@ export default class InProgressConsumer extends Component {
                                               onPress={this.expand_collapse_Function}
                                               style={{flex: 1, flexDirection: 'row'}}>
                                 <View style={styles.infoStarsView}>
-                                    <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
-                                    <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
-                                    <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
-                                    <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
-                                    <StarIcon name="star" size={15} color="#9b9b9b" style={{paddingRight: 5}}/>
+                                    <StarRating
+                                        disabled={true}
+                                        maxStars={5}
+                                        starSize={15}
+                                        fullStarColor={GOLD}
+                                        rating={rating}
+                                    />
                                 </View>
 
 
                                 <View style={styles.infoReviewCount}>
-                                    <Text>0 חוות דעת</Text>
+                                    <Text>{focusedJob.user_pro.pro_reviews.length} חוות דעת</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -142,8 +152,8 @@ export default class InProgressConsumer extends Component {
                         {console.log("inProgress", focusedJob.status)}
                         <Text style={mainStyles.greyTitle}>
                             {this.props.userDataStore.focusedJob.status === 'in_progress' ? 'בעבודה' : ''}
-                            {this.props.userDataStore.focusedJob.status === 'pro_payment' ?  focusedJob.user_pro.name + ' מכין חשבונית ' : ''}
-                            </Text>
+                            {this.props.userDataStore.focusedJob.status === 'pro_payment' ? focusedJob.user_pro.name + ' מכין חשבונית ' : ''}
+                        </Text>
                     </View>
                     <View style={{flex: 1}}>
                         <OrangeCircle size={'big'} style={{width: 180, height: 180}}>
@@ -151,8 +161,9 @@ export default class InProgressConsumer extends Component {
                         </OrangeCircle>
                     </View>
                     <View style={{flex: 0.3}}>
-                        {this.props.userDataStore.focusedJob.status === 'consumer_payment' ? <View style={{alignItems: 'center'}}>
-                                {submitButton('תשלום','consumer', () => {
+                        {this.props.userDataStore.focusedJob.status === 'consumer_payment' ?
+                            <View style={{alignItems: 'center'}}>
+                                {submitButton('תשלום', 'consumer', () => {
                                     this.setModalVisible(true);
                                 })}
                             </View>
@@ -195,7 +206,7 @@ export default class InProgressConsumer extends Component {
                                 </TouchableHighlight>
                             </View>
                             <View style={styles.body}>
-                                <View style={{flex:0.6, width: SW - 120}}>
+                                <View style={{flex: 0.6, width: SW - 120}}>
 
                                     <View style={{
                                         flex: 0.5,
@@ -285,11 +296,11 @@ export default class InProgressConsumer extends Component {
                                         </View>
                                     </View>
                                 </View>
-                                 <View style={{alignItems: 'center', justifyContent: 'center', flex: 0.3}}>
-                                        {submitButton('אשר','consumer', () => {
-                                            this.pay();
-                                        })}
-                                    </View>
+                                <View style={{alignItems: 'center', justifyContent: 'center', flex: 0.3}}>
+                                    {submitButton('אשר', 'consumer', () => {
+                                        this.pay();
+                                    })}
+                                </View>
                             </View>
 
 

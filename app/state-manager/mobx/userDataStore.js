@@ -168,6 +168,10 @@ export default class UserDataStore {
         }
     }
 
+    @action removeProPost(postId: string) {
+        this.userData.user.pro_posts = this.userData.user.pro_posts.filter(post => post.id !== postId);
+    }
+
     @action addProPost(post: Object) {
         this.userData.user.pro_posts.push(post)
     }
