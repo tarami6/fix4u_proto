@@ -20,12 +20,14 @@ const HeaderConsumer = (props) => {
             </TouchableOpacity>
 
             <Image
-                style={{width: 65, height: 20}}
+                style={{width: 65, height: 20, marginLeft: 10}}
                 source={require('../../../../assets/icons/fix4U.png')}/>
             <TouchableOpacity
                 onPress={() => props.navigation.navigate('Schedule')}
                 style={styles.rightButton}>
-                <Image source={require('../../../../assets/icons/noteMan.png')}/>
+                <Image
+                    style={{width: 30, height: 30}}
+                    source={require('../../../../assets/icons/noteMan.png')}/>
             </TouchableOpacity>
             <Counter/>
         </View>
