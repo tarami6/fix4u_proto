@@ -113,7 +113,9 @@ export default class OnTheWayConsumer extends Component {
     render() {
         let reviews = this.props.userDataStore.focusedJob.user_pro.pro_reviews;
         let job = this.props.userDataStore.focusedJob.user_pro;
-        console.log('review2',job);
+        console.log('review3232323',reviews);
+        console.log('review32323sd23',this.props.userDataStore.focusedJob);
+        console.log('review3232',job);
         let rating = getAvgRating(
             job.price_rating_avg,
             job.time_rating_avg,
@@ -152,7 +154,7 @@ export default class OnTheWayConsumer extends Component {
                                 </View>
 
                                 <View style={styles.infoReviewCount}>
-                                    <Text> {reviews.length}  חוות דעת </Text>
+                                    <Text> {reviews ? reviews.length  : 0}  חוות דעת </Text>
                                 </View>
                             </View>
                         </View>
@@ -166,7 +168,7 @@ export default class OnTheWayConsumer extends Component {
 
 
                         <View style={styles.ExpandViewInsideText}>
-                            {reviews.map((item, index) => {
+                            {reviews && reviews.map((item, index) => {
                                 return (
                                     <View key={index} style={styles.proCard}>
                                         {/*Name and Image*/}
