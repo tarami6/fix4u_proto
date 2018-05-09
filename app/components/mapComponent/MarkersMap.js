@@ -36,7 +36,7 @@ export default class usersMap extends React.Component {
                     loadingEnabled={true}
                     ref={c => this.mapView = c}>
                     {this.userLocationMarker}
-                    {this.props.openJobsStore.openJobsList.map((openJob, index) => {
+                    {this.props.usersPlaces.map((openJob, index) => {
                         //here we arrange the data from the db to sync with google maps:
                         let coordinates = {
                             latitude: openJob.lat,
@@ -55,7 +55,7 @@ export default class usersMap extends React.Component {
                                 //             onPress={(yo) => {
                                 //                 console.log('marker:', yo);
                                 //             }}
-                                 image={require('../../../assets/map_icon.png')}
+                                 image={require('../../../assets/map_icon2.png')}
                             />)
                     })}
 

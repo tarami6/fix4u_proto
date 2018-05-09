@@ -5,6 +5,16 @@ export default class OpenJobsStore {
     //local image for displaying before saving the image on the aws
     @observable openJobsList = [];
 
+    @action appliedToPost(postId){
+        for(let i=0; i<this.openJobsList.length; i++){
+            console.log('powerRangers:', this.openJobsList[i].id, postId);
+            if(this.openJobsList[i].id === postId){
+                this.openJobsList[i].did_i_apply = true;
+
+            }
+        }
+    }
+
     @action setOpenJobsList(arr: Array){
         this.openJobsList = arr;
     }

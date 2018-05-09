@@ -1,12 +1,12 @@
 import React, {Component} from "react";
-import {Text, View, TextInput, Alert, Image} from "react-native";
+import {Alert, Image, Text, TextInput, View} from "react-native";
 import {inject, observer} from "mobx-react/native";
 import {submitButton} from "../../../components/modalSubmitButton";
 //config
 import {fetcher} from "../../../generalFunc/fetcher";
 import {phoneInputRoute} from "../../../config/apiRoutes";
 import styles from './styles';
-import {fontGrey, SW, mainStyles} from "../../../config/styles";
+import {fontGrey, mainStyles, SW} from "../../../config/styles";
 
 @inject('modalsStore')
 @inject("authStore")
@@ -25,8 +25,13 @@ export default class PhoneInput extends Component {
         let sendObj = {
             phone_number: this.state.text
         }
-        this.props.modalsStore.showModal('loaderModal');
-        fetcher(phoneInputRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
+        if (this.state.text.length < 10) {
+            Alert.alert('אנא הכנסז מספר ארוך מ10 ספרות')
+        }
+        else {
+            this.props.modalsStore.showModal('loaderModal');
+            fetcher(phoneInputRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
+        }
     }
 
     successCallback(response) {

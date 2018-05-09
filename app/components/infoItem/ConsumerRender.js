@@ -33,14 +33,16 @@ export default class ConsumerRender extends React.Component {
 
             </View>
             <View style={{flex: 1, justifyContent: 'center'}}>
-                <Text style={{color: '#000', textAlign: 'right'}}>{user.user.name}</Text>
+                <Text style={{color: '#000', textAlign: 'right'}}>{user.user && user.user.name}</Text>
                 <Text style={{ textAlign: 'right'}}>{user.address}</Text>
 
             </View>
             <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
-                <Image
-                    style={{width: 60, height: 60, borderRadius: 100,}}
-                    source={{uri: user.user.profile_pic_thumb}}/>
+                { user.user &&
+                    <Image
+                        style={{width: 60, height: 60, borderRadius: 100,}}
+                        source={{uri: user.user.profile_pic_thumb}}/>
+                }
             </View>
         </View>
         )

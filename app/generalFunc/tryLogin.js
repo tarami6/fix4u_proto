@@ -1,3 +1,4 @@
+// here we get all the data from the login
 import {fetcher} from "./fetcher";
 import {AsyncStorage} from 'react-native'
 import {loginRoute, getAppliesRoute} from "../config/apiRoutes";
@@ -14,15 +15,14 @@ export const tryLogin = (userDataStore, callbackFunc, errCB=(err)=>console.warn(
         userDataStore.setUserType(userType);
         userDataStore.setUserData(response);
         if(userType === 'pro'){
-            let gotApplies = (res)=>{
-                userDataStore.setLoading(false);
-                // console.warn('success cb applies:', res)
-                userDataStore.setSentApplies(res);
-                callbackFunc(response);
-            };
+            // let gotApplies = (res)=>{
+            //     userDataStore.setLoading(false);
+            //     // console.warn('success cb applies:', res)
+            //     callbackFunc(response);
+            // };
             userDataStore.setLoading(true);
-            console.warn('try login')
-            fetcher(getAppliesRoute, 'GET', gotApplies, errorCallback, {token: response.token})
+            callbackFunc(response);
+            // fetcher(getAppliesRoute, 'GET', gotApplies, errorCallback, {token: response.token})
         }
         else {
             callbackFunc(response);

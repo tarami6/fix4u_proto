@@ -40,7 +40,7 @@ export default class ProPaymentPro extends React.Component {
             let sendObj = {
                 status: 'consumer_payment',
                 work_fee: fee,
-                total_fee: fee + this.props.focusedJob.service_fee
+                total_fee: fee + 100
             };
             let headers = {
                 'Accept': `application/json`,
@@ -64,6 +64,8 @@ export default class ProPaymentPro extends React.Component {
         console.warn('error', err);
         console.log('error:', err)
     }
+
+
 
     render() {
         let a =new Date(this.props.userDataStore.focusedJob.job_start_time)

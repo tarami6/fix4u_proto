@@ -50,11 +50,11 @@ export default class ScheduleConsumer1 extends React.Component {
 
                 <View style={{flex: 1}}>
                     {this.props.userDataStore.userData.user.user_active_posts && this.props.userDataStore.userData.user.user_active_posts.length > 0 ?
-                        <FlatList
-                            data={this.props.userDataStore.userData.user.user_active_posts}
-                            keyExtractor={this.keyExtractor}
-                            renderItem={({item, index}) =>
-                                <View style={{
+                        this.props.userDataStore.userData.user.user_active_posts.map((item, index)=>{
+                            return (
+                                <View
+                                    key={item.id}
+                                    style={{
                                     width: SW,
                                     height: SH / 8 +0.5,
                                     backgroundColor: 'transparent'
@@ -72,8 +72,9 @@ export default class ScheduleConsumer1 extends React.Component {
                                     </TouchableHighlight>
 
                                 </View>
-                            }
-                        /> :
+                            )
+                        })
+                        :
                         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                             <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>אין לך עבודות </Text>
                         </View>

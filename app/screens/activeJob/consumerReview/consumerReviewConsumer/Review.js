@@ -63,7 +63,7 @@ export default class Review extends Component {
     }
 
     successCB(res) {
-        this.props.userDataStore.updatePost(res.post);
+        this.props.userDataStore.removeActivePost(res.id);
         this.props.navigation.navigate('AddJob');
         console.warn('success cb at consumer Review:', res);
         console.log('success cb at consumer Review:', res);
@@ -73,6 +73,7 @@ export default class Review extends Component {
         console.warn('error cb at consumer Review:', err);
         // console.log('error cb at consumer Review:', err);
     }
+
     // //send review end
 
 
@@ -99,7 +100,7 @@ export default class Review extends Component {
         let focusedJob = this.props.userDataStore.focusedJob;
         return (
             <View style={{flex: 1,}}>
-                <Header head={'Grey'}/>
+                <Header head={'Grey'} props={this.props} />
                 {/*Info*/}
                 <View style={{flex: 0.23, backgroundColor: '#fff', borderBottomWidth: 0.5, borderColor: '#000'}}>
                     {/*Image & service & full name*/}

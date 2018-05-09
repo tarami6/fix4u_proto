@@ -12,7 +12,6 @@ export default class UserDataStore {
     @observable userData = {};
     @observable userType = ''; //this is the the general user type, if he have a pro account he will always stay pro here
     @observable currentUserType = '';
-    @observable sentApplies = [];
     // focused Job, the job the user is currently viewing
     @observable focusedJob = {};
     @observable focusedConsumerJob = {}
@@ -43,9 +42,6 @@ export default class UserDataStore {
     }
 
     @action setUserData(data: Object) {
-        if (!this.userData.user && data.user.pro_applies) {
-            this.setSentApplies(data.user.pro_applies);
-        }
         this.userData = data;
     }
 
@@ -75,12 +71,26 @@ export default class UserDataStore {
     }
 
     //applies handling:
-    @action setSentApplies(sendApplies: Array) {
-        this.sentApplies = sendApplies;
+    @action removeSentApply(postId){
+        console.warn('removing apply');
+        let proApplies = this.userData.user.pro_applies.slice(0)
+        for(let i=0; i<proApplies.length; i++){
+            console.log('ids:', proApplies[i].post, postId);
+            if(proApplies[i].post === postId){
+                this.userData.user.pro_applies.splice(i,1);
+            }
+        }
+        // this.userData.user.pro_applies = proApplies.filter((apply)=> apply.post !==postId);
+        console.log('filtered arr:', this.userData.user.pro_applies.slice(0).filter(apply=> apply.post !==postId))
+        console.log(this.userData.user.pro_applies.slice(0));
+    }
+
+    @action removeAllSentApplies(){
+        this.userData.user.pro_applies = [];
     }
 
     @action addApply(apply: Object) {
-        this.sentApplies.push(apply);
+        this.userData.user.pro_applies.push(apply);
     }
 
     //user update
@@ -92,6 +102,8 @@ export default class UserDataStore {
     @action addJob(job) {
         this.userData.user.user_open_posts.push(job);
     }
+
+
 
     @action updateOpenPost(post: Object) {
         let openPosts = this.userData.user.user_open_posts;
@@ -130,12 +142,17 @@ export default class UserDataStore {
         // }
     }
 
+    @action removeActivePost(postId){
+        this.userData.user.user_active_posts = this.userData.user.user_active_posts.filter(post => post.id !== postId);
+    }
+
     //this is update for the user consumer post
     @action updatePost(post: Object) {
         let userPosts = this.userData.user.user_active_posts;
         for (let i = 0; i < userPosts.length; i++) {
             if (userPosts[i].id === post.id) {
                 this.userData.user.user_active_posts[i] = post;
+                console.log('currentActivePost', this.userData.user.user_active_posts[i]);
             }
             //not sure about that yet, after recheck
             if (post.status === 'open') {

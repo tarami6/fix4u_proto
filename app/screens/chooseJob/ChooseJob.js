@@ -1,9 +1,8 @@
 import {inject, observer} from "mobx-react/index";
 import React, {Component} from "react";
-import {Text, TouchableOpacity, View, TouchableWithoutFeedback} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 //header stuff:
 import Header from '../../components/headers/Header'
-
 //fetch allJobs
 import {fetcher} from "../../generalFunc/fetcher";
 import {getOpenPostsRoute} from "../../config/apiRoutes";
@@ -40,13 +39,47 @@ export default class ChooseJob extends Component {
         header: null
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            openJobsList: []
+        }
+    }
+
     componentWillMount() {
+        this.mounted = true;
+        this.getOpenJobs(this.props.openJobsStore.openJobsList);
         let body = {
             token: this.props.userDataStore.userData.token
         }
         this.props.modalsStore.showModal('loaderModal');
-        fetcher(getOpenPostsRoute, 'GET', this.successCallback.bind(this), this.errorCallback.bind(this), body)
+        fetcher(getOpenPostsRoute, 'GET', this.successCallback.bind(this), this.errorCallback.bind(this), body);
+
+        this.checkJobsInterval();
     }
+
+    componentWillUnmount() {
+        this.mounted = false;
+    }
+
+    // here we set the state to choose what sjobs to display to the user:
+    getOpenJobs(jobs: Array) {
+        let newJobs = [];
+        for (let i = 0; i < jobs.length; i++) {
+            if (jobs[i].status === 'open') {
+                //Here I set the jobs I want to show to the user:
+                // console.log('this.checkIfUserApplied(jobs[i])', this.checkIfUserApplied(jobs[i]));
+                // console.log('newJobs:', newJobs);
+                if(!jobs[i].did_i_apply){
+                    newJobs.push(jobs[i]);
+                }
+            }
+        }
+        this.setState({openJobsList: newJobs}, () => {
+            // console.warn('got jobs!');
+        })
+    }
+
 
     successCallback(res) {
         this.props.modalsStore.hideModal('loaderModal');
@@ -63,14 +96,24 @@ export default class ChooseJob extends Component {
     }
 
     onMarkerPress(openJob, index) {
-
         this.props.openJobsStore.focusJob(openJob);
         this.props.modalsStore.showModal('chooseJobModal');
     }
 
+    //as it sounds
+    checkJobsInterval() {
+        this.jobsInterval = setInterval(() => {
+            this.getOpenJobs(this.props.openJobsStore.openJobsList);
+            if (!this.mounted) {
+                clearInterval(this.jobsInterval);
+            }
+        }, 2000)
+    }
+
+
     render() {
-        console.log("sdsd",this.props.userDataStore.focusedJob.status)
-        let openJobsList = this.props.openJobsStore.openJobsList
+        let openJobsList = this.props.openJobsStore.openJobsList;
+        let proApplies = this.props.userDataStore.userData.user.pro_applies.slice(0)
         // if (openJobsList && openJobsList.length > 0 || loadEmptyMap) {
         return (
             <View style={{flex: 1}}>
@@ -79,11 +122,11 @@ export default class ChooseJob extends Component {
                 </View>
                 {/*Map component: */}
                 <MapComponent onMarkerPress={this.onMarkerPress.bind(this)}
-                              usersPlaces={this.props.openJobsStore.openJobsList}/>
+                              usersPlaces={this.state.openJobsList}/>
                 <View style={{position: 'absolute', top: HH}}>
                     {/*Waiting for confirmation*/}
 
-                    {this.props.userDataStore.sentApplies.length > 0 &&
+                    {proApplies.length > 0 &&
                     <View
                         style={{
                             width: SW,
@@ -96,7 +139,7 @@ export default class ChooseJob extends Component {
 
                         }}>
                         <View style={{flex: 1}}>
-                            <Text style={{paddingLeft: 20,}}>{this.props.userDataStore.sentApplies.length}</Text>
+                            <Text style={{paddingLeft: 20,}}>{proApplies.length}</Text>
                         </View>
                         <View style={{flex: 1}}>
                             <Text style={{paddingRight: 20,}}>מחכה לאישור</Text>

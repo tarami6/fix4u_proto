@@ -6,7 +6,7 @@
  */
 
 import React, {Component} from 'react';
-import {AppState, PermissionsAndroid, ToastAndroid, Alert} from 'react-native';
+import {Alert, AppState, PermissionsAndroid, ToastAndroid} from 'react-native';
 import ScreensBase from './screens';
 import {Provider} from "mobx-react";
 import AuthStore from './state-manager/mobx/authStore';
@@ -23,7 +23,6 @@ import {StackNavigator} from 'react-navigation';
 import Pushy from 'pushy-react-native';
 // Ramistesting
 import LoadingPage from './screens/modals/Loader/LoadingPage'
-import modalLoader from './screens/modals/Loader/ModalLoader'
 
 //the usual consumer costumer auth process happens here
 let authStore = new AuthStore();
@@ -105,15 +104,16 @@ let handleNotificationData = (type, payload) => {
             userDataStore.updateOpenPost(payload);
             break;
         // case 'open_post_remove':
-        case 'pro_post_update': // this is the route for updating the pot_posts
+        case 'pro_post_completed': // this is the route for updating the pro_posts
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
             }
-            userDataStore.updateProPost(payload);
+            userDataStore.removeProPost(payload.id);
         case 'post_open': // a new post has been open
             openJobsStore.addJob(payload);
             break;
         case 'post_add': // only for pro, new post for pro
+            userDataStore.removeAllSentApplies();
             userDataStore.addProPost(payload);
             userDataStore.focusJob(payload);
             break;
@@ -121,12 +121,9 @@ let handleNotificationData = (type, payload) => {
             if (openJobsStore.focusedJob.id === payload.post_id && modalsStore.chooseJobModal) {
                 modalsStore.hideModal('chooseJobModal');
                 Alert.alert('העבודה כבר לא רלוונטית(נתפסה על ידי מקצוען אחר או נמחקה על ידי המשתמש');
-                openJobsStore.removeJob(payload.post_id);
             }
-            else {
-                //here I get update of a post which is irrelevant for the pro, I handle it with the post id
-                openJobsStore.removeJob(payload.post_id);
-            }
+            userDataStore.removeSentApply(payload.post_id);
+            openJobsStore.removeJob(payload.post_id);
             break;
         default:
             console.warn("notification wasn't handled:", type);

@@ -57,7 +57,7 @@ export default class ActiveJob extends Component {
             }
             else if ( jobStatus === 'consumer_review') {
                 return (
-                    <ConsumerReview navigation={this.props.navigation}/>
+                    <ConsumerReview navigation={this.props.navigation} {...this.props}/>
                 );
             }
             else {

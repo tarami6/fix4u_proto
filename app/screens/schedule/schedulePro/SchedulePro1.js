@@ -98,19 +98,21 @@ export default class SchedulePro1 extends React.Component {
                     </View>
                 </View>
                 <View style={{flex: 1}}>
-                    <FlatList
-                        data={this.props.userDataStore.userData.user.pro_posts}
-                        renderItem={({item}) => <TouchableHighlight onPress={() => this.chooseJob(item)}
-                                                                    style={{
-                                                                        width: SW,
-                                                                        height: SH / 8,
-                                                                        borderBottomWidth: 1,
-                                                                        borderColor: '#AAAAAA'
-                                                                    }}>
+                    {this.props.userDataStore.userData.user.pro_posts.map((item)=>{
+                        return (
+                            <TouchableHighlight onPress={() => this.chooseJob(item)}
+                                                key={item.id}
+                                                style={{
+                                                    width: SW,
+                                                    height: SH / 8,
+                                                    borderBottomWidth: 1,
+                                                    borderColor: '#AAAAAA'
+                                                }}>
 
-                            <InfoItem type={'consumer'} info={item}/>
-                        </TouchableHighlight>}
-                    />
+                                <InfoItem type={'consumer'} info={item}/>
+                            </TouchableHighlight>
+                        )
+                    })}
                 </View>
 
             </View>

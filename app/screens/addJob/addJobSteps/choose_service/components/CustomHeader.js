@@ -22,7 +22,7 @@ const CustomHeader = (props) => {
         style={styles.rightButton}>
         <Icon name='ios-person-outline' style={styles.rightIcon}/>
       </TouchableOpacity>
-      <Counter />
+      {/*<Counter />*/}
     </View>
   )
 }
