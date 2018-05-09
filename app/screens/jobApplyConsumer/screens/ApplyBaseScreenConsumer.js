@@ -173,6 +173,7 @@ export default class ApplyBaseScreen extends React.Component {
                             <View style={{flex: 0.6, justifyContent: 'center', alignItems: 'center'}}>
                                 <Text
                                     style={{
+                                        fontFamily: 'sans-serif',
                                         color: '#000',
                                         fontSize: 22,
                                         fontWeight: 'bold',

@@ -29,7 +29,7 @@ const HeaderConsumer = (props) => {
                     style={{width: SW / 15, height: SW / 15}}
                     source={require('../../../../assets/icons/noteMan.png')}/>
             </TouchableOpacity>
-            <Counter/>
+            {/*<Counter/>*/}
         </View>
     )
 }

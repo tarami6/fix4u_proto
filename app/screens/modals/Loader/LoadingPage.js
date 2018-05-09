@@ -19,7 +19,7 @@ export default class LoadinPage extends React.Component {
             <View style={{flex: 1,}}>
                 <LinearGradient colors={['#FFBA00', '#FF8D00']} style={{flex: 1, alignItems: 'center'}}>
                     <Image
-                        style={{marginTop: SH / 4, height: '23%' , width: '25%'}}
+                        style={{marginTop: SH / 4, height: '23%' , width: '27%'}}
                         source={require('../../../../assets/icons/loadingLogo.png')}
                     />
                     <Image

@@ -12,7 +12,7 @@ import {submitButton} from "../../../../components/modalSubmitButton";
 import BraintreeDropIn from 'react-native-braintree-payments-drop-in';
 import {fetcher} from "../../../../generalFunc/fetcher";
 import {braintreeGetTokenRoute, braintreeSendTokenRoute} from "../../../../config/apiRoutes";
-import {addZero, getAvgRating} from "../../../../generalFunc/generalFunctions";
+import {addZero, getAvgRating, msToHMS} from "../../../../generalFunc/generalFunctions";
 //mobx
 import {inject, observer} from "mobx-react/index";
 
@@ -97,42 +97,12 @@ export default class InProgressConsumer extends Component {
     }
 
     startTimer() {
-        let basicDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
-        let currentDate = new Date();
-        let sec = currentDate.getSeconds() - basicDate.getSeconds();
-        let min = currentDate.getMinutes() - basicDate.getMinutes();
-        let hour = currentDate.getHours() - basicDate.getHours();
-        let newTimer = '';
         this.interval = setInterval(() => {
-            if (min <= 9) {
-                newTimer = (sec <= 9) ? hour + ':0' + min + ':0' + sec : hour + ':0' + min + ':' + sec;
-
-            } else {
-                newTimer = (sec <= 9) ? hour + ':' + min + ':0' + sec : hour + ':' + min + ':' + sec;
-            }
-
-            if (sec == 59) {
-                min++
-                sec = 0
-            }
-            if (min == 59 && sec == 59) {
-                hour++
-                min = 0
-            }
-            sec++
-            this.setState({timer: newTimer})
-            if (this.props.userDataStore.focusedJob.status !== 'in_progress') {
-                clearInterval(this.interval);
-                let startTime = new Date(this.props.userDataStore.focusedJob.job_start_time);
-                let completionTime = new Date(this.props.userDataStore.focusedJob.job_completion_time);
-                let sec2 = addZero(completionTime.getSeconds() - startTime.getSeconds());
-                let min2 = addZero(completionTime.getMinutes() - startTime.getMinutes());
-                let hour2 = addZero(completionTime.getHours() - startTime.getHours());
-                let jobTime = hour2 + ':' + min2 + ':' + sec2;
-                this.setState({
-                    timer: jobTime
-                })
-            }
+            let basicDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
+            let currentDate = new Date();
+            let x = currentDate-basicDate;
+            let timer = msToHMS(x);
+            this.setState({timer: timer})
         }, 1000);
     }
 
