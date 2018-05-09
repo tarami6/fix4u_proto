@@ -1,6 +1,6 @@
 import React from 'react';
 import LinearViewHeader from '../LinearViewHeader';
-import {HH, SW} from "../../config/styles";
+import {HH, SW, SH} from "../../config/styles";
 import {View, Image, TouchableOpacity, Alert} from 'react-native';
 import ArrowIcon from 'react-native-vector-icons/Ionicons';
 
@@ -22,9 +22,8 @@ const ArrowHeaderOrangeBackground = (props) => {
             </TouchableOpacity>
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Image
-                    style={{paddingRight: SW / 10}}
-                    source={require('../../../assets/icons/fixU.png')}
-                />
+                style={{width: SW / 5.5, height: SH / 33, marginLeft: 10}}
+                source={require('../../../assets/icons/fix4U.png')}/>
             </View>
 
             <View style={{flex: 1}}></View>

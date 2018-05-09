@@ -37,11 +37,13 @@ export default class ProPaymentPro extends React.Component {
         if (this.state.fee) {
             let fee = this.state.fee;
             let route = startJobRoute(this.props.userDataStore.focusedJob.id);
+            let totalFee = parseInt(fee) + parseInt(this.props.userDataStore.focusedJob.service_fee);
             let sendObj = {
                 status: 'consumer_payment',
                 work_fee: fee,
-                total_fee: fee + 100
+                total_fee: totalFee
             };
+            console.warn("dasda",sendObj.total_fee )
             let headers = {
                 'Accept': `application/json`,
                 'content-type': 'application/json',

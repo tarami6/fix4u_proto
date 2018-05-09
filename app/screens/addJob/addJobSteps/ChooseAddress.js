@@ -212,9 +212,9 @@ export default class ChooseAddress extends React.Component {
                 {/*Linear under header 0.8 flex*/}
                 <LinierView>
                     <Header head={'AddJob'} previousPage={'ExplainTheJob'} props={this.props}/>
-                    <View style={{flex: 1, alignItems: 'center'}}>
+                    <View style={{flex: 1,justifyContent: 'center', alignItems: 'center'}}>
                         <Image
-                            style={{ width: SW /2, height: 30}}
+                             style={{width:SW /3, height: SH /33}}
                             source={require('../../../../assets/icons/ThreeStepsIndicator/3.png')}
                         />
                     </View>
@@ -297,7 +297,7 @@ let styles = StyleSheet.create({
         flex: 0.8
     },
     textInputView: {
-        marginTop: SH / 15,
+        marginTop: SH / 20,
         height: HH * 4,
         zIndex: 3,
         alignItems: 'center',

@@ -19,12 +19,12 @@ export default class LoadinPage extends React.Component {
             <View style={{flex: 1,}}>
                 <LinearGradient colors={['#FFBA00', '#FF8D00']} style={{flex: 1, alignItems: 'center'}}>
                     <Image
-                        style={{marginTop: SH / 4}}
-                        source={require('../../../../assets/icons/LogoLoading.png')}
+                        style={{marginTop: SH / 4, height: '23%' , width: '25%'}}
+                        source={require('../../../../assets/icons/loadingLogo.png')}
                     />
                     <Image
                         style={{marginTop: SH / 12}}
-                        source={require('../../../../assets/icons/fixU.png')}
+                        source={require('../../../../assets/icons/fix4U.png')}
                     />
                     <View style={{marginTop: SH / 10, alignItems: 'center', width: SW, height: 100}}>
                         <LottieView

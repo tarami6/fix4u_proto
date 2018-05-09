@@ -3,7 +3,7 @@ import {View, Text, Image, TextInput, StyleSheet, Alert} from 'react-native';
 import CustomHeaderRegPro from '../components/CustomHeaderRegPro'
 import LinearViewBelowHeaderPro from '../components/LinearViewBelowHeaderPro';
 import {submitButton} from "../../../components/modalSubmitButton";
-import {SH, SW, HH} from "../../../config/styles";
+import {SH, SW, HH, mainStyles} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 import AutoComplete from '../../../components/autoComplete'
 import {Keys} from "../../../config/keys";
@@ -84,8 +84,9 @@ export default class AddressInfo extends React.Component {
                         {/*step indicator*/}
                         <View>
                             <Image
-                                source={require('../../../../assets/registration/icons/proStepImdicator2.png')}
-                            />
+                                    style={mainStyles.fourStepsIndicator}
+                                    source={require('../../../../assets/icons/FourStepsIndicator/2.png')}
+                                />
                         </View>
                         <View style={styles.titles}>
                             <Text style={styles.locationText}>
@@ -129,12 +130,13 @@ let styles = StyleSheet.create({
         flex: 1
     },
     linear: {
-        flex: 1
+        flex: 0.8
         // height: (SH - HH) / 3.5,
     },
     titles: {
-        marginTop: SH / 60,
-        alignItems: 'center'
+        marginTop: SH / 55,
+        alignItems: 'center',
+        marginBottom: SH /55,
     },
     locationText: {
         fontSize: 18,

@@ -608,13 +608,12 @@ const
             justifyContent: 'center',
         },
         infoProPic: {
-            width: 70,
-            height: 70,
+            width: 60,
+            height: 60,
             borderRadius: 100
         },
         infoAboutView: {
             flex: 0.6,
-            marginRight: SW / 20,
             justifyContent: 'center',
             alignItems: 'center',
             overflow: 'hidden'
@@ -633,9 +632,10 @@ const
             flexDirection: 'row',
         },
         infoStarsView: {
-            flex: 0.9,
+            flex: 1.2,
             alignItems: 'center',
-            flexDirection: 'row'
+            flexDirection: 'row',
+
         },
         slideDownArrow: {
             flex: 0.2,
@@ -682,7 +682,7 @@ const
 
         proCard: {
             width: SW - ((SW / 20) * 2),
-            height: SH / 3.2
+            height: SH /2.5
         },
         cardNameAndImageView: {
             flex: 1.8,
@@ -709,7 +709,7 @@ const
             borderRadius: 100
         },
         cardReview: {
-            flex: 1.3,
+            flex: 1.5,
             justifyContent: 'center',
             borderBottomWidth: 0.5,
             borderTopWidth: 0.5,

@@ -114,9 +114,9 @@ export default class ChooseTime extends React.Component {
                 {/*Orange Head*/}
                 <LinierView>
                     <Header head={'AddJob'} previousPage={'ChooseService'} props={this.props}/>
-                    <View style={{flex: 0.8, justifyContent: 'flex-start', alignItems: 'center'}}>
+                    <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'center'}}>
                         <Image
-                            style={{width: SW / 2, height: 30}}
+                            style={mainStyles.threeStepsIndicator}
                             source={require('../../../../assets/icons/ThreeStepsIndicator/1.png')}
                         />
                     </View>

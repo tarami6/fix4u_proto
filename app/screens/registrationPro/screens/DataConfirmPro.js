@@ -105,7 +105,7 @@ export default class ChooseTime extends React.Component {
                         </View>
                     </View>
                     {/*about*/}
-                    <View style={{flex: 0.8, marginRight: SW / 20, justifyContent: 'center'}}>
+                    <View style={{flex: 0.8, marginRight: SW / 20, marginLeft: SW / 20, justifyContent: 'center'}}>
                         <Text>{proUser.company_description}</Text>
                     </View>
                     {/*reviews*/}
@@ -146,7 +146,7 @@ export default class ChooseTime extends React.Component {
                             </View>
                         </View>
                         {/*businessAddress*/}
-                        <View style={{flex: 1, flexDirection: 'row'}}>
+                        <View style={{flex: 1, flexDirection: 'row', marginTop: SW /10}}>
                             <View style={{flex: 1, justifyContent: 'center', alignItems: 'flex-start'}}>
                                 <Text>{proUser.company_address}</Text>
                             </View>
@@ -203,18 +203,18 @@ let styles = StyleSheet.create({
         flexDirection: 'row'
     },
     nameView: {
-        flex: 0.8,
+        flex: 1,
         justifyContent: 'center'
     },
     imageView: {
-        flex: 0.4,
+        flex: 0.3,
         backgroundColor: 'white',
         alignItems: 'flex-end',
         marginRight: SW / 20
     },
     proImage: {
-        width: 70,
-        height: 70,
+        width: SW /7,
+        height: SW /7,
         borderRadius: 100
     },
     reviewsRow: {
@@ -237,13 +237,14 @@ let styles = StyleSheet.create({
         justifyContent: 'center'
     },
     businessInfo: {
-        paddingTop: SH / 40,
+
         flex: 0.4,
         width: SW - ((SW / 20) * 2),
     },
     businessRow: {
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginTop: SW /10
     },
     left: {
         flex: 1,

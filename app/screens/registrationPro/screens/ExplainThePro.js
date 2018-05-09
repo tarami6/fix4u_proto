@@ -10,7 +10,7 @@ import {
     View
 } from 'react-native';
 import {submitButton} from "../../../components/modalSubmitButton";
-import {SH, SW} from "../../../config/styles";
+import {SH, SW, mainStyles} from "../../../config/styles";
 import LinearViewBelowHeaderConsumer from '../components/LinearViewBelowHeaderPro';
 import ImagePicker from "react-native-image-picker";
 import {inject, observer} from "mobx-react/native";
@@ -105,7 +105,8 @@ export default class ExplainThePro extends React.Component {
                             {/*step indicator*/}
                             <View>
                                 <Image
-                                    source={require('../../../../assets/registration/icons/proStepImdicator4.png')}
+                                    style={mainStyles.fourStepsIndicator}
+                                    source={require('../../../../assets/icons/FourStepsIndicator/4.png')}
                                 />
                             </View>
                             {/*explain the job title*/}
@@ -148,7 +149,7 @@ export default class ExplainThePro extends React.Component {
                                 {this.state.profilePic ?
                                     <Image style={{height: 100, width: 100}} source={this.state.profilePic}/> :
                                     <Image
-                                        style={{height: 50, width: 50}}
+                                        style={{height: 55, width: 60}}
                                         source={require('../../../../assets/addJob/icons/AddPic.png')}
                                     />}
                             </TouchableOpacity>
@@ -194,7 +195,7 @@ let styles = StyleSheet.create({
     },
     textInputView: {
         position: 'absolute',
-        top: SW / 3,
+        top: SW / 3.5,
         alignSelf: 'center'
     },
     textInput: {
@@ -213,7 +214,8 @@ let styles = StyleSheet.create({
     middleView: {
         flex: 1.5,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: SH /15
     },
     addTitleView: {
         alignSelf: 'flex-end',

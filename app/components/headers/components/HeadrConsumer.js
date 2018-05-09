@@ -1,7 +1,7 @@
 import React from 'react'
 import {TouchableOpacity,Image,StyleSheet, View, Alert} from 'react-native';
 import Counter from './Counter';
-import {HH, PaddingSize} from "../../../config/styles";
+import {HH, PaddingSize, SH, SW} from "../../../config/styles";
 
 const HeaderConsumer = (props) => {
     color = props.background
@@ -14,14 +14,20 @@ const HeaderConsumer = (props) => {
                     drawerOpen: true,
                 });
             }}>
-                <Image source={require('../../../../assets/icons/Menu.png')}/>
+                <Image
+                    style={{width: SW / 20, height: SW / 20}}
+                    source={require('../../../../assets/icons/Menu.png')}/>
             </TouchableOpacity>
 
-            <Image source={require('../../../../assets/icons/fixU.png')}/>
+            <Image
+                style={{width: SW / 5.5, height: SH / 33, marginLeft: 10}}
+                source={require('../../../../assets/icons/fix4U.png')}/>
             <TouchableOpacity
                 onPress={() => props.navigation.navigate('Schedule')}
                 style={styles.rightButton}>
-                <Image source={require('../../../../assets/icons/noteMan.png')}/>
+                <Image
+                    style={{width: SW / 15, height: SW / 15}}
+                    source={require('../../../../assets/icons/noteMan.png')}/>
             </TouchableOpacity>
             <Counter/>
         </View>

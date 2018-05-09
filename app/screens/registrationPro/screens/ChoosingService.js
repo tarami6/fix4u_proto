@@ -2,7 +2,7 @@ import React from 'react';
 import {Alert, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import LinearViewBelowHeaderPro from '../components/LinearViewBelowHeaderPro';
 import {submitButton} from "../../../components/modalSubmitButton";
-import {SH, SW} from "../../../config/styles";
+import {SH, SW, mainStyles} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 import Header from '../../../components/headers/Header';
 
@@ -71,9 +71,9 @@ export default class AddressInfo extends React.Component {
                         {/*step indicator*/}
                         <View>
                             <Image
-                                style={{marginTop: 0}}
-                                source={require('../../../../assets/registration/icons/proStepImdicator3.png')}
-                            />
+                                    style={mainStyles.fourStepsIndicator}
+                                    source={require('../../../../assets/icons/FourStepsIndicator/3.png')}
+                                />
                         </View>
                         <View style={{marginTop: SH / 60, alignItems: 'center'}}>
                             <Text style={{fontSize: 18, color: '#fff', fontWeight: 'bold'}}>
@@ -109,8 +109,11 @@ export default class AddressInfo extends React.Component {
                                     </View>
                                     <View>
                                         {this.state.chosenServices[item.state] ?
-                                            <Image source={require('../../../../assets/registration/icons/Vee.png')}/> :
                                             <Image
+                                                style={{width: 20, height:20}}
+                                                source={require('../../../../assets/registration/icons/Vee.png')}/> :
+                                            <Image
+                                                style={{width: 20, height:20}}
                                                 source={require('../../../../assets/registration/icons/square.png')}/>}
                                     </View>
 
