@@ -63,7 +63,8 @@ export default class Review extends Component {
     }
 
     successCB(res) {
-        this.props.userDataStore.removeActivePost(res.id);
+
+        this.props.userDataStore.removeActivePost(this.props.userDataStore.focusedJob.id);
         this.props.navigation.navigate('AddJob');
         console.warn('success cb at consumer Review:', res);
         console.log('success cb at consumer Review:', res);

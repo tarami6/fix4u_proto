@@ -55,10 +55,9 @@ export default class usersMap extends React.Component {
                                 //             onPress={(yo) => {
                                 //                 console.log('marker:', yo);
                                 //             }}
-                                 image={require('../../../assets/map_icon2.png')}
+                                 image={require('../../../assets/map_image3.png')}
                             />)
                     })}
-
                 </MapView>
             </View>
         );

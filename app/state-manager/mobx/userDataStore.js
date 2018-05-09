@@ -72,7 +72,6 @@ export default class UserDataStore {
 
     //applies handling:
     @action removeSentApply(postId){
-        console.warn('removing apply');
         let proApplies = this.userData.user.pro_applies.slice(0)
         for(let i=0; i<proApplies.length; i++){
             console.log('ids:', proApplies[i].post, postId);
@@ -80,9 +79,6 @@ export default class UserDataStore {
                 this.userData.user.pro_applies.splice(i,1);
             }
         }
-        // this.userData.user.pro_applies = proApplies.filter((apply)=> apply.post !==postId);
-        console.log('filtered arr:', this.userData.user.pro_applies.slice(0).filter(apply=> apply.post !==postId))
-        console.log(this.userData.user.pro_applies.slice(0));
     }
 
     @action removeAllSentApplies(){
@@ -143,7 +139,15 @@ export default class UserDataStore {
     }
 
     @action removeActivePost(postId){
-        this.userData.user.user_active_posts = this.userData.user.user_active_posts.filter(post => post.id !== postId);
+        let user_active_posts = this.userData.user.user_active_posts.slice(0);
+        for(let i=0; i<user_active_posts.length; i++){
+            console.log('bool equal?', user_active_posts[i].id, postId)
+            if(user_active_posts[i].id === postId){
+                this.userData.user.user_active_posts.splice(i,1);
+            }
+        }
+        console.log('removed active post?', this.userData.user.user_active_posts.slice(0))
+        // this.userData.user.user_active_posts = this.userData.user.user_active_posts.filter(post => post.id !== postId);
     }
 
     //this is update for the user consumer post
