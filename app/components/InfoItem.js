@@ -32,7 +32,7 @@ export default class InfoItem extends React.Component {
 
     render() {
         console.log("#@323", this.props.info.user)
-        console.log("#@32323", this.props.info)
+        console.log("#@32323", this.props)
         let data = this.props.info;
         if (this.props.type === 'activeJob') {
             return (

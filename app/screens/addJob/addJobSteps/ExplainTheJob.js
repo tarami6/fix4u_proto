@@ -10,7 +10,7 @@ import {
     TouchableWithoutFeedback,
     View
 } from 'react-native';
-import {fontGrey, HH, SH, SW} from "../../../config/styles";
+import {fontGrey, HH, mainStyles, SH, SW} from "../../../config/styles";
 import {submitButton} from "../../../components/modalSubmitButton";
 import {inject, observer} from "mobx-react/native";
 import ImagePicker from "react-native-image-picker";
@@ -110,7 +110,7 @@ export default class ChooseTime extends React.Component {
             Alert.alert('אנא הוסיף תיאור של העבודה')
         }
         //this is the condition to set required image
-        else if(!this.state.profilePic){
+        else if (!this.state.profilePic) {
             Alert.alert('אנא הכנס תמונה לתיאור העבודה')
         }
         else {
@@ -128,23 +128,24 @@ export default class ChooseTime extends React.Component {
                 <TouchableWithoutFeedback onPress={() => {
                     this.textField.blur()
                 }}>
-                    {/*Linear*/}
-                    <LinierView>
-                        <Header head={'AddJob'} previousPage={'ChooseTime'} props={this.props}/>
-                        <View style={{flex: 1,  alignItems: 'center'}}>
-                            <Image
-                            style={{ width: SW /2, height: 30}}
-                            source={require('../../../../assets/icons/ThreeStepsIndicator/2.png')}
-                        />
-                        </View>
-                        <View style={styles.explainTitleView}>
-                            <Text style={styles.explainText}>
-                                תאר את הבעיה
-                            </Text>
-                        </View>
+                    <View>
+                        {/*Linear*/}
+                        <LinierView>
+                            <Header head={'AddJob'} previousPage={'ChooseTime'} props={this.props}/>
+                            <View style={{flex: 1, alignItems: 'center'}}>
+                                <Image
+                                    style={mainStyles.threeStepsIndicator}
+                                    source={require('../../../../assets/icons/ThreeStepsIndicator/2.png')}
+                                />
+                            </View>
+                            <View style={styles.explainTitleView}>
+                                <Text style={styles.explainText}>
+                                    תאר את הבעיה
+                                </Text>
+                            </View>
 
-                    </LinierView>
-
+                        </LinierView>
+                    </View>
 
                 </TouchableWithoutFeedback>
 
@@ -173,7 +174,7 @@ export default class ChooseTime extends React.Component {
                                 הוסף תמונה
                             </Text>
                             {/*<Text style={styles.optionalTitleText}>*/}
-                                {/*לא חובה*/}
+                            {/*לא חובה*/}
                             {/*</Text>*/}
                         </View>
                         {/*add pic icon*/}
@@ -184,7 +185,7 @@ export default class ChooseTime extends React.Component {
                                 {this.state.profilePic ?
                                     <Image style={{height: 100, width: 100}} source={this.state.profilePic}/> :
                                     <Image
-                                        style={{height: 75, width: 80}}
+                                        style={{height: SH / 10, width: SH / 9}}
                                         source={require('../../../../assets/addJob/icons/AddPic.png')}
                                     />}
                             </TouchableOpacity>
@@ -245,7 +246,7 @@ let styles = StyleSheet.create({
     },
     // Middle
     middleView: {
-        marginTop: SH / 20,
+        marginTop: SH / 10,
         flex: 1.5,
         justifyContent: 'center',
         alignItems: 'center'

@@ -94,7 +94,9 @@ export default class SchedulePro1 extends React.Component {
                         marginRight: 20
                     }}>
                         <Text style={{marginRight: 20, fontSize: 18, color: '#fff'}}>יומן</Text>
-                        <Image source={require('../../../../assets/icons/ScheduleIcon.png')}/>
+                        <Image
+                            style={{width: 40, height: 40}}
+                            source={require('../../../../assets/icons/ScheduleIcon.png')}/>
                     </View>
                 </View>
                 <View style={{flex: 1}}>

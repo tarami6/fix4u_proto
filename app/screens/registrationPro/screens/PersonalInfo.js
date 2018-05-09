@@ -2,7 +2,7 @@ import React from 'react';
 import {Alert, Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import LinearViewBelowHeaderPro from '../components/LinearViewBelowHeaderPro';
 import {submitButton} from "../../../components/modalSubmitButton";
-import {HH, SH, SW} from "../../../config/styles";
+import {HH, mainStyles, SH, SW} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 import Header from '../../../components/headers/Header'
 
@@ -76,10 +76,10 @@ export default class PersonalInfo extends React.Component {
                         <LinearViewBelowHeaderPro>
                             <Header head={'AddJob'} previousPage={'ChooseUserType'} props={this.props} />
                             {/*step indicator*/}
-                            <View>
+                            <View >
                                 <Image
-                                    style={{marginTop: 0}}
-                                    source={require('../../../../assets/registration/icons/proStepImdicator1.png')}
+                                    style={mainStyles.fourStepsIndicator}
+                                    source={require('../../../../assets/icons/FourStepsIndicator/1.png')}
                                 />
                             </View>
                             <View style={{marginTop: SH / 30}}>

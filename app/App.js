@@ -192,7 +192,7 @@ export default class App extends Component<Props> {
             <Provider navigationStore={navigationStore} authStore={authStore} addJobStore={addJobStore}
                       userDataStore={userDataStore} proAuthStore={proAuthStore} modalsStore={modalsStore}
                       openJobsStore={openJobsStore} notificationsStore={notificationsStore}>
-                <ScreensBase/>
+                <HomeNavigation/>
             </Provider>
         )
     }

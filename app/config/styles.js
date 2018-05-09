@@ -42,7 +42,7 @@ export let stretchMinimum = SH / 16;
 // FONT
 export let basicIconFont = 30;
 export let largeFont = 20;
-export let buttonFont = 20;
+export let buttonFont = 18;
 export let infoWhiteFont = 16;
 export let mediumFont = 14
 export let smallFont = 11;
@@ -71,7 +71,8 @@ export let mainStyles = StyleSheet.create({
     buttonText: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: buttonFont
+        fontSize: buttonFont,
+
     },
     greyTitle: {
         fontSize: 18,
@@ -88,6 +89,14 @@ export let mainStyles = StyleSheet.create({
         color: '#fff',
         fontSize: 16,
         fontWeight: 'bold'
+    },
+    threeStepsIndicator:{
+        width: '30%', height: '45%',
+    },
+    fourStepsIndicator:{
+        marginTop: 0,
+        width: SW / 2,
+        height: SH /31,
     }
 
 });
