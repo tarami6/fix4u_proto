@@ -57,8 +57,8 @@ export default class ProPaymentPro extends React.Component {
     }
 
     successCallback(res) {
-        this.props.userDataStore.updatePost(res);
-        this.props.userDataStore.focusJob(res)
+        this.props.userDataStore.updateProPost(res);
+        this.props.userDataStore.focusJob(res);
         // this.props.navigation.navigate('ActiveJob');
     }
 

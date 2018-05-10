@@ -76,7 +76,7 @@ export default class ChooseJobModal extends Component {
     successCallback(res) {
         this.closeModal();
         if (res.detail) {
-            Alert.alert(res.detail)
+            Alert.alert('chooseJob modal',res.detail)
             // this.closeModal();
         }
         else {
