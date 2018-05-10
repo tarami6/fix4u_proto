@@ -171,7 +171,9 @@ export default class Pro extends Component {
                         start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
                         style={styles.container}>
                         <Navbar name={this.props.userDataStore.userData.user.name}
-                                navigation={this.props.navigation}/>
+                                navigation={this.props.navigation}
+                                pic={this.props.userDataStore.userData.user.profile_pic_thumb}
+                        />
                     </LinearGradient>
                     <List>
                         {/*Switch drawer type consumer/pro*/}
