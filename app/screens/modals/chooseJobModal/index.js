@@ -80,7 +80,7 @@ export default class ChooseJobModal extends Component {
             // this.closeModal();
         }
         else {
-            console.log('resss:', res);
+
             this.props.openJobsStore.appliedToPost(res.post);
             this.props.userDataStore.addApply(res)
 

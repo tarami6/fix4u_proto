@@ -70,19 +70,23 @@ Pushy.setNotificationListener(async (data) => {
         }
         let notificationTitle = 'Fix4u';
         // Attempt to extract the "message" property from the payload: {"message":"Hello World!"}
-        let notificationText = data.message || 'Test notification';
+        let notificationText = data.message;
         // Display basic system notification
         if (appState !== 'active') {
-            Pushy.notify(notificationTitle, notificationText);
+            if (data.message) {
+                Pushy.notify(notificationTitle, notificationText);
+            }
         }
         else {
-            ToastAndroid.showWithGravityAndOffset(
-                notificationText,
-                ToastAndroid.LONG,
-                ToastAndroid.BOTTOM,
-                25,
-                50
-            );
+            if (data.message) {
+                ToastAndroid.showWithGravityAndOffset(
+                    notificationText,
+                    ToastAndroid.LONG,
+                    ToastAndroid.BOTTOM,
+                    25,
+                    50
+                );
+            }
         }
     }
 );

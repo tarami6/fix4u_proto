@@ -1,10 +1,7 @@
 import React, {Component} from "react";
-import {Text, Alert, View, StyleSheet, TextInput, Image} from "react-native";
-import Icon from 'react-native-vector-icons/Ionicons';
-import Modal from "react-native-modal";
-import {fontGrey, SW, mediumFont, mainStyles} from "../../../config/styles";
+import {Alert, Image, Text, TextInput, View} from "react-native";
+import {fontGrey, mainStyles, mediumFont, SW} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
-import LinearGradient from 'react-native-linear-gradient';
 import {submitButton} from "../../../components/modalSubmitButton";
 import {fetcher} from "../../../generalFunc/fetcher";
 import styles from './styles'
@@ -27,7 +24,7 @@ export default class PhoneVerify extends Component {
 
     submitCode() {
         let code = this.state.text;
-        if(code.length === 4) {
+        if (code.length === 4) {
             let sendObj = {
                 phone_number: this.props.authStore.user.phone_number,
                 code: code
@@ -42,9 +39,9 @@ export default class PhoneVerify extends Component {
     }
 
 
-    loginSuccess(res){
-        let userType = res.user.services? 'pro': 'consumer';
-        let navigationEnd = res.user.services? 'ProNavigator': 'ConsumerNavigator';
+    loginSuccess(res) {
+        let userType = res.user.services ? 'pro' : 'consumer';
+        let navigationEnd = res.user.services ? 'ProNavigator' : 'ConsumerNavigator';
         this.props.userDataStore.setUserType(userType);
         this.props.userDataStore.setUserData(res);
         this.props.authStore.saveToAsync();
@@ -83,18 +80,20 @@ export default class PhoneVerify extends Component {
         console.log(error)
     }
 
-    componentDidMount(){
-        this.codeInput.focus();
+    componentDidMount() {
+        setTimeout(() => {
+            this.codeInput.focus();
+        }, 1000)
     }
 
 
     render() {
         return (
             <View style={{flex: 1, backgroundColor: "#f6f6f6"}}>
-                <View style={{flex: 1.3,  justifyContent: 'center', alignItems: 'center'}}>
+                <View style={{flex: 1.3, justifyContent: 'center', alignItems: 'center'}}>
                     <Image style={{width: SW / 2.5, height: SW / 2.5,}}
-                       source={require('../../../../assets/registration/code4digitsBack.png')}/>
-                    <Text style={{fontSize: mediumFont}}>  קוד אימות נשלח ב SMS</Text>
+                           source={require('../../../../assets/registration/code4digitsBack.png')}/>
+                    <Text style={{fontSize: mediumFont}}> קוד אימות נשלח ב SMS</Text>
                 </View>
                 <View style={{flex: 1, alignItems: 'center'}}>
                     <Text style={[mainStyles.greyTitle, {paddingBottom: 10}]}>הכנס קוד אימות</Text>
@@ -111,8 +110,8 @@ export default class PhoneVerify extends Component {
                         />
                     </View>
                 </View>
-                <View style={{flex: 1,alignItems: 'center'}}>
-                    {submitButton('שלח','consumer', this.submitCode.bind(this))}
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    {submitButton('שלח', 'consumer', this.submitCode.bind(this))}
                 </View>
 
 

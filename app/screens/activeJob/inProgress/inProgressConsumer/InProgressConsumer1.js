@@ -18,6 +18,7 @@ import {inject, observer} from "mobx-react/index";
 
 import Communications from 'react-native-communications';
 
+@inject('modalsStore')
 @inject("userDataStore")
 @observer
 export default class InProgressConsumer extends Component {
@@ -72,6 +73,7 @@ export default class InProgressConsumer extends Component {
             nonce: result.nonce,
             amount: amount
         }
+        this.props.modalsStore.showModal('loaderModal');
         fetcher(route, 'POST', this.cardConfirmed.bind(this), this.errorCallback, sendBody, {token: this.props.userDataStore.userData.token});
 
     }
@@ -80,10 +82,12 @@ export default class InProgressConsumer extends Component {
         Alert.alert('Payment Confirmed!');
         let postId = this.props.userDataStore.focusedJob.id
         this.props.userDataStore.updatePostStatus(postId, 'consumer_review');
-        console.log('card confirmed:', res);
+        this.props.modalsStore.hideModal('loaderModal');
+        // console.log('card confirmed:', res);
     }
 
     errorCallback(err) {
+        this.props.modalsStore.hideModal('loaderModal');
         console.warn('got error in consumerPaymentConsumer:', err);
         console.log('got error in consumerPaymentConsumer:', err);
     }
@@ -100,8 +104,11 @@ export default class InProgressConsumer extends Component {
         this.interval = setInterval(() => {
             let basicDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
             let currentDate = new Date();
-            let x = currentDate-basicDate;
+            let x = new Date(currentDate-basicDate);
             let timer = msToHMS(x);
+            if(this.props.userDataStore.focusedJob.status !== 'in_progress'){
+                clearInterval(this.interval)
+            }
             this.setState({timer: timer})
         }, 1000);
     }
@@ -131,8 +138,6 @@ export default class InProgressConsumer extends Component {
 
     render() {
         let focusedJob = this.props.userDataStore.focusedJob;
-        console.warn('focusedJob1232', focusedJob.user_pro.phone_number);
-        console.log('focusedJob', focusedJob.service);
         let rating = getAvgRating(
             focusedJob.user_pro.price_rating_avg,
             focusedJob.user_pro.time_rating_avg,
@@ -187,7 +192,7 @@ export default class InProgressConsumer extends Component {
                     </View>
                     <View style={{flex: 1}}>
                         <OrangeCircle size={'big'} style={{width: 180, height: 180}}>
-                            <Text style={{fontSize: 30, color: '#000', fontWeight: 'bold'}}>{this.state.timer}</Text>
+                            <Text style={{fontSize: 30, color: '#000', fontWeight: 'bold', fontFamily: 'sans-serif'}}>{this.state.timer}</Text>
                         </OrangeCircle>
                     </View>
                     <View style={{flex: 0.3}}>
@@ -318,7 +323,7 @@ export default class InProgressConsumer extends Component {
                                             justifyContent: 'center'
                                         }}>
                                             <View style={{flex: 1, alignItems: 'flex-start', justifyContent: 'center'}}>
-                                                <Text style={{fontSize: 16, color: '#000'}}>{focusedJob.total_fee * 1.17} ש"ח</Text>
+                                                <Text style={{fontSize: 16, color: '#000'}}>{(focusedJob.total_fee * 1.17).toFixed(2)} ש"ח</Text>
                                             </View>
                                             <View style={{flex: 1, justifyContent: 'center', alignItems: 'flex-end'}}>
                                                 <Text style={{fontSize: 16, color: '#000'}}>סה"כ</Text>

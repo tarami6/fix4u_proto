@@ -26,7 +26,7 @@ export default class PhoneInput extends Component {
             phone_number: this.state.text
         }
         if (this.state.text.length < 10) {
-            Alert.alert('אנא הכנסז מספר ארוך מ10 ספרות')
+            Alert.alert('אנא הכנס מספר ארוך מ או באורך של 10 ספרות')
         }
         else {
             this.props.modalsStore.showModal('loaderModal');
