@@ -142,9 +142,11 @@ export default class ChooseTime extends React.Component {
                                 מחיר הגעה מומלץ 130 ש"ח
                             </Text>
                             <TouchableWithoutFeedback onPress={()=> Alert.alert("בעתיד תוכל לצפות במחירון ")}>
+                                <View>
                                 <Text style={{fontSize: 14}}>
                                     צפה במחירון
                                 </Text>
+                                </View>
                             </TouchableWithoutFeedback>
                         </View>
 

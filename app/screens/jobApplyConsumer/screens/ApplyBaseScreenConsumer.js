@@ -97,7 +97,6 @@ export default class ApplyBaseScreen extends React.Component {
         else {
             let i=0;
             this.interval = setInterval(() => {
-                console.warn(this.props.navigation.state);
                 i++;
                 // console.warn(i, this.mounted);
                 let currentDate = new Date();
@@ -154,7 +153,6 @@ export default class ApplyBaseScreen extends React.Component {
     }
 
     render() {
-        console.warn(this.props.navigation.state);
         //mobx "listener" for new jobs
         let job2 = this.props.userDataStore.focusedConsumerJob;
         if (!job2.appointment_time_start) {
