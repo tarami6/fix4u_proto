@@ -36,8 +36,8 @@ export default class ProPaymentPro extends React.Component {
     //fetch func and handling
     getPaid() {
         if (this.state.fee) {
-            let errors = numbersOnlyByLengthValidator(this.state.fee, 6);
-            if(errors.length===0) {
+            // let errors = numbersOnlyByLengthValidator(this.state.fee, 6);
+            // if(errors.length===0) {
                 let fee = this.state.fee;
                 let route = startJobRoute(this.props.userDataStore.focusedJob.id);
                 let totalFee = parseInt(fee) + parseInt(this.props.userDataStore.focusedJob.service_fee);
@@ -53,12 +53,12 @@ export default class ProPaymentPro extends React.Component {
                     'Authorization': 'JWT ' + this.props.userDataStore.userData.token
                 };
                 fetcher(route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers)
-            }
-            else {
-                for(let i =0; i<errors.length; i++){
-                    Alert.alert(errors[i])
-                }
-            }
+            // }
+            // else {
+            //     for(let i =0; i<errors.length; i++){
+            //         Alert.alert(errors[i])
+            //     }
+            // }
         }
         else {
             Alert.alert('אנא הכנס מחיר שירות');
@@ -110,6 +110,7 @@ export default class ProPaymentPro extends React.Component {
                             <View
                                 style={{flex: 1, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center'}}>
                                 <TextInput
+                                    keyboardType={"numeric"}
                                     onChangeText={(fee) => this.setState({fee: fee})}
                                     underlineColorAndroid="transparent"
                                     style={{
