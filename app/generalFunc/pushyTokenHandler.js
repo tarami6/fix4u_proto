@@ -20,14 +20,16 @@ export const handlePushyToken = (serverToken) => {
                     pushyTokenObj = {push_token: deviceToken};
                     updateTokenToServer(pushyTokenObj, serverToken);
                     AsyncStorage.setItem('GetServiceUserPushyToken', JSON.stringify(deviceToken));
-                })
+                }).catch((err) => {
+                    // Handle registration errors
+                    console.error(err);
+                });
             }
             else {
                 console.log('Pushy token:', pushyTokenObj);
                 pushyTokenObj = {push_token: JSON.parse(result)};
                 updateTokenToServer(pushyTokenObj, serverToken);
             }
-
         }
     );
 }

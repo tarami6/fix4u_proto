@@ -36,7 +36,6 @@ export default class ChooseService extends Component {
                 });
                 return true;
             }
-            console.log(this.props.navigation.state.params.drawerOpen);
         }
         Alert.alert(
             'Exit App',

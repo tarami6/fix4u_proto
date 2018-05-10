@@ -128,7 +128,7 @@ export default class ChooseAddress extends React.Component {
             item = {
                 type: 'formData',
                 payload: item
-            }
+            };
         }
         fetcher(addJobRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), item, headers);
 

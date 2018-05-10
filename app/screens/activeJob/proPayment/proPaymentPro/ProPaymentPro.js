@@ -3,6 +3,7 @@ import {Alert, StyleSheet, Text, TextInput, View} from 'react-native';
 //config
 import {fetcher} from "../../../../generalFunc/fetcher";
 import {startJobRoute} from "../../../../config/apiRoutes";
+import {numbersOnlyByLengthValidator} from "../../../../generalFunc/validators";
 //mobx
 import {inject, observer} from "mobx-react/index";
 import {SW} from "../../../../config/styles";
@@ -35,21 +36,29 @@ export default class ProPaymentPro extends React.Component {
     //fetch func and handling
     getPaid() {
         if (this.state.fee) {
-            let fee = this.state.fee;
-            let route = startJobRoute(this.props.userDataStore.focusedJob.id);
-            let totalFee = parseInt(fee) + parseInt(this.props.userDataStore.focusedJob.service_fee);
-            let sendObj = {
-                status: 'consumer_payment',
-                work_fee: fee,
-                total_fee: totalFee
-            };
-            console.warn("dasda",sendObj.total_fee )
-            let headers = {
-                'Accept': `application/json`,
-                'content-type': 'application/json',
-                'Authorization': 'JWT ' + this.props.userDataStore.userData.token
-            };
-            fetcher(route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers)
+            let errors = numbersOnlyByLengthValidator(this.state.fee, 6);
+            if(errors.length===0) {
+                let fee = this.state.fee;
+                let route = startJobRoute(this.props.userDataStore.focusedJob.id);
+                let totalFee = parseInt(fee) + parseInt(this.props.userDataStore.focusedJob.service_fee);
+                let sendObj = {
+                    status: 'consumer_payment',
+                    work_fee: fee,
+                    total_fee: totalFee
+                };
+                console.warn("dasda", sendObj.total_fee)
+                let headers = {
+                    'Accept': `application/json`,
+                    'content-type': 'application/json',
+                    'Authorization': 'JWT ' + this.props.userDataStore.userData.token
+                };
+                fetcher(route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers)
+            }
+            else {
+                for(let i =0; i<errors.length; i++){
+                    Alert.alert(errors[i])
+                }
+            }
         }
         else {
             Alert.alert('אנא הכנס מחיר שירות');

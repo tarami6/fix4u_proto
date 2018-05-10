@@ -70,14 +70,16 @@ export default class ChooseJob extends Component {
                 //Here I set the jobs I want to show to the user:
                 // console.log('this.checkIfUserApplied(jobs[i])', this.checkIfUserApplied(jobs[i]));
                 // console.log('newJobs:', newJobs);
-                if(!jobs[i].did_i_apply){
+                if (!jobs[i].did_i_apply) {
                     newJobs.push(jobs[i]);
                 }
             }
         }
-        this.setState({openJobsList: newJobs}, () => {
-            // console.warn('got jobs!');
-        })
+        if (this.mounted) {
+            this.setState({openJobsList: newJobs}, () => {
+                // console.warn('got jobs!');
+            })
+        }
     }
 
 
