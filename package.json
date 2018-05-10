@@ -6,6 +6,11 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
+  "rnpm": {
+    "assets": [
+	"./assets/fonts/"
+    ]
+},
   "dependencies": {
     "lottie-react-native": "2.3.2",
     "mobx": "^4.1.1",

@@ -65,7 +65,7 @@ class CardList extends React.Component {
   render() {
       return (
           <View style={{marginTop: -105}}>
-              <Text style={[mainStyles.whiteTitle,{marginBottom:20}]}>
+              <Text style={[mainStyles.whiteTitle,{marginBottom:20, fontFamily: "Rubik"}]}>
                   איזה שירות תרצה לבחור היום?
               </Text>
               <View style={styles.containerServices}>

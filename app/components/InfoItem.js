@@ -9,25 +9,7 @@ import ActiveJobRender from './infoItem/ActiveJobRender';
 import ApplyRender from './infoItem/ApplyRender'
 import ConsumerRender from './infoItem/ConsumerRender'
 // mobx
-import {inject, observer} from "mobx-react/native";
 
-// const InfoItem = (props) => {
-//     let info = props.info;
-//     console.log('info', info)
-//     let imageSize = props.info.price || props.info.time ? 50 : 60;
-//     // console.log('Userprofe', info.user_pro.price_rating_avg)
-//     if (info.time) {
-//         return <ApplyScreen {...info} />;
-//     }
-//     else if (info.user_pro) {
-//         return <JobList {...info} />;
-//     }
-//     else {
-//         return <ProItemNoRating {...info} />;
-//     }
-// }
-@inject('userDataStore')
-@observer
 export default class InfoItem extends React.Component {
 
     render() {

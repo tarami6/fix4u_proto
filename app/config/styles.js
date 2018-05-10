@@ -82,8 +82,8 @@ export let mainStyles = StyleSheet.create({
     whiteTitle: {
         fontSize: 18,
         color: '#fff',
-        fontWeight: 'bold',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        fontFamily: 'Rubik'
     },
     infoWhiteText: {
         color: '#fff',
