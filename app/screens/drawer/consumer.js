@@ -114,7 +114,7 @@ export default class Consumer extends Component {
                         <View>
                             <TouchableOpacity onPress={this.logout.bind(this)}>
                                 <Text>
-                                    LogOut
+                                    התנתק
                                 </Text>
                             </TouchableOpacity>
                         </View>

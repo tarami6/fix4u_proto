@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Image, StyleSheet, Text, View} from 'react-native';
 //config
-import {dateObjToTimeString} from "../../../../generalFunc/generalFunctions";
+import {dateObjToTimeString, msToHMS} from "../../../../generalFunc/generalFunctions";
 import {fetcher} from "../../../../generalFunc/fetcher";
 import {startJobRoute} from "../../../../config/apiRoutes";
 //mobx
@@ -58,30 +58,12 @@ export default class InProgressPro extends Component {
     }
 
     startTimer() {
-        let basicDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
-        let currentDate = new Date();
-        let sec = currentDate.getSeconds() - basicDate.getSeconds();
-        let min = currentDate.getMinutes() - basicDate.getMinutes();
-        let hour = currentDate.getHours() - basicDate.getHours();
-        let newTimer = '';
         this.interval = setInterval(() => {
-            if (min <= 9) {
-                newTimer = (sec <= 9) ? hour + ':0' + min + ':0' + sec : hour + ':0' + min + ':' + sec;
-
-            } else {
-                newTimer = (sec <= 9) ? hour + ':' + min + ':0' + sec : hour + ':' + min + ':' + sec;
-            }
-
-            if (sec == 59) {
-                min++
-                sec = 0
-            }
-            if (min == 59 && sec == 59) {
-                hour++
-                min = 0
-            }
-            sec++
-            this.setState({timer: newTimer})
+            let basicDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
+            let currentDate = new Date();
+            let x = currentDate-basicDate;
+            let timer = msToHMS(x)
+            this.setState({timer: timer})
         }, 1000);
     }
 
@@ -142,7 +124,7 @@ export default class InProgressPro extends Component {
                             backgroundColor: 'white', height: SW / 1.6, width: SW / 1.6, borderRadius: 200,
                             alignItems: 'center', justifyContent: 'center'
                         }}>
-                            <Text style={{fontSize: 30,  color: '#474747'}}> {this.state.timer} </Text>
+                            <Text style={{fontSize: 30,  color: '#474747', fontFamily: 'sans-serif'}}> {this.state.timer} </Text>
                         </View>
                     </LinearGradient>
 

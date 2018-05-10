@@ -20,7 +20,7 @@ const HeaderConsumer = (props) => {
             </TouchableOpacity>
 
             <Image
-                style={{width: SW / 5.5, height: SH / 33, marginLeft: 10}}
+                style={{width: SW / 5.1, height: SH / 33, margin:1, marginLeft: 10}}
                 source={require('../../../../assets/icons/fix4U.png')}/>
             <TouchableOpacity
                 onPress={() => props.navigation.navigate('Schedule')}
@@ -29,7 +29,7 @@ const HeaderConsumer = (props) => {
                     style={{width: SW / 15, height: SW / 15}}
                     source={require('../../../../assets/icons/noteMan.png')}/>
             </TouchableOpacity>
-            <Counter/>
+            {/*<Counter/>*/}
         </View>
     )
 }

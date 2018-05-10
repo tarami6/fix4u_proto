@@ -152,7 +152,7 @@ export default class Pro extends Component {
                             <View>
                                 <TouchableOpacity onPress={this.logout.bind(this)}>
                                     <Text>
-                                        LogOut
+                                        התנתק
                                     </Text>
                                 </TouchableOpacity>
                             </View>
@@ -219,7 +219,7 @@ export default class Pro extends Component {
                             <View>
                                 <TouchableOpacity onPress={this.logout.bind(this)}>
                                     <Text>
-                                        LogOut
+                                        התנתק
                                     </Text>
                                 </TouchableOpacity>
                             </View>

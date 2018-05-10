@@ -60,7 +60,7 @@ export default class Modals extends Component {
                     animationOut={'fadeOut'}
                     isVisible={this.props.modalsStore.loaderModal && this.state.showModals}
                     animationInTiming={100}
-                    animationOutTiming={1000}
+                    animationOutTiming={200}
                     backdropTransitionInTiming={2000}
                     backdropTransitionOutTiming={1000}
                 >
