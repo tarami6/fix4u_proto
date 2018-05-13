@@ -109,9 +109,7 @@ let handleNotificationData = (type, payload) => {
             openJobsStore.addJob(payload);
             break;
         case 'pro_applied': // when a consumer get post apply
-            if (payload.id === userDataStore.focusedJob.id) {
-                userDataStore.focusJob(payload);
-            }
+            userDataStore.focusConsumerJob(payload);
             userDataStore.updateOpenPost(payload);
             break;
         case 'consumer_chose_pro': // consumer chose pro for job
