@@ -125,7 +125,7 @@ let handleNotificationData = (type, payload) => {
                 userDataStore.focusJob(payload);
             }
             else {
-                notificationsStore.addPostsNotification('active',payload.id);
+                notificationsStore.addPostsNotification('active',payload.id, 'consumer');
             }
             userDataStore.updateActivePost(payload);
             break;
