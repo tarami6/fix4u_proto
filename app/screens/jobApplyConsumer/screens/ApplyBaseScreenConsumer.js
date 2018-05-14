@@ -18,6 +18,7 @@ let returnInHeb = (word) => {
 
 }
 
+@inject('notificationsStore')
 @inject('userDataStore')
 @inject("proAuthStore")
 @observer
@@ -125,7 +126,7 @@ export default class ApplyBaseScreen extends React.Component {
     }
 
     componentDidMount() {
-
+        this.props.notificationsStore.removeOpenPostsNotificatoins('consumer');
         this.mounted = true;
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         let currentDate = new Date();

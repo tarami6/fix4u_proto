@@ -106,24 +106,29 @@ let handleNotificationData = (type, payload) => {
     // notificationsStore.setNewNotification(true);
     switch (type) {
         case 'consumer_new_post': // a new post has been open, update for pro map
+            notificationsStore.addPostsNotification('open',payload.id, 'pro');
             openJobsStore.addJob(payload);
             break;
         case 'pro_applied': // when a consumer get post apply
+            notificationsStore.addPostsNotification('open',payload.id, 'consumer');
             userDataStore.focusConsumerJob(payload);
             userDataStore.updateOpenPost(payload);
             break;
         case 'consumer_chose_pro': // consumer chose pro for job
+            notificationsStore.addPostsNotification('active',payload.id, 'pro');
             userDataStore.removeAllSentApplies();
             userDataStore.addProPost(payload);
             userDataStore.focusJob(payload);
             break;
         case 'pro_update_post':
+            notificationsStore.addPostsNotification('active',payload.id);
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
             }
             userDataStore.updateActivePost(payload);
             break;
         case 'consumer_paid': // this is the route for updating the pro_posts
+            notificationsStore.addPostsNotification('active',payload.id, 'pro');
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
             }
@@ -136,6 +141,7 @@ let handleNotificationData = (type, payload) => {
             userDataStore.removeSentApply(payload.post_id);
             openJobsStore.removeJob(payload.post_id);
             break;
+
         default:
             console.warn("notification wasn't handled:", type);
 
@@ -146,11 +152,8 @@ let handleNotificationData = (type, payload) => {
 type Props = {};
 export default class App extends Component<Props> {
     componentDidMount() {
-
         // Start the Pushy service
         Pushy.listen();
-
-
         //get the app state - background/foreground/active
         AppState.addEventListener('change', state => {
                 console.log('AppState changed to', state);

@@ -17,7 +17,7 @@ import ConsumerPaymentPro from './consumerPayment/ConsumerPaymentPro'
 import ConsumerReview from './consumerReview/consumerReviewConsumer';
 // screens:
 
-
+@inject("notificationsStore")
 @inject("userDataStore")
 @observer
 export default class ActiveJob extends Component {
@@ -27,6 +27,8 @@ export default class ActiveJob extends Component {
 
     }
     componentDidMount() {
+
+        this.props.notificationsStore.removePostNotifications('active', this.props.userDataStore.focusedJob.id, this.props.userDataStore.currentUserType)
         //backHandler:
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }

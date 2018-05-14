@@ -51,11 +51,37 @@ export default class OnTheWayPro extends React.Component {
             status: 'in_progress'
         };
         let headers = {
-            'Accept': `application/json`,
-            'content-type': 'application/json',
-            'Authorization': 'JWT ' + this.props.userDataStore.userData.token
+            token: this.props.userDataStore.userData.token
         };
         fetcher(route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers)
+    }
+
+    cancelJob(jobId){
+        Alert.alert(
+            'ביטול עבודה',
+            'האם אתה בטוח שאתה מעוניין לבטל את העבודה הנוכחית?',
+            [
+                {text: 'לא, בטל פעולה', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'כן', onPress: () => this.fetchCancelJob(jobId)},
+            ],
+            { cancelable: true }
+        )
+    }
+    fetchCancelJob(jobId){
+        let sendObj = {
+            status: 'closed'
+        };
+        let headers = {
+            token: this.props.userDataStore.userData.token
+        };
+        //start job route is also the route for pro to cancel the job
+        let route = startJobRoute(jobId);
+        fetcher(route, 'PATCH', this.successCancelJob.bind(this), this.errorCallback.bind(this), sendObj, headers)
+    }
+
+    successCancelJob(res){
+        Alert.alert('עבודה בוטלה בהצלחה');
+        this.props.navigation.navigate('Home');
     }
 
     successCallback(res) {
@@ -66,8 +92,8 @@ export default class OnTheWayPro extends React.Component {
     }
 
     errorCallback(err) {
-        console.warn('error', err);
-        console.log('error:', err)
+        console.warn('error in OnTheWayPro', err);
+        console.log('error in  OnTheWayPro', err)
     }
 
     render() {
@@ -198,7 +224,7 @@ export default class OnTheWayPro extends React.Component {
                     alignItems: 'center'
                 }}>
 
-                    <TouchableOpacity onPress={() => Alert.alert('Cancel the job coming soon')}
+                    <TouchableOpacity onPress={() => this.cancelJob(this.props.userDataStore.focusedJob.id)}
                                       style={{flex: 1, alignItems: 'center',}}>
                         <Image source={require('../../../../../assets/icons/cancel.png')}/>
                     </TouchableOpacity>

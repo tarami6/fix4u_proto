@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import {inject, observer} from "mobx-react/index";
 
+@inject("userDataStore")
 @inject("notificationsStore")
 @observer
 export default class Counter extends Component {
@@ -15,15 +16,16 @@ export default class Counter extends Component {
         }
     }
     render() {
-        const isIOS = Platform.OS == 'ios' ? {} : {top: 5}
-        const orderCounter = 0
-        if (this.state.counter == 0) {
+        let activeNotLength = this.props.userDataStore.currentUserType === 'pro'?
+            this.props.notificationsStore.proNotifications.active.length:
+            this.props.notificationsStore.consumerNotifications.active.length;
+        if (activeNotLength === 0) {
             return (<View style={{position: 'absolute'}}/>)
         }
         return (
-            <View style={[styles.counter, isIOS]}>
+            <View style={styles.counter}>
                 <View style={styles.textWraper}>
-                    <Text style={{fontSize: 11, color: '#fd8724'}}>{this.state.counter}</Text>
+                    <Text style={{fontSize: 11, color: '#fd8724'}}>{activeNotLength}</Text>
                 </View>
             </View>
         )
