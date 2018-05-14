@@ -39,6 +39,7 @@ export default class ActiveJob extends Component {
     }
 
     componentWillUnmount() {
+        this.props.userDataStore.focusJob({id: 'asd123456780'});
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
@@ -73,14 +74,12 @@ export default class ActiveJob extends Component {
             }
         }
         else {
-            console.warn(1);
             if (jobStatus === 'on_the_way') {
                 return (
                     <OnTheWayPro {...this.props}/>
                 );
             }
             else if (jobStatus === 'in_progress') {
-                console.warn(2);
                 return (
                     <InProgressPro {...this.props}/>
                 );

@@ -3,11 +3,12 @@ import {Image, Text, View} from 'react-native';
 
 
 // all render options for this component:
+import InProgressItem from './infoItem/InProgressItem';
 import JobRender from './infoItem/JobRender';
 import UserProRender from './infoItem/UserProRender';
 import ActiveJobRender from './infoItem/ActiveJobRender';
-import ApplyRender from './infoItem/ApplyRender'
-import ConsumerRender from './infoItem/ConsumerRender'
+import ApplyRender from './infoItem/ApplyRender';
+import ConsumerRender from './infoItem/ConsumerRender';
 // mobx
 import {inject, observer} from "mobx-react/native";
 
@@ -31,21 +32,24 @@ import {inject, observer} from "mobx-react/native";
 export default class InfoItem extends React.Component {
 
     render() {
-        console.log("#@323", this.props.info.user)
-        console.log("#@32323", this.props)
         let data = this.props.info;
-        if (this.props.type === 'activeJob') {
+        if(this.props.info.status ==="in_progress"){
+            return(
+            <InProgressItem job={this.props.info} />
+            )
+        }
+        else if (this.props.type === 'activeJob') {
             return (
                 <ActiveJobRender job={this.props.info}/>
             )
         }
-        if (this.props.type === 'consumer') {
+        else if (this.props.type === 'consumer') {
             return (
                 <ConsumerRender user={this.props.info}/>
             )
         }
         // data is a USER_PRO object
-        if (data.services) {
+        else if (data.services) {
             return (
                 <UserProRender pro={this.props.info}/>
             )

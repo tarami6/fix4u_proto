@@ -28,7 +28,8 @@ let usersMap = props => {
     if (props.userLocation) {
         userLocationMarker = <MapView.Marker onPress={ props.press} pinColor={'green'}
                                              coordinate={props.userLocation}
-                                             identifier={"current location"} />;
+                                             identifier={"current location"}
+                                             image={require('../../../assets/map_image3.png')}/>;
     }
 
     //markers:

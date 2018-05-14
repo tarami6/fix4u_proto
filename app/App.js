@@ -115,22 +115,26 @@ let handleNotificationData = (type, payload) => {
             userDataStore.updateOpenPost(payload);
             break;
         case 'consumer_chose_pro': // consumer chose pro for job
-            notificationsStore.addPostsNotification('active',payload.id, 'pro');
             userDataStore.removeAllSentApplies();
             userDataStore.addProPost(payload);
+            notificationsStore.addPostsNotification('active',payload.id, 'pro');
             userDataStore.focusJob(payload);
             break;
         case 'pro_update_post':
-            notificationsStore.addPostsNotification('active',payload.id);
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
+            }
+            else {
+                notificationsStore.addPostsNotification('active',payload.id);
             }
             userDataStore.updateActivePost(payload);
             break;
         case 'consumer_paid': // this is the route for updating the pro_posts
-            notificationsStore.addPostsNotification('active',payload.id, 'pro');
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
+            }
+            else {
+                notificationsStore.addPostsNotification('active',payload.id, 'pro');
             }
             userDataStore.removeProPost(payload.id);
         case 'open_post_remove':

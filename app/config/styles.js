@@ -77,7 +77,7 @@ export let mainStyles = StyleSheet.create({
     greyTitle: {
         fontSize: 18,
         color: fontGrey,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     whiteTitle: {
         fontSize: 18,
