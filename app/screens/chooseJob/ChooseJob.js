@@ -29,7 +29,7 @@ let usersPlaces = [
 //we give the app time to fetch jobs before loading the map so we will have all markers on it - comment continue in successCallback
 let loadEmptyMap = false
 
-
+@inject("notificationsStore")
 @inject("userDataStore")
 @inject('openJobsStore')
 @inject("modalsStore")
@@ -47,6 +47,10 @@ export default class ChooseJob extends Component {
     }
 
     componentWillMount() {
+        //remove all pro open notifications since he is now seeing the jobs
+        // **** should later be removed each open notification when he actually observe the new post/job ****
+        this.props.notificationsStore.removeOpenPostsNotifications('pro');
+
         this.mounted = true;
         this.getOpenJobs(this.props.openJobsStore.openJobsList);
         let body = {

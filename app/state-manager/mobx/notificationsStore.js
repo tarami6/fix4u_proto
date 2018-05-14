@@ -47,7 +47,7 @@ export default class NotificationsStore {
         }
     }
 
-    @action removeOpenPostsNotificatoins(userType="consumer"){
+    @action removeOpenPostsNotifications(userType="consumer"){
         let notList = userType==='consumer'? 'consumerNotifications': 'proNotifications';
         this[notList].open = [];
 
