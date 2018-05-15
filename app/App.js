@@ -19,7 +19,7 @@ import OpenJobsStore from './state-manager/mobx/openJobsStore';
 import NotificationsStore from './state-manager/mobx/notificationsStore'
 
 import Pushy from 'pushy-react-native';
-// Ramistesting
+
 
 //the usual consumer costumer auth process happens here
 let authStore = new AuthStore();
@@ -38,12 +38,22 @@ let openJobsStore = new OpenJobsStore();
 //as it sounds:
 let notificationsStore = new NotificationsStore();
 
-//
-// const HomeNavigation = StackNavigator({
-//     Home: {
-//         screen: LoadingPage
-//     }
-// })
+
+// Ramistesting
+import LoadingPage from './screens/modals/Loader/LoadingPage';
+import ActionToNoApply from './screens/jobApplyConsumer/screens/ActionToNoApply'
+import ProsListToConnect from './screens/jobApplyConsumer/screens/ProsListToConnect'
+import Panels from './components/infoItem/Panels';
+import CancelTheJobModal from './screens/modals/cancelTheJob/pro/CancelJobModalPro';
+import CancelJobModalConsumer from './screens/modals/cancelTheJob/consumer/CancelJobModalConsumer';
+import AccountSettings from './screens/drawer/screens/AccountSettings'
+
+const HomeNavigation = StackNavigator({
+    Home: {
+        screen: ProsListToConnect
+    }
+})
+
 
 
 let appState = '';
@@ -81,7 +91,7 @@ Pushy.setNotificationListener(async (data) => {
         }
         let notificationTitle = 'Fix4u';
         // Attempt to extract the "message" property from the payload: {"message":"Hello World!"}
-        let notificationText = data.message;
+        let notificationText = data.message || "randomText";
         // Display basic system notification
         if (appState !== 'active') {
             if (data.message) {

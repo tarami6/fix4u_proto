@@ -4,12 +4,12 @@ import {
     BackHandler,
     Image,
     StyleSheet,
-    Text,
     TextInput,
     TouchableOpacity,
     TouchableWithoutFeedback,
     View
 } from 'react-native';
+import Text from '../../../components/text/Text'
 import {fontGrey, HH, mainStyles, SH, SW} from "../../../config/styles";
 import {submitButton} from "../../../components/modalSubmitButton";
 import {inject, observer} from "mobx-react/native";

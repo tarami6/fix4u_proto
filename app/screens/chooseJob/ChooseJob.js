@@ -1,6 +1,7 @@
 import {inject, observer} from "mobx-react/index";
 import React, {Component} from "react";
-import {Text, TouchableOpacity, View} from 'react-native';
+import { TouchableOpacity, View} from 'react-native';
+import Text from '../../components/text/Text'
 //header stuff:
 import Header from '../../components/headers/Header'
 //fetch allJobs

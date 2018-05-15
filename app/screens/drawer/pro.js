@@ -2,7 +2,8 @@
 
 import React, {Component} from 'react';
 import {Alert, AsyncStorage, Dimensions, Image, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Icon, List, ListItem, Text} from 'native-base';
+import {Icon, List, ListItem} from 'native-base';
+import Text from '../../components/text/Text'
 import LinearGradient from 'react-native-linear-gradient';
 import Circle from '../../components/circle'
 import {inject, observer} from "mobx-react/native";
@@ -186,7 +187,9 @@ export default class Pro extends Component {
                         start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
                         style={styles.container}>
                         <Navbar name={this.props.userDataStore.userData.user.name}
-                                navigation={this.props.navigation}/>
+                                navigation={this.props.navigation}
+                                pic={this.props.userDataStore.userData.user.profile_pic_thumb}
+                        />
                     </LinearGradient>
                     <List>
                         {/*Switch drawer type consumer/pro*/}

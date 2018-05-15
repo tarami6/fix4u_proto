@@ -1,5 +1,6 @@
 import React from 'react';
-import {Alert, BackHandler, FlatList, Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {Alert, BackHandler, FlatList, Image, StyleSheet, TouchableHighlight, View} from 'react-native';
+import Text from '../../../components/text/Text'
 import Header from '../../../components/headers/Header';
 import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHeaderConsumer'
 import MapComponent from '../../../components/mapComponent/MapComponent'

@@ -149,7 +149,7 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-vector-icons')
+    api project(':react-native-vector-icons')
     api project(':react-native-picker')
     api  project(':lottie-react-native')
     api  'me.pushy:sdk:1.0.33'

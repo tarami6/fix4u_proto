@@ -5,13 +5,12 @@
 import React, {Component} from 'react';
 import {
     View,
-    Text,
-    Image,
     Animated,
     Dimensions,
     StyleSheet,
     TouchableOpacity
 } from 'react-native';
+import Text from '../../../../../components/text/Text'
 import {Circle} from './index';
 import {inject, observer} from "mobx-react/native";
 

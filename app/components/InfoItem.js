@@ -7,28 +7,11 @@ import InProgressItem from './infoItem/InProgressItem';
 import JobRender from './infoItem/JobRender';
 import UserProRender from './infoItem/UserProRender';
 import ActiveJobRender from './infoItem/ActiveJobRender';
-import ApplyRender from './infoItem/ApplyRender';
-import ConsumerRender from './infoItem/ConsumerRender';
-// mobx
-import {inject, observer} from "mobx-react/native";
 
-// const InfoItem = (props) => {
-//     let info = props.info;
-//     console.log('info', info)
-//     let imageSize = props.info.price || props.info.time ? 50 : 60;
-//     // console.log('Userprofe', info.user_pro.price_rating_avg)
-//     if (info.time) {
-//         return <ApplyScreen {...info} />;
-//     }
-//     else if (info.user_pro) {
-//         return <JobList {...info} />;
-//     }
-//     else {
-//         return <ProItemNoRating {...info} />;
-//     }
-// }
-@inject('userDataStore')
-@observer
+import ApplyRender from './infoItem/ApplyRender'
+import ConsumerRender from './infoItem/ConsumerRender'
+import ProListWithDistance from './infoItem/ProListWithDistance'
+
 export default class InfoItem extends React.Component {
 
     render() {
@@ -46,6 +29,11 @@ export default class InfoItem extends React.Component {
         else if (this.props.type === 'consumer') {
             return (
                 <ConsumerRender user={this.props.info}/>
+            )
+        }
+        if (this.props.type === 'proList') {
+            return (
+                <ProListWithDistance user={this.props.info}/>
             )
         }
         // data is a USER_PRO object

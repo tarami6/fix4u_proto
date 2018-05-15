@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
+import Text from '../../../../components/text/Text'
 //config
 import {dateObjToTimeString, msToHMS} from "../../../../generalFunc/generalFunctions";
 import {fetcher} from "../../../../generalFunc/fetcher";

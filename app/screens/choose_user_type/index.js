@@ -3,12 +3,10 @@
 import React, {Component} from 'react';
 import {
     View,
-    Text,
-    Dimensions,
     TouchableOpacity,
     StyleSheet,
 } from 'react-native';
-import {NavigationActions} from 'react-navigation';
+import Text from '../../components/text/Text'
 import {inject, observer} from 'mobx-react';
 import authStore from '../../state-manager/mobx/authStore';
 import {HH, LinierBackground} from "../../config/styles";
@@ -87,9 +85,9 @@ export default class ChooseUserType extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={[mainStyles.greyTitle,{margin: 40}]}>אני</Text>
+                <Text type={'greyTitle'} style={{margin: 40}}>אני</Text>
                 <ConsumerButton navigate={() => this.navigate('consumer')}/>
-                <Text style={ [mainStyles.greyTitle,{color: '#9b9b9b', margin: 40}]}>או</Text>
+                <Text type={'greyTitle'}  style={{color: '#9b9b9b', margin: 40}}>או</Text>
                 <ProButton navigate={() => this.navigate('pro')}/>
             </View>
         );

@@ -7,13 +7,13 @@ import {
     Platform,
     ScrollView,
     StyleSheet,
-    Text,
     TextInput,
     TouchableHighlight,
     TouchableOpacity,
     UIManager,
     View
 } from 'react-native';
+import Text from '../../../../components/text/Text'
 import Header from '../../../../components/headers/Header';
 import InfoItem from '../../../../components/InfoItem';
 import {SW, SH, GOLD} from "../../../../config/styles";
@@ -111,7 +111,7 @@ export default class OnTheWayConsumer extends Component {
 
 
     render() {
-        let reviews = this.props.userDataStore.focusedJob.user_pro.pro_reviews;
+        let reviews = this.props.userDataStore.focusedJob.user_pro.pro_reviews.slice(0);
         let job = this.props.userDataStore.focusedJob.user_pro;
         console.log('review3232323',reviews);
         console.log('review32323sd23',this.props.userDataStore.focusedJob);

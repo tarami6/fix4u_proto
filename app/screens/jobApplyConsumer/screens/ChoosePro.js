@@ -7,14 +7,13 @@ import {
     Platform,
     ScrollView,
     StyleSheet,
-    Text,
     TextInput,
     TouchableHighlight,
-
     BackHandler,
     UIManager,
     View
 } from 'react-native';
+import Text from '../../../components/text/Text'
 import Header from '../../../components/headers/Header';
 import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHeaderConsumer';
 import ImagePicker from "react-native-image-picker";

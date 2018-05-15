@@ -6,6 +6,11 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
+  },
   "dependencies": {
     "lottie-react-native": "2.3.2",
     "mobx": "^4.1.1",
@@ -29,6 +34,7 @@
     "react-native-progress": "^3.4.0",
     "react-native-snap-carousel": "^3.6.0",
     "react-native-star-rating": "^1.0.9",
+    "react-native-swipeout": "^2.3.3",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^1.5.11",
     "react-timer-mixin": "^0.13.3",
