@@ -76,7 +76,7 @@ export default class ApplyBaseScreen extends React.Component {
 
     //handling backHandler:
     handleBackButton = () => {
-        console.warn('success??');
+        console.warn('success??113');
         this.props.navigationStore.dispatch(NavigationActions.back());
     }
     expand_collapse_Function = () => {
@@ -133,7 +133,7 @@ export default class ApplyBaseScreen extends React.Component {
 
     //handling backHandler:
     handleBackButton = () => {
-        console.warn('success??');
+        console.warn('success??224');
         this.props.navigation.goBack();
         return true;
     }

@@ -18,8 +18,6 @@ import NavigationStore from "./state-manager/mobx/navigationStore";
 import OpenJobsStore from './state-manager/mobx/openJobsStore';
 import NotificationsStore from './state-manager/mobx/notificationsStore'
 
-import {StackNavigator} from 'react-navigation';
-
 import Pushy from 'pushy-react-native';
 
 
@@ -40,6 +38,7 @@ let openJobsStore = new OpenJobsStore();
 //as it sounds:
 let notificationsStore = new NotificationsStore();
 
+
 // Ramistesting
 import LoadingPage from './screens/modals/Loader/LoadingPage';
 import ActionToNoApply from './screens/jobApplyConsumer/screens/ActionToNoApply'
@@ -56,7 +55,22 @@ const HomeNavigation = StackNavigator({
 })
 
 
+
 let appState = '';
+
+// Pushy.setNotificationListener(async (data) => {
+//     // Print notification payload data
+//     console.log('Received notification: ' + JSON.stringify(data));
+//
+//     // Notification title
+//     let notificationTitle = 'MyApp';
+//
+//     // Attempt to extract the "message" property from the payload: {"message":"Hello World!"}
+//     let notificationText = data.message || 'Test notification';
+//
+//     // Display basic system notification
+//     Pushy.notify(notificationTitle, notificationText);
+// });
 
 Pushy.setNotificationListener(async (data) => {
         // Print notification payload data
@@ -99,35 +113,40 @@ Pushy.setNotificationListener(async (data) => {
 );
 
 let handleNotificationData = (type, payload) => {
-    notificationsStore.setNewNotification(true);
+    // notificationsStore.setNewNotification(true);
     switch (type) {
-        case 'active_post_update':
+        case 'consumer_new_post': // a new post has been open, update for pro map
+            notificationsStore.addPostsNotification('open',payload.id, 'pro');
+            openJobsStore.addJob(payload);
+            break;
+        case 'pro_applied': // when a consumer get post apply
+            notificationsStore.addPostsNotification('open',payload.id, 'consumer');
+            userDataStore.focusConsumerJob(payload);
+            userDataStore.updateOpenPost(payload);
+            break;
+        case 'consumer_chose_pro': // consumer chose pro for job
+            userDataStore.removeAllSentApplies();
+            userDataStore.addProPost(payload);
+            notificationsStore.addPostsNotification('active',payload.id, 'pro');
+            userDataStore.focusJob(payload);
+            break;
+        case 'pro_update_post':
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
+            }
+            else {
+                notificationsStore.addPostsNotification('active',payload.id, 'consumer');
             }
             userDataStore.updateActivePost(payload);
             break;
-
-        case 'post_update': // when a consumer get post apply
+        case 'consumer_paid': // this is the route for updating the pro_posts
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
             }
-            userDataStore.updateOpenPost(payload);
-            break;
-        // case 'open_post_remove':
-        case 'pro_post_completed': // this is the route for updating the pro_posts
-            if (payload.id === userDataStore.focusedJob.id) {
-                userDataStore.focusJob(payload);
+            else {
+                notificationsStore.addPostsNotification('active',payload.id, 'pro');
             }
             userDataStore.removeProPost(payload.id);
-        case 'post_open': // a new post has been open
-            openJobsStore.addJob(payload);
-            break;
-        case 'post_add': // only for pro, new post for pro
-            userDataStore.removeAllSentApplies();
-            userDataStore.addProPost(payload);
-            userDataStore.focusJob(payload);
-            break;
         case 'open_post_remove':
             if (openJobsStore.focusedJob.id === payload.post_id && modalsStore.chooseJobModal) {
                 modalsStore.hideModal('chooseJobModal');
@@ -136,6 +155,7 @@ let handleNotificationData = (type, payload) => {
             userDataStore.removeSentApply(payload.post_id);
             openJobsStore.removeJob(payload.post_id);
             break;
+
         default:
             console.warn("notification wasn't handled:", type);
 
@@ -146,6 +166,8 @@ let handleNotificationData = (type, payload) => {
 type Props = {};
 export default class App extends Component<Props> {
     componentDidMount() {
+        // Start the Pushy service
+        Pushy.listen();
         //get the app state - background/foreground/active
         AppState.addEventListener('change', state => {
                 console.log('AppState changed to', state);
@@ -153,8 +175,7 @@ export default class App extends Component<Props> {
             }
         );
 
-        // Start the Pushy service
-        Pushy.listen();
+
         PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE).then((granted) => {
             if (!granted) {
                 // Request the WRITE_EXTERNAL_STORAGE permission so that the Pushy SDK will be able to persist

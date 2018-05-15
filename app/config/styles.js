@@ -95,7 +95,6 @@ export let mainStyles = StyleSheet.create({
         fontSize: 18,
         color: fontGrey,
 
-    },
     buttonText: {
         color: '#fff',
         fontFamily: mainFontBold,

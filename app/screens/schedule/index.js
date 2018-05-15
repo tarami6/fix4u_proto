@@ -14,11 +14,6 @@ export default class Schedule extends Component {
         super(props)
     }
 
-    componentWillMount() {
-        this.props.notificationsStore.setNewNotification(false)
-    }
-
-
     render() {
         switch (this.props.userDataStore.currentUserType) {
             case 'pro':

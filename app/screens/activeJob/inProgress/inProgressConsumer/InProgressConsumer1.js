@@ -105,9 +105,9 @@ export default class InProgressConsumer extends Component {
         this.interval = setInterval(() => {
             let basicDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
             let currentDate = new Date();
-            let x = new Date(currentDate-basicDate);
+            let x = new Date(currentDate - basicDate);
             let timer = msToHMS(x);
-            if(this.props.userDataStore.focusedJob.status !== 'in_progress'){
+            if (this.props.userDataStore.focusedJob.status !== 'in_progress') {
                 clearInterval(this.interval)
             }
             this.setState({timer: timer})
@@ -130,7 +130,6 @@ export default class InProgressConsumer extends Component {
             })
         }
     }
-
 
 
     componentWillUnmount() {
@@ -193,7 +192,10 @@ export default class InProgressConsumer extends Component {
                     </View>
                     <View style={{flex: 1}}>
                         <OrangeCircle size={'big'} style={{width: 180, height: 180}}>
-                            <Text style={{fontSize: 30, color: '#000', fontWeight: 'bold', fontFamily: 'sans-serif'}}>{this.state.timer}</Text>
+                            <Text style={{fontSize: 30, color: '#000', fontWeight: 'bold', fontFamily: 'sans-serif'}}>
+                                {this.props.userDataStore.focusedJob.status === 'in_progress' ? this.state.timer :
+                                    msToHMS(new Date(focusedJob.job_completion_time) - new Date(focusedJob.job_start_time))}
+                            </Text>
                         </OrangeCircle>
                     </View>
                     <View style={{flex: 0.3}}>
@@ -251,7 +253,10 @@ export default class InProgressConsumer extends Component {
                                             <Text style={{fontSize: 18, color: '#000'}}>חשבונית מס</Text>
                                         </View>
                                         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-                                            <Text style={{fontSize: 18, color: '#000'}}>עבור {focusedJob.user_pro.name}</Text>
+                                            <Text style={{
+                                                fontSize: 18,
+                                                color: '#000'
+                                            }}>עבור {focusedJob.user_pro.name}</Text>
                                         </View>
                                     </View>
 
@@ -324,7 +329,10 @@ export default class InProgressConsumer extends Component {
                                             justifyContent: 'center'
                                         }}>
                                             <View style={{flex: 1, alignItems: 'flex-start', justifyContent: 'center'}}>
-                                                <Text style={{fontSize: 16, color: '#000'}}>{(focusedJob.total_fee * 1.17).toFixed(2)} ש"ח</Text>
+                                                <Text style={{
+                                                    fontSize: 16,
+                                                    color: '#000'
+                                                }}>{(focusedJob.total_fee * 1.17).toFixed(2)} ש"ח</Text>
                                             </View>
                                             <View style={{flex: 1, justifyContent: 'center', alignItems: 'flex-end'}}>
                                                 <Text style={{fontSize: 16, color: '#000'}}>סה"כ</Text>

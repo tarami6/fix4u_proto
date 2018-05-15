@@ -52,6 +52,7 @@ export default class InProgressPro extends Component {
         console.log('error:', err)
     }
 
+    //Timer functions and handling start"
     componentDidMount() {
 
         // let currentTime = dateObjToTimeString()
@@ -72,6 +73,8 @@ export default class InProgressPro extends Component {
         clearInterval(this.interval);
     }
 
+    //Timer handling ends here
+
 
     render() {
         return (
@@ -85,9 +88,9 @@ export default class InProgressPro extends Component {
                             fontWeight: 'bold',
                             width: "60%",
                         }}>{this.props.userDataStore.focusedJob.user.name}</Text>
-                        {this.props.userDataStore.focusedJob.user.profile_pic_thumb &&
+                        {this.props.userDataStore.focusedJob.user.profile_pic_thumb?
                         <Image style={{margin: 20, width: 66, height: 66, borderRadius: 100}}
-                               source={{uri: this.props.userDataStore.focusedJob.user.profile_pic_thumb}}/>}
+                               source={{uri: this.props.userDataStore.focusedJob.user.profile_pic_thumb}}/>:null}
                     </View>
 
                     <View style={{flex: 0.3, marginRight: '5%', marginLeft: '5%'}}>

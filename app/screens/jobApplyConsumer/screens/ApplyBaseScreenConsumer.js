@@ -19,6 +19,7 @@ let returnInHeb = (word) => {
 
 }
 
+@inject('notificationsStore')
 @inject('userDataStore')
 @inject("proAuthStore")
 @observer
@@ -29,11 +30,6 @@ export default class ApplyBaseScreen extends React.Component {
 
     mixins: [TimerMixin]
 
-    onButtonPress = () => {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-        // then navigate
-        navigate('NewScreen');
-    }
 
     handleBackButton = () => {
         Alert.alert(
@@ -49,9 +45,9 @@ export default class ApplyBaseScreen extends React.Component {
                 },], {
                 cancelable: false
             }
-        )
+        );
         return true;
-    }
+    };
     keyExtractor = (item) => item.id + '';
 
     constructor(props) {
@@ -131,7 +127,7 @@ export default class ApplyBaseScreen extends React.Component {
     }
 
     componentDidMount() {
-
+        this.props.notificationsStore.removeOpenPostsNotifications('consumer');
         this.mounted = true;
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         let currentDate = new Date();
@@ -216,11 +212,12 @@ export default class ApplyBaseScreen extends React.Component {
                                       latitudeDelta: 0.0622 * 0.1,
                                       longitudeDelta: 0.0421 * 0.1
                                   }}/>
+
                     {/*       applies.MAP         */}
 
                     <View style={{flex: 1, backgroundColor: 'transparent', position: 'absolute'}}>
                         <FlatList
-                            data={job2.post_applies}
+                            data={this.props.userDataStore.focusedConsumerJob.post_applies.slice(0)}
                             keyExtractor={this.keyExtractor}
                             renderItem={({item, index}) =>
                                 <View style={{

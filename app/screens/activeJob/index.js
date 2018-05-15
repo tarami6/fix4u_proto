@@ -17,7 +17,7 @@ import ConsumerPaymentPro from './consumerPayment/ConsumerPaymentPro'
 import ConsumerReview from './consumerReview/consumerReviewConsumer';
 // screens:
 
-
+@inject("notificationsStore")
 @inject("userDataStore")
 @observer
 export default class ActiveJob extends Component {
@@ -27,6 +27,8 @@ export default class ActiveJob extends Component {
 
     }
     componentDidMount() {
+
+        this.props.notificationsStore.removePostNotifications('active', this.props.userDataStore.focusedJob.id, this.props.userDataStore.currentUserType)
         //backHandler:
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
@@ -37,6 +39,7 @@ export default class ActiveJob extends Component {
     }
 
     componentWillUnmount() {
+        this.props.userDataStore.focusJob({id: 'asd123456780'});
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
@@ -71,14 +74,12 @@ export default class ActiveJob extends Component {
             }
         }
         else {
-            console.warn(1);
             if (jobStatus === 'on_the_way') {
                 return (
                     <OnTheWayPro {...this.props}/>
                 );
             }
             else if (jobStatus === 'in_progress') {
-                console.warn(2);
                 return (
                     <InProgressPro {...this.props}/>
                 );

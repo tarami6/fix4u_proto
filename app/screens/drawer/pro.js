@@ -14,6 +14,7 @@ import {NavigationActions} from "react-navigation";
 
 const {width, height} = Dimensions.get('window')
 
+@inject("notificationsStore")
 @inject("userDataStore")
 @observer
 export default class Pro extends Component {
@@ -96,6 +97,8 @@ export default class Pro extends Component {
         }
 
         if (this.state.currentDrawer === 'pro') {
+            let consumerNotificationsLength = this.props.notificationsStore.consumerNotifications.active.length +
+                this.props.notificationsStore.consumerNotifications.open.length;
             ////////// PRO MODE //////////
             return (
                 <View>
@@ -111,9 +114,19 @@ export default class Pro extends Component {
                     <List>
                         {/*Switch drawer type consumer/pro*/}
                         <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                            <TouchableOpacity onPress={() => this.handleSwitch('consumer')}>
-                                <Text style={{color: 'gray', fontWeight: 'bold'}}>החלף למצב לקוח</Text>
-                            </TouchableOpacity>
+                            <View style={{
+                                width,
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                flexDirection: 'row'
+                            }}>
+                                <View style={{marginLeft: 50}}>
+                                    <Circle qty={consumerNotificationsLength}/>
+                                </View>
+                                <TouchableOpacity onPress={() => this.handleSwitch('consumer')}>
+                                    <Text style={{color: 'gray', fontWeight: 'bold'}}>החלף למצב לקוח</Text>
+                                </TouchableOpacity>
+                            </View>
                         </ListItem>
 
                         <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
@@ -164,6 +177,8 @@ export default class Pro extends Component {
             );
         }
         else {
+            let proNotificationsLength = this.props.notificationsStore.proNotifications.active.length +
+                this.props.notificationsStore.proNotifications.open.length;
             //    ///////// CONSUMER MODE ///////////
             return (
                 <View>
@@ -179,9 +194,19 @@ export default class Pro extends Component {
                     <List>
                         {/*Switch drawer type consumer/pro*/}
                         <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                            <TouchableOpacity onPress={() => this.handleSwitch('pro')}>
-                                <Text style={{color: 'gray', fontWeight: 'bold'}}>החלף למצב איש מקצוע</Text>
-                            </TouchableOpacity>
+                            <View style={{
+                                width,
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                flexDirection: 'row'
+                            }}>
+                                <View style={{marginLeft: 50}}>
+                                    <Circle qty={proNotificationsLength}/>
+                                </View>
+                                <TouchableOpacity onPress={() => this.handleSwitch('pro')}>
+                                    <Text style={{color: 'gray', fontWeight: 'bold'}}>החלף למצב איש מקצוע</Text>
+                                </TouchableOpacity>
+                            </View>
                         </ListItem>
                         <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
                             <View style={{

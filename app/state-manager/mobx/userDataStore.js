@@ -108,7 +108,7 @@ export default class UserDataStore {
                 this.userData.user.user_open_posts[i] = post;
             }
         }
-        this.focusConsumerJob(post);
+        // this.focusConsumerJob(post);
     }
 
     @action updateActivePost(post: Object) {
