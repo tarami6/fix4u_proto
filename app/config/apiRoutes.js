@@ -48,3 +48,5 @@ export const addJobRoute = 'api/posts/';
 //Pro registration route: 'POST':
 export const proRegistrationRoute = 'api/rest-auth/registration/pro/';
 
+//Notifications Route:
+export const notificationsRoute = 'api/notifications/';

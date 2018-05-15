@@ -71,17 +71,17 @@ export default class UserDataStore {
     }
 
     //applies handling:
-    @action removeSentApply(postId){
+    @action removeSentApply(postId) {
         let proApplies = this.userData.user.pro_applies.slice(0)
-        for(let i=0; i<proApplies.length; i++){
+        for (let i = 0; i < proApplies.length; i++) {
             console.log('ids:', proApplies[i].post, postId);
-            if(proApplies[i].post === postId){
-                this.userData.user.pro_applies.splice(i,1);
+            if (proApplies[i].post === postId) {
+                this.userData.user.pro_applies.splice(i, 1);
             }
         }
     }
 
-    @action removeAllSentApplies(){
+    @action removeAllSentApplies() {
         this.userData.user.pro_applies = [];
     }
 
@@ -100,7 +100,6 @@ export default class UserDataStore {
     }
 
 
-
     @action updateOpenPost(post: Object) {
         let openPosts = this.userData.user.user_open_posts;
         for (let i = 0; i < openPosts.length; i++) {
@@ -112,10 +111,12 @@ export default class UserDataStore {
     }
 
     @action updateActivePost(post: Object) {
-        let activePosts = this.userData.user.user_active_posts;
-        for (let i = 0; i < activePosts.length; i++) {
-            if (post.id === activePosts[i].id) {
-                this.userData.user.user_active_posts[i] = post;
+        if (this.userData.user) {
+            let activePosts = this.userData.user.user_active_posts;
+            for (let i = 0; i < activePosts.length; i++) {
+                if (post.id === activePosts[i].id) {
+                    this.userData.user.user_active_posts[i] = post;
+                }
             }
         }
     }
@@ -138,12 +139,12 @@ export default class UserDataStore {
         // }
     }
 
-    @action removeActivePost(postId){
+    @action removeActivePost(postId) {
         let user_active_posts = this.userData.user.user_active_posts.slice(0);
-        for(let i=0; i<user_active_posts.length; i++){
+        for (let i = 0; i < user_active_posts.length; i++) {
             console.log('bool equal?', user_active_posts[i].id, postId)
-            if(user_active_posts[i].id === postId){
-                this.userData.user.user_active_posts.splice(i,1);
+            if (user_active_posts[i].id === postId) {
+                this.userData.user.user_active_posts.splice(i, 1);
             }
         }
         console.log('removed active post?', this.userData.user.user_active_posts.slice(0))

@@ -94,7 +94,7 @@ export let mainStyles = StyleSheet.create({
         fontFamily: mainFontBold,
         fontSize: 18,
         color: fontGrey,
-
+    },
     buttonText: {
         color: '#fff',
         fontFamily: mainFontBold,
@@ -110,7 +110,7 @@ export let mainStyles = StyleSheet.create({
     threeStepsIndicator:{
         width: '30%', height: '45%',
     },
-    fourStepsIndicator:{
+    fourStepsIndicator: {
         marginTop: 0,
         width: SW / 2,
         height: SH /31,

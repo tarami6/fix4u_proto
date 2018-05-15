@@ -37,7 +37,7 @@ export const
         sendBody = JSON.stringify(body)
     }
 
-    // console.log('allSentInfo:', route, method, successCallback, errorCallback, body, headers)
+    console.log('allSentInfo:', route, method, successCallback, errorCallback, body, headers)
         fetch(`${mainRoute}/${route}`, {
             method: method,
             headers: headers,

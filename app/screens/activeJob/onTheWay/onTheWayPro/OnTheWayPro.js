@@ -99,7 +99,6 @@ export default class OnTheWayPro extends React.Component {
 
     render() {
         let focusedJob = this.props.userDataStore.focusedJob;
-        console.log("sfdsdc",focusedJob);
         return (
             <View style={{flex: 1, backgroundColor: "#fff", alignItems: 'center'}}>
                 <Modal

@@ -3,15 +3,20 @@ import {fetcher} from "./fetcher";
 import {AsyncStorage} from 'react-native'
 import {loginRoute, getAppliesRoute} from "../config/apiRoutes";
 
-export const tryLogin = (userDataStore, callbackFunc, errCB=(err)=>console.warn('err:', err)) => {
+export const tryLogin = (notificationsStore, userDataStore, callbackFunc, errCB=(err)=>console.warn('err:', err)) => {
     console.log('tryLogin initiated');
 
     //fetch callbacks:
     const successCallback = (response) => {
-        console.warn('response', response);
+        console.warn('success tryLogin');
+        console.log('response tryLogin', response);
+
+        // here we are setting the notifications:
+        notificationsStore.setNotificationsFromLogin(response.user.notifications)
+
+
         let userType = response.user.services ? 'pro' : 'consumer';
         //setting the user type:
-
         userDataStore.setUserType(userType);
         userDataStore.setUserData(response);
         if(userType === 'pro'){

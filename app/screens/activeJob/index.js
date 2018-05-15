@@ -27,8 +27,8 @@ export default class ActiveJob extends Component {
 
     }
     componentDidMount() {
-
-        this.props.notificationsStore.removePostNotifications('active', this.props.userDataStore.focusedJob.id, this.props.userDataStore.currentUserType)
+        let token = this.props.userDataStore.userData.token;
+        this.props.notificationsStore.removePostNotifications('active', this.props.userDataStore.focusedJob.id, this.props.userDataStore.currentUserType, token)
         //backHandler:
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }

@@ -19,9 +19,10 @@ export default class Counter extends Component {
         let activeNotLength = this.props.userDataStore.currentUserType === 'pro'?
             this.props.notificationsStore.proNotifications.active.length:
             this.props.notificationsStore.consumerNotifications.active.length;
-        if (activeNotLength === 0) {
-            return (<View style={{position: 'absolute'}}/>)
-        }
+        console.log('activeNotLength', activeNotLength);
+        // if (activeNotLength === 0) {
+        //     return (<View style={{position: 'absolute'}}/>)
+        // }
         return (
             <View style={styles.counter}>
                 <View style={styles.textWraper}>

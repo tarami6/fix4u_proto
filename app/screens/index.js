@@ -29,6 +29,7 @@ import LoadingPage from '../screens/modals/Loader/LoadingPage'
 
 type Props = {};
 
+@inject('notificationsStore')
 @inject('proAuthStore')
 @inject("modalsStore")
 @inject("userDataStore")
@@ -116,7 +117,8 @@ export default class ScreensBase extends Component<Props> {
         this.props.userDataStore.setLoading(true);
         //try login fetch starts here
         this.setState({tryLoginFetch: true});
-        tryLogin(this.props.userDataStore, this.successLoginCallback.bind(this), this.tryLoginError.bind(this))
+        console.warn("try login is on");
+        tryLogin(this.props.notificationsStore, this.props.userDataStore, this.successLoginCallback.bind(this), this.tryLoginError.bind(this))
         //    get location and save to userDataStore fetch starts here
         this.setState({userLocationFetch: true});
         this.getUserLocationHandler()

@@ -127,7 +127,9 @@ export default class ApplyBaseScreen extends React.Component {
     }
 
     componentDidMount() {
-        this.props.notificationsStore.removeOpenPostsNotifications('consumer');
+        let token = this.props.userDataStore.userData.token;
+        let postId = this.props.userDataStore.focusedConsumerJob.id
+        this.props.notificationsStore.removeOpenPostsNotifications('consumer', token, postId);
         this.mounted = true;
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         let currentDate = new Date();
