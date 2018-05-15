@@ -11,7 +11,6 @@ import {getAvgRating} from "../../generalFunc/generalFunctions";
 export default class ApplyRender extends React.Component {
     render(){
         let apply = this.props.apply;
-        console.log("w3ew", apply)
         return (
             <View style={{flex: 1, flexDirection: 'row', backgroundColor: '#fff' }}>
 

@@ -68,10 +68,10 @@ export default class NotificationsStore {
         console.log('error CB at notificationsStore', err);
     }
 
-    @action removeOpenPostsNotifications(userType = "consumer", token = 'no?', postId = "no?") {
+    @action removeOpenPostsNotifications(userType = "consumer", token = 'no?', postId = "no?", newNotification = false) {
         // let notList = userType === 'consumer' ? 'consumerNotifications' : 'proNotifications';
         if (userType === 'consumer') {
-            if (this.consumerNotifications.open.length > 0) {
+            if (this.consumerNotifications.open.length > 0 || newNotification) {
                 this.consumerNotifications.open = [];
                 //and fetch
                 let sendBody = {

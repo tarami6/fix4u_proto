@@ -64,10 +64,12 @@ export default class ChooseAddress extends React.Component {
     }
 
     componentDidMount() {
+        this.mounted = true;
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     componentWillUnmount() {
+        this.mounted = false;
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
@@ -180,14 +182,16 @@ export default class ChooseAddress extends React.Component {
     }
 
     handleLocationPress(data, details) {
-        let address = data.description;
-        let place_id = data.place_id;
-        this.getCoordsAndSaveToState(place_id);
-        this.setState({
-            address: address,
-            place_id: place_id,
-            details: details
-        })
+        if (this.mounted) {
+            let address = data.description;
+            let place_id = data.place_id;
+            this.getCoordsAndSaveToState(place_id);
+            this.setState({
+                address: address,
+                place_id: place_id,
+                details: details
+            })
+        }
     }
 
 
@@ -212,9 +216,9 @@ export default class ChooseAddress extends React.Component {
                 {/*Linear under header 0.8 flex*/}
                 <LinierView>
                     <Header head={'AddJob'} previousPage={'ExplainTheJob'} props={this.props}/>
-                    <View style={{flex: 1,justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                         <Image
-                             style={{width:SW /3, height: SH /33}}
+                            style={{width: SW / 3, height: SH / 33}}
                             source={require('../../../../assets/icons/ThreeStepsIndicator/3.png')}
                         />
                     </View>

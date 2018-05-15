@@ -55,7 +55,6 @@ let notificationsStore = new NotificationsStore();
 // })
 
 
-
 let appState = '';
 
 // Pushy.setNotificationListener(async (data) => {
@@ -116,35 +115,42 @@ let handleNotificationData = (type, payload) => {
     // notificationsStore.setNewNotification(true);
     switch (type) {
         case 'consumer_new_post': // a new post has been open, update for pro map
-            notificationsStore.addPostsNotification('open',payload.id, 'pro');
+            notificationsStore.addPostsNotification('open', payload.id, 'pro');
             openJobsStore.addJob(payload);
             break;
         case 'pro_applied': // when a consumer get post apply
-            notificationsStore.addPostsNotification('open',payload.id, 'consumer');
+            if (userDataStore.currentUserType === "consumer" || userDataStore.userType === "consumer") {
+                notificationsStore.removeOpenPostsNotifications('consumer', userDataStore.userData.token, payload.id, true)
+            }
+            else {
+                notificationsStore.addPostsNotification('open', payload.id, 'consumer');
+            }
             userDataStore.focusConsumerJob(payload);
             userDataStore.updateOpenPost(payload);
             break;
         case 'consumer_chose_pro': // consumer chose pro for job
             userDataStore.removeAllSentApplies();
             userDataStore.addProPost(payload);
-            notificationsStore.addPostsNotification('active',payload.id, 'pro');
+            notificationsStore.addPostsNotification('active', payload.id, 'pro');
             userDataStore.focusJob(payload);
             break;
         case 'pro_update_post':
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
+                notificationsStore.removePostNotifications('active', payload.id, 'consumer', userDataStore.userData.token)
             }
             else {
-                notificationsStore.addPostsNotification('active',payload.id, 'consumer');
+                notificationsStore.addPostsNotification('active', payload.id, 'consumer');
             }
             userDataStore.updateActivePost(payload);
             break;
         case 'consumer_paid': // this is the route for updating the pro_posts
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
+                notificationsStore.removePostNotifications('active', payload.id, 'pro', userDataStore.userData.token)
             }
             else {
-                notificationsStore.addPostsNotification('active',payload.id, 'pro');
+                notificationsStore.addPostsNotification('active', payload.id, 'pro');
             }
             userDataStore.removeProPost(payload.id);
         case 'open_post_remove':
