@@ -24,7 +24,7 @@ export default class InProgressPro extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            timer: 'טוען סטופר...'
+            timer: '...'
         }
     }
 

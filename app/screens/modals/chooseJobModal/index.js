@@ -103,6 +103,7 @@ export default class ChooseJobModal extends Component {
         let currentJob = this.props.openJobsStore.focusedJob;
         let jobMinutes = new Date(currentJob.created_at).getMinutes().toString();
         let jobHours = new Date(currentJob.created_at).getHours().toString();
+        console.log("ad45", currentJob)
         return (
 
 
@@ -149,8 +150,8 @@ export default class ChooseJobModal extends Component {
                                                 color: '#000',
                                                 fontWeight: 'bold',
                                                 marginRight: 5,
-                                                textAlign: 'center',
-                                            }}>{currentJob.user ? currentJob.user.name : ''}</Text>
+                                                textAlign: 'right',
+                                            }}>{currentJob.user.name ? currentJob.user.name : 'לקוח חדש'}</Text>
                                         </View>
                                         <View style={{
                                             flex: 0.3,
@@ -159,8 +160,8 @@ export default class ChooseJobModal extends Component {
                                         }}>
                                             {currentJob.user && currentJob.user.profile_pic_thumb ? <Image
                                                 style={{width: SW / 5.5, height: SW / 5.5, borderRadius: 100}}
-                                                source={{uri: currentJob.user.profile_pic_thumb}}/> : <View/>
-
+                                                source={{uri: currentJob.user.profile_pic_thumb}}/> :
+                                                <View   style={{width: SW / 5.5, height: SW / 5.5, borderRadius: 100, backgroundColor: "#D8D8D8"}}/>
                                             }
                                         </View>
                                     </View>

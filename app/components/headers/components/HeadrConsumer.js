@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {TouchableOpacity,Image,StyleSheet, View, Alert, Text} from 'react-native';
+import {TouchableOpacity, Image, StyleSheet, View, Alert, Text} from 'react-native';
 import Counter from './Counter';
 import {HH, mainRed, PaddingSize, SH, SW} from "../../../config/styles";
 import {inject, observer} from "mobx-react/index";
@@ -12,13 +12,20 @@ export default class HeadrConsumer extends Component {
         super(props);
         this.state = {counter: 0}
     }
-    render(){
+
+    render() {
         let props = this.props;
         let color = props.background;
+        let numNotification = this.props.userDataStore.userType === "pro" ? (
+            this.props.userDataStore.currentUserType === "consumer" ?
+                this.props.notificationsStore.proNotifications.active.length +
+                this.props.notificationsStore.proNotifications.open.length :
+                this.props.notificationsStore.consumerNotifications.active.length +
+                this.props.notificationsStore.consumerNotifications.open.length) : null
         return (
 
-            <View style={[styles.customHeader,{backgroundColor: color}]}>
-                <TouchableOpacity  onPress={() => {
+            <View style={[styles.customHeader, {backgroundColor: color}]}>
+                <TouchableOpacity onPress={() => {
                     props.navigation.navigate('DrawerOpen')
                     props.navigation.setParams({
                         drawerOpen: true,
@@ -27,19 +34,30 @@ export default class HeadrConsumer extends Component {
                     <Image
                         style={{width: SW / 20, height: SW / 20}}
                         source={require('../../../../assets/icons/Menu.png')}/>
-                    <Text style={{borderRadius: 100, backgroundColor: mainRed, textAlign: 'center'}}>
-                        {this.props.userDataStore.userType === "pro"?(
-                            this.props.userDataStore.currentUserType === "consumer"?
-                                this.props.notificationsStore.proNotifications.active.length +
-                                this.props.notificationsStore.proNotifications.open.length:
-                                this.props.notificationsStore.consumerNotifications.active.length +
-                            this.props.notificationsStore.consumerNotifications.open.length): null
-                        }
-                        </Text>
-                </TouchableOpacity>
 
+
+
+                </TouchableOpacity>
+                {numNotification > 0  ?
+                        <Text style={{
+                            height: 20,
+                            width: 20,
+                            borderRadius: 100,
+                            borderWidth: 0.5,
+                            borderColor: '#fff',
+                            backgroundColor: mainRed,
+                            textAlign: 'center',
+                            textAlignVertical: 'center',
+                            color: '#fff',
+                            position: 'absolute',
+                            left: SW / 25,
+                            top:SW / 25,
+                        }}>
+                            {numNotification}
+                        </Text> : null
+                    }
                 <Image
-                    style={{width: SW / 5.1, height: SH / 33, margin:1, marginLeft: 10}}
+                    style={{width: SW / 5.1, height: SH / 33, margin: 1, marginLeft: 10}}
                     source={require('../../../../assets/icons/fix4U.png')}/>
                 <TouchableOpacity
                     onPress={() => props.navigation.navigate('Schedule')}
