@@ -140,10 +140,7 @@ export default class ApplyBaseScreen extends React.Component {
     }
 
 
-    componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-        // this.props.navigation.state.params.onClose()
-    }
+
 
     getHeight(height) {
         this.setState({textLayoutHeight: height});
