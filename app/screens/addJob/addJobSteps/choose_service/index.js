@@ -24,6 +24,7 @@ export default class ChooseService extends Component {
         header: null
     }
     onBackPress = () => {
+        console.warn("choose Service backHandler")
         // // console.log('backHandler pressed')
         // const {dispatch} = this.store;
         // // console.log(this.store);

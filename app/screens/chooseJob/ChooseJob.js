@@ -1,6 +1,6 @@
 import {inject, observer} from "mobx-react/index";
 import React, {Component} from "react";
-import { TouchableOpacity, View} from 'react-native';
+import {Alert, BackHandler, TouchableOpacity, View} from 'react-native';
 import Text from '../../components/text/Text'
 //header stuff:
 import Header from '../../components/headers/Header'
@@ -48,6 +48,7 @@ export default class ChooseJob extends Component {
     }
 
     componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         //remove all pro open notifications since he is now seeing the jobs
         // **** should later be removed each open notification when he actually observe the new post/job ****
         this.props.notificationsStore.removeOpenPostsNotifications('pro');
@@ -65,7 +66,25 @@ export default class ChooseJob extends Component {
 
     componentWillUnmount() {
         this.mounted = false;
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
+    handleBackButton = () => {
+        Alert.alert(
+            'Exit App',
+            'Exiting the application?', [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel'
+                }, {
+                    text: 'OK',
+                    onPress: () => {BackHandler.exitApp()}
+                },], {
+                cancelable: false
+            }
+        );
+        return true;
+    };
 
     // here we set the state to choose what sjobs to display to the user:
     getOpenJobs(jobs: Array) {

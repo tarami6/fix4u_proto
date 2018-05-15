@@ -70,6 +70,7 @@ export default class ChooseTime extends React.Component {
     }
 
     goBack() {
+        console.warn("choose time backHandler");
         this.props.navigation.goBack()
     }
 

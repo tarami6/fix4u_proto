@@ -27,6 +27,7 @@ export default class ChooseAddress extends React.Component {
         header: null,
     };
     handleBackButton = () => {
+        console.warn("choose address backHandler");
         const {dispatch} = this.props.navigationStore;
         const {navigationState} = this.props.navigationStore;
         const routeName = navigationState.routes[0].routeName

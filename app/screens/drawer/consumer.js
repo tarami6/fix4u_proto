@@ -37,6 +37,7 @@ export default class Consumer extends Component {
     }
 
     handleBackButton = () => {
+        console.warn("Drawer consumer backHandler")
         this.props.navigation.navigate('DrawerClose');
         return true;
     }

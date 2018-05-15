@@ -20,7 +20,6 @@ import NotificationsStore from './state-manager/mobx/notificationsStore'
 
 import Pushy from 'pushy-react-native';
 
-
 //the usual consumer costumer auth process happens here
 let authStore = new AuthStore();
 //pro Auth state manager:

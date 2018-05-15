@@ -14,6 +14,7 @@ import {NavigationActions} from "react-navigation";
 
 import Swipeout from 'react-native-swipeout'
 
+
 data = [
     {
         profilePic: require('../../../../assets/avatars/Loreal-Avatar.jpg'),

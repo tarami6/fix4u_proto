@@ -10,18 +10,7 @@ import {inject, observer} from "mobx-react/native";
 @observer
 export default class CustomDrawer extends Component {
 
-    handleBackButton = () => {
-        this.props.navigation.navigate('DrawerClose');
-        return true;
-    }
 
-    componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    }
-
-    componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-    }
 
     render() {
         // consumer or pro, change based on login user props

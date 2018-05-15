@@ -37,6 +37,7 @@ type Props = {};
 @observer
 export default class ScreensBase extends Component<Props> {
     onBackPress = () => {
+        console.warn("screenBase backHandler pressed");
         // console.log('backHandler pressed')
         const {dispatch} = this.store;
         // console.log(this.store);

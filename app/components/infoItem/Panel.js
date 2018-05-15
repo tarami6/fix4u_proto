@@ -1,20 +1,9 @@
 import React from 'react'
-import {
-    StyleSheet,
-    Text,
-    View,
-    Image,
-    Easing,
-    TouchableHighlight,
-    Alert,
-    TouchableWithoutFeedback,
-    Animated
-} from 'react-native';
+import {Animated, Image, StyleSheet, Text, TouchableWithoutFeedback, View} from 'react-native';
 import {PaddingSize, SH, SW} from "../../config/styles";
 import StarRating from 'react-native-star-rating';
 import IconArrow from 'react-native-vector-icons/Ionicons'
 import {submitButton} from "../modalSubmitButton";
-import Swipeout from 'react-native-swipeout'
 
 export default class Panel extends React.Component {
     constructor(props) {
@@ -37,7 +26,7 @@ export default class Panel extends React.Component {
             finalValue = this.state.expandedInner ? this.state.minHeightInner : this.state.maxHeightInner + this.state.minHeightInner;
 
         let ex = this.state.expandedInner ? this.state.maxHeight + this.state.minHeight + this.state.maxHeightInner + this.state.minHeightInner : this.state.maxHeight + this.state.minHeight;
-        let exFinal = this.state.expandedInner ? this.state.maxHeight + this.state.minHeight - (this.state.maxHeightInner ) : this.state.maxHeight + this.state.minHeight + this.state.maxHeightInner + this.state.minHeightInner - (SH / 20);
+        let exFinal = this.state.expandedInner ? this.state.maxHeight + this.state.minHeight - (this.state.maxHeightInner) : this.state.maxHeight + this.state.minHeight + this.state.maxHeightInner + this.state.minHeightInner - (SH / 20);
 
         if (this.state.expandedInner) {
             this.setState({
@@ -149,129 +138,155 @@ export default class Panel extends React.Component {
 
     render() {
         let pro = this.props.user;
-        const swipeSettings = {
-            autoClose: true,
-            onClose: (secId, rowID, direction) => {
-
-            },
-            onOpen: (secId, rowID, direction) => {
-
-            },
-            left: [
-                {
-                    onPress: () => {
-                        Alert.alert('Alert', 'Are you sure you want to delete this',
-                            [
-                                {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                                {text: 'Yes', onPress: () => console.log('Yes Pressed')}
-                            ],
-                            {cancelable: true}
-                            )
-                    },
-                     type: 'delete',
-                    component:
-                        <View style={{ flex:1,alignItems: 'center', justifyContent: 'center'}}><Image source={require('../../../assets/icons/delete.png')}/></View>
-                }
-            ],
-            rowID: this.props.index,
-            sectionId: 1,
-        }
+        console.log('Panel pro:', pro);
         return (
-            <Swipeout {...swipeSettings}>
-                <Animated.View
-                    style={[styles.container, {height: this.state.animation1}]}>
-                    <TouchableWithoutFeedback
-                        activeOpacity={1}
-                        color={'red'}
-                        style={styles.button}
-                        onPress={this.toggle.bind(this)}
-                        underlayColor="#f1f1f1">
-                        <View>
-                            <View style={{
-                                flex: 1.1,
-                                flexDirection: 'row',
-                                height: 80,
-                                zIndex: 2,
-                            }}
-                                  onLayout={this._setMinHeight.bind(this)}
-                            >
-                                <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
+            <Animated.View
+                style={[styles.container, {height: this.state.animation1}]}>
+                <TouchableWithoutFeedback
+                    activeOpacity={1}
+                    color={'red'}
+                    style={styles.button}
+                    onPress={this.toggle.bind(this)}
+                    underlayColor="#f1f1f1">
+                    <View>
+                        <View style={{
+                            flex: 1.1,
+                            flexDirection: 'row',
+                            height: 80,
+                            zIndex: 2,
+                        }}
+                              onLayout={this._setMinHeight.bind(this)}
+                        >
+                            <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
+                                <View>
+                                    {/*<Text style={{color: '#000'}}> היום {job.appointment_time? job.appointment_time.slice(0, 5) : null}</Text>*/}
+                                    <View/>
                                     <View>
-                                        {/*<Text style={{color: '#000'}}> היום {job.appointment_time? job.appointment_time.slice(0, 5) : null}</Text>*/}
-                                        <View/>
-                                        <View>
-                                            <Text style={{alignSelf: 'flex-start', color: '#000'}}>מרחק</Text>
-                                            <Text style={{color: '#000'}}>{pro.distance} ש"ח </Text>
-                                        </View>
+                                        <Text style={{alignSelf: 'flex-start', color: '#000'}}>מרחק</Text>
+                                        <Text style={{color: '#000'}}>{pro.distance} ש"ח </Text>
                                     </View>
+                                </View>
 
 
-                                </View>
-                                <View style={{flex: 1, justifyContent: 'center'}}>
-                                    <Text style={{color: '#000', textAlign: 'right'}}>{pro.name}</Text>
-                                    {/*<Text>{hebrewServices[pro.service]} </Text>*/}
-                                    <Text>{pro.service} </Text>
-                                </View>
-                                <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
-                                    <Animated.Image
-                                        style={{
-                                            height: 60,
-                                            width: 60,
-                                            transform: [
-                                                {
-                                                    scaleX: this.state.animation2.interpolate({
-                                                        inputRange: [0, 1],
-                                                        outputRange: [0, 1]
-                                                    })
-                                                },
-                                                {
-                                                    scaleY: this.state.animation2.interpolate({
-                                                        inputRange: [0, 1],
-                                                        outputRange: [0, 1]
-                                                    })
-                                                }
-                                            ],
-                                            borderRadius: 200,
-                                        }}
-
-                                        source={pro.profile_pic}/>
-                                </View>
                             </View>
-                            {/*Inner*/}
-                            <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
+                            <View style={{flex: 1, justifyContent: 'center'}}>
+                                <Text style={{color: '#000', textAlign: 'right'}}>{pro.name}</Text>
+                                {/*<Text>{hebrewServices[pro.service]} </Text>*/}
+                                <Text>{pro.service} </Text>
+                            </View>
+                            <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
+                                <Animated.Image
+                                    style={{
+                                        height: 60,
+                                        width: 60,
+                                        transform: [
+                                            {
+                                                scaleX: this.state.animation2.interpolate({
+                                                    inputRange: [0, 1],
+                                                    outputRange: [0, 1]
+                                                })
+                                            },
+                                            {
+                                                scaleY: this.state.animation2.interpolate({
+                                                    inputRange: [0, 1],
+                                                    outputRange: [0, 1]
+                                                })
+                                            }
+                                        ],
+                                        borderRadius: 200,
+                                    }}
 
-                                <Text style={{width: PaddingSize, paddingBottom: 5, alignSelf: 'center'}}>
-                                    {pro.description}
-                                </Text>
+                                    source={pro.profile_pic}/>
+                            </View>
+                        </View>
+                        {/*Inner*/}
+                        <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
 
-                                <Animated.View
-                                    style={[{
-                                        backgroundColor: '#fff',
-                                        overflow: 'hidden'
-                                    }, {
-                                        height: this.state.animationInner,
-                                    }]}>
-                                    <TouchableWithoutFeedback
-                                        style={styles.button}
-                                        onPress={this.toggleInner.bind(this)}
-                                        underlayColor="#f1f1f1">
-                                        <View>
+                            <Text style={{width: PaddingSize, paddingBottom: 5, alignSelf: 'center'}}>
+                                {pro.description}
+                            </Text>
+
+                            <Animated.View
+                                style={[{
+                                    backgroundColor: '#fff',
+                                    overflow: 'hidden'
+                                }, {
+                                    height: this.state.animationInner,
+                                }]}>
+                                <TouchableWithoutFeedback
+                                    style={styles.button}
+                                    onPress={this.toggleInner.bind(this)}
+                                    underlayColor="#f1f1f1">
+                                    <View>
+                                        <View style={{
+                                            flexDirection: 'row',
+                                            borderBottomWidth: 1,
+                                            borderTopWidth: 1,
+                                            borderColor: "#000",
+                                            paddingTop: 5,
+                                            paddingBottom: 5,
+                                            height: SH / 20
+                                        }}
+                                              onLayout={this._setMinHeightInner.bind(this)}>
+                                            <View style={{flex: 0.1, justifyContent: 'center'}}>
+
+                                                <IconArrow name={this.state.icon} size={this.state.iconSize}/>
+
+                                            </View>
+                                            <View style={{flex: 0.5, justifyContent: 'center'}}>
+                                                <StarRating
+                                                    disabled={false}
+                                                    maxStars={5}
+                                                    rating={4}
+                                                    starSize={14}
+                                                    fullStarColor={'#ffd700'}
+                                                    emptyStar={'star'}
+                                                    iconSet={'FontAwesome'}
+                                                />
+                                            </View>
+
+                                            <View style={{flex: 1.4}}>
+                                                <Text> 2 חוות דעת </Text>
+                                            </View>
+                                        </View>
+                                        <View onLayout={this._setMaxHeightInner.bind(this)}>
+                                            {/*Personal Info Name Image and date*/}
                                             <View style={{
                                                 flexDirection: 'row',
-                                                borderBottomWidth: 1,
-                                                borderTopWidth: 1,
-                                                borderColor: "#000",
-                                                paddingTop: 5,
-                                                paddingBottom: 5,
-                                                height: SH / 20
-                                            }}
-                                                  onLayout={this._setMinHeightInner.bind(this)}>
-                                                <View style={{flex: 0.1, justifyContent: 'center'}}>
+                                                justifyContent: 'flex-end',
+                                                paddingBottom: 10,
+                                                paddingTop: 10
+                                            }}>
 
-                                                    <IconArrow name={this.state.icon} size={this.state.iconSize}/>
-
+                                                <View style={{paddingRight: 10}}>
+                                                    <Text style={{color: '#000'}}>{pro.reviews[0].name}</Text>
+                                                    <Text>{pro.reviews[0].date}</Text>
                                                 </View>
-                                                <View style={{flex: 0.5, justifyContent: 'center'}}>
+                                                <View>
+                                                    <Image style={{width: 50, height: 50, borderRadius: 100}}
+                                                           source={pro.reviews[0].profile_pic}/>
+                                                </View>
+                                            </View>
+
+                                            <View style={{
+                                                width: SW / 7,
+                                                borderBottomWidth: 1,
+                                                borderColor: '#000',
+                                                alignSelf: 'flex-end'
+                                            }}/>
+                                            <View style={{paddingTop: 10, paddingBottom: 10}}>
+                                                <Text>{pro.reviews[0].description}</Text>
+                                            </View>
+                                            <View style={{
+                                                width: SW / 7,
+                                                borderBottomWidth: 1,
+                                                borderColor: '#000',
+                                                alignSelf: 'flex-end'
+                                            }}/>
+                                            {/*Rating Stars*/}
+                                            <View style={{flexDirection: 'row', paddingTop: 10, paddingBottom: 10}}>
+                                                <View style={{flex: 0.1,}}/>
+                                                <View style={{flex: 0.5}}>
                                                     <StarRating
                                                         disabled={false}
                                                         maxStars={5}
@@ -282,115 +297,60 @@ export default class Panel extends React.Component {
                                                         iconSet={'FontAwesome'}
                                                     />
                                                 </View>
-
                                                 <View style={{flex: 1.4}}>
-                                                    <Text> 2 חוות דעת </Text>
+                                                    <Text>מחיר</Text>
                                                 </View>
                                             </View>
-                                            <View onLayout={this._setMaxHeightInner.bind(this)}>
-                                                {/*Personal Info Name Image and date*/}
-                                                <View style={{
-                                                    flexDirection: 'row',
-                                                    justifyContent: 'flex-end',
-                                                    paddingBottom: 10,
-                                                    paddingTop: 10
-                                                }}>
-
-                                                    <View style={{paddingRight: 10}}>
-                                                        <Text style={{color: '#000'}}>{pro.reviews[0].name}</Text>
-                                                        <Text>{pro.reviews[0].date}</Text>
-                                                    </View>
-                                                    <View>
-                                                        <Image style={{width: 50, height: 50, borderRadius: 100}}
-                                                               source={pro.reviews[0].profile_pic}/>
-                                                    </View>
+                                            <View style={{flexDirection: 'row'}}>
+                                                <View style={{flex: 0.1,}}/>
+                                                <View style={{flex: 0.5}}>
+                                                    <StarRating
+                                                        disabled={false}
+                                                        maxStars={5}
+                                                        rating={4}
+                                                        starSize={14}
+                                                        fullStarColor={'#ffd700'}
+                                                        emptyStar={'star'}
+                                                        iconSet={'FontAwesome'}
+                                                    />
                                                 </View>
-
-                                                <View style={{
-                                                    width: SW / 7,
-                                                    borderBottomWidth: 1,
-                                                    borderColor: '#000',
-                                                    alignSelf: 'flex-end'
-                                                }}/>
-                                                <View style={{paddingTop: 10, paddingBottom: 10}}>
-                                                    <Text>{pro.reviews[0].description}</Text>
+                                                <View style={{flex: 1.4}}>
+                                                    <Text>זמן עבודה</Text>
                                                 </View>
-                                                <View style={{
-                                                    width: SW / 7,
-                                                    borderBottomWidth: 1,
-                                                    borderColor: '#000',
-                                                    alignSelf: 'flex-end'
-                                                }}/>
-                                                {/*Rating Stars*/}
-                                                <View style={{flexDirection: 'row', paddingTop: 10, paddingBottom: 10}}>
-                                                    <View style={{flex: 0.1,}}/>
-                                                    <View style={{flex: 0.5}}>
-                                                        <StarRating
-                                                            disabled={false}
-                                                            maxStars={5}
-                                                            rating={4}
-                                                            starSize={14}
-                                                            fullStarColor={'#ffd700'}
-                                                            emptyStar={'star'}
-                                                            iconSet={'FontAwesome'}
-                                                        />
-                                                    </View>
-                                                    <View style={{flex: 1.4}}>
-                                                        <Text>מחיר</Text>
-                                                    </View>
-                                                </View>
-                                                <View style={{flexDirection: 'row'}}>
-                                                    <View style={{flex: 0.1,}}/>
-                                                    <View style={{flex: 0.5}}>
-                                                        <StarRating
-                                                            disabled={false}
-                                                            maxStars={5}
-                                                            rating={4}
-                                                            starSize={14}
-                                                            fullStarColor={'#ffd700'}
-                                                            emptyStar={'star'}
-                                                            iconSet={'FontAwesome'}
-                                                        />
-                                                    </View>
-                                                    <View style={{flex: 1.4}}>
-                                                        <Text>זמן עבודה</Text>
-                                                    </View>
-                                                </View>
-                                                <View style={{flexDirection: 'row', paddingTop: 10, paddingBottom: 10}}>
-                                                    <View style={{flex: 0.1,}}/>
-                                                    <View style={{flex: 0.5}}>
-                                                        <StarRating
-                                                            disabled={false}
-                                                            maxStars={5}
-                                                            rating={4}
-                                                            starSize={14}
-                                                            fullStarColor={'#ffd700'}
-                                                            emptyStar={'star'}
-                                                            iconSet={'FontAwesome'}
-                                                        />
-                                                    </View>
-                                                    <View style={{flex: 1.4}}>
-                                                        <Text>שירות</Text>
-                                                    </View>
-                                                </View>
-
                                             </View>
+                                            <View style={{flexDirection: 'row', paddingTop: 10, paddingBottom: 10}}>
+                                                <View style={{flex: 0.1,}}/>
+                                                <View style={{flex: 0.5}}>
+                                                    <StarRating
+                                                        disabled={false}
+                                                        maxStars={5}
+                                                        rating={4}
+                                                        starSize={14}
+                                                        fullStarColor={'#ffd700'}
+                                                        emptyStar={'star'}
+                                                        iconSet={'FontAwesome'}
+                                                    />
+                                                </View>
+                                                <View style={{flex: 1.4}}>
+                                                    <Text>שירות</Text>
+                                                </View>
+                                            </View>
+
                                         </View>
-                                    </TouchableWithoutFeedback>
-                                </Animated.View>
-                                <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
-                                    {submitButton('בקשת התחברות', 'orangeBorder', () => {
-                                        console.log('submited')
-                                    })}
-                                </View>
+                                    </View>
+                                </TouchableWithoutFeedback>
+                            </Animated.View>
+                            <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
+                                {submitButton('בקשת התחברות', 'orangeBorder', () => {
+                                    console.log('submited')
+                                })}
                             </View>
                         </View>
-                    </TouchableWithoutFeedback>
+                    </View>
+                </TouchableWithoutFeedback>
 
-                </Animated.View>
-            </Swipeout>
-        )
-            ;
+            </Animated.View>
+        );
     }
 }
 

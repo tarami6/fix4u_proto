@@ -16,8 +16,10 @@ import ChooseService from '../screens/addJob/addJobSteps'
 import ChooseAddress from '../screens/addJob/addJobSteps/ChooseAddress';
 import ChooseTime from '../screens/addJob/addJobSteps/ChooseTime';
 import ExplainTheJob from '../screens/addJob/addJobSteps/ExplainTheJob';
-
-import ApplyBaseScreen from '../screens/jobApplyConsumer/screens/ApplyBaseScreenConsumer'
+//open job handling:
+import ApplyBaseScreen from '../screens/jobApplyConsumer/screens/ApplyBaseScreenConsumer';
+import ActionToNoApply from '../screens/jobApplyConsumer/screens/ActionToNoApply';
+import ProsListToConnect from '../screens/jobApplyConsumer/screens/ProsListToConnect';
 
 //Pro Registration imports:
 import PersonalInfo from '../screens/registrationPro/screens/PersonalInfo'
@@ -74,7 +76,7 @@ const AddJobNavigation = StackNavigator({
     },
 
 })
-
+// for consumer mode picking the pro
 const ChooseApplyNavigator = StackNavigator({
     ApplyBaseScreen: {
         screen: ApplyBaseScreen,
@@ -87,7 +89,15 @@ const ChooseApplyNavigator = StackNavigator({
     }
 })
 
-
+//stack navigator for 5 minutes after job has posted to reavluate post
+const NoAppliesNavigator = StackNavigator({
+    ActionToNoApply: {
+        screen: ActionToNoApply,
+    },
+    ProsListToConnect: {
+        screen: ProsListToConnect
+    }
+})
 
 //main drawer navigators : (after auth )
 
@@ -100,6 +110,9 @@ const ProNavigator = DrawerNavigator({
     },
     ApplyBaseScreen: {
         screen: ChooseApplyNavigator
+    },
+    NoAppliesNavigator: {
+        screen: NoAppliesNavigator
     }
 }, {
     contentComponent: CustomDrawer,
@@ -118,6 +131,9 @@ const ConsumerNavigator = DrawerNavigator({
     ApplyBaseScreen: {
         screen: ChooseApplyNavigator
     },
+    NoAppliesNavigator: {
+        screen: NoAppliesNavigator
+    }
 }, {
     contentComponent: CustomDrawer,
     drawerWidth: width

@@ -9,9 +9,6 @@
 
 import {inject, observer} from "mobx-react/native";
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity} from 'react-native'
-import {fetcher} from "../../generalFunc/fetcher";
-import {checkForOpenPost} from "../../config/apiRoutes";
 //component import:
 import LoadinPage from '../../screens/modals/Loader/LoadingPage';
 
@@ -25,21 +22,21 @@ export default class LoadingScreen extends Component {
         header: null
     }
 
-    componentWillMount(){
+    componentWillMount() {
         // this.props.userDataStore.setLoading(true);
         this.props.userDataStore.findAndFocusConsumerJob();
-    //    check for open posts made by the user
+        //    check for open posts made by the user
         this.checkOpenPostsStatAndNavigateConsumer();
 
         // fetcher(checkForOpenPost, 'GET', this.successCallback.bind(this), this.errorCallback.bind(this), {token: this.props.userDataStore.userData.token})
     }
 
-    checkOpenPostsStatAndNavigateConsumer(){
-        let open_post = this.props.userDataStore.userData.user.user_open_posts[0];
-        if(open_post) {
+    checkOpenPostsStatAndNavigateConsumer() {
+        if (this.props.userDataStore.userData.user.user_open_posts.length > 0) {
+            let open_post = this.props.userDataStore.userData.user.user_open_posts[0];
             // res is the openPost
             //case job is open
-            if(open_post.status==='open' || open_post.status==='pending') {
+            if (open_post.status === 'open' || open_post.status === 'pending') {
                 this.props.navigation.navigate('ApplyBaseScreen');
             }
             //job is no open so home is AddJob
@@ -47,7 +44,7 @@ export default class LoadingScreen extends Component {
                 this.props.navigation.navigate('ChooseService');
             }
         }
-        else{
+        else {
             this.props.navigation.navigate('ChooseService');
         }
     }
@@ -77,9 +74,9 @@ export default class LoadingScreen extends Component {
     //     console.log('error cb at addJob LoadingScreen:', err);
     // }
 
-    render(){
-        return(
-            <LoadinPage />
+    render() {
+        return (
+            <LoadinPage/>
         )
     }
 }

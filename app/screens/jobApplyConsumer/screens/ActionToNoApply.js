@@ -1,19 +1,64 @@
 import React from 'react';
-import {StyleSheet, Image, View, TouchableOpacity, Alert} from 'react-native';
+import {Alert, BackHandler, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Text from '../../../components/text/Text'
-import {SH, HH, SW, LinierBackground, mainStyles, mainRed} from "../../../config/styles";
-import {submitButton} from "../../../components/modalSubmitButton";
+import {HH, LinierBackground, mainRed, mainStyles, SH, SW} from "../../../config/styles";
+import {NavigationActions} from "react-navigation";
+import {observer, inject} from "mobx-react/native";
 
+
+@inject("navigationStore")
+@observer
 export default class ActionToNoApply extends React.Component {
     static navigationOptions = {
         header: null
     }
 
+    constructor(props){
+        super(props);
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton.bind(this));
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton.bind(this));
+    }
+
+    handleBackButton() {
+        const {dispatch} = this.props.navigationStore;
+        console.log(this.props.navigationStore.navigationState);
+        const {navigationState} = this.props.navigationStore;
+        // console.log('navigationState',navigationState.index);
+        if (navigationState.index === 0) {
+            // console.warn('exiting app');
+            Alert.alert(
+                'Exit App',
+                'Exiting the application?', [
+                    {
+                        text: 'Cancel',
+                        onPress: () => console.log('Cancel Pressed'),
+                        style: 'cancel'
+                    }, {
+                        text: 'OK',
+                        onPress: () => BackHandler.exitApp()
+                    },], {
+                    cancelable: false
+                }
+            )
+            return true;
+            // return false;
+        }
+        dispatch(NavigationActions.back());
+        return true;
+    }
+
+
     render() {
         return (
             <View style={{flex: 1, backgroundColor: '#ffffff'}}>
-                <View style={{flex: 1, }}>
-                    <View style={{flex: 1,alignItems: 'center', justifyContent: 'flex-end'}}>
+                <View style={{flex: 1,}}>
+                    <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end'}}>
                         <Image
                             style={{width: SW / 10, height: SW / 10, marginBottom: SH / 20}}
                             source={require('../../../../assets/icons/canceling.png')}
@@ -25,7 +70,7 @@ export default class ActionToNoApply extends React.Component {
                             אף אחד לא פנוי בזמן הזה
                         </Text>
                     </View>
-                    <View style={{flex: 1,  alignItems: 'center',}}>
+                    <View style={{flex: 1, alignItems: 'center',}}>
                         <View style={{flex: 1, justifyContent: 'center'}}>
                             <TouchableOpacity onPress={() => Alert.alert('Five minutes again')}>
                                 <LinierBackground>
@@ -34,7 +79,8 @@ export default class ActionToNoApply extends React.Component {
                             </TouchableOpacity>
                         </View>
                         <View style={{flex: 1, justifyContent: 'center'}}>
-                            <TouchableOpacity onPress={() => Alert.alert('Show me List of Pros')}>
+                            <TouchableOpacity onPress={() => this.props.navigationStore.dispatch(NavigationActions.navigate({
+                                routeName: 'ProsListToConnect'}))}>
                                 <LinierBackground>
                                     <View style={{
                                         width: SW - 124,
@@ -57,21 +103,21 @@ export default class ActionToNoApply extends React.Component {
                     </View>
 
                 </View>
-                <View style={{flex: 0.4,  alignItems: 'center', justifyContent: 'center'}}>
+                <View style={{flex: 0.4, alignItems: 'center', justifyContent: 'center'}}>
                     <TouchableOpacity onPress={() => Alert.alert('Show me List of Pros')}>
-                            <View style={{
-                                width: SW - 124,
-                                height: HH - 4,
-                                borderRadius: 30,
-                                margin: 1,
-                                backgroundColor: mainRed,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                paddingRight: 40,
-                                paddingLeft: 40
-                            }}>
-                                <Text style={[mainStyles.buttonText, {color: '#fff'}]}> בטל </Text>
-                            </View>
+                        <View style={{
+                            width: SW - 124,
+                            height: HH - 4,
+                            borderRadius: 30,
+                            margin: 1,
+                            backgroundColor: mainRed,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            paddingRight: 40,
+                            paddingLeft: 40
+                        }}>
+                            <Text style={[mainStyles.buttonText, {color: '#fff'}]}> בטל </Text>
+                        </View>
                     </TouchableOpacity>
                 </View>
 

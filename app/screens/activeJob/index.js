@@ -34,6 +34,7 @@ export default class ActiveJob extends Component {
     }
 
     handleBackButton = () => {
+        console.warn("active job index backHandler pressed")
         this.props.navigation.goBack();
         return true;
     }

@@ -7,7 +7,7 @@ import Panel from '../../../components/infoItem/Panel'
 import InfoItem from '../../../components/InfoItem';
 import {SW, SH} from "../../../config/styles";
 
-data = [
+let data = [
     {
         name: 'אבי חשמל בע"ם',
         service: 'חשמלאי',
@@ -81,7 +81,7 @@ export default class ProsListToConnect extends React.Component {
                     <LinearViewBelowHeaderConsumer>
                         < Header
                             head={'AddJob'}
-                            previousPage={'ApplyBaseScreen'}
+                            props={this.props}
                         />
                         <View style={styles.row}>
                             {/*Time counter*/}
@@ -115,8 +115,6 @@ export default class ProsListToConnect extends React.Component {
                                 backgroundColor: 'transparent',
                             }}>
                                 <Panel user={item}/>
-
-
                                 {/*{index === job2.post_applies.length - 1 ?*/}
                                 {/*<LinearGradient colors={['rgba(0, 0, 0, 0.2)', 'rgba(0, 0, 0, 0)']}*/}
                                 {/*style={{width: SW, height: 3}}/>*/}

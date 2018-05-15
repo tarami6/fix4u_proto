@@ -20,6 +20,7 @@ export default class ScheduleConsumer1 extends React.Component {
     }
 
     handleBackButton = () => {
+        console.warn("schedule consumer backHandler")
         this.props.navigation.goBack();
         return true;
     }
