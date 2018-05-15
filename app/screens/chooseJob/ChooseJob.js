@@ -48,6 +48,10 @@ export default class ChooseJob extends Component {
     }
 
     componentWillMount() {
+        if(this.props.userDataStore.currentUserType === "consumer"){
+            this.props.navigation.navigate('AddJob')
+        }
+        console.warn('THIS', this.props.userDataStore.currentUserType);
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         //remove all pro open notifications since he is now seeing the jobs
         // **** should later be removed each open notification when he actually observe the new post/job ****

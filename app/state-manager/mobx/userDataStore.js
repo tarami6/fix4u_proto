@@ -3,12 +3,15 @@
  * notes:
  * "post" = "job"
  **/
-
+import {AsyncStorage} from 'react-native'
 import {action, observable} from 'mobx'
 
 
 export default class UserDataStore {
     //This object is the response from the database stragiht after authentication
+
+    @observable userTypeChecked = false;
+
     @observable userData = {};
     @observable userType = ''; //this is the the general user type, if he have a pro account he will always stay pro here
     @observable currentUserType = '';
@@ -33,11 +36,32 @@ export default class UserDataStore {
 
     //user and userData editing:
     @action setUserType(type: string) {
+
         this.userType = type;
-        this.currentUserType = type
+
+        if (type === "pro") {
+            if (!this.userTypeChecked) {
+                this.userTypeChecked = true;
+                AsyncStorage.getItem("GetServiceUserType").then((value) => {
+                    let userType = JSON.parse(value);
+                    this.currentUserType = userType
+                }).catch((err) => {
+                    this.currentUserType = type;
+                    console.warn('err in setUserType', err)
+                })
+            }
+            else {
+                this.currentUserType = type;
+            }
+        }
+        else {
+            this.currentUserType = type;
+        }
+
     }
 
     @action setCurrentUserType(type: string) {
+        AsyncStorage.setItem('GetServiceUserType', JSON.stringify(type));
         this.currentUserType = type
     }
 

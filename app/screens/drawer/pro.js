@@ -100,7 +100,7 @@ export default class Pro extends Component {
             )
         }
 
-        if (this.state.currentDrawer === 'pro') {
+        if (this.props.userDataStore.currentUserType === 'pro') {
             let consumerNotificationsLength = this.props.notificationsStore.consumerNotifications.active.length +
                 this.props.notificationsStore.consumerNotifications.open.length;
             ////////// PRO MODE //////////
