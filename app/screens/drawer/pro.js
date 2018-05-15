@@ -2,7 +2,8 @@
 
 import React, {Component} from 'react';
 import {Alert, AsyncStorage, Dimensions, Image, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Icon, List, ListItem, Text} from 'native-base';
+import {Icon, List, ListItem} from 'native-base';
+import Text from '../../components/text/Text'
 import LinearGradient from 'react-native-linear-gradient';
 import Circle from '../../components/circle'
 import {inject, observer} from "mobx-react/native";

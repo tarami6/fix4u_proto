@@ -7,13 +7,13 @@ import {
     Platform,
     ScrollView,
     StyleSheet,
-    Text,
     TextInput,
     TouchableHighlight,
     TouchableOpacity,
     UIManager,
     View
 } from 'react-native';
+import Text from '../../../../components/text/Text'
 import Header from '../../../../components/headers/Header';
 import InfoItem from '../../../../components/InfoItem';
 import {SW, SH, GOLD} from "../../../../config/styles";

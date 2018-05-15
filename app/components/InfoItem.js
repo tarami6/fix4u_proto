@@ -8,6 +8,7 @@ import UserProRender from './infoItem/UserProRender';
 import ActiveJobRender from './infoItem/ActiveJobRender';
 import ApplyRender from './infoItem/ApplyRender'
 import ConsumerRender from './infoItem/ConsumerRender'
+import ProListWithDistance from './infoItem/ProListWithDistance'
 // mobx
 
 export default class InfoItem extends React.Component {
@@ -24,6 +25,11 @@ export default class InfoItem extends React.Component {
         if (this.props.type === 'consumer') {
             return (
                 <ConsumerRender user={this.props.info}/>
+            )
+        }
+        if (this.props.type === 'proList') {
+            return (
+                <ProListWithDistance user={this.props.info}/>
             )
         }
         // data is a USER_PRO object

@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {Alert, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Alert, StyleSheet, TextInput, View} from 'react-native';
+import Text from '../../../../components/text/Text'
 import Header from '../../../../components/headers/Header'
 import InfoItem from '../../../../components/InfoItem'
 import StarRating from 'react-native-star-rating';

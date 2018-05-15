@@ -1,6 +1,6 @@
 import React from 'react';
-import {Alert, BackHandler, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-
+import {Alert, BackHandler, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import Text from '../../../components/text/Text'
 import {HH, mainStyles, SH, SW} from "../../../config/styles";
 import {submitButton} from "../../../components/modalSubmitButton";
 

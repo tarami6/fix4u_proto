@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Alert, Image, Text, TextInput, View} from "react-native";
+import {Alert, Image, TextInput, View} from "react-native";
 import {fontGrey, mainStyles, mediumFont, SW} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 import {submitButton} from "../../../components/modalSubmitButton";
@@ -7,6 +7,7 @@ import {fetcher} from "../../../generalFunc/fetcher";
 import styles from './styles'
 import {loginRoute, phoneVerifyRoute} from "../../../config/apiRoutes";
 import {handlePushyToken} from "../../../generalFunc/pushyTokenHandler";
+import Text from '../../../components/text/Text'
 
 @inject('modalsStore')
 @inject("userDataStore")
@@ -93,10 +94,10 @@ export default class PhoneVerify extends Component {
                 <View style={{flex: 1.3, justifyContent: 'center', alignItems: 'center'}}>
                     <Image style={{width: SW / 2.5, height: SW / 2.5,}}
                            source={require('../../../../assets/registration/code4digitsBack.png')}/>
-                    <Text style={{fontSize: mediumFont}}> קוד אימות נשלח ב SMS</Text>
+                    <Text type={'greySmallNote'} > קוד אימות נשלח ב SMS</Text>
                 </View>
                 <View style={{flex: 1, alignItems: 'center'}}>
-                    <Text style={[mainStyles.greyTitle, {paddingBottom: 10}]}>הכנס קוד אימות</Text>
+                    <Text type={"greyTitle"} style={{paddingBottom: 10}}>הכנס קוד אימות</Text>
                     <View style={styles.inputContainer}>
                         <TextInput
                             ref={ref => this.codeInput = ref}

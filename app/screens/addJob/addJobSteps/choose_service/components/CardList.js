@@ -3,15 +3,16 @@
 import React from 'react';
 import {
   View,
-  Text,
   Dimensions,
   StyleSheet,
 } from 'react-native';
-import { Card, CardItem } from 'native-base'
+import Text  from "../../../../../components/text/Text"  ;
+import { Card, CardItem } from 'native-base';
 
 import { CardRow } from './index'
 
 import {SW, mainStyles} from "../../../../../config/styles";
+
 
 const data = [
     {service: 'חשמלאי', state: 'Electrician'},
@@ -65,7 +66,7 @@ class CardList extends React.Component {
   render() {
       return (
           <View style={{marginTop: -105}}>
-              <Text style={[mainStyles.whiteTitle,{marginBottom:20, fontFamily: "Rubik"}]}>
+              <Text type={'whiteTitle'}>
                   איזה שירות תרצה לבחור היום?
               </Text>
               <View style={styles.containerServices}>

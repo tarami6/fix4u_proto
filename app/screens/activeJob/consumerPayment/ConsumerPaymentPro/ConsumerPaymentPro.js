@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {Alert, Text, TouchableOpacity, View} from 'react-native';
+import {Alert,  TouchableOpacity, View} from 'react-native';
+import Text from '../../../../components/text/Text'
 //config
 import {fetcher} from "../../../../generalFunc/fetcher";
 import {startJobRoute} from "../../../../config/apiRoutes";

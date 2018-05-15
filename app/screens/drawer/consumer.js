@@ -12,13 +12,14 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import {Icon, List, ListItem, Text} from 'native-base';
+import {Icon, List, ListItem} from 'native-base';
+import Text from '../../components/text/Text'
 import LinearGradient from 'react-native-linear-gradient';
 import Circle from '../../components/circle'
 import {inject, observer} from "mobx-react/native";
 import {logOutRoute} from "../../config/apiRoutes";
 import {fetcher} from "../../generalFunc/fetcher";
-import PlusIcon from 'react-native-vector-icons/EvilIcons'
+import PlusIcon from 'react-native-vector-icons/Feather'
 import {NavigationActions} from "react-navigation";
 
 
@@ -139,7 +140,7 @@ const Navbar = (props) => {
                         marginRight: 20
                     }}>{props.user.name}</Text> :
                     <TouchableOpacity>
-                        <Text style={{color: '#ffffff'}}> הכנס שם +</Text>
+                        <Text style={{color: '#ffffff', paddingRight: 10}}> הכנס פרטים</Text>
                     </TouchableOpacity>
                 }
                 {props.user && props.user.profile_pic_thumb ?
@@ -148,8 +149,10 @@ const Navbar = (props) => {
                         style={{height: 60, width: 60, borderRadius: 100}}/> :
 
                     <TouchableOpacity style={{alignItems: 'center'}}>
-                        <PlusIcon name="plus" size={80} color={"#ffffff"}/>
-                        <Text style={{fontSize: 10, color: '#ffffff'}}>הכנס תמונה</Text>
+                        <View style={{borderRadius: 200, backgroundColor: '#D8D8D8', padding: 15}}>
+                             <PlusIcon name="plus" size={40} color={"#ffffff"}/>
+                        </View>
+
                     </TouchableOpacity>
                 }
             </View>

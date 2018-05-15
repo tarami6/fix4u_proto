@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {Alert, Image, Modal, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, Modal, StyleSheet, TouchableHighlight, TouchableOpacity, View} from 'react-native';
+import Text from '../../../../components/text/Text'
 import Header from '../../../../components/headers/Header'
 import InfoItem from '../../../../components/InfoItem'
 import OrangeCircle from '../../../../components/OrangeCircle'

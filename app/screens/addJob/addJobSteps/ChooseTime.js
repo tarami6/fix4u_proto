@@ -5,12 +5,12 @@ import {
     Image,
     Platform,
     StyleSheet,
-    Text,
     TouchableHighlight,
     TouchableWithoutFeedback,
     View,
     Alert
 } from 'react-native';
+import Text from '../../../components/text/Text'
 // Components
 import LinierView from '../../../components/linierView';
 import {submitButton} from "../../../components/modalSubmitButton";
@@ -127,7 +127,7 @@ export default class ChooseTime extends React.Component {
                         />
                     </View>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={mainStyles.whiteTitle}>
+                        <Text type={'whiteTitle'} >
                             {hebrewServices[this.props.addJobStore.newJobInfo.service]}
                         </Text>
                     </View>

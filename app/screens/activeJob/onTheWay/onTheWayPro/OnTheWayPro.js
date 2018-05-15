@@ -2,7 +2,8 @@
 import {fetcher} from "../../../../generalFunc/fetcher";
 import {startJobRoute} from "../../../../config/apiRoutes";
 import React from 'react';
-import {Alert, Image, Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, Modal, StyleSheet, TouchableOpacity, View} from 'react-native';
+import Text from '../../../../components/text/Text'
 //mobx
 import {inject, observer} from "mobx-react/index";
 //config:

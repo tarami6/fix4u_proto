@@ -26,7 +26,7 @@ export let absoluteContainer = {
 // COLOR
 export let mainColor = '#F5A623';
 export let secondaryColor = '#FB6717';
-export let mainRed = '#D0021B';
+export let mainRed = '#FF4343';
 export let grey = '#CCCCCC';
 export let backgroundGrey = '#f6f6f6'
 export let fontGrey = '#7f7f7f';
@@ -39,6 +39,7 @@ export let SH = Dimensions.get('window').height;
 export let HH = SH / 11.625
 export let PaddingSize = SW - SW / 16;
 export let stretchMinimum = SH / 16;
+export let Pad = SW /20;
 // FONT
 export let basicIconFont = 30;
 export let largeFont = 20;
@@ -46,6 +47,8 @@ export let buttonFont = 18;
 export let infoWhiteFont = 16;
 export let mediumFont = 14
 export let smallFont = 11;
+let mainFontBold = 'Rubik-Bold';
+let mainFont = 'Rubik';
 
 export const
     LinierBackground = (props) => {
@@ -68,27 +71,42 @@ export const
     }
 
 export let mainStyles = StyleSheet.create({
+    // Text
+    whiteTitle:{
+        fontFamily: mainFontBold,
+        fontSize: largeFont,
+        color: '#ffffff',
+        textAlign: 'center'
+    },
+    button:{
+        fontFamily: mainFontBold,
+        color: '#ffffff',
+        fontSize: largeFont,
+    },
+    greySmallNote:{
+        fontFamily: mainFont,
+        fontSize: mediumFont,
+    },
+    p:{
+        fontFamily: mainFont,
+    },
+    greyTitle: {
+        fontFamily: mainFontBold,
+        fontSize: 18,
+        color: fontGrey,
+
+    },
     buttonText: {
         color: '#fff',
-        fontWeight: 'bold',
+        fontFamily: mainFontBold,
         fontSize: buttonFont,
 
     },
-    greyTitle: {
-        fontSize: 18,
-        color: fontGrey,
-        fontWeight: 'bold'
-    },
-    whiteTitle: {
-        fontSize: 18,
-        color: '#fff',
-        alignSelf: 'center',
-        fontFamily: 'Rubik'
-    },
+
     infoWhiteText: {
         color: '#fff',
         fontSize: 16,
-        fontWeight: 'bold'
+        fontFamily: mainFontBold,
     },
     threeStepsIndicator:{
         width: '30%', height: '45%',
