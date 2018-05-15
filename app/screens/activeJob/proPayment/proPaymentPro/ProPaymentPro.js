@@ -171,7 +171,6 @@ export default class ProPaymentPro extends React.Component {
                     <View style={{flex: 0.5,}}>
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                             <View style={{flex: 1, alignItems: 'flex-start', justifyContent: 'center'}}>
-                                <Text style={{fontSize: 16, color: '#000'}}>{(this.state.fee?(currentJob.service_fee+parseInt(this.state.fee)* 1.17).toFixed(2): (currentJob.service_fee* 1.17).toFixed(2))} ש"ח</Text>
                                 <Text style={{
                                     fontSize: 16,
                                     color: '#000'
@@ -180,7 +179,6 @@ export default class ProPaymentPro extends React.Component {
                                     (currentJob.service_fee * 1.17).toFixed(2))}
                                     ש"ח
                                 </Text>
->>>>>>> 67d5e903d1c309a12850ec98acadcd41a0e32607
                             </View>
                             <View style={{flex: 1, justifyContent: 'center'}}>
                                 <Text style={{fontSize: 16, color: '#000'}}>סה"כ</Text>
