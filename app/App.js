@@ -119,8 +119,8 @@ let handleNotificationData = (type, payload) => {
             openJobsStore.addJob(payload);
             break;
         case 'pro_applied': // when a consumer get post apply
-            if (userDataStore.currentUserType === "consumer") {
-                notificationsStore.removeOpenPostsNotifications('consumer', userDataStore.userData.token, payload.id)
+            if (userDataStore.currentUserType === "consumer" || userDataStore.userType === "consumer") {
+                notificationsStore.removeOpenPostsNotifications('consumer', userDataStore.userData.token, payload.id, true)
             }
             else {
                 notificationsStore.addPostsNotification('open', payload.id, 'consumer');
