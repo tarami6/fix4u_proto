@@ -143,7 +143,7 @@ const Navbar = (props) => {
         <View style={{width: SW, height: Platform.OS == 'ios' ? 150 : 135,}}>
             <View style={{flexDirection: 'row'}}>
                 <View style={{flex: 1}}>
-                    <TouchableOpacity onPress={() => props.navigation.navigate('DrawerClose')}>
+                    <TouchableOpacity onPress={() => props.navigation.goBack(() => {props.navigation.navigate('DrawerOpen')})}>
                         <Icon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
                     </TouchableOpacity>
                 </View>

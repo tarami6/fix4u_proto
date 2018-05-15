@@ -10,9 +10,13 @@ import {inject, observer} from "mobx-react/native";
 //func and config
 import {fetcher} from "../../generalFunc/fetcher";
 import {logOutRoute} from "../../config/apiRoutes";
-import {NavigationActions} from "react-navigation";
+import {NavigationActions, DrawerNavigator} from "react-navigation";
+
+
+
 
 const {width, height} = Dimensions.get('window')
+
 
 @inject("notificationsStore")
 @inject("userDataStore")
@@ -148,7 +152,7 @@ export default class Pro extends Component {
                         </ListItem>
                         <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
                             <TouchableOpacity onPress={() => {
-                                Alert.alert('בפיתוח... כאן יהיה הגדרות החשבון שלך')
+                                this.props.navigation.navigate('AccountSettings')
                             }}>
                                 <Text style={{color: 'gray', fontWeight: 'bold'}}>הגדרות חשבון</Text>
                             </TouchableOpacity>

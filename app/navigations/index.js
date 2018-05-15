@@ -36,7 +36,10 @@ import {inject, observer} from "mobx-react/native";
 //Schedule
 import Schedule from "../screens/schedule";
 //Active job
-import ActiveJob from '../screens/activeJob'
+import ActiveJob from '../screens/activeJob';
+// Drawer
+import AccountSettings from '../screens/drawer/screens/AccountSettings'
+
 
 const {width} = Dimensions.get('window')
 
@@ -114,7 +117,7 @@ const ConsumerNavigator = DrawerNavigator({
     },
     ApplyBaseScreen: {
         screen: ChooseApplyNavigator
-    }
+    },
 }, {
     contentComponent: CustomDrawer,
     drawerWidth: width
@@ -160,6 +163,7 @@ const GeneralAuth = StackNavigator({
     }
 })
 
+
 export default AppNavigation = StackNavigator({
     Intro: {
         screen: Intro
@@ -184,7 +188,7 @@ export default AppNavigation = StackNavigator({
     },
     ActiveJob: {
         screen: ActiveJob
-    }
+    },
 
 }, {
     navigationOptions: {

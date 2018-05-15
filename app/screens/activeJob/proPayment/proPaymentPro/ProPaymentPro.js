@@ -3,7 +3,6 @@ import {Alert, StyleSheet, Text, TextInput, View} from 'react-native';
 //config
 import {fetcher} from "../../../../generalFunc/fetcher";
 import {startJobRoute} from "../../../../config/apiRoutes";
-import {numbersOnlyByLengthValidator} from "../../../../generalFunc/validators";
 //mobx
 import {inject, observer} from "mobx-react/index";
 import {SW} from "../../../../config/styles";
@@ -38,21 +37,21 @@ export default class ProPaymentPro extends React.Component {
         if (this.state.fee) {
             // let errors = numbersOnlyByLengthValidator(this.state.fee, 6);
             // if(errors.length===0) {
-                let fee = this.state.fee;
-                let route = startJobRoute(this.props.userDataStore.focusedJob.id);
-                let totalFee = parseInt(fee) + parseInt(this.props.userDataStore.focusedJob.service_fee);
-                let sendObj = {
-                    status: 'consumer_payment',
-                    work_fee: fee,
-                    total_fee: totalFee
-                };
-                console.warn("dasda", sendObj.total_fee)
-                let headers = {
-                    'Accept': `application/json`,
-                    'content-type': 'application/json',
-                    'Authorization': 'JWT ' + this.props.userDataStore.userData.token
-                };
-                fetcher(route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers)
+            let fee = this.state.fee;
+            let route = startJobRoute(this.props.userDataStore.focusedJob.id);
+            let totalFee = parseInt(fee) + parseInt(this.props.userDataStore.focusedJob.service_fee);
+            let sendObj = {
+                status: 'consumer_payment',
+                work_fee: fee,
+                total_fee: totalFee
+            };
+            console.warn("dasda", sendObj.total_fee)
+            let headers = {
+                'Accept': `application/json`,
+                'content-type': 'application/json',
+                'Authorization': 'JWT ' + this.props.userDataStore.userData.token
+            };
+            fetcher(route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers)
             // }
             // else {
             //     for(let i =0; i<errors.length; i++){
@@ -77,9 +76,8 @@ export default class ProPaymentPro extends React.Component {
     }
 
 
-
     render() {
-        let a =new Date(this.props.userDataStore.focusedJob.job_start_time)
+        let a = new Date(this.props.userDataStore.focusedJob.job_start_time)
         let currentJob = this.props.userDataStore.focusedJob;
         return (
             <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center'}}>
@@ -173,7 +171,14 @@ export default class ProPaymentPro extends React.Component {
                     <View style={{flex: 0.5,}}>
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                             <View style={{flex: 1, alignItems: 'flex-start', justifyContent: 'center'}}>
-                                <Text style={{fontSize: 16, color: '#000'}}>{(this.state.fee?(currentJob.service_fee+parseInt(this.state.fee)* 1.17).toFixed(2): (currentJob.service_fee* 1.17).toFixed(2))} ש"ח</Text>
+                                <Text style={{
+                                    fontSize: 16,
+                                    color: '#000'
+                                }}>{(this.state.fee ?
+                                    (currentJob.service_fee + parseInt(this.state.fee) * 1.17).toFixed(2) :
+                                    (currentJob.service_fee * 1.17).toFixed(2))}
+                                    ש"ח
+                                </Text>
                             </View>
                             <View style={{flex: 1, justifyContent: 'center'}}>
                                 <Text style={{fontSize: 16, color: '#000'}}>סה"כ</Text>
