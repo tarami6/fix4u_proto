@@ -141,7 +141,7 @@ export default class Pro extends Component {
                                 flexDirection: 'row'
                             }}>
                                 <View style={{marginLeft: 50}}>
-                                    <Circle qty={22}/>
+                                    <Circle qty={0}/>
                                 </View>
                                 <TouchableOpacity onPress={() => {
                                     Alert.alert('בפיתוח... כאן יהיו כל חשבוניות שלך')
@@ -220,7 +220,7 @@ export default class Pro extends Component {
                                 flexDirection: 'row'
                             }}>
                                 <View style={{marginLeft: 50}}>
-                                    <Circle qty={22}/>
+                                    <Circle qty={0}/>
                                 </View>
                                 <TouchableOpacity onPress={() => {
                                     Alert.alert('בפיתוח... כאן יהיו כל חשבוניות שלך')

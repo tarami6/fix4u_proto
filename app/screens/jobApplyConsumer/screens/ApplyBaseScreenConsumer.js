@@ -66,33 +66,33 @@ export default class ApplyBaseScreen extends React.Component {
 
 
     navigateToNoAppliesNavigator(){
-        let actionToDispatch;
-        if(this.props.userDataStore.userType === "pro"){
-            actionToDispatch = NavigationActions.reset({
-                index: 0,
-                key: null,
-                actions: [
-                    NavigationActions.navigate({
-                        routeName: 'ProNavigator',
-                        action: NavigationActions.navigate({routeName: 'NoAppliesNavigator'}),
-                    })
-                ],
-            });
-        }
-        else {
-            actionToDispatch = NavigationActions.reset({
-                index: 0,
-                key: null,
-                actions: [
-                    NavigationActions.navigate({
-                        routeName: 'ConsumerNavigator',
-                        action: NavigationActions.navigate({routeName: 'NoAppliesNavigator'}),
-                    })
-                ],
-            });
-        }
-
-        this.props.navigation.dispatch(actionToDispatch)
+        // let actionToDispatch;
+        // if(this.props.userDataStore.userType === "pro"){
+        //     actionToDispatch = NavigationActions.reset({
+        //         index: 0,
+        //         key: null,
+        //         actions: [
+        //             NavigationActions.navigate({
+        //                 routeName: 'ProNavigator',
+        //                 action: NavigationActions.navigate({routeName: 'NoAppliesNavigator'}),
+        //             })
+        //         ],
+        //     });
+        // }
+        // else {
+        //     actionToDispatch = NavigationActions.reset({
+        //         index: 0,
+        //         key: null,
+        //         actions: [
+        //             NavigationActions.navigate({
+        //                 routeName: 'ConsumerNavigator',
+        //                 action: NavigationActions.navigate({routeName: 'NoAppliesNavigator'}),
+        //             })
+        //         ],
+        //     });
+        // }
+        //
+        // this.props.navigation.dispatch(actionToDispatch)
     }
 
 
@@ -122,7 +122,7 @@ export default class ApplyBaseScreen extends React.Component {
             // **** TIMES PASSED !!!! when loading the app (not on screen)
             console.warn("ur time already finished");
             clearInterval(this.interval);
-            this.navigateToNoAppliesNavigator();
+            // this.navigateToNoAppliesNavigator();
         }
 
         else {
@@ -153,7 +153,7 @@ export default class ApplyBaseScreen extends React.Component {
                     console.warn("timer stoped by timeToEndTimer ==0 ");
                     this.setState({diff: '00:00'});
                     clearInterval(this.interval);
-                    this.navigateToNoAppliesNavigator();
+                    // this.navigateToNoAppliesNavigator();
                 }
 
             }, 1000);
@@ -178,7 +178,7 @@ export default class ApplyBaseScreen extends React.Component {
         if (currentDate.getTime() > jobDate.getTime()) {
             // **** TIMES PASSED !!!! when loading the app (not on screen)
             console.warn('times up!');
-            this.navigateToNoAppliesNavigator();
+            // this.navigateToNoAppliesNavigator();
         }
         console.log('timerrrr', this.props.userDataStore.focusedConsumerJob.created_at)
         this.timeRemaining(this.props.userDataStore.focusedConsumerJob.created_at)

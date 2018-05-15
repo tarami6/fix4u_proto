@@ -88,7 +88,7 @@ export default class Consumer extends Component {
                     <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
                         <View style={{width, justifyContent: 'space-between',alignItems:'center', flexDirection: 'row'}}>
                             <View style={{marginLeft: 50}}>
-                                <Circle qty={22}/>
+                                <Circle qty={0}/>
                             </View>
                             <TouchableOpacity onPress={() => {
                                 Alert.alert('בפיתוח... כאן יהיו כל חשבוניות שלך')

@@ -15,9 +15,10 @@ import {
 } from 'react-native';
 import Text from '../../../components/text/Text'
 import Header from '../../../components/headers/Header';
+import {SH, SW} from "../../../config/styles";
+//components
 import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHeaderConsumer';
 import ImagePicker from "react-native-image-picker";
-import {SH, SW} from "../../../config/styles";
 import StarIcon from 'react-native-vector-icons/FontAwesome';
 import StarRating from 'react-native-star-rating';
 import {submitButton} from "../../../components/modalSubmitButton";
