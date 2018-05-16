@@ -76,7 +76,7 @@ export default class ChooseJob extends Component {
         this.props.notificationsStore.removeOpenPostsNotifications('pro');
 
         this.mounted = true;
-        this.getOpenJobs(this.props.openJobsStore.openJobsList);
+        // this.getOpenJobs(this.props.openJobsStore.openJobsList);
         let body = {
             token: this.props.userDataStore.userData.token
         }
@@ -86,7 +86,7 @@ export default class ChooseJob extends Component {
             fetcher(getOpenPostsRoute, 'GET', this.successCallback.bind(this), this.errorCallback.bind(this), body);
         }
 
-        this.checkJobsInterval();
+        // this.checkJobsInterval();
     }
 
     componentDidMount() {
@@ -102,22 +102,22 @@ export default class ChooseJob extends Component {
 
     // here we set the state to choose what sjobs to display to the user:
     getOpenJobs(jobs: Array) {
-        let newJobs = [];
-        for (let i = 0; i < jobs.length; i++) {
-            if (jobs[i].status === 'open') {
-                //Here I set the jobs I want to show to the user:
-                // console.log('this.checkIfUserApplied(jobs[i])', this.checkIfUserApplied(jobs[i]));
-                // console.log('newJobs:', newJobs);
-                if (!jobs[i].did_i_apply) {
-                    newJobs.push(jobs[i]);
-                }
-            }
-        }
-        if (this.mounted) {
-            this.setState({openJobsList: newJobs}, () => {
-                // console.warn('got jobs!');
-            })
-        }
+        // let newJobs = [];
+        // for (let i = 0; i < jobs.length; i++) {
+        //     if (jobs[i].status === 'open') {
+        //         //Here I set the jobs I want to show to the user:
+        //         // console.log('this.checkIfUserApplied(jobs[i])', this.checkIfUserApplied(jobs[i]));
+        //         // console.log('newJobs:', newJobs);
+        //         if (!jobs[i].did_i_apply) {
+        //             newJobs.push(jobs[i]);
+        //         }
+        //     }
+        // }
+        // if (this.mounted) {
+        //     this.setState({openJobsList: newJobs}, () => {
+        //         // console.warn('got jobs!');
+        //     })
+        // }
     }
 
 
@@ -141,14 +141,14 @@ export default class ChooseJob extends Component {
     }
 
     //as it sounds
-    checkJobsInterval() {
-        this.jobsInterval = setInterval(() => {
-            this.getOpenJobs(this.props.openJobsStore.openJobsList);
-            if (!this.mounted) {
-                clearInterval(this.jobsInterval);
-            }
-        }, 2000)
-    }
+    // checkJobsInterval() {
+    //     this.jobsInterval = setInterval(() => {
+    //         this.getOpenJobs(this.props.openJobsStore.openJobsList);
+    //         if (!this.mounted) {
+    //             clearInterval(this.jobsInterval);
+    //         }
+    //     }, 2000)
+    // }
 
 
     render() {
@@ -162,7 +162,7 @@ export default class ChooseJob extends Component {
                 </View>
                 {/*Map component: */}
                 <MapComponent onMarkerPress={this.onMarkerPress.bind(this)}
-                              usersPlaces={this.state.openJobsList}/>
+                              usersPlaces={openJobsList}/>
                 <View style={{position: 'absolute', top: HH}}>
                     {/*Waiting for confirmation*/}
 

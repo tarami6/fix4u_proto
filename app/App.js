@@ -137,6 +137,7 @@ let handleNotificationData = (type, payload) => {
             userDataStore.focusJob(payload);
             break;
         case 'pro_update_post':
+            console.warn(userDataStore.focusedJob.id);
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
                 notificationsStore.removePostNotifications('active', payload.id, 'consumer', userDataStore.userData.token)

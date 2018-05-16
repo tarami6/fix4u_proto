@@ -5,6 +5,8 @@ let defaultHeader = {
     'Content-Type': 'application/json',
 }
 
+let errCBActivated = false;
+
 export const
     fetcher = (route, method, successCallback, errorCallback, body={}, headers=defaultHeader) =>{
     let sendBody;
@@ -38,6 +40,12 @@ export const
     }
 
     console.log('allSentInfo:', route, method, successCallback, errorCallback, body, headers)
+    //     let fetchWaitTime = 10;
+    //     setTimeout(()=>{
+    //         console.log('too long');
+    //         errCBActivated = true;
+    //         errorCallback('too long, ' + fetchWaitTime + 'seconds has passed since fetch start')
+    //     },10000);
         fetch(`${mainRoute}/${route}`, {
             method: method,
             headers: headers,
@@ -49,6 +57,8 @@ export const
             })
             .catch(error => {
                 console.log('fetch error to route:', route, error);
-                errorCallback(error)
+                if(!errCBActivated) {
+                    errorCallback(error)
+                }
             });
     }

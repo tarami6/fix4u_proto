@@ -105,13 +105,10 @@ export default class Panel extends React.Component {
         this.setState({
             maxHeight: event.nativeEvent.layout.height
         });
-        console.log("dsdsss32", this.state.maxHeight)
     }
 
     _setMaxHeightInner(event) {
         let max = event.nativeEvent.layout.height;
-        console.log("dsd", max)
-        console.log("dsd3232", this.state.maxHeight)
         this.setState({
             maxHeightInner: max,
         });
