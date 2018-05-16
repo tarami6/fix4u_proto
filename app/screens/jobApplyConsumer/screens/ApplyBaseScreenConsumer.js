@@ -59,7 +59,6 @@ export default class ApplyBaseScreen extends React.Component {
 
 
     componentWillUnmount() {
-        console.warn("yooo")
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
         clearInterval(this.interval)
     }

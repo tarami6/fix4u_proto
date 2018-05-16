@@ -85,8 +85,6 @@ export default class SchedulePro1 extends React.Component {
     }
 
     render() {
-
-        console.log('yoooooooo', this.props.userDataStore.userData.user.pro_posts);
         const swipeSettings = {
             autoClose: true,
             onClose: (secId, rowID, direction) => {

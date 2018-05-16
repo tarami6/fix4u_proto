@@ -147,12 +147,13 @@ let handleNotificationData = (type, payload) => {
             userDataStore.updateActivePost(payload);
             break;
         case 'consumer_paid': // this is the route for updating the pro_posts
+            notificationsStore.removePostNotifications('active', payload.id, 'pro', userDataStore.userData.token)
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
-                notificationsStore.removePostNotifications('active', payload.id, 'pro', userDataStore.userData.token)
+                // notificationsStore.removePostNotifications('active', payload.id, 'pro', userDataStore.userData.token)
             }
             else {
-                notificationsStore.addPostsNotification('active', payload.id, 'pro');
+                // notificationsStore.addPostsNotification('active', payload.id, 'pro');
             }
             userDataStore.removeProPost(payload.id);
         case 'open_post_remove':
