@@ -135,6 +135,7 @@ export default class SchedulePro1 extends React.Component {
                 <View style={{flex: 1}}>
                     {this.props.userDataStore.userData.user.pro_posts.map((item)=>{
                         return (
+                            <View key={item.id}>
                     <Swipeout {...swipeSettings}>
                             <TouchableHighlight onPress={() => this.chooseJob(item)}
                                                 key={item.id}
@@ -148,6 +149,7 @@ export default class SchedulePro1 extends React.Component {
                                 <InfoItem type={'consumer'} info={item}/>
                             </TouchableHighlight>
                     </Swipeout>
+                            </View>
                         )
                     })}
                 </View>
