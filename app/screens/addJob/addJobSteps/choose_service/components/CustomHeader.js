@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
   },
   rightButton : {
     paddingRight: 20,
-    // paddingLeft: 20,
   },
   counter : {
     position: 'absolute',
@@ -82,7 +81,4 @@ const styles = StyleSheet.create({
   }
 });
 
-[{
-  id:'1',
 
-}]

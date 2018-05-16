@@ -30,43 +30,60 @@ export default class HeadrConsumer extends Component {
                     props.navigation.setParams({
                         drawerOpen: true,
                     });
-                }}>
+
+                }}
+                >
                     <Image
                         style={{width: SW / 20, height: SW / 20}}
                         source={require('../../../../assets/icons/Menu.png')}/>
 
 
-
                 </TouchableOpacity>
-                {numNotification > 0  ?
-                        <Text style={{
-                            height: 20,
-                            width: 20,
-                            borderRadius: 100,
-                            borderWidth: 0.5,
-                            borderColor: '#fff',
-                            backgroundColor: mainRed,
-                            textAlign: 'center',
-                            textAlignVertical: 'center',
-                            color: '#fff',
-                            position: 'absolute',
-                            left: SW / 25,
-                            top:SW / 25,
-                        }}>
+                {numNotification > 0 ?
+                    <TouchableOpacity onPress={() => {
+                        props.navigation.navigate('DrawerOpen')
+                        props.navigation.setParams({
+                            drawerOpen: true,
+                        });
+
+                    }}
+                                      pointerEvents="none"
+                                      style={{
+                                          position: 'absolute',
+                                          left: SW / 30,
+                                          top: SW / 30,
+                                          height: 25,
+                                          width: 25,
+                                      }}>
+                        <Text
+                            pointerEvents="none"
+                            style={{
+                                height: 20,
+                                width: 20,
+                                borderRadius: 100,
+                                borderWidth: 0.5,
+                                borderColor: '#fff',
+                                backgroundColor: mainRed,
+                                textAlign: 'center',
+                                textAlignVertical: 'center',
+                                color: '#fff',
+                            }}>
                             {numNotification}
-                        </Text> : null
-                    }
+                        </Text></TouchableOpacity> : null
+                }
                 <Image
-                    style={{width: SW / 5.1, height: SH / 33, margin: 1, marginLeft: 10}}
+                    style={{width: SW / 5.1, height: SH / 33, margin: 1, marginLeft: 10 + SW /30}}
                     source={require('../../../../assets/icons/fix4U.png')}/>
                 <TouchableOpacity
                     onPress={() => props.navigation.navigate('Schedule')}
-                    style={styles.rightButton}>
+                    style={{paddingLeft: SW / 30}}>
                     <Image
                         style={{width: SW / 15, height: SW / 15}}
                         source={require('../../../../assets/icons/noteMan.png')}/>
+                    <Counter/>
                 </TouchableOpacity>
-                <Counter/>
+
+
             </View>
         )
     }

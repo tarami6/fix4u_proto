@@ -6,12 +6,23 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
+import {mainRed} from "../config/styles";
 
 const Circle = ({qty}) => {
+  let hasNotiBorder = {
+    backgroundColor: '#fff'
+  }
+  let hasNotiBackg = {
+    backgroundColor: mainRed
+  }
+  let colorW = {
+    color: '#fff'
+  }
+
   return (
-     <View style={styles.container}>
-        <View style={styles.childContainer}>
-          <Text style={styles.qty}>{qty}</Text>
+     <View style={[styles.container, qty > 0 ? hasNotiBorder : null]}>
+        <View style={[styles.childContainer, qty > 0 ? hasNotiBackg : null]}>
+          <Text style={[styles.qty,qty > 0 ? colorW : null]}>{qty}</Text>
         </View>
      </View>
   )

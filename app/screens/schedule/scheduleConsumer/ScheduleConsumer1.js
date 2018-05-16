@@ -69,7 +69,7 @@ export default class ScheduleConsumer1 extends React.Component {
                                                             backgroundColor: 'transparent',
                                                         }}>
 
-                                        <InfoItem info={item}/>
+                                        <InfoItem info={item} />
                                     </TouchableHighlight>
 
                                 </View>

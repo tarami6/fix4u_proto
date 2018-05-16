@@ -149,7 +149,7 @@ export default class InProgressConsumer extends Component {
                 <View style={{flex: 0.45, backgroundColor: 'red'}}>
                     <View style={styles.infoView}>
                         {/*Image & service & full name*/}
-                        <View style={{flex: 0.55}}>
+                        <View style={{flex: 0.65}}>
                             <InfoItem info={focusedJob} type={'activeJob'}/>
                         </View>
                         {/*about*/}
