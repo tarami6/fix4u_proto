@@ -16,7 +16,7 @@ export const phoneVerifyRoute = 'api/sms/verify/check/';
 export const consumerRegistrationRoute = 'api/rest-auth/registration/'
 
 //logout delete token from server
-export const logOutRoute = editUserRoute;
+export const logOutRoute = 'api/rest-auth/user/';
 //Pro registration route: 'POST':
 export const proRegistrationRoute = 'api/rest-auth/registration/pro/';
 
@@ -39,8 +39,8 @@ export const chooseApplyRoute = (postId) => {return(`api/posts/${postId}/`)};
 export const sendReviewRoute =  (postId) => {return(`api/posts/${postId}/review/`)};
 // Add Job route: 'POST'
 export const addJobRoute = 'api/posts/';
-
-
+//get pros list:
+export const prosListRoute = (postId) => {return(`api/related_pros?post_id=${postId}`)};
 
 /////// Pro Posts Handling
 

@@ -99,6 +99,7 @@ export default class ApplyBaseScreen extends React.Component {
     timeRemaining(time) {
         //HERE YOU INSERT THE DATE FROM DATABASE
         console.log('cesdc', time)
+        //// HERE WE SET THE 5 MINUTES DIFF COUNT AS WELL
         let diffrence = 5
         let startDate = new Date(time);
         let startMinutes = startDate.getMinutes();
@@ -174,6 +175,7 @@ export default class ApplyBaseScreen extends React.Component {
         //check job time handler:
         let currentDate = new Date();
         let jobDate = new Date(this.props.userDataStore.focusedConsumerJob.modified);
+        //// HERE WE SET THE 5 MINUTES DIFF COUNT AS WELL
         jobDate.setMinutes(jobDate.getMinutes() + 5);
         if (currentDate.getTime() > jobDate.getTime()) {
             // **** TIMES PASSED !!!! when loading the app (not on screen)

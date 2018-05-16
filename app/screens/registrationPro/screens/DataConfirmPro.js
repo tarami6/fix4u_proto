@@ -65,6 +65,7 @@ export default class ChooseTime extends React.Component {
             this.props.proAuthStore.updatePro(res);
             this.props.proAuthStore.saveToAsync();
             this.props.userDataStore.setUserData(res)
+            this.props.userDataStore.setCurrentUserType('pro');
             this.props.userDataStore.setUserType('pro');
             this.props.navigation.navigate('ProNavigator');
         }

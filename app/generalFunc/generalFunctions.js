@@ -1,3 +1,5 @@
+// import {AsyncStorage} from 'react-native'
+
 export const getAvgRating = (a, b, c) => {
     return ((a + b + c) / 3)
 };
@@ -28,7 +30,7 @@ export const addZero = (time) => {
     else {
         return time+'';
     }
-}
+};
 
 export const msToHMS = ( ms ) => {
     // 1- Convert to seconds:
@@ -41,5 +43,8 @@ export const msToHMS = ( ms ) => {
     // 4- Keep only seconds not extracted to minutes:
     seconds = addZero(Math.floor(seconds % 60));
     return (hours+":"+minutes+":"+seconds);
-}
+};
 
+// export const generalSetUserType = (userDataStore, userType="pro") =>{
+//
+// }

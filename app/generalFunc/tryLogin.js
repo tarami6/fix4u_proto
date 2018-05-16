@@ -22,6 +22,7 @@ export const tryLogin = (notificationsStore, userDataStore, callbackFunc, errCB=
         let userType = response.user.services ? 'pro' : 'consumer';
         //setting the user type:
         if(userType === "pro"){
+
             userDataStore.setUserType(userType);
             AsyncStorage.getItem("GetServiceUserType").then((value) => {
                 let lastUserType = JSON.parse(value);

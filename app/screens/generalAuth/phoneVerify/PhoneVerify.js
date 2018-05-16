@@ -44,6 +44,7 @@ export default class PhoneVerify extends Component {
         let userType = res.user.services ? 'pro' : 'consumer';
         let navigationEnd = res.user.services ? 'ProNavigator' : 'ConsumerNavigator';
         this.props.userDataStore.setUserType(userType);
+        this.props.userDataStore.setCurrentUserType(userType);
         this.props.userDataStore.setUserData(res);
         this.props.authStore.saveToAsync();
         handlePushyToken(res.token);

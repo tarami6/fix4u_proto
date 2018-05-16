@@ -3,12 +3,13 @@ import {Alert, BackHandler, Image, StyleSheet, TouchableOpacity, View} from 'rea
 import Text from '../../../components/text/Text'
 import {HH, LinierBackground, mainRed, mainStyles, SH, SW} from "../../../config/styles";
 import {NavigationActions} from "react-navigation";
-import {observer, inject} from "mobx-react/native";
+import {inject, observer} from "mobx-react/native";
 //config
-import {editPostConsumerRoute} from "../../../config/apiRoutes";
+import {editPostConsumerRoute, prosListRoute} from "../../../config/apiRoutes";
 import {fetcher} from "../../../generalFunc/fetcher";
 
 @inject("navigationStore")
+@inject("prosListStore")
 @inject("userDataStore")
 @observer
 export default class ActionToNoApply extends React.Component {
@@ -16,7 +17,7 @@ export default class ActionToNoApply extends React.Component {
         header: null
     }
 
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
@@ -55,7 +56,9 @@ export default class ActionToNoApply extends React.Component {
         dispatch(NavigationActions.back());
         return true;
     }
-    searchAgain(){
+
+    searchAgain() {
+
         let currentJob = this.props.userDataStore.focusedConsumerJob;
         let route = editPostConsumerRoute(currentJob.id);
         let sendBody = {
@@ -64,15 +67,64 @@ export default class ActionToNoApply extends React.Component {
         let headers = {
             token: this.props.userDataStore.userData.token
         }
-        fetcher(route, 'PATCH', this.successCB.bind(this), this.errCB.bind(this), sendBody, headers)
+        fetcher(route, 'PATCH', this.searchAgainSuccessCB.bind(this), this.errCB.bind(this), sendBody, headers)
     }
 
-    successCB(res){
-        this.props.navigation.navigate('AddJob')
+    getProsList() {
+        let currentJob = this.props.userDataStore.focusedConsumerJob;
+        let route = prosListRoute(currentJob.id);
+        let sendBody = {
+            token: this.props.userDataStore.userData.token
+        }
+        fetcher(route, 'GET', this.getProsListSuccessCB.bind(this), this.errCB.bind(this), sendBody)
+    }
+
+    getProsListSuccessCB(res) {
+        console.log("success CB in get pros list in action to no apply!", res);
+
+        this.props.navigationStore.dispatch(NavigationActions.navigate({
+            routeName: 'ProsListToConnect'
+        }));
+
+    }
+
+    searchAgainSuccessCB(res) {
+        // setTimeout(()=>{
+        //     let actionToDispatch;
+        //     if(this.props.userDataStore.userType === "pro"){
+        //         actionToDispatch = NavigationActions.reset({
+        //             index: 0,
+        //             key: null,
+        //             actions: [
+        //                 NavigationActions.navigate({
+        //                     routeName: 'ProNavigator',
+        //                     action: NavigationActions.navigate({routeName: 'ApplyBaseScreen'}),
+        //                 })
+        //             ],
+        //         });
+        //     }
+        //     else {
+        //         actionToDispatch = NavigationActions.reset({
+        //             index: 0,
+        //             key: null,
+        //             actions: [
+        //                 NavigationActions.navigate({
+        //                     routeName: 'ConsumerNavigator',
+        //                     action: NavigationActions.navigate({routeName: 'ApplyBaseScreen'}),
+        //                 })
+        //             ],
+        //         });
+        //     }
+        //     this.props.navigation.dispatch(actionToDispatch)
+        // }, 500)
+        this.props.userDataStore.updateOpenPost(res);
+        this.props.userDataStore.focusConsumerJob(res);
+        this.props.navigation.navigate('ApplyBaseScreen');
+
         console.log('success update timer!', res);
     }
 
-    errCB(err){
+    errCB(err) {
         console.log('error update timer', err);
     }
 
@@ -101,8 +153,7 @@ export default class ActionToNoApply extends React.Component {
                             </TouchableOpacity>
                         </View>
                         <View style={{flex: 1, justifyContent: 'center'}}>
-                            <TouchableOpacity onPress={() => this.props.navigationStore.dispatch(NavigationActions.navigate({
-                                routeName: 'ProsListToConnect'}))}>
+                            <TouchableOpacity onPress={() => this.getProsList()}>
                                 <LinierBackground>
                                     <View style={{
                                         width: SW - 124,
