@@ -27,6 +27,9 @@ let usersPlaces = [
     }
 ]
 
+//for the jobs fetch
+let appJustLoaded = true
+
 //we give the app time to fetch jobs before loading the map so we will have all markers on it - comment continue in successCallback
 let loadEmptyMap = false
 
@@ -39,35 +42,6 @@ export default class ChooseJob extends Component {
     static navigationOptions = {
         header: null
     };
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            openJobsList: []
-        }
-    }
-
-    componentWillMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-        //remove all pro open notifications since he is now seeing the jobs
-        // **** should later be removed each open notification when he actually observe the new post/job ****
-        this.props.notificationsStore.removeOpenPostsNotifications('pro');
-
-        this.mounted = true;
-        this.getOpenJobs(this.props.openJobsStore.openJobsList);
-        let body = {
-            token: this.props.userDataStore.userData.token
-        }
-        this.props.modalsStore.showModal('loaderModal');
-        fetcher(getOpenPostsRoute, 'GET', this.successCallback.bind(this), this.errorCallback.bind(this), body);
-
-        this.checkJobsInterval();
-    }
-
-    componentWillUnmount() {
-        this.mounted = false;
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-    }
     handleBackButton = () => {
         Alert.alert(
             'Exit App',
@@ -78,13 +52,55 @@ export default class ChooseJob extends Component {
                     style: 'cancel'
                 }, {
                     text: 'OK',
-                    onPress: () => {BackHandler.exitApp()}
+                    onPress: () => {
+                        BackHandler.exitApp()
+                    }
                 },], {
                 cancelable: false
             }
         );
         return true;
     };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            openJobsList: []
+        }
+    }
+
+    componentWillMount() {
+        console.warn('THIS', this.props.userDataStore.currentUserType);
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        //remove all pro open notifications since he is now seeing the jobs
+        // **** should later be removed each open notification when he actually observe the new post/job ****
+        this.props.notificationsStore.removeOpenPostsNotifications('pro');
+
+        this.mounted = true;
+        this.getOpenJobs(this.props.openJobsStore.openJobsList);
+        let body = {
+            token: this.props.userDataStore.userData.token
+        }
+        if(appJustLoaded) {
+            appJustLoaded = false;
+            this.props.modalsStore.showModal('loaderModal');
+            fetcher(getOpenPostsRoute, 'GET', this.successCallback.bind(this), this.errorCallback.bind(this), body);
+        }
+
+        this.checkJobsInterval();
+    }
+
+    componentDidMount() {
+        console.warn('hello', this.props.userDataStore.currentUserType);
+        if (this.props.userDataStore.currentUserType === "consumer") {
+            this.props.navigation.navigate('AddJob')
+        }
+    }
+
+    componentWillUnmount() {
+        this.mounted = false;
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
 
     // here we set the state to choose what sjobs to display to the user:
     getOpenJobs(jobs: Array) {

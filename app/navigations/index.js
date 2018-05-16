@@ -20,7 +20,6 @@ import ExplainTheJob from '../screens/addJob/addJobSteps/ExplainTheJob';
 import ApplyBaseScreen from '../screens/jobApplyConsumer/screens/ApplyBaseScreenConsumer';
 import ActionToNoApply from '../screens/jobApplyConsumer/screens/ActionToNoApply';
 import ProsListToConnect from '../screens/jobApplyConsumer/screens/ProsListToConnect';
-
 //Pro Registration imports:
 import PersonalInfo from '../screens/registrationPro/screens/PersonalInfo'
 import AddressInfo from "../screens/registrationPro/screens/AddressInfo";
@@ -113,6 +112,9 @@ const ProNavigator = DrawerNavigator({
     },
     NoAppliesNavigator: {
         screen: NoAppliesNavigator
+    },
+    AccountSettings: {
+        screen: AccountSettings
     }
 }, {
     contentComponent: CustomDrawer,

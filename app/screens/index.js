@@ -86,12 +86,14 @@ export default class ScreensBase extends Component<Props> {
         this.state = {
             tryLoginFetch: false,
             userLocationFetch: false,
+            gettingUserType: false
         }
     }
 
     successLoginCallback() {
         this.setState({tryLoginFetch: false});
         let routeName = this.props.userDataStore.userType === 'pro' ? 'ProNavigator' : 'ConsumerNavigator';
+
         const actionToDispatch = NavigationActions.reset({
             index: 0,
             key: null,

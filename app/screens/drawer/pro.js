@@ -10,9 +10,7 @@ import {inject, observer} from "mobx-react/native";
 //func and config
 import {fetcher} from "../../generalFunc/fetcher";
 import {logOutRoute} from "../../config/apiRoutes";
-import {NavigationActions, DrawerNavigator} from "react-navigation";
-
-
+import {NavigationActions} from "react-navigation";
 
 
 const {width, height} = Dimensions.get('window')
@@ -45,6 +43,7 @@ export default class Pro extends Component {
 
     //switchTo is the new current user type for the pro, changes mobx state as well (changes currentUserType)
     handleSwitch(switchTo) {
+        console.log('handleSwitch drawer pro:', switchTo, this.props.userDataStore)
         this.props.userDataStore.setCurrentUserType(switchTo)
         this.setState({
             currentDrawer: switchTo
@@ -100,7 +99,7 @@ export default class Pro extends Component {
             )
         }
 
-        if (this.state.currentDrawer === 'pro') {
+        if (this.props.userDataStore.currentUserType === 'pro') {
             let consumerNotificationsLength = this.props.notificationsStore.consumerNotifications.active.length +
                 this.props.notificationsStore.consumerNotifications.open.length;
             ////////// PRO MODE //////////
@@ -231,7 +230,7 @@ export default class Pro extends Component {
                         </ListItem>
                         <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
                             <TouchableOpacity onPress={() => {
-                                Alert.alert('בפיתוח... כאן יהיה הגדרות החשבון שלך')
+                                this.props.navigation.navigate('AccountSettings');
                             }}>
                                 <Text style={{color: 'gray', fontWeight: 'bold'}}>הגדרות חשבון</Text>
                             </TouchableOpacity>
