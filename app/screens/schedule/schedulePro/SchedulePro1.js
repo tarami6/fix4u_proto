@@ -133,6 +133,7 @@ export default class SchedulePro1 extends React.Component {
                     </View>
                 </View>
                 <View style={{flex: 1}}>
+
                     {this.props.userDataStore.userData.user.pro_posts && this.props.userDataStore.userData.user.pro_posts.length > 0 ?
                         this.props.userDataStore.userData.user.pro_posts.map((item) => {
                             return (
@@ -155,6 +156,7 @@ export default class SchedulePro1 extends React.Component {
                         <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>אין לך עבודות </Text>
                         </View>
                     }
+
                 </View>
 
             </View>
