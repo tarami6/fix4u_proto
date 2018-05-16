@@ -23,6 +23,7 @@ let data1 =
 
 let starSize = 18;
 
+@inject("notificationsStore")
 @inject("userDataStore")
 @observer
 export default class Review extends Component {
@@ -64,7 +65,8 @@ export default class Review extends Component {
     }
 
     successCB(res) {
-
+        let token = this.props.userDataStore.userData.token;
+        this.props.notificationsStore.removePostNotifications('active', this.props.userDataStore.focusedJob.id, this.props.userDataStore.currentUserType, token)
         this.props.userDataStore.removeActivePost(this.props.userDataStore.focusedJob.id);
         this.props.navigation.navigate('AddJob');
         console.warn('success cb at consumer Review:', res);

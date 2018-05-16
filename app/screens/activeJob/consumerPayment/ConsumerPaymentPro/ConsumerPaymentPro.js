@@ -1,22 +1,15 @@
 import React, {Component} from "react";
-import {Alert,  TouchableOpacity, View} from 'react-native';
+// Animation
+import {View} from 'react-native';
 import Text from '../../../../components/text/Text'
 //config
-import {fetcher} from "../../../../generalFunc/fetcher";
-import {startJobRoute} from "../../../../config/apiRoutes";
 //mobx
 import {inject, observer} from "mobx-react/index";
 //Header imports:
-import LinierView from '../../../../components/linierView';
 import Header from '../../../../components/headers/Header'
 //styles
-import {HH} from "../../../../config/styles";
-import styles from './styles'
-import {chooseApplyRoute} from "../../../../config/apiRoutes";
-// Animation
-import {Animated, Easing} from 'react-native';
+import {HH, SH} from "../../../../config/styles";
 import LottieView from 'lottie-react-native';
-import {SH} from "../../../../config/styles";
 
 
 @inject("userDataStore")
@@ -28,7 +21,7 @@ export default class OnTheWayPro extends Component {
     }
 
     componentDidMount() {
-        if(this.props.userDataStore.focusedJob.status === 'consumer_review'){
+        if (this.props.userDataStore.focusedJob.status === 'consumer_review') {
             this.props.navigation.navigate('Home');
         }
         this.animation1.play();
@@ -52,12 +45,14 @@ export default class OnTheWayPro extends Component {
     }
 
     render() {
-        if(this.props.userDataStore.focusedJob.status === 'consumer_review'){
-            this.animation1.reset();
-            this.animation2.play();
-            setTimeout(()=>{
+        if (this.props.userDataStore.focusedJob.status === 'consumer_review') {
+            if (this.animation1) {
+                this.animation1.reset();
+                this.animation2.play();
+            }
+            setTimeout(() => {
                 this.props.navigation.navigate('Home');
-            },2000)
+            }, 2000)
         }
         return (
             <View style={{flex: 1}}>
@@ -67,7 +62,8 @@ export default class OnTheWayPro extends Component {
                 {/*Here is the list of jobs container and the jobList MAP */}
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
 
-                        <Text style={{position: 'absolute', top: SH / 5, fontSize: 20, fontWeight: 'bold' }}>תהליך התשלום מתבצע</Text>
+                    <Text style={{position: 'absolute', top: SH / 5, fontSize: 20, fontWeight: 'bold'}}>תהליך התשלום
+                        מתבצע</Text>
 
 
                     <LottieView
