@@ -16,7 +16,6 @@ export default class InfoItem extends React.Component {
 
     render() {
         let data = this.props.info;
-        console.log("Dsd", this.props)
         if (this.props.type === 'activeJob') {
             return (
                 <ActiveJobRender job={this.props.info}/>

@@ -75,15 +75,11 @@ export default class ChooseAddress extends React.Component {
     }
 
     handleSubmit() {
+        console.warn('1', new Date());
         this.props.modalsStore.showModal('loaderModal');
         if (this.state.place_id) {
-            // if (this.state.details.address_components[0].long_name.length > 0) {
-            //     Alert.alert('please fill in building number as well');
-            // }
-            // else {
+            console.warn('2a', new Date());
             this.getCoordsAndSubmitData(this.state.place_id)
-
-            // }
         }
         else {
             let {lat, lon, currentAddress} = this.props.userDataStore.userLocation;
@@ -92,16 +88,14 @@ export default class ChooseAddress extends React.Component {
                 Alert.alert('המערכת לא זיהתה את המיקום שלך, אנא הכנס מיקום')
             }
             else {
+                console.warn('2b', new Date());
                 this.submitJob(lat, lon, currentAddress)
             }
-            // console.warn(lat, lon, currentAddress);
-            // Alert.alert('please choose proper address')
         }
-        // this.props.navigation.navigate('ApplyBaseScreen');
-
     }
 
     submitJob(lat, lon, address = this.state.address) {
+        console.warn('3', new Date());
         let objToSave = {
             lat: lat,
             lon: lon,
@@ -133,11 +127,13 @@ export default class ChooseAddress extends React.Component {
                 payload: item
             };
         }
+        console.warn('4', new Date());
         fetcher(addJobRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), item, headers);
 
     }
 
     successCallback(response) {
+        console.warn('5a', new Date());
         this.props.modalsStore.hideModal('loaderModal');
         if (response.id) {
             this.props.userDataStore.addJob(response)
@@ -150,6 +146,7 @@ export default class ChooseAddress extends React.Component {
     //autoCompleteHandling:
 
     errorCallback(response) {
+        console.warn('5b', new Date());
         this.props.modalsStore.hideModal('loaderModal');
         console.warn('error addJob');
         console.log('error in addJob:', response)

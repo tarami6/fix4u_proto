@@ -45,7 +45,6 @@ export default class ProPaymentPro extends React.Component {
                 work_fee: fee,
                 total_fee: totalFee
             };
-            console.warn("dasda", sendObj.total_fee)
             let headers = {
                 'Accept': `application/json`,
                 'content-type': 'application/json',

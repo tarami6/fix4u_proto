@@ -121,14 +121,14 @@ let handleNotificationData = (type, payload) => {
             openJobsStore.addJob(payload);
             break;
         case 'pro_applied': // when a consumer get post apply
-            if (userDataStore.currentUserType === "consumer" || userDataStore.userType === "consumer") {
+            userDataStore.focusConsumerJob(payload);
+            userDataStore.updateOpenPost(payload);
+            if (userDataStore.currentUserType === "consumer") {
                 notificationsStore.removeOpenPostsNotifications('consumer', userDataStore.userData.token, payload.id, true)
             }
             else {
                 notificationsStore.addPostsNotification('open', payload.id, 'consumer');
             }
-            userDataStore.focusConsumerJob(payload);
-            userDataStore.updateOpenPost(payload);
             break;
         case 'consumer_chose_pro': // consumer chose pro for job
             userDataStore.removeAllSentApplies();
@@ -137,6 +137,7 @@ let handleNotificationData = (type, payload) => {
             userDataStore.focusJob(payload);
             break;
         case 'pro_update_post':
+            console.warn(userDataStore.focusedJob.id);
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
                 notificationsStore.removePostNotifications('active', payload.id, 'consumer', userDataStore.userData.token)
@@ -147,12 +148,13 @@ let handleNotificationData = (type, payload) => {
             userDataStore.updateActivePost(payload);
             break;
         case 'consumer_paid': // this is the route for updating the pro_posts
+            notificationsStore.removePostNotifications('active', payload.id, 'pro', userDataStore.userData.token)
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
-                notificationsStore.removePostNotifications('active', payload.id, 'pro', userDataStore.userData.token)
+                // notificationsStore.removePostNotifications('active', payload.id, 'pro', userDataStore.userData.token)
             }
             else {
-                notificationsStore.addPostsNotification('active', payload.id, 'pro');
+                // notificationsStore.addPostsNotification('active', payload.id, 'pro');
             }
             userDataStore.removeProPost(payload.id);
         case 'open_post_remove':

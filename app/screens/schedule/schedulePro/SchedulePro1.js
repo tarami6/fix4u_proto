@@ -85,8 +85,6 @@ export default class SchedulePro1 extends React.Component {
     }
 
     render() {
-
-        console.log('yoooooooo', this.props.userDataStore.userData.user.pro_posts);
         const swipeSettings = {
             autoClose: true,
             onClose: (secId, rowID, direction) => {
@@ -137,6 +135,7 @@ export default class SchedulePro1 extends React.Component {
                     {this.props.userDataStore.userData.user.pro_posts && this.props.userDataStore.userData.user.pro_posts.length > 0 ?
                         this.props.userDataStore.userData.user.pro_posts.map((item) => {
                             return (
+                                <View key={item.id}>
                                 <Swipeout {...swipeSettings}>
                                     <TouchableHighlight onPress={() => this.chooseJob(item)}
                                                         key={item.id}
@@ -150,6 +149,7 @@ export default class SchedulePro1 extends React.Component {
                                         <InfoItem type={'consumer'} info={item}/>
                                     </TouchableHighlight>
                                 </Swipeout>
+                                </View>
                             )
                         }) :
                         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
