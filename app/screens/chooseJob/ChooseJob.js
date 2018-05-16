@@ -27,6 +27,9 @@ let usersPlaces = [
     }
 ]
 
+//for the jobs fetch
+let appJustLoaded = true
+
 //we give the app time to fetch jobs before loading the map so we will have all markers on it - comment continue in successCallback
 let loadEmptyMap = false
 
@@ -78,8 +81,11 @@ export default class ChooseJob extends Component {
         let body = {
             token: this.props.userDataStore.userData.token
         }
-        this.props.modalsStore.showModal('loaderModal');
-        fetcher(getOpenPostsRoute, 'GET', this.successCallback.bind(this), this.errorCallback.bind(this), body);
+        if(appJustLoaded) {
+            appJustLoaded = false;
+            this.props.modalsStore.showModal('loaderModal');
+            fetcher(getOpenPostsRoute, 'GET', this.successCallback.bind(this), this.errorCallback.bind(this), body);
+        }
 
         this.checkJobsInterval();
     }

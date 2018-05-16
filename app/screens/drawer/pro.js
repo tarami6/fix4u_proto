@@ -43,6 +43,7 @@ export default class Pro extends Component {
 
     //switchTo is the new current user type for the pro, changes mobx state as well (changes currentUserType)
     handleSwitch(switchTo) {
+        console.log('handleSwitch drawer pro:', switchTo, this.props.userDataStore)
         this.props.userDataStore.setCurrentUserType(switchTo)
         this.setState({
             currentDrawer: switchTo

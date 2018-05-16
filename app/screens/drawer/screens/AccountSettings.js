@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react';
 import {
+    Alert,
     BackHandler,
     Image,
     Platform,
@@ -41,7 +42,8 @@ export default class AccountSettings extends Component {
     }
     handleBackButton = () => {
         console.warn('success??224');
-        this.props.navigation.goBack();
+        this.props.navigation.navigate("Home");
+        this.props.navigation.navigate('DrawerOpen')
         return true;
     }
 
@@ -56,11 +58,13 @@ export default class AccountSettings extends Component {
     static successCB(res) {
         this.props.userDataStore.updateUser(res);
         this.props.modalsStore.hideModal('loaderModal');
+        Alert.alert("שינויים נשמרו בהצלחה");
         console.log("update user response:", res);
     }
 
     static errorCallback(err) {
         this.props.modalsStore.hideModal('loaderModal');
+        Alert.alert("אירעה בעיה והשינויים לא נשמרו");
         console.log('err in update user:', err);
     }
 
@@ -137,6 +141,8 @@ export default class AccountSettings extends Component {
     }
 
     render() {
+        let user = this.props.userDataStore.userData.user;
+        console.warn('this.state.name',this.state.name);
         return (
             <View style={{flex: 1, alignItems: 'center'}}>
                 <LinearGradient
@@ -159,7 +165,8 @@ export default class AccountSettings extends Component {
                                 selectionColor={fontGrey}
                                 underlineColorAndroid={'transparent'}
                                 style={styles.textInput}
-                                value={''}
+                                value={this.state.name? this.state.navigation: user.name || ""}
+                                onChangeText={(name)=>this.setState({name})}
                             />
                         </View>
                         <View style={{flex: 1, width: SW - (Pad * 3)}}>

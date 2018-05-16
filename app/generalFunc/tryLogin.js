@@ -11,28 +11,33 @@ export const tryLogin = (notificationsStore, userDataStore, callbackFunc, errCB=
         console.warn('success tryLogin');
         console.log('response tryLogin', response);
 
+        //setting allData
+        userDataStore.setUserData(response);
+
         // here we are setting the notifications:
         notificationsStore.setNotificationsFromLogin(response.user.notifications)
 
+        //now setting user type - also for check what was last currentUserType for pro to open app on last known state
 
         let userType = response.user.services ? 'pro' : 'consumer';
         //setting the user type:
-        userDataStore.setUserType(userType);
-        userDataStore.setUserData(response);
-        if(userType === 'pro'){
-            // let gotApplies = (res)=>{
-            //     userDataStore.setLoading(false);
-            //     // console.warn('success cb applies:', res)
-            //     callbackFunc(response);
-            // };
-            userDataStore.setLoading(true);
-            callbackFunc(response);
-            // fetcher(getAppliesRoute, 'GET', gotApplies, errorCallback, {token: response.token})
+        if(userType === "pro"){
+            userDataStore.setUserType(userType);
+            AsyncStorage.getItem("GetServiceUserType").then((value) => {
+                let lastUserType = JSON.parse(value);
+                userDataStore.setCurrentUserType(lastUserType)
+                callbackFunc(response);
+            }).catch((err) => {
+                userDataStore.setCurrentUserType(userType);
+                console.warn('err in setUserType', err);
+                callbackFunc(response);
+            })
         }
         else {
+            userDataStore.setUserType(userType);
+            userDataStore.setCurrentUserType(userType);
             callbackFunc(response);
         }
-        return 1; //success
     };
     const errorCallback = (err) => {
         // userDataStore.setLoading(false);

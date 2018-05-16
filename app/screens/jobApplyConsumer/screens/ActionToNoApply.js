@@ -4,9 +4,12 @@ import Text from '../../../components/text/Text'
 import {HH, LinierBackground, mainRed, mainStyles, SH, SW} from "../../../config/styles";
 import {NavigationActions} from "react-navigation";
 import {observer, inject} from "mobx-react/native";
-
+//config
+import {editPostConsumerRoute} from "../../../config/apiRoutes";
+import {fetcher} from "../../../generalFunc/fetcher";
 
 @inject("navigationStore")
+@inject("userDataStore")
 @observer
 export default class ActionToNoApply extends React.Component {
     static navigationOptions = {
@@ -52,7 +55,26 @@ export default class ActionToNoApply extends React.Component {
         dispatch(NavigationActions.back());
         return true;
     }
+    searchAgain(){
+        let currentJob = this.props.userDataStore.focusedConsumerJob;
+        let route = editPostConsumerRoute(currentJob.id);
+        let sendBody = {
+            status: "open",
+        };
+        let headers = {
+            token: this.props.userDataStore.userData.token
+        }
+        fetcher(route, 'PATCH', this.successCB.bind(this), this.errCB.bind(this), sendBody, headers)
+    }
 
+    successCB(res){
+        this.props.navigation.navigate('AddJob')
+        console.log('success update timer!', res);
+    }
+
+    errCB(err){
+        console.log('error update timer', err);
+    }
 
     render() {
         return (
@@ -72,7 +94,7 @@ export default class ActionToNoApply extends React.Component {
                     </View>
                     <View style={{flex: 1, alignItems: 'center',}}>
                         <View style={{flex: 1, justifyContent: 'center'}}>
-                            <TouchableOpacity onPress={() => Alert.alert('Five minutes again')}>
+                            <TouchableOpacity onPress={() => this.searchAgain()}>
                                 <LinierBackground>
                                     <Text style={mainStyles.buttonText}>חפש שוב 05:00</Text>
                                 </LinierBackground>
