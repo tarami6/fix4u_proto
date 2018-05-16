@@ -39,6 +39,25 @@ export default class ChooseJob extends Component {
     static navigationOptions = {
         header: null
     };
+    handleBackButton = () => {
+        Alert.alert(
+            'Exit App',
+            'Exiting the application?', [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel'
+                }, {
+                    text: 'OK',
+                    onPress: () => {
+                        BackHandler.exitApp()
+                    }
+                },], {
+                cancelable: false
+            }
+        );
+        return true;
+    };
 
     constructor(props) {
         super(props);
@@ -48,9 +67,6 @@ export default class ChooseJob extends Component {
     }
 
     componentWillMount() {
-        if(this.props.userDataStore.currentUserType === "consumer"){
-            this.props.navigation.navigate('AddJob')
-        }
         console.warn('THIS', this.props.userDataStore.currentUserType);
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         //remove all pro open notifications since he is now seeing the jobs
@@ -68,27 +84,17 @@ export default class ChooseJob extends Component {
         this.checkJobsInterval();
     }
 
+    componentDidMount() {
+        console.warn('hello', this.props.userDataStore.currentUserType);
+        if (this.props.userDataStore.currentUserType === "consumer") {
+            this.props.navigation.navigate('AddJob')
+        }
+    }
+
     componentWillUnmount() {
         this.mounted = false;
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
-    handleBackButton = () => {
-        Alert.alert(
-            'Exit App',
-            'Exiting the application?', [
-                {
-                    text: 'Cancel',
-                    onPress: () => console.log('Cancel Pressed'),
-                    style: 'cancel'
-                }, {
-                    text: 'OK',
-                    onPress: () => {BackHandler.exitApp()}
-                },], {
-                cancelable: false
-            }
-        );
-        return true;
-    };
 
     // here we set the state to choose what sjobs to display to the user:
     getOpenJobs(jobs: Array) {
