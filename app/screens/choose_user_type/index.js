@@ -70,6 +70,7 @@ export default class ChooseUserType extends Component {
 
         this.props.userDataStore.setUserData(response)
         this.props.userDataStore.setUserType('consumer');
+        this.props.userDataStore.setCurrentUserType('consumer');
         this.props.authStore.updateUser(response);
         this.props.authStore.saveToAsync();
         handlePushyToken(response.token);

@@ -16,7 +16,8 @@ import ProAuthStore from "./state-manager/mobx/proAuthStore";
 import ModalsStore from './state-manager/mobx/modalsStore'
 import NavigationStore from "./state-manager/mobx/navigationStore";
 import OpenJobsStore from './state-manager/mobx/openJobsStore';
-import NotificationsStore from './state-manager/mobx/notificationsStore'
+import NotificationsStore from './state-manager/mobx/notificationsStore';
+import ProsListStore from './state-manager/mobx/prosListStore';
 
 import Pushy from 'pushy-react-native';
 
@@ -36,6 +37,8 @@ let navigationStore = new NavigationStore();
 let openJobsStore = new OpenJobsStore();
 //as it sounds:
 let notificationsStore = new NotificationsStore();
+//for when a user wants to see full prosList:
+let prosListStore = new ProsListStore();
 
 
 // // Ramistesting
@@ -225,7 +228,7 @@ export default class App extends Component<Props> {
         return (
             <Provider navigationStore={navigationStore} authStore={authStore} addJobStore={addJobStore}
                       userDataStore={userDataStore} proAuthStore={proAuthStore} modalsStore={modalsStore}
-                      openJobsStore={openJobsStore} notificationsStore={notificationsStore}>
+                      openJobsStore={openJobsStore} notificationsStore={notificationsStore} prosListStore={prosListStore}>
                 <ScreensBase/>
             </Provider>
         )
