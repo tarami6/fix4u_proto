@@ -41,8 +41,8 @@ export default class InProgressItem extends React.Component {
     render(){
         let job = this.props.job;
 
-
-
+        console.log("Sas", job)
+        let pic = job.user_pro.profile_pic_thumb || job.user.profile_pic_thumb
         return (
             <View style={{
                 flex: 1,
@@ -57,7 +57,7 @@ export default class InProgressItem extends React.Component {
                     </View>
                 </View>
                 <View style={{flex: 1, justifyContent: 'center'}}>
-                    <Text style={{color: '#000', textAlign: 'right'}}>{job.user && job.user.name}</Text>
+                    <Text style={{color: '#000', textAlign: 'right'}}>{job.user_pro && job.user_pro.name}</Text>
                     <Text style={{ textAlign: 'right'}}>{job.address}</Text>
 
                 </View>
@@ -65,7 +65,7 @@ export default class InProgressItem extends React.Component {
                     { job.user &&
                     <Image
                         style={{width: 60, height: 60, borderRadius: 100,}}
-                        source={{uri: job.user.profile_pic_thumb}}/>
+                        source={{uri: pic}}/>
                     }
                 </View>
             </View>

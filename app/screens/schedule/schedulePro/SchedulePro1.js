@@ -67,10 +67,10 @@ export default class SchedulePro1 extends React.Component {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
 
-        handleBackButton = () => {
+    handleBackButton = () => {
         console.warn('success??321');
-            this.props.navigation.navigate('DrawerClose');
-            return true;
+        this.props.navigation.navigate('DrawerClose');
+        return true;
     }
 
     componentWillUnmount() {
@@ -87,7 +87,7 @@ export default class SchedulePro1 extends React.Component {
     render() {
 
         console.log('yoooooooo', this.props.userDataStore.userData.user.pro_posts);
-         const swipeSettings = {
+        const swipeSettings = {
             autoClose: true,
             onClose: (secId, rowID, direction) => {
 
@@ -104,11 +104,11 @@ export default class SchedulePro1 extends React.Component {
                                 {text: 'Yes', onPress: () => console.log('Yes Pressed')}
                             ],
                             {cancelable: true}
-                            )
+                        )
                     },
-                     type: 'delete',
+                    type: 'delete',
                     component:
-                        <View style={{ flex:1,alignItems: 'center', justifyContent: 'center'}}>
+                        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                             <Image source={require('../../../../assets/icons/delete.png')}/></View>
                 }
             ],
@@ -133,25 +133,30 @@ export default class SchedulePro1 extends React.Component {
                     </View>
                 </View>
                 <View style={{flex: 1}}>
-                    {this.props.userDataStore.userData.user.pro_posts.map((item)=>{
-                        return (
-                            <View key={item.id}>
-                    <Swipeout {...swipeSettings}>
-                            <TouchableHighlight onPress={() => this.chooseJob(item)}
-                                                key={item.id}
-                                                style={{
-                                                    width: SW,
-                                                    height: SH / 8,
-                                                    borderBottomWidth: 1,
-                                                    borderColor: '#AAAAAA'
-                                                }}>
 
-                                <InfoItem type={'consumer'} info={item}/>
-                            </TouchableHighlight>
-                    </Swipeout>
-                            </View>
-                        )
-                    })}
+                    {this.props.userDataStore.userData.user.pro_posts && this.props.userDataStore.userData.user.pro_posts.length > 0 ?
+                        this.props.userDataStore.userData.user.pro_posts.map((item) => {
+                            return (
+                                <Swipeout {...swipeSettings}>
+                                    <TouchableHighlight onPress={() => this.chooseJob(item)}
+                                                        key={item.id}
+                                                        style={{
+                                                            width: SW,
+                                                            height: SH / 8,
+                                                            borderBottomWidth: 1,
+                                                            borderColor: '#AAAAAA'
+                                                        }}>
+
+                                        <InfoItem type={'consumer'} info={item}/>
+                                    </TouchableHighlight>
+                                </Swipeout>
+                            )
+                        }) :
+                        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                        <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>אין לך עבודות </Text>
+                        </View>
+                    }
+
                 </View>
 
             </View>

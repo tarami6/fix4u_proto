@@ -150,6 +150,7 @@ export default class AccountSettings extends Component {
                     start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
                     style={styles.container}>
                     <Navbar
+                        handleBackButton={this.handleBackButton.bind(this)}
                         profilePic={this.state.profilePic}
                         user={this.props.userDataStore.userData.user}
                         navigation={this.props.navigation}
@@ -249,9 +250,7 @@ const Navbar = (props) => {
         <View style={{width: SW, height: Platform.OS == 'ios' ? 150 : 135,}}>
             <View style={{flexDirection: 'row'}}>
                 <View style={{flex: 1}}>
-                    <TouchableOpacity onPress={() => props.navigation.goBack(() => {
-                        props.navigation.navigate('DrawerOpen')
-                    })}>
+                    <TouchableOpacity onPress={() => props.handleBackButton()}>
                         <Icon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
                     </TouchableOpacity>
                 </View>

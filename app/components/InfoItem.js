@@ -16,16 +16,18 @@ export default class InfoItem extends React.Component {
 
     render() {
         let data = this.props.info;
-        if(this.props.info.status ==="in_progress"){
-            return(
-            <InProgressItem job={this.props.info} />
-            )
-        }
-        else if (this.props.type === 'activeJob') {
+        console.log("Dsd", this.props)
+        if (this.props.type === 'activeJob') {
             return (
                 <ActiveJobRender job={this.props.info}/>
             )
         }
+        else if(this.props.info.status ==="in_progress"){
+            return(
+            <InProgressItem  job={this.props.info} />
+            )
+        }
+
         else if (this.props.type === 'consumer') {
             return (
                 <ConsumerRender user={this.props.info}/>
