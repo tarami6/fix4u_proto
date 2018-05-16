@@ -59,7 +59,7 @@ export default class ApplyBaseScreen extends React.Component {
 
 
     componentWillUnmount() {
-        this.mounted = false;
+        console.warn("yooo")
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
         clearInterval(this.interval)
     }
@@ -130,7 +130,6 @@ export default class ApplyBaseScreen extends React.Component {
             let i=0;
             this.interval = setInterval(() => {
                 i++;
-                // console.warn(i, this.mounted);
                 let currentDate = new Date();
                 let currentMinutes = currentDate.getMinutes();
                 let currentSeconds = currentDate.getSeconds();
@@ -168,8 +167,6 @@ export default class ApplyBaseScreen extends React.Component {
         let token = this.props.userDataStore.userData.token;
         let postId = this.props.userDataStore.focusedConsumerJob.id
         this.props.notificationsStore.removeOpenPostsNotifications('consumer', token, postId);
-        //mounted indicator
-        this.mounted = true;
         //backHandler
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         //check job time handler:
@@ -188,7 +185,6 @@ export default class ApplyBaseScreen extends React.Component {
 
 
     showPro(pro) {
-        clearInterval(this.interval);
         this.props.userDataStore.showPro(pro);
         this.props.navigation.navigate('ChoosePro', {time: this.state.diff})
     }
