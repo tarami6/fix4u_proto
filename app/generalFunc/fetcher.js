@@ -56,10 +56,18 @@ export const
                 successCallback(responseJson);
             })
             .catch(error => {
-                console.warn('err to route:', route);
+                console.warn('err to route:', route)
                 console.log('fetch error to route:', route, error);
                 if(!errCBActivated) {
                     errorCallback(error)
                 }
             });
+
+    // .then((response) => {
+    //         if (response.status >= 200 && response.status < 300) {
+    //             response.json().then((responseJson) => successCallback(responseJson));
+    //         } else {
+    //             errorCallback(response)
+    //         }
+    //     })
     }
