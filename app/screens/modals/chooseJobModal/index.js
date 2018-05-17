@@ -47,7 +47,7 @@ export default class ChooseJobModal extends Component {
     // }
 
     submitApply() {
-        this.props.userDataStore.setLoading(true);
+        this.props.modalsStore.showModal('loaderModal');
         let jobId = this.props.openJobsStore.focusedJob.id
         let route = applyForJobRoute(jobId);
         let headers = {
@@ -74,6 +74,7 @@ export default class ChooseJobModal extends Component {
     }
 
     successCallback(res) {
+        this.props.modalsStore.closeModal('loaderModal');
         this.closeModal();
         if (res.detail) {
             Alert.alert('chooseJob modal',res.detail)
@@ -90,7 +91,7 @@ export default class ChooseJobModal extends Component {
     }
 
     errorCallback(err) {
-        this.props.userDataStore.setLoading(false);
+        this.props.modalsStore.close('loaderModal');
         console.warn('error in chooseJob:', err);
         console.log('error in chooseJob:', err)
     }
