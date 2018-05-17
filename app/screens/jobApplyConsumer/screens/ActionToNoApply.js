@@ -129,6 +129,9 @@ export default class ActionToNoApply extends React.Component {
     }
 
     render() {
+        if(!this.props.userDataStore.focusedConsumerJob.id){
+            this.props.navigation.navigate("AddJob");
+        }
         return (
             <View style={{flex: 1, backgroundColor: '#ffffff'}}>
                 <View style={{flex: 1,}}>

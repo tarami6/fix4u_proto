@@ -118,6 +118,7 @@ export default class ApplyBaseScreen extends React.Component {
         let jobDate = new Date(this.props.userDataStore.focusedConsumerJob.modified);
         jobDate.setMinutes(jobDate.getMinutes() + 5);
         if (currentDate.getTime() > jobDate.getTime()) {
+            this.diff = diff;
             this.setState({diff: '00:00'})
             // **** TIMES PASSED !!!! when loading the app (not on screen)
             console.warn("ur time already finished");
@@ -140,6 +141,7 @@ export default class ApplyBaseScreen extends React.Component {
                 let end = Moment.utc(endTime, "mm:ss");
                 let d = Moment.duration(end.diff(start));
                 let diff = Moment.utc(+d).format('mm:ss');
+                this.diff = diff;
                 this.setState({diff: diff})
 
                 let timeToEndTimer = currentTime - FirststartTime;

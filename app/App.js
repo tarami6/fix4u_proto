@@ -157,6 +157,7 @@ let handleNotificationData = (type, payload) => {
                 // notificationsStore.addPostsNotification('active', payload.id, 'pro');
             }
             userDataStore.removeProPost(payload.id);
+        //    for pro that post he apliied to was closed
         case 'open_post_remove':
             if (openJobsStore.focusedJob.id === payload.post_id && modalsStore.chooseJobModal) {
                 modalsStore.hideModal('chooseJobModal');
@@ -165,6 +166,12 @@ let handleNotificationData = (type, payload) => {
             userDataStore.removeSentApply(payload.post_id);
             openJobsStore.removeJob(payload.post_id);
             break;
+        //    for consumer after 6 minutes that he hasn't updated his post
+        case 'user_post_closed':
+            userDataStore.removeOpenPost(payload.id);
+            userDataStore.focusConsumerJob({});
+            break;
+
 
         default:
             console.warn("notification wasn't handled:", type);

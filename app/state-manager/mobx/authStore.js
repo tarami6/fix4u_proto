@@ -89,59 +89,61 @@ export default class AuthStore {
     tokenFetching = false;
 
     tokenRefresher() {
-        if (!this.tokenRefresherActive) {
-            this.tokenRefresherActive = true;
-            let refresherInterval = setInterval(
-                () => {
-                    //no more token no more refresher
-                    if (!this.user.token) {
-                        console.warn('no token, stoped token-refresher')
-                        this.tokenRefresherActive = false;
-                        clearInterval(refresherInterval);
-                    }
-                    let currentTime = new Date();
-                    //diff is the difference between last refresh to current time
-                    let diff = Math.floor((currentTime.getTime() - this.lastTokenRefresh.getTime()) / 1000)
-                    if (diff >= 60 * 4) {
-                        // if (diff >= 0) {
-                        let tokenObj = {
-                            token: this.user.token
-                        }
-                        this.tokenFetching = true;
-                        fetch(`${mainRoute}/api/refresh-token/`, {
-                            method: 'POST',
-                            headers: {
-                                'Accept': `application/json`,
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(tokenObj)
-                        })
-                            .then(response => response.json())
-                            .then(responseJson => {
-                                this.tokenFetching = false;
-                                let date = new Date();
-                                this.lastTokenRefresh = date;
-                                console.log('token was refreshed, from first to second:', this.user.token, responseJson.token)
-                                this.user.token = responseJson.token;
-                            })
-                            .catch(error => {
-                                this.tokenFetching = false
-                                if (this._mounted) {
-                                    console.warn('here I need to relogin');
-                                }
-                                else {
-                                    setTimeout(() => {
-                                        this.tokenRefresher();
-                                    }, 1000)
-                                }
-                                console.log('token refresher error', error);
-                            });
-                        //    here I need to refresh the token
-                    }
+        this.tokenRefresherActive = true;
 
-                },
-                30 * 1000 //every 30 second it checks
-            );
-        }
+        // if (!this.tokenRefresherActive) {
+        //     this.tokenRefresherActive = true;
+        //     let refresherInterval = setInterval(
+        //         () => {
+        //             //no more token no more refresher
+        //             if (!this.user.token) {
+        //                 console.warn('no token, stoped token-refresher')
+        //                 this.tokenRefresherActive = false;
+        //                 clearInterval(refresherInterval);
+        //             }
+        //             let currentTime = new Date();
+        //             //diff is the difference between last refresh to current time
+        //             let diff = Math.floor((currentTime.getTime() - this.lastTokenRefresh.getTime()) / 1000)
+        //             if (diff >= 60 * 4) {
+        //                 // if (diff >= 0) {
+        //                 let tokenObj = {
+        //                     token: this.user.token
+        //                 }
+        //                 this.tokenFetching = true;
+        //                 fetch(`${mainRoute}/api/refresh-token/`, {
+        //                     method: 'POST',
+        //                     headers: {
+        //                         'Accept': `application/json`,
+        //                         'Content-Type': 'application/json',
+        //                     },
+        //                     body: JSON.stringify(tokenObj)
+        //                 })
+        //                     .then(response => response.json())
+        //                     .then(responseJson => {
+        //                         this.tokenFetching = false;
+        //                         let date = new Date();
+        //                         this.lastTokenRefresh = date;
+        //                         console.log('token was refreshed, from first to second:', this.user.token, responseJson.token)
+        //                         this.user.token = responseJson.token;
+        //                     })
+        //                     .catch(error => {
+        //                         this.tokenFetching = false
+        //                         if (this._mounted) {
+        //                             console.warn('here I need to relogin');
+        //                         }
+        //                         else {
+        //                             setTimeout(() => {
+        //                                 this.tokenRefresher();
+        //                             }, 1000)
+        //                         }
+        //                         console.log('token refresher error', error);
+        //                     });
+        //                 //    here I need to refresh the token
+        //             }
+        //
+        //         },
+        //         30 * 1000 //every 30 second it checks
+        //     );
+        // }
     }
 }
