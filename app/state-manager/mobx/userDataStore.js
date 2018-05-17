@@ -146,6 +146,7 @@ export default class UserDataStore {
         // }
     }
 
+    //for consumer
     @action removeActivePost(postId) {
         let user_active_posts = this.userData.user.user_active_posts.slice(0);
         for (let i = 0; i < user_active_posts.length; i++) {
@@ -196,6 +197,7 @@ export default class UserDataStore {
             }
         }
     }
+
 
     @action removeProPost(postId: string) {
         this.userData.user.pro_posts = this.userData.user.pro_posts.filter(post => post.id !== postId);

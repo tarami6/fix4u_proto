@@ -1,5 +1,8 @@
 import React, {Component} from "react";
-import {Text, View, BackHandler} from 'react-native';
+import {Text, View, BackHandler, Alert} from 'react-native';
+//config:
+import {editPostConsumerRoute, startJobRoute} from "../../config/apiRoutes";
+import {fetcher} from "../../generalFunc/fetcher";
 //mobx
 import {inject, observer} from "mobx-react/index";
 //on the way
@@ -44,19 +47,67 @@ export default class ActiveJob extends Component {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
+    consumerCancel(){
+        let jobId = this.props.userDataStore.focusedJob.id;
+        let sendObj = {
+            status: 'canceled',
+            canceled_by: 'consumer'
+        };
+        let headers = {
+            token: this.props.userDataStore.userData.token
+        };
+        //start job route is also the route for pro to cancel the job
+        let route = editPostConsumerRoute(jobId);
+        fetcher(route, 'PATCH', this.successConsumerCancel.bind(this), this.errorCallback.bind(this), sendObj, headers)
+    }
+
+    proCancel(){
+        let jobId = this.props.userDataStore.focusedJob.id;
+        let sendObj = {
+            status: 'canceled',
+            canceled_by: 'pro'
+        };
+        let headers = {
+            token: this.props.userDataStore.userData.token
+        };
+        //start job route is also the route for pro to cancel the job
+        let route = startJobRoute(jobId);
+        fetcher(route, 'PATCH', this.successProCancel.bind(this), this.errorCallback.bind(this), sendObj, headers)
+    }
+
+    successProCancel(res){
+        this.props.userDataStore.removeProPost(res.id);
+        this.props.navigation.navigate('Home');
+    }
+
+    successConsumerCancel(res){
+        console.log('cancled job?', res);
+        Alert.alert('עבודה בוטלה בהצלחה');
+        this.props.userDataStore.removeActivePost(res.id);
+        this.props.navigation.navigate('AddJob');
+    }
+    errorCallback(err){
+        console.log('error in active job/index', err);
+    }
+
 
     render() {
+        if(!this.props.userDataStore.focusedJob.id){
+            console.warn('no focused job')
+            this.props.navigation.navigate('Home');
+        }
         let jobStatus = this.props.userDataStore.focusedJob.status
         if (this.props.userDataStore.currentUserType !== 'pro') {
+            //  CONSUMER SIDE consumer side //
             if (jobStatus === 'on_the_way') {
                 return (
-                    <OnTheWayConsumer {...this.props}/>
+                    <OnTheWayConsumer {...this.props} cancelJob={this.consumerCancel.bind(this)}/>
                 );
             }
             else if (jobStatus === 'in_progress' || jobStatus === 'pro_payment'
                 || jobStatus === 'consumer_payment' ) {
                 return (
-                    <InProgressConsumer {...this.props}/>
+                    <InProgressConsumer {...this.props} cancelJob={this.consumerCancel.bind(this)}/>
                 );
             }
             else if ( jobStatus === 'consumer_review') {
@@ -77,12 +128,12 @@ export default class ActiveJob extends Component {
         else {
             if (jobStatus === 'on_the_way') {
                 return (
-                    <OnTheWayPro {...this.props}/>
+                    <OnTheWayPro {...this.props} cancelJob={this.proCancel.bind(this)} />
                 );
             }
             else if (jobStatus === 'in_progress') {
                 return (
-                    <InProgressPro {...this.props}/>
+                    <InProgressPro {...this.props} cancelJob={this.proCancel.bind(this)}/>
                 );
             } else if (jobStatus === 'pro_payment') {
                 return (

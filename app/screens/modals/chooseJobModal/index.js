@@ -91,7 +91,7 @@ export default class ChooseJobModal extends Component {
     }
 
     errorCallback(err) {
-        this.props.modalsStore.close('loaderModal');
+        this.props.modalsStore.closeModal('loaderModal');
         console.warn('error in chooseJob:', err);
         console.log('error in chooseJob:', err)
     }

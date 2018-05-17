@@ -168,10 +168,20 @@ let handleNotificationData = (type, payload) => {
             break;
         //    for consumer after 6 minutes that he hasn't updated his post
         case 'user_post_closed':
-            userDataStore.removeOpenPost(payload.id);
+            userDataStore.removeOpenPost(payload.post_id);
             userDataStore.focusConsumerJob({});
             break;
 
+        //    consumer is getting this
+        case 'pro_post_cancel':
+            console.warn("post with id: " + payload.post_id + " was canceled");
+            userDataStore.removeActivePost(payload.post_id);
+            break;
+
+        //    the is getting this:
+        case 'consumer_post_cancel':
+            console.warn("post with id: " + payload.post_id + " was canceled");
+            userDataStore.removeProPost(payload.post_id);
 
         default:
             console.warn("notification wasn't handled:", type);
@@ -189,8 +199,8 @@ export default class App extends Component<Props> {
         AppState.addEventListener('change', state => {
                 console.log('AppState changed to', state);
                 appState = state;
-            }
-        );
+                }
+            );
 
 
         PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE).then((granted) => {

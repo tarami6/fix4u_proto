@@ -99,7 +99,7 @@ export default class Consumer extends Component {
                     </ListItem>
                     <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
                         <TouchableOpacity onPress={() => {
-                            Alert.alert('בפיתוח... כאן יהיה הגדרות החשבון שלך')
+                            this.props.navigation.navigate('AccountSettings')
                         }}>
                             <Text style={{color: 'gray', fontWeight: 'bold'}}>הגדרות חשבון</Text>
                         </TouchableOpacity>

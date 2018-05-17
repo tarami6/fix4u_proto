@@ -153,7 +153,7 @@ export default class ChooseJob extends Component {
 
     render() {
         let openJobsList = this.props.openJobsStore.openJobsList;
-        let proApplies = this.props.userDataStore.userData.user.pro_applies.slice(0)
+        let proApplies = this.props.userDataStore.userData.user.pro_applies? this.props.userDataStore.userData.user.pro_applies.slice(0): [];
         // if (openJobsList && openJobsList.length > 0 || loadEmptyMap) {
         return (
             <View style={{flex: 1}}>

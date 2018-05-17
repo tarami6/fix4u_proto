@@ -57,32 +57,16 @@ export default class OnTheWayPro extends React.Component {
         fetcher(route, 'PATCH', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj, headers)
     }
 
-    cancelJob(jobId){
+    cancelJob(){
         Alert.alert(
             'ביטול עבודה',
             'האם אתה בטוח שאתה מעוניין לבטל את העבודה הנוכחית?',
             [
                 {text: 'לא, בטל פעולה', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                {text: 'כן', onPress: () => this.fetchCancelJob(jobId)},
+                {text: 'כן', onPress: () => this.props.cancelJob()},
             ],
             { cancelable: true }
         )
-    }
-    fetchCancelJob(jobId){
-        let sendObj = {
-            status: 'closed'
-        };
-        let headers = {
-            token: this.props.userDataStore.userData.token
-        };
-        //start job route is also the route for pro to cancel the job
-        let route = startJobRoute(jobId);
-        fetcher(route, 'PATCH', this.successCancelJob.bind(this), this.errorCallback.bind(this), sendObj, headers)
-    }
-
-    successCancelJob(res){
-        Alert.alert('עבודה בוטלה בהצלחה');
-        this.props.navigation.navigate('Home');
     }
 
     successCallback(res) {
@@ -224,7 +208,7 @@ export default class OnTheWayPro extends React.Component {
                     alignItems: 'center'
                 }}>
 
-                    <TouchableOpacity onPress={() => this.cancelJob(this.props.userDataStore.focusedJob.id)}
+                    <TouchableOpacity onPress={() => this.cancelJob()}
                                       style={{flex: 1, alignItems: 'center',}}>
                         <Image source={require('../../../../../assets/icons/cancel.png')}/>
                     </TouchableOpacity>

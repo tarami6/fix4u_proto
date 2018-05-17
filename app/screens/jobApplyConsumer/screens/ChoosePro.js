@@ -211,7 +211,7 @@ export default class ApplyBaseScreen extends React.Component {
 
     errorCallback(err) {
         this.props.modalsStore.hideModal('loaderModal');
-
+        Alert.alert('אירעה שגיאה בשליחת המידע אנא נסה שוב');
         console.warn(err)
         console.log(err);
 

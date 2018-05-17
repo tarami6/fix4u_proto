@@ -7,7 +7,6 @@ export default class OpenJobsStore {
 
     @action appliedToPost(postId){
         for(let i=0; i<this.openJobsList.length; i++){
-            console.log('powerRangers:', this.openJobsList[i].id, postId);
             if(this.openJobsList[i].id === postId){
                 this.openJobsList[i].did_i_apply = true;
 

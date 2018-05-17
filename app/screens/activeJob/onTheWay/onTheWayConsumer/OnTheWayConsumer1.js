@@ -108,14 +108,23 @@ export default class OnTheWayConsumer extends Component {
         }
     }
 
+    cancelJob(){
+        Alert.alert(
+            'ביטול עבודה',
+            'האם אתה בטוח שאתה מעוניין לבטל את העבודה הנוכחית?',
+            [
+                {text: 'לא, בטל פעולה', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'כן', onPress: () => this.props.cancelJob()},
+            ],
+            { cancelable: true }
+        )
+    }
+
 
 
     render() {
         let reviews = this.props.userDataStore.focusedJob.user_pro.pro_reviews?this.props.userDataStore.focusedJob.user_pro.pro_reviews.slice(0): [];
         let job = this.props.userDataStore.focusedJob.user_pro;
-        console.log('review3232323',reviews);
-        console.log('review32323sd23',this.props.userDataStore.focusedJob);
-        console.log('review3232',job);
         let rating = getAvgRating(
             job.price_rating_avg,
             job.time_rating_avg,
@@ -253,7 +262,7 @@ export default class OnTheWayConsumer extends Component {
                     alignItems: 'center'
                 }}>
 
-                    <TouchableOpacity onPress={() => Alert.alert('Cancel the job coming soon')}
+                    <TouchableOpacity onPress={() => this.cancelJob()}
                                       style={{flex: 1, alignItems: 'center',}}>
                         <Image source={require('../../../../../assets/icons/cancel.png')}/>
                     </TouchableOpacity>

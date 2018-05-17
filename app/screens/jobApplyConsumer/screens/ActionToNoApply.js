@@ -123,6 +123,26 @@ export default class ActionToNoApply extends React.Component {
 
         console.log('success update timer!', res);
     }
+    consumerCancel(){
+        let jobId = this.props.userDataStore.focusedConsumerJob.id;
+        let sendObj = {
+            status: 'canceled',
+            canceled_by: 'consumer'
+        };
+        let headers = {
+            token: this.props.userDataStore.userData.token
+        };
+        //start job route is also the route for pro to cancel the job
+        let route = editPostConsumerRoute(jobId);
+        fetcher(route, 'PATCH', this.successConsumerCancel.bind(this), this.errCB.bind(this), sendObj, headers)
+    }
+
+    successConsumerCancel(res){
+        console.log('canceled job?', res);
+        Alert.alert('עבודה בוטלה בהצלחה');
+        this.props.userDataStore.removeOpenPost(res.id);
+        this.props.navigation.navigate('AddJob');
+    }
 
     errCB(err) {
         console.log('error update timer', err);
@@ -180,7 +200,19 @@ export default class ActionToNoApply extends React.Component {
 
                 </View>
                 <View style={{flex: 0.4, alignItems: 'center', justifyContent: 'center'}}>
-                    <TouchableOpacity onPress={() => Alert.alert('Show me List of Pros')}>
+                    <TouchableOpacity onPress={() =>
+                    {
+                        Alert.alert(
+                            'ביטול עבודה',
+                            'האם אתה בטוח שאתה מעוניין לבטל את העבודה הנוכחית?',
+                            [
+                                {text: 'לא, בטל פעולה', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                                {text: 'כן', onPress: () => this.consumerCancel()},
+                            ],
+                            { cancelable: true }
+                        )
+
+                    }}>
                         <View style={{
                             width: SW - 124,
                             height: HH - 4,

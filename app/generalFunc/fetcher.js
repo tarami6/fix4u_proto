@@ -38,7 +38,6 @@ export const
         else {
             sendBody = JSON.stringify(body)
         }
-        console.warn("fetch starts");
         console.log('allSentInfo:', route, method, sendBody, headers)
         //     let fetchWaitTime = 10;
         //     setTimeout(()=>{
@@ -46,18 +45,36 @@ export const
         //         errCBActivated = true;
         //         errorCallback('too long, ' + fetchWaitTime + 'seconds has passed since fetch start')
         //     },10000);
+
+        /**
+         * One way to fetch and debug
+         **/
+        console.warn("start fetching");
         fetch(`${mainRoute}/${route}`, {
             method: method,
             headers: headers,
             body: sendBody
         })
             .then((response) => {
+                console.warn("got response from server");
                 if (response.status >= 200 && response.status < 300) {
                     response.json().then((responseJson) => successCallback(responseJson));
                 } else {
+                    response.json().then((err)=> console.log('fetcher got err :', err));
+                    console.warn("fetcher err cb", response);
                     errorCallback(response)
+
                 }
-            })
+            });
+
+        /**
+         * another way to fetch and debug
+         **/
+        // fetch(`${mainRoute}/${route}`, {
+        //     method: method,
+        //     headers: headers,
+        //     body: sendBody
+        // })
         // .then(response => response.json())
         // .then(responseJson => {
         //     successCallback(responseJson);

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, BackHandler, FlatList, Image, StyleSheet, TouchableHighlight, View} from 'react-native';
+import {Alert, BackHandler, FlatList, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Text from '../../../components/text/Text'
 import Header from '../../../components/headers/Header';
 import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHeaderConsumer'
@@ -156,7 +156,6 @@ export default class ApplyBaseScreen extends React.Component {
                     clearInterval(this.interval);
                     this.navigateToNoAppliesNavigator();
                 }
-
             }, 1000);
 
         }
@@ -193,11 +192,7 @@ export default class ApplyBaseScreen extends React.Component {
     render() {
         //mobx "listener" for new jobs
         let job2 = this.props.userDataStore.focusedConsumerJob;
-        if (!job2.appointment_time_start) {
-            return (
-                <View/>
-            )
-        }
+
 
         return (
             <View style={{flex: 1}}>
@@ -266,7 +261,7 @@ export default class ApplyBaseScreen extends React.Component {
                                     backgroundColor: 'transparent',
                                     height: SH / 8,
                                 }}>
-                                    <TouchableHighlight onPress={() => this.showPro(item)}
+                                    <TouchableOpacity onPress={() => this.showPro(item)}
                                                         style={{
                                                             flex: 1,
                                                             backgroundColor: 'transparent',
@@ -276,7 +271,7 @@ export default class ApplyBaseScreen extends React.Component {
                                         <InfoItem info={item}/>
 
 
-                                    </TouchableHighlight>
+                                    </TouchableOpacity>
                                     {index === job2.post_applies.length - 1 ?
                                         <LinearGradient colors={['rgba(0, 0, 0, 0.2)', 'rgba(0, 0, 0, 0)']}
                                                         style={{width: SW, height: 3}}/>
