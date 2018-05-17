@@ -6,18 +6,16 @@ import React, {Component} from 'react';
 import {
     View,
     Animated,
-    Dimensions,
     StyleSheet,
     TouchableOpacity
 } from 'react-native';
 import Text from '../../../../../components/text/Text'
-import {Circle} from './index';
 import {inject, observer} from "mobx-react/native";
 
 import {hebrewServices} from "../../../../../generalFunc/generalObjects";
 
-const {width, height} = Dimensions.get('window')
-const WIDTH_CARD = (width / 2) - 50
+
+const WIDTH_CARD = (SW / 2) - 50
 
 
 @inject("addJobStore")
@@ -59,7 +57,8 @@ class CardRow extends Component {
     }
 
     render() {
-        const {service} = this.props
+        console.log("Sa", this.props.service.item)
+        const service = this.props.service.item
         const animatedStyle = {transform: [{scale: this.scale}]}
         return (
             <TouchableOpacity
@@ -72,9 +71,9 @@ class CardRow extends Component {
                 onPress={() => {
                     this.handlePress(service.name)
                 }}
+                style={{ elevation: 5, borderRadius: 10, backgroundColor: '#ffffff'}}
                 activeOpacity={1}>
                 <View style={[styles.container]}>
-                    <Circle qty={service.qty}/>
                     <Animated.Image
                         resizeMode='contain'
                         style={[styles.image, animatedStyle]}
@@ -94,7 +93,10 @@ const styles = StyleSheet.create({
         width: WIDTH_CARD,
         height: WIDTH_CARD,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#ffffff',
+         borderRadius: 10,
+
     },
     image: {
         width: WIDTH_CARD / 2,
