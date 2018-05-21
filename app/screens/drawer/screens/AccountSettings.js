@@ -251,7 +251,7 @@ const Navbar = (props) => {
             <View style={{flexDirection: 'row'}}>
                 <View style={{flex: 1}}>
                     <TouchableOpacity onPress={() => props.handleBackButton()}>
-                        <ArrowIcon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
+                        <ArrowIcon name='ios-arrow-back-outline' style={{color: '#fff', margin: 20}}/>
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, justifyContent: 'center', paddingRight: Pad}}>

@@ -75,6 +75,7 @@ export default class PhoneInput extends Component {
 
     errorCallback(error) {
         this.props.modalsStore.hideModal('loaderModal');
+        Alert.alert("אנא בדוק חיבורי אינטרנט ונסה שוב", "אם הבעיה נמשכת אנא סגור ופתח את האפליקציה מחדש");
         console.warn('error in phoneNumb post fetch', error);
     }
 

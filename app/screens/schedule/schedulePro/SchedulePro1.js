@@ -45,7 +45,7 @@ export default class SchedulePro1 extends React.Component {
     }
 
     render() {
-        const swipeSettings = (id) => {
+        const swipeSettings = (id, item) => {
             return ({
                 autoClose: true,
                 onClose: (secId, rowID, direction) => {
@@ -57,13 +57,7 @@ export default class SchedulePro1 extends React.Component {
                 left: [
                     {
                         onPress: () => {
-                            Alert.alert('Alert', 'Are you sure you want to delete this',
-                                [
-                                    {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                                    {text: 'Yes', onPress: () => this.props.cancelJob(id)}
-                                ],
-                                {cancelable: true}
-                            )
+                            this.props.cancelJob(item)
                         },
                         type: 'delete',
                         component:
@@ -97,7 +91,7 @@ export default class SchedulePro1 extends React.Component {
                             return (
                                 <View key={item.id}>
                                     {item.status === "on_the_way" ?
-                                        <Swipeout {...(swipeSettings(item.id))} onPress={() => {
+                                        <Swipeout {...(swipeSettings(item.id, item))} onPress={() => {
                                             console.warn("pressed:" + item.id)
                                         }}>
                                             <TouchableHighlight onPress={() => this.chooseJob(item)}

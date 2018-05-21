@@ -104,28 +104,21 @@ export default class Consumer extends Component {
                             </View>
                         </View>
                     </TouchableOpacity>
-
                     <TouchableOpacity onPress={() => {
                         Alert.alert('בפיתוח... כאן יהיה הגדרות החשבון שלך')
                     }} style={styles.listItem}>
                         <Text style={styles.textList}>הגדרות חשבון</Text>
                     </TouchableOpacity>
-
-
                     <TouchableOpacity onPress={() => {
                         Alert.alert('בפיתוח... כאן תוכל ליצור קשר עם תמיכה טכנית לכל שאלה')
                     }} style={styles.listItem}>
                         <Text>תמיכה טכנית</Text>
                     </TouchableOpacity>
-
-
                     <TouchableOpacity style={styles.listItem} onPress={this.logout.bind(this)}>
                         <Text style={styles.textList}>
                             התנתק
                         </Text>
                     </TouchableOpacity>
-
-
                 </View>
             </View>
         );
@@ -136,7 +129,7 @@ const Navbar = (props) => {
     return (
         <View style={{width, height: Platform.OS == 'ios' ? 150 : 135,}}>
             <TouchableOpacity onPress={() => props.navigation.navigate('DrawerClose')}>
-                <View style={{fontSize: 30, margin: 20}}>
+                <View style={{ margin: 20}}>
                     <Cicons name={"back"} size={25} color={"#fff"}/>
                 </View>
             </TouchableOpacity>

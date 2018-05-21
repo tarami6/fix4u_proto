@@ -3,6 +3,9 @@ import {View, Image, StyleSheet, Alert, TextInput, KeyboardAvoidingView, Touchab
 import {SW, SH, fontGrey, mainRed} from "../../../../config/styles";
 import Text from '../../../../components/text/Text'
 import {submitButton} from "../../../../components/modalSubmitButton";
+import {fetcher} from "../../../../generalFunc/fetcher";
+import {NavigationActions} from "react-navigation";
+import {editPostConsumerRoute} from "../../../../config/apiRoutes";
 
 const CancelJobModal = (props) => {
     return (
@@ -108,7 +111,7 @@ const CancelJobModal = (props) => {
                         <View style={{flex: 1, justifyContent: 'center'}}>
                             <View style={{alignItems: 'center'}}>
                                 {submitButton('אשר', 'pro', () => {
-                                    Alert.alert('אושר')
+                                    props.cancelJob()
                                 })}
                             </View>
                         </View>
@@ -160,11 +163,61 @@ export default class TextPage extends React.Component {
             default:
                 break;
         }
+    };
+
+    // Job Cancel Handling
+
+    consumerCancelJob(){
+        let jobId = this.props.userDataStore.focusedJob.id;
+        let sendObj = {
+            status: 'canceled',
+            canceled_by: 'consumer'
+        };
+        let headers = {
+            token: this.props.userDataStore.userData.token
+        };
+        //start job route is also the route for pro to cancel the job
+        let route = editPostConsumerRoute(jobId);
+
+        this.props.modalsStore.hideModal("consumerCancelJobModal");
+        this.props.modalsStore.showModal("loaderModal");
+        fetcher(route, 'PATCH', this.successConsumerCancel.bind(this), this.errorCallback.bind(this), sendObj, headers)
     }
+
+    //navigate away from current focused job after it has been canceled
+    navigateAway(){
+        const actionToDispatch = NavigationActions.reset({
+            index: 0,
+            key: null,
+            actions: [
+                NavigationActions.navigate({
+                    routeName: 'ConsumerNavigator',
+                    action: NavigationActions.navigate({routeName: 'Home'}),
+                })
+            ],
+        });
+        this.props.navigationStore.dispatch(actionToDispatch)
+    }
+
+    successConsumerCancel(res) {
+        this.props.navigation.navigate('AddJob');
+        this.props.userDataStore.removeActivePost(res.id);
+
+        this.props.modalsStore.hideModal("loaderModal");
+        Alert.alert("העבודה בוטלה בהצלחה")
+        this.navigateAway();
+    }
+
+    errorCallback(err) {
+        this.props.modalsStore.hideModal("loaderModal");
+        console.log('error in active job/index', err);
+    }
+
+    ////
 
     render() {
         return (
-            <CancelJobModal {...this.state} changeBox={this.changeBox.bind(this)}/>
+            <CancelJobModal {...this.state} changeBox={this.changeBox.bind(this)} cancelJob={this.consumerCancelJob.bind(this)}/>
         )
     }
 }

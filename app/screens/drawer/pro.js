@@ -282,7 +282,7 @@ const Navbar = (props) => {
                 })
             }
             }>
-                <View style={{ fontSize: 30, margin: 20}}>
+                <View style={{ margin: 20}}>
                     <Cicons name={"back"} size={25} color={"#fff"}/>
                 </View>
             </TouchableOpacity>

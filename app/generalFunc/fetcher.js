@@ -5,7 +5,6 @@ let defaultHeader = {
     'Content-Type': 'application/json',
 }
 
-let errCBActivated = false;
 
 export const
     fetcher = (route, method, successCallback, errorCallback, body = {}, headers = defaultHeader) => {
@@ -50,42 +49,43 @@ export const
          * One way to fetch and debug
          **/
         console.warn("start fetching");
-        fetch(`${mainRoute}/${route}`, {
-            method: method,
-            headers: headers,
-            body: sendBody
-        })
-            .then((response) => {
-                console.warn("got response from server");
-                if (response.status >= 200 && response.status < 300) {
-                    response.json().then((responseJson) => successCallback(responseJson));
-                } else {
-                    response.json().then((err)=> console.log('fetcher got err :', err));
-                    console.warn("fetcher err cb", response);
-                    errorCallback(response)
-
-                }
-            });
-
-        /**
-         * another way to fetch and debug
-         **/
         // fetch(`${mainRoute}/${route}`, {
         //     method: method,
         //     headers: headers,
         //     body: sendBody
         // })
-        // .then(response => response.json())
-        // .then(responseJson => {
-        //     successCallback(responseJson);
+        //     .then((response) => {
+        //         console.warn("got response from server");
+        //         if (response.status >= 200 && response.status < 300) {
+        //             response.json().then((responseJson) => successCallback(responseJson));
+        //         } else {
+        //             errorCallback(response)
+        //             response.json().then((err)=> console.log('fetcher got err :', err));
+        //             console.warn("fetcher err cb", response);
+        //             // errorCallback(response)
+        //
+        //         }
+        //     }).catch(err => {
+        //     errorCallback(error);
         // })
-        // .catch(error => {
-        //     console.warn('err to route:', route)
-        //     console.log('fetch error to route:', route, error);
-        //     if(!errCBActivated) {
-        //         errorCallback(error)
-        //     }
-        // });
+
+        /**
+         * another way to fetch and debug
+         **/
+        fetch(`${mainRoute}/${route}`, {
+            method: method,
+            headers: headers,
+            body: sendBody
+        })
+        .then(response => response.json())
+        .then(responseJson => {
+            successCallback(responseJson);
+        })
+        .catch(error => {
+            console.warn('err to route:', route)
+            console.log('fetch error to route:', route, error);
+                errorCallback(error)
+        });
 
 
     }

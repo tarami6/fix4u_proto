@@ -15,6 +15,12 @@ export default class ModalsStore {
 
     @observable loaderModal = false;
 
+    @observable proCancelJobModal = false;
+
+    @observable consumerCancelJobModal = false;
+
+
+
 
     //display/hide modals
     @action showModal(str: string){
