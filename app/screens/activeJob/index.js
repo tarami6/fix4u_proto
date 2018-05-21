@@ -117,6 +117,8 @@ export default class ActiveJob extends Component {
                 );
             }
             else {
+                this.props.navigation.navigate('Home');
+                console.warn("error with focused job status");
                 return (
                     <View>
                         <Text>

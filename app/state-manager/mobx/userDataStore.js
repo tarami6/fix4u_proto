@@ -83,7 +83,9 @@ export default class UserDataStore {
         for (let i = 0; i < proApplies.length; i++) {
             console.log('ids:', proApplies[i].post, postId);
             if (proApplies[i].post === postId) {
-                this.userData.user.pro_applies.splice(i, 1);
+                if (this.userData.user.pro_applies) {
+                    this.userData.user.pro_applies.splice(i, 1);
+                }
             }
         }
     }

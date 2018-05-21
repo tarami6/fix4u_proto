@@ -18,6 +18,8 @@ import NavigationStore from "./state-manager/mobx/navigationStore";
 import OpenJobsStore from './state-manager/mobx/openJobsStore';
 import NotificationsStore from './state-manager/mobx/notificationsStore';
 import ProsListStore from './state-manager/mobx/prosListStore';
+import TimerStore from './state-manager/mobx/timerStore'
+
 import {StackNavigator} from 'react-navigation'
 
 import Pushy from 'pushy-react-native';
@@ -40,7 +42,8 @@ let openJobsStore = new OpenJobsStore();
 let notificationsStore = new NotificationsStore();
 //for when a user wants to see full prosList:
 let prosListStore = new ProsListStore();
-
+// for timers
+let timerStore = new TimerStore();
 
 // // Ramistesting
 // import LoadingPage from './screens/modals/Loader/LoadingPage';
@@ -253,7 +256,9 @@ export default class App extends Component {
         return (
             <Provider navigationStore={navigationStore} authStore={authStore} addJobStore={addJobStore}
                       userDataStore={userDataStore} proAuthStore={proAuthStore} modalsStore={modalsStore}
-                      openJobsStore={openJobsStore} notificationsStore={notificationsStore} prosListStore={prosListStore}>
+                      openJobsStore={openJobsStore} notificationsStore={notificationsStore}
+                      prosListStore={prosListStore} timerStore={timerStore}
+            >
                 <ScreensBase/>
             </Provider>
         )
