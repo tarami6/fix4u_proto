@@ -174,6 +174,10 @@ let handleNotificationData = (type, payload) => {
 
         //    consumer is getting this
         case 'pro_post_cancel':
+            if (payload.id === userDataStore.focusedJob.id) {
+                console.warn("pro canceled this post");
+                // notificationsStore.removePostNotifications('active', payload.id, 'pro', userDataStore.userData.token)
+            }
             console.warn("post with id: " + payload.post_id + " was canceled");
             userDataStore.removeActivePost(payload.post_id);
             break;
