@@ -188,6 +188,7 @@ export default class InProgressConsumer extends Component {
                         <Text style={mainStyles.greyTitle}>
                             {this.props.userDataStore.focusedJob.status === 'in_progress' ? 'בעבודה' : ''}
                             {this.props.userDataStore.focusedJob.status === 'pro_payment' ? focusedJob.user_pro.name + ' מכין חשבונית ' : ''}
+                            {this.props.userDataStore.focusedJob.status === 'consumer_payment' ? focusedJob.user_pro.name + ' ממתין לתשלום ' : ''}
                         </Text>
                     </View>
                     <View style={{flex: 1}}>

@@ -7,7 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Circle from '../../components/circle'
 import {inject, observer} from "mobx-react/native";
 import ArrowIcon from 'react-native-vector-icons/Ionicons';
-import {SH, SW, Pad} from "../../config/styles";
+import {SH, SW, Pad, START, mainFontBold, largeFont, backgroundGrey} from "../../config/styles";
 //func and config
 import {fetcher} from "../../generalFunc/fetcher";
 import {logOutRoute} from "../../config/apiRoutes";
@@ -118,6 +118,9 @@ export default class Pro extends Component {
                     </LinearGradient>
                     <View style={{flex: 1}}>
                         {/*Switch drawer type consumer/pro*/}
+                        <View style={[styles.listItem,{height: SH / 7.5, backgroundColor: backgroundGrey} ]}>
+                            <Text style={{textAlign: 'center',fontSize: largeFont, color: START, fontFamily: mainFontBold }}>מצב איש מקצוע</Text>
+                        </View>
                         <TouchableOpacity
                             onPress={() => this.handleSwitch('consumer')}
                             style={styles.listItem}>
@@ -205,6 +208,9 @@ export default class Pro extends Component {
                     </LinearGradient>
                     <View style={{flex: 1}}>
                         {/*Switch drawer type consumer/pro*/}
+                        <View style={[styles.listItem,{height: SH / 7.5, backgroundColor: backgroundGrey} ]}>
+                            <Text style={{textAlign: 'center',fontSize: largeFont, color: START, fontFamily: mainFontBold }}>מצב לקוח</Text>
+                        </View>
                         <TouchableOpacity
                             onPress={() => this.handleSwitch('pro')}
                             style={styles.listItem}>
