@@ -18,6 +18,7 @@ import NavigationStore from "./state-manager/mobx/navigationStore";
 import OpenJobsStore from './state-manager/mobx/openJobsStore';
 import NotificationsStore from './state-manager/mobx/notificationsStore';
 import ProsListStore from './state-manager/mobx/prosListStore';
+import {StackNavigator} from 'react-navigation'
 
 import Pushy from 'pushy-react-native';
 
@@ -49,10 +50,11 @@ let prosListStore = new ProsListStore();
 // import CancelTheJobModal from './screens/modals/cancelTheJob/pro/CancelJobModalPro';
 // import CancelJobModalConsumer from './screens/modals/cancelTheJob/consumer/CancelJobModalConsumer';
 // import AccountSettings from './screens/drawer/screens/AccountSettings'
+// import LoadingPage from './screens/modals/Loader/LoadingPage'
 //
 // const HomeNavigation = StackNavigator({
 //     Home: {
-//         screen: ProsListToConnect
+//         screen: LoadingPage
 //     }
 // })
 
@@ -195,7 +197,7 @@ let handleNotificationData = (type, payload) => {
 }
 
 type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
     componentDidMount() {
         // Start the Pushy service
         Pushy.listen();

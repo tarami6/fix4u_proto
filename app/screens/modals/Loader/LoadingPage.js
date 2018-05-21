@@ -11,29 +11,27 @@ export default class LoadinPage extends React.Component {
     }
 
     componentDidMount() {
-        this.animation2.play();
+        this.animation1.play();
     }
 
     render() {
         return (
             <View style={{flex: 1,}}>
                 <LinearGradient colors={['#FFBA00', '#FF8D00']} style={{flex: 1, alignItems: 'center'}}>
-                    <Image
-                        style={{marginTop: SH / 4, height: '23%' , width: '27%'}}
-                        source={require('../../../../assets/icons/loadingLogo.png')}
-                    />
+
+                    <View style={{marginTop: SH / 4, width: SW,  height: 100}}>
+                        <LottieView
+                            ref={animation1 => {
+                                this.animation1 = animation1;
+                            }}
+                            source={require('../../../../assets/animations/loadingFirst1.json')}
+                        />
+                    </View>
                     <Image
                         style={{marginTop: SH / 12}}
                         source={require('../../../../assets/icons/fix4U.png')}
                     />
-                    <View style={{marginTop: SH / 10, alignItems: 'center', width: SW, height: 100}}>
-                        <LottieView
-                            ref={animation2 => {
-                                this.animation2 = animation2;
-                            }}
-                            source={require('../../../../assets/animations/LoadingBar.json')}
-                        />
-                    </View>
+
 
                 </LinearGradient>
             </View>

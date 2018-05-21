@@ -5,8 +5,8 @@
 * */
 
 import React, {Component} from 'react';
-import {Alert, BackHandler, Dimensions} from 'react-native';
-import {Container, Content} from 'native-base';
+import {Alert, BackHandler, Dimensions, ScrollView} from 'react-native';
+
 import Header from '../../../../components/headers/Header'
 
 import LinierView from '../../../../components/linierView'
@@ -14,7 +14,7 @@ import {CardList} from './components/index'
 import ChooseTime from "../ChooseTime";
 import {inject, observer} from "mobx-react/native";
 
-const {width, height} = Dimensions.get('window');
+
 
 @inject("navigationStore")
 @observer
@@ -25,10 +25,6 @@ export default class ChooseService extends Component {
     }
     onBackPress = () => {
         console.warn("choose Service backHandler")
-        // // console.log('backHandler pressed')
-        // const {dispatch} = this.store;
-        // // console.log(this.store);
-        // const {navigationState} = this.store;
         if (this.props.navigation.state.params) {
             if(this.props.navigation.state.params.drawerOpen){
                 this.props.navigation.navigate('DrawerClose');
@@ -53,8 +49,6 @@ export default class ChooseService extends Component {
             }
         )
         return true;
-        // return false;
-        // dispatch(NavigationActions.back());
     };
 
     constructor(props) {
@@ -76,14 +70,12 @@ export default class ChooseService extends Component {
 
     render() {
         return (
-            <Container>
-                <Content>
+            <ScrollView style={{flex:1}}>
                     <LinierView>
                         <Header head={'consumerHome'} {...this.props}/>
                     </LinierView>
                     <CardList nextStep={this.nextStep.bind(this)}/>
-                </Content>
-            </Container>
+            </ScrollView>
         );
     }
 }

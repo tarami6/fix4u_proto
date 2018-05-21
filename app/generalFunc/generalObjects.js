@@ -16,6 +16,16 @@ export const PicService = {
     TechnicianWashingMachines: require('../../assets/whiteIcons/TechnicianWashingMachines.png'),
     AirConditioningTechnician: require('../../assets/whiteIcons/AirConditioningTechnician.png')
 }
+export const ToIcon = {
+    Electrician: 'electrician',
+    Plumber: 'plumber',
+    Cleaner: 'cleaner',
+    Handyman:'handyman',
+    Locksmith: 'lock',
+    TechnicianWashingMachines: 'wash',
+    AirConditioningTechnician: 'airc'
+}
+
 
 export const ServicesArrToHebString = (arr: Array) => {
     let returnWord = '';

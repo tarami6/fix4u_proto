@@ -5,7 +5,7 @@
  */
 
 import React, {Component} from 'react';
-import {Alert, BackHandler, View} from 'react-native';
+import {Alert, BackHandler, View, StatusBar} from 'react-native';
 // mobx
 import {inject, observer} from 'mobx-react/native';
 import authStore from "../state-manager/mobx/authStore";
@@ -26,6 +26,7 @@ import {Keys} from "../config/keys";
 // Ramistesting
 import LoadingPage from '../screens/modals/Loader/LoadingPage'
 
+import {mainColor} from "../config/styles";
 
 type Props = {};
 
@@ -110,9 +111,9 @@ export default class ScreensBase extends Component<Props> {
 
     componentDidMount() {
         // in case the fetch for location takes too long we want the app to continue running
-        setTimeout(()=>{
+        setTimeout(() => {
             this.setState({userLocationFetch: false});
-        },5000)
+        }, 5000)
 
 
         // console.log('userData = ', this.props.userDataStore.userData)
@@ -166,6 +167,10 @@ export default class ScreensBase extends Component<Props> {
         }
         return (
             <View style={{flex: 1}}>
+                <StatusBar
+                    backgroundColor={mainColor}
+                    barStyle="light-content"
+                />
                 <AppNavigation
                     navigation={addNavigationHelpers({
                         dispatch: this.store.dispatch,

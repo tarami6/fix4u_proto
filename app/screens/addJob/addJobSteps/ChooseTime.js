@@ -21,14 +21,10 @@ import {mainStyles, SH, SW} from "../../../config/styles";
 
 import Header from '../../../components/headers/Header'
 // Config
-import {hebrewServices, PicService} from "../../../generalFunc/generalObjects";
+import {hebrewServices, ToIcon} from "../../../generalFunc/generalObjects";
 
 import {NavigationActions} from "react-navigation";
-
-let data = {
-    service: 'חשמלאי',
-    servicePic: require('../../../../assets/whiteIcons/Plumber.png'),
-}
+import Cicons from '../../../components/customIcons/CustomIcons'
 
 
 @inject("navigationStore")
@@ -69,6 +65,26 @@ export default class ChooseTime extends React.Component {
         super(props);
     }
 
+    toIcon(service){
+        switch(service){
+            case 'Cleaner':
+                return ('cleaner')
+            case 'Plumber':
+                return ('plumber')
+            case 'Electrician':
+                return ('electrician')
+            case 'Handyman':
+                return ('handyman')
+            case 'Locksmith':
+                return ('lock')
+            case 'TechnicianWashingMachines':
+                return ('wash')
+            case 'AirConditioningTechnician':
+                return ('airc')
+            default:
+                break;
+        }
+    }
     goBack() {
         console.warn("choose time backHandler");
         this.props.navigation.goBack()
@@ -122,10 +138,7 @@ export default class ChooseTime extends React.Component {
                         />
                     </View>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                        <Image
-                            style={{alignSelf: 'center', width: SW / 8, height: SW / 8}}
-                            source={PicService[this.props.addJobStore.newJobInfo.service]}
-                        />
+                          <Cicons name={ToIcon[this.props.addJobStore.newJobInfo.service]} size={50} color={"#fff"}/>
                     </View>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                         <Text type={'whiteTitle'} >

@@ -3,6 +3,7 @@ import {Alert, Image,  TextInput, View} from "react-native";
 import {inject, observer} from "mobx-react/native";
 import {submitButton} from "../../../components/modalSubmitButton";
 import Text from '../../../components/text/Text'
+import Cicons from '../../../components/customIcons/CustomIcons'
 //config
 import {fetcher} from "../../../generalFunc/fetcher";
 import {phoneInputRoute} from "../../../config/apiRoutes";
@@ -88,9 +89,8 @@ export default class PhoneInput extends Component {
 
         return (
             <View style={styles.container}>
-                <View style={{flex: 1.3, justifyContent: 'flex-end'}}>
-                    <Image style={{width: SW / 2.5, height: SW / 2.5,}}
-                           source={require('../../../../assets/registration/phoneInputBack.png')}/>
+                <View style={{flex: 1.3, justifyContent: 'flex-end', marginBottom: SW /20}}>
+                        <Cicons name={"pnum"} size={150} color={"#DBDBDB"}/>
                 </View>
                 <View style={{flex: 1, alignItems: 'center'}}>
                     <Text type={'greyTitle'} style={{paddingBottom: 10}}>הזן מספר טלפון</Text>

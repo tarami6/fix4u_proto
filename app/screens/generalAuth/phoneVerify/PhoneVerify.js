@@ -8,6 +8,7 @@ import styles from './styles'
 import {loginRoute, phoneVerifyRoute} from "../../../config/apiRoutes";
 import {handlePushyToken} from "../../../generalFunc/pushyTokenHandler";
 import Text from '../../../components/text/Text'
+import Cicons from '../../../components/customIcons/CustomIcons'
 
 @inject('modalsStore')
 @inject("userDataStore")
@@ -93,9 +94,8 @@ export default class PhoneVerify extends Component {
         return (
             <View style={{flex: 1, backgroundColor: "#f6f6f6"}}>
                 <View style={{flex: 1.3, justifyContent: 'center', alignItems: 'center'}}>
-                    <Image style={{width: SW / 2.5, height: SW / 2.5,}}
-                           source={require('../../../../assets/registration/code4digitsBack.png')}/>
-                    <Text type={'greySmallNote'} > קוד אימות נשלח ב SMS</Text>
+                    <Cicons name={"rm"} size={100} color={"#DBDBDB"}/>
+                    <Text type={'greySmallNote'}  style={{marginTop: SW /20}}> קוד אימות נשלח ב SMS</Text>
                 </View>
                 <View style={{flex: 1, alignItems: 'center'}}>
                     <Text type={"greyTitle"} style={{paddingBottom: 10}}>הכנס קוד אימות</Text>

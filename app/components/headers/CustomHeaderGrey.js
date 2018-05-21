@@ -1,26 +1,27 @@
 import React from 'react';
-import {SH, SW, HH} from "../../config/styles";
+import {SH, SW, HH, Pad} from "../../config/styles";
 import {View, Alert, TouchableOpacity,} from 'react-native';
 import ArrowIcon from 'react-native-vector-icons/Ionicons';
+import Cicons from '../../components/customIcons/CustomIcons'
 
 const CustomHeaderGrey = (props) => {
     return (
-        <View style={{backgroundColor: '#fff', height: HH}}>
+        <View style={{backgroundColor: '#fff', height: HH,justifyContent: 'center',}}>
             <View
                 style={{
-                    marginTop: 10,
                     flexDirection: 'row'/* only for IOS to give StatusBar Space */,
                     width: SW,
-                    justifyContent: 'space-between',
-                    backgroundColor: '#fff'
                 }}
             >
                 <TouchableOpacity
                     onPress={() => props.props.navigation.goBack()}
-                    style={{justifyContent: 'flex-start', flex: 1}}>
-                    <ArrowIcon name="ios-arrow-back" size={35} color="#ff8500" style={{paddingLeft: SW / 20}}/>
+                    style={{flex: 1,}}>
+                    <View style={{paddingLeft: Pad }}>
+                        <Cicons name={"back"} size={25} color={"#ff8500"}/>
+                    </View>
+
                 </TouchableOpacity>
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <View style={{flex: 1, }}>
                 </View>
                 <View style={{flex: 1}}></View>
             </View>

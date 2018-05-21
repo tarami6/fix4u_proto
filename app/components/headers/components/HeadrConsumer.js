@@ -3,6 +3,7 @@ import {TouchableOpacity, Image, StyleSheet, View, Alert, Text} from 'react-nati
 import Counter from './Counter';
 import {HH, mainRed, PaddingSize, SH, SW} from "../../../config/styles";
 import {inject, observer} from "mobx-react/index";
+import Cicons from '../../../components/customIcons/CustomIcons'
 
 @inject("userDataStore")
 @inject("notificationsStore")
@@ -33,9 +34,7 @@ export default class HeadrConsumer extends Component {
 
                 }}
                 >
-                    <Image
-                        style={{width: SW / 20, height: SW / 20}}
-                        source={require('../../../../assets/icons/Menu.png')}/>
+                    <Cicons name={"menu"} size={20} color={"#ffffff"}/>
 
 
                 </TouchableOpacity>
@@ -77,9 +76,10 @@ export default class HeadrConsumer extends Component {
                 <TouchableOpacity
                     onPress={() => props.navigation.navigate('Schedule')}
                     style={{paddingLeft: SW / 30}}>
-                    <Image
-                        style={{width: SW / 15, height: SW / 15}}
-                        source={require('../../../../assets/icons/noteMan.png')}/>
+                    {props.userType === 'pro' ?
+                        <Cicons name={"shedule"} size={30} color={"#ffffff"}/>
+                       :  <Cicons name={"works"} size={30} color={"#ffffff"}/>  }
+
                     <Counter/>
                 </TouchableOpacity>
 
@@ -89,9 +89,7 @@ export default class HeadrConsumer extends Component {
     }
 }
 
-const HeaderConsumer = (props) => {
 
-}
 
 // export default HeaderConsumer;
 const styles = StyleSheet.create({
