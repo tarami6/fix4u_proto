@@ -2,16 +2,18 @@
 
 import React, {Component} from 'react';
 import {Alert, AsyncStorage, Dimensions, Image, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Icon, List, ListItem} from 'native-base';
 import Text from '../../components/text/Text'
 import LinearGradient from 'react-native-linear-gradient';
 import Circle from '../../components/circle'
 import {inject, observer} from "mobx-react/native";
+import ArrowIcon from 'react-native-vector-icons/Ionicons';
+import {SH, SW, Pad} from "../../config/styles";
 //func and config
 import {fetcher} from "../../generalFunc/fetcher";
 import {logOutRoute} from "../../config/apiRoutes";
 import {NavigationActions} from "react-navigation";
 
+import Cicons from '../../components/customIcons/CustomIcons'
 
 const {width, height} = Dimensions.get('window')
 
@@ -104,7 +106,7 @@ export default class Pro extends Component {
                 this.props.notificationsStore.consumerNotifications.open.length;
             ////////// PRO MODE //////////
             return (
-                <View>
+                <View style={{flex: 1}}>
                     <LinearGradient
                         colors={['#fd8824', '#fdb82c']}
                         start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
@@ -114,68 +116,76 @@ export default class Pro extends Component {
                                 pic={this.props.userDataStore.userData.user.profile_pic_thumb}
                                 navigation={this.props.navigation}/>
                     </LinearGradient>
-                    <List>
+                    <View style={{flex: 1}}>
                         {/*Switch drawer type consumer/pro*/}
-                        <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                        <TouchableOpacity
+                            onPress={() => this.handleSwitch('consumer')}
+                            style={styles.listItem}>
                             <View style={{
                                 width,
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
                                 flexDirection: 'row'
                             }}>
-                                <View style={{marginLeft: 50}}>
+                                <View style={styles.notificationCircle}>
                                     <Circle qty={consumerNotificationsLength}/>
                                 </View>
-                                <TouchableOpacity onPress={() => this.handleSwitch('consumer')}>
-                                    <Text style={{color: 'gray', fontWeight: 'bold'}}>החלף למצב לקוח</Text>
-                                </TouchableOpacity>
+                                <View>
+                                    <Text style={styles.textList}>החלף למצב לקוח</Text>
+                                </View>
                             </View>
-                        </ListItem>
+                        </TouchableOpacity>
 
-                        <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                        <TouchableOpacity onPress={() => {
+                            Alert.alert('בפיתוח... כאן יהיו כל חשבוניות שלך')
+                        }}
+                                          style={styles.listItem}>
                             <View style={{
                                 width,
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
                                 flexDirection: 'row'
                             }}>
-                                <View style={{marginLeft: 50}}>
+                                <View style={styles.notificationCircle}>
                                     <Circle qty={0}/>
                                 </View>
-                                <TouchableOpacity onPress={() => {
-                                    Alert.alert('בפיתוח... כאן יהיו כל חשבוניות שלך')
-                                }}>
-                                    <Text style={{color: 'gray', fontWeight: 'bold'}}>חשבוניות שלי</Text>
-                                </TouchableOpacity>
+                                <View>
+                                    <Text style={styles.textList}>חשבוניות שלי</Text>
+                                </View>
                             </View>
-                        </ListItem>
-                        <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                            <TouchableOpacity onPress={() => {
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
                                 this.props.navigation.navigate('AccountSettings')
-                            }}>
-                                <Text style={{color: 'gray', fontWeight: 'bold'}}>הגדרות חשבון</Text>
-                            </TouchableOpacity>
-                        </ListItem>
-                        <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                            <TouchableOpacity onPress={() => {
-                                Alert.alert('בפיתוח... כאן תוכל ליצור קשר עם תמיכה טכנית לכל שאלה')
-                            }}>
-                                <Text style={{color: 'gray', fontWeight: 'bold'}}>תמיכה טכנית</Text>
-                            </TouchableOpacity>
-                        </ListItem>
-
-                        <ListItem
-                            style={{borderBottomWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                            }}
+                            style={styles.listItem}>
                             <View>
-                                <TouchableOpacity onPress={this.logout.bind(this)}>
-                                    <Text>
+                                <Text style={styles.textList}>הגדרות חשבון</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                Alert.alert('בפיתוח... כאן תוכל ליצור קשר עם תמיכה טכנית לכל שאלה')
+                            }}
+                            style={styles.listItem}>
+                            <View>
+                                <Text style={styles.textList}>תמיכה טכנית</Text>
+                            </View>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={this.logout.bind(this)}
+                            style={styles.listItem}>
+                            <View>
+                                <View>
+                                    <Text style={styles.textList}>
                                         התנתק
                                     </Text>
-                                </TouchableOpacity>
+                                </View>
                             </View>
-                        </ListItem>
+                        </TouchableOpacity>
 
-                    </List>
+                    </View>
                 </View>
             );
         }
@@ -184,7 +194,7 @@ export default class Pro extends Component {
                 this.props.notificationsStore.proNotifications.open.length;
             //    ///////// CONSUMER MODE ///////////
             return (
-                <View>
+                <View style={{flex: 1}}>
                     <LinearGradient
                         colors={['#fd8824', '#fdb82c']}
                         start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
@@ -194,67 +204,68 @@ export default class Pro extends Component {
                                 pic={this.props.userDataStore.userData.user.profile_pic_thumb}
                         />
                     </LinearGradient>
-                    <List>
+                    <View style={{flex: 1}}>
                         {/*Switch drawer type consumer/pro*/}
-                        <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                        <TouchableOpacity
+                            onPress={() => this.handleSwitch('pro')}
+                            style={styles.listItem}>
                             <View style={{
                                 width,
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
                                 flexDirection: 'row'
                             }}>
-                                <View style={{marginLeft: 50}}>
+                                <View style={styles.notificationCircle}>
                                     <Circle qty={proNotificationsLength}/>
                                 </View>
-                                <TouchableOpacity onPress={() => this.handleSwitch('pro')}>
-                                    <Text style={{color: 'gray', fontWeight: 'bold'}}>החלף למצב איש מקצוע</Text>
-                                </TouchableOpacity>
+                                <View>
+                                    <Text style={styles.textList}>החלף למצב איש מקצוע</Text>
+                                </View>
                             </View>
-                        </ListItem>
-                        <ListItem style={{justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                Alert.alert('בפיתוח... כאן יהיו כל חשבוניות שלך')
+                            }}
+                            style={styles.listItem}>
                             <View style={{
                                 width,
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
                                 flexDirection: 'row'
                             }}>
-                                <View style={{marginLeft: 50}}>
+                                <View style={styles.notificationCircle}>
                                     <Circle qty={0}/>
                                 </View>
-                                <TouchableOpacity onPress={() => {
-                                    Alert.alert('בפיתוח... כאן יהיו כל חשבוניות שלך')
-                                }}>
-                                    <Text style={{color: 'gray', fontWeight: 'bold'}}>חשבוניות שלי</Text>
-                                </TouchableOpacity>
+                                <View>
+                                    <Text style={styles.textList}>חשבוניות שלי</Text>
+                                </View>
                             </View>
-                        </ListItem>
-                        <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                            <TouchableOpacity onPress={() => {
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.listItem}
+                            onPress={() => {
                                 this.props.navigation.navigate('AccountSettings');
                             }}>
-                                <Text style={{color: 'gray', fontWeight: 'bold'}}>הגדרות חשבון</Text>
-                            </TouchableOpacity>
-                        </ListItem>
-                        <ListItem style={{borderWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                            <TouchableOpacity onPress={() => {
-                                Alert.alert('בפיתוח... כאן תוכל ליצור קשר עם תמיכה טכנית לכל שאלה')
-                            }}>
-                                <Text style={{color: 'gray', fontWeight: 'bold'}}>תמיכה טכנית</Text>
-                            </TouchableOpacity>
-                        </ListItem>
+                            <Text style={styles.textList}> הגדרות חשבון</Text>
+                        </TouchableOpacity>
 
-                        <ListItem
-                            style={{borderBottomWidth: 0, justifyContent: 'flex-end', paddingLeft: 0, marginLeft: 0}}>
-                            <View>
-                                <TouchableOpacity onPress={this.logout.bind(this)}>
-                                    <Text>
-                                        התנתק
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </ListItem>
+                        <TouchableOpacity style={styles.listItem} onPress={() => {
+                            Alert.alert('בפיתוח... כאן תוכל ליצור קשר עם תמיכה טכנית לכל שאלה')
+                        }}>
+                            <Text style={styles.textList}>תמיכה טכנית</Text>
+                        </TouchableOpacity>
 
-                    </List>
+                        <TouchableOpacity
+                            tyle={styles.listItem}
+                            onPress={this.logout.bind(this)}>
+                            <Text style={styles.textList}>
+                                התנתק
+                            </Text>
+                        </TouchableOpacity>
+
+
+                    </View>
                 </View>
             )
         }
@@ -271,7 +282,9 @@ const Navbar = (props) => {
                 })
             }
             }>
-                <Icon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
+                <View style={{ fontSize: 30, margin: 20}}>
+                    <Cicons name={"back"} size={25} color={"#fff"}/>
+                </View>
             </TouchableOpacity>
             <View style={{flexDirection: 'row', position: 'absolute', bottom: 20, right: 20, alignItems: 'center'}}>
                 <Text style={{color: '#fff', marginRight: 20}}>{props.name}</Text>
@@ -287,5 +300,19 @@ const styles = StyleSheet.create({
     container: {
         height: Platform.OS == 'ios' ? 150 : 135,
         width
-    }
+    },
+    listItem: {
+        borderBottomWidth: 0.5,
+        width: SW,
+        height: SH / 10,
+        justifyContent: 'center',
+        paddingLeft: 0,
+        marginLeft: 0,
+    },
+    notificationCircle: {
+        marginLeft: Pad,
+    },
+    textList: {
+        paddingRight: Pad,
+    },
 });

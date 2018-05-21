@@ -17,6 +17,8 @@ import ImagePicker from "react-native-image-picker";
 import LinierView from '../../../components/linierView';
 import Header from '../../../components/headers/Header'
 import {NavigationActions} from "react-navigation";
+import Cicons from '../../../components/customIcons/CustomIcons'
+
 
 //image picker options:
 var options = {
@@ -185,10 +187,8 @@ export default class ChooseTime extends React.Component {
                             }}>
                                 {this.state.profilePic ?
                                     <Image style={{height: 100, width: 100}} source={this.state.profilePic}/> :
-                                    <Image
-                                        style={{height: SH / 10, width: SH / 9}}
-                                        source={require('../../../../assets/addJob/icons/AddPic.png')}
-                                    />}
+                                    <Cicons name={"pic"} size={70} color={"#575757"}/>
+                                }
                             </TouchableOpacity>
                         </View>
                     </View>

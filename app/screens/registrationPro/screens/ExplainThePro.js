@@ -15,6 +15,7 @@ import LinearViewBelowHeaderConsumer from '../components/LinearViewBelowHeaderPr
 import ImagePicker from "react-native-image-picker";
 import {inject, observer} from "mobx-react/native";
 import Header from "../../../components/headers/Header";
+import Cicons from '../../../components/customIcons/CustomIcons'
 
 var options = {
     title: 'Upload profile picture',
@@ -148,10 +149,7 @@ export default class ExplainThePro extends React.Component {
                             }}>
                                 {this.state.profilePic ?
                                     <Image style={{height: 100, width: 100}} source={this.state.profilePic}/> :
-                                    <Image
-                                        style={{height: 55, width: 60}}
-                                        source={require('../../../../assets/addJob/icons/AddPic.png')}
-                                    />}
+                                    <Cicons name={"pic"} size={70} color={"#575757"}/>}
                             </TouchableOpacity>
                         </View>
                     </View>

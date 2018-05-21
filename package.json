@@ -16,7 +16,6 @@
     "mobx": "^4.1.1",
     "mobx-react": "^5.0.0",
     "moment": "^2.22.1",
-    "native-base": "^2.4.1",
     "pushy-react-native": "^1.0.1",
     "react": "^16.3.1",
     "react-dom": "^16.3.2",
