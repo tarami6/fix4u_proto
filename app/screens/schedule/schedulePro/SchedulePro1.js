@@ -13,46 +13,9 @@ import {NavigationActions} from "react-navigation";
 
 
 import Swipeout from 'react-native-swipeout'
+import Cicons from '../../../components/customIcons/CustomIcons'
 
 
-data = [
-    {
-        profilePic: require('../../../../assets/avatars/Loreal-Avatar.jpg'),
-        name: 'אבי הבנאי',
-        service: 'חשמלאי',
-        time: '14:00',
-        jobStatus: 'progress'
-    },
-    {
-        profilePic: require('../../../../assets/avatars/Loreal-Avatar.jpg'),
-        name: 'אבי הבנאי',
-        service: 'חשמלאי',
-        time: '14:00',
-        jobStatus: 'onTheWay',
-        price: '100'
-    },
-    {
-        profilePic: require('../../../../assets/avatars/Loreal-Avatar.jpg'),
-        name: 'אבי הבנאי',
-        service: 'חשמלאי',
-        time: '14:00',
-        jobStatus: 'onTheWay',
-        price: '100'
-    },
-    {
-        profilePic: require('../../../../assets/avatars/Loreal-Avatar.jpg'),
-        name: 'אבי הבנאי',
-        service: 'חשמלאי',
-        time: '14:00',
-        price: '100'
-    },
-    {
-        profilePic: require('../../../../assets/avatars/Loreal-Avatar.jpg'),
-        name: 'אבי הבנאי',
-        service: 'חשמלאי',
-        time: '14:00',
-    }
-]
 
 @inject("userDataStore")
 @observer
@@ -125,9 +88,7 @@ export default class SchedulePro1 extends React.Component {
                         marginRight: 20
                     }}>
                         <Text style={{marginRight: 20, fontSize: 18, color: '#fff'}}>יומן</Text>
-                        <Image
-                            style={{width: 40, height: 40}}
-                            source={require('../../../../assets/icons/ScheduleIcon.png')}/>
+                        <Cicons name={"shedule"} size={40} color={"#ffffff"}/>
                     </View>
                 </View>
                 <View style={{flex: 1}}>
@@ -163,9 +124,3 @@ export default class SchedulePro1 extends React.Component {
         )
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    }
-});

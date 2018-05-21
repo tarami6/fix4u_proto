@@ -15,7 +15,7 @@ import {consumerRegistrationRoute} from "../../config/apiRoutes";
 import {fetcher} from "../../generalFunc/fetcher";
 import {handlePushyToken} from "../../generalFunc/pushyTokenHandler";
 import {SW, mainStyles} from "../../config/styles";
-
+import Cicons from '../../components/customIcons/CustomIcons'
 
 @inject('modalsStore')
 @inject("userDataStore")
@@ -30,35 +30,20 @@ export default class ChooseUserType extends Component {
         const {navigate} = this.props.navigation
         switch (key) {
             case 'consumer':
-                // this.props.authStore.changeNavigation('consumer');
                 this.props.authStore.updateUser({type: 'consumer'});
                 let sendObj = {
                     phone_number: this.props.authStore.user.uid
                 }
                 this.props.modalsStore.showModal('loaderModal');
                 fetcher(consumerRegistrationRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj)
-                // const actionToDispatch = NavigationActions.reset({
-                //     index: 0,
-                //     key: null,
-                //     actions: [
-                //         NavigationActions.navigate({
-                //             routeName: 'DrawerNavigation',
-                //             action: NavigationActions.navigate({routeName: 'ChooseService'}),
-                //         })
-                //     ],
-                // });
-                // this.props.navigation.dispatch(actionToDispatch);
                 break;
             case 'pro':
-                // this.props.authStore.changeNavigation('pro');
                 this.props.authStore.updateUser({type: 'pro'});
                 this.props.proAuthStore.updatePro({
                     phone_number: this.props.authStore.user.phone_number,
                     uid: this.props.authStore.user.uid
                 });
-                // fetcher('api/rest-auth/registration/pro/', 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), sendObj))
                 navigate('ProRegistrationNavigator');
-                // navigate("Form", {"title": "Form"})
                 break;
             default:
                 return
@@ -86,9 +71,13 @@ export default class ChooseUserType extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text type={'greyTitle'} style={{margin: 40}}>אני</Text>
+
+
+
                 <ConsumerButton navigate={() => this.navigate('consumer')}/>
-                <Text type={'greyTitle'}  style={{color: '#9b9b9b', margin: 40}}>או</Text>
+<View style={{marginTop: SW /15}}>
+      <Cicons name={"a-pro"} size={80} color={"#DBDBDB"}/>
+</View>
                 <ProButton navigate={() => this.navigate('pro')}/>
             </View>
         );
@@ -100,7 +89,7 @@ const
         return (
             <TouchableOpacity onPress={() => navigate('Consumer')}>
                 <LinierBackground>
-                    <Text style={mainStyles.buttonText}>מחפש איש מקצוע</Text>
+                    <Text style={mainStyles.buttonText}>אני מחפש איש מקצוע</Text>
                 </LinierBackground>
             </TouchableOpacity>
         )
@@ -113,7 +102,7 @@ const
                 <LinierBackground>
                     <View style={{
                         width: SW - 124,
-                        height: HH - 4 ,
+                        height: HH - 4,
                         borderRadius: 30,
                         margin: 1,
                         backgroundColor: '#fff',
@@ -122,7 +111,7 @@ const
                         paddingRight: 40,
                         paddingLeft: 40
                     }}>
-                        <Text style={[mainStyles.buttonText,{color: '#fd8724'}]}>נותן שירות</Text>
+                        <Text style={[mainStyles.buttonText, {color: '#fd8724'}]}>אני נותן שירות</Text>
                     </View>
                 </LinierBackground>
             </TouchableOpacity>

@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Text from '../../../../../components/text/Text'
 import {inject, observer} from "mobx-react/native";
+import {SW} from "../../../../../config/styles";
 
 import {hebrewServices} from "../../../../../generalFunc/generalObjects";
 

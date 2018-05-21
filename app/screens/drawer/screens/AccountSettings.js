@@ -12,12 +12,12 @@ import {
     TouchableWithoutFeedback,
     View
 } from 'react-native';
-import {Icon} from 'native-base';
 import Text from '../../../components/text/Text'
 import LinearGradient from 'react-native-linear-gradient';
 import {fontGrey, Pad, SH, SW} from "../../../config/styles";
 import {submitButton} from "../../../components/modalSubmitButton";
-import PlusIcon from 'react-native-vector-icons/Feather'
+import PlusIcon from 'react-native-vector-icons/Feather';
+import ArrowIcon from 'react-native-vector-icons/Ionicons'
 import ImagePicker from "react-native-image-picker";
 import {fetcher} from "../../../generalFunc/fetcher";
 import {editUserRoute} from "../../../config/apiRoutes";
@@ -251,7 +251,7 @@ const Navbar = (props) => {
             <View style={{flexDirection: 'row'}}>
                 <View style={{flex: 1}}>
                     <TouchableOpacity onPress={() => props.handleBackButton()}>
-                        <Icon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
+                        <ArrowIcon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, justifyContent: 'center', paddingRight: Pad}}>

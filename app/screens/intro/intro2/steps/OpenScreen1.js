@@ -2,16 +2,16 @@ import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {SH, SW} from "../../../../config/styles";
+import Cicons from '../../../../components/customIcons/CustomIcons'
 
 export default class OpenScreen1 extends React.Component {
     render() {
         return (
             <View style={{flex: 1,}}>
                 <LinearGradient colors={['#FFBA00', '#FF8D00']} style={{flex: 1, alignItems: 'center'}}>
-                    <Image
-                        style={{marginTop: SH / 7}}
-                        source={require('../../../../../assets/intro/icons/LogoSmall.png')}
-                    />
+                    <View style={{marginTop: SH / 7}}>
+                        <Cicons name={"logo"} size={150} color={"#fff"}/>
+                    </View>
                     <View style={{paddingTop: SW / 14}}>
                         <Text style={{textAlign: 'center', color: '#fff', fontSize: 20, fontWeight: 'bold'}}>ברוך\ה הבא
                             לFIX4U</Text>

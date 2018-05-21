@@ -1,9 +1,7 @@
 import React from 'react';
-import LinearViewHeader from '../LinearViewHeader';
 import {HH, SW, SH} from "../../config/styles";
 import {View, Image, TouchableOpacity, Alert} from 'react-native';
-import ArrowIcon from 'react-native-vector-icons/Ionicons';
-
+import Cicons from '../../components/customIcons/CustomIcons'
 
 const ArrowHeaderOrangeBackground = (props) => {
 
@@ -18,7 +16,9 @@ const ArrowHeaderOrangeBackground = (props) => {
         >
             <TouchableOpacity onPress={() => props.props.navigation.goBack()}
                               style={{justifyContent: 'center', flex: 1}}>
-                <ArrowIcon name="ios-arrow-back" size={35} color="#fff" style={{paddingLeft: SW / 20}}/>
+               <View style={{fontSize: 30, margin: 20}}>
+                    <Cicons name={"back"} size={25} color={"#fff"}/>
+                </View>
             </TouchableOpacity>
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Image

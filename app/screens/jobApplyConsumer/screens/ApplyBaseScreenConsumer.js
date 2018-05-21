@@ -7,17 +7,20 @@ import MapComponent from '../../../components/mapComponent/MapComponent'
 import {mainStyles, SH, SW} from "../../../config/styles";
 import {inject, observer} from "mobx-react/native";
 import InfoItem from '../../../components/InfoItem';
-import {hebrewServices, PicService} from "../../../generalFunc/generalObjects";
+import {hebrewServices, ToIcon} from "../../../generalFunc/generalObjects";
 import Moment from 'moment';
 import LinearGradient from 'react-native-linear-gradient';
-
+import Cicons from '../../../components/customIcons/CustomIcons'
 import TimerMixin from 'react-timer-mixin';
 import {NavigationActions} from "react-navigation";
 
 
 let returnInHeb = (word) => {
     return (hebrewServices[word])
+}
 
+let name = (name) =>{
+    return (ToIcon[name])
 }
 
 @inject('notificationsStore')
@@ -230,12 +233,10 @@ export default class ApplyBaseScreen extends React.Component {
                                 alignSelf: 'center'
                             }}/>
                             {/*Service Icon*/}
+
                             <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
                                 {job2.image_thumb ?
-                                    <Image
-                                        style={{width: 50, height: 50}}
-                                        source={PicService[job2.service]}
-                                    /> : <View/>}
+                                    <Cicons name={ToIcon[job2.service]} size={50} color={"#fff"}/> : <View/>}
                             </View>
                         </View>
                     </LinearViewBelowHeaderConsumer>
