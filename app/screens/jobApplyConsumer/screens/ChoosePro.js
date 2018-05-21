@@ -22,8 +22,9 @@ import ImagePicker from "react-native-image-picker";
 import StarIcon from 'react-native-vector-icons/FontAwesome';
 import StarRating from 'react-native-star-rating';
 import {submitButton} from "../../../components/modalSubmitButton";
+import Cicons from '../../../components/customIcons/CustomIcons'
 // /config
-import {hebrewServices} from "../../../generalFunc/generalObjects";
+import {hebrewServices, ToIcon} from "../../../generalFunc/generalObjects";
 import {fetcher} from "../../../generalFunc/fetcher";
 import {inject, observer} from "mobx-react/native";
 import {chooseApplyRoute, editUserRoute} from "../../../config/apiRoutes";
@@ -138,8 +139,6 @@ export default class ApplyBaseScreen extends React.Component {
         this.props.navigation.goBack();
         return true;
     }
-
-
 
 
     getHeight(height) {
@@ -379,8 +378,8 @@ export default class ApplyBaseScreen extends React.Component {
                             <View style={styles.headerBorder}/>
                             {/*Service Icon*/}
                             <View style={styles.serviceIconView}>
-                                <Image source={require('../../../../assets/icons/serviceElectrician.png')}
-                                />
+                                 {job.image_thumb ?
+                                    <Cicons name={ToIcon[job.service]} size={50} color={"#fff"}/> : <View/>}
                             </View>
                         </View>
                     </LinearViewBelowHeaderConsumer>
@@ -520,11 +519,12 @@ export default class ApplyBaseScreen extends React.Component {
                                 )
                             })}
                         </View>
+                        {/*Footer*/}
+
+
                     </ScrollView>
 
                 </View>
-                {/*Footer*/}
-
                 <View style={styles.footer}>
                     {submitButton('הזמן עכשיו', 'consumer', () => {
                         this.setModalVisible(true);
@@ -678,7 +678,7 @@ const
 
         proCard: {
             width: SW - ((SW / 20) * 2),
-            height: SH /2.5
+            height: SH / 2.5
         },
         cardNameAndImageView: {
             flex: 1.8,
@@ -728,11 +728,13 @@ const
         // Slider Down End
 
         footer: {
+            width: SW,
             height: SH / 8,
             justifyContent: 'flex-start',
             alignItems: 'center',
-            backgroundColor: '#f6f6f6',
-
+            backgroundColor: 'rgba(255,255,255,0.1)',
+            position: 'absolute',
+            bottom: 0,
         },
         //Modal
         modalView: {

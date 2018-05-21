@@ -22,6 +22,8 @@ import ImagePicker from "react-native-image-picker";
 import {fetcher} from "../../../generalFunc/fetcher";
 import {editUserRoute} from "../../../config/apiRoutes";
 import {inject, observer} from "mobx-react/native";
+import Cicons from '../../../components/customIcons/CustomIcons'
+
 
 var options = {
     title: 'Upload profile picture',
@@ -142,7 +144,7 @@ export default class AccountSettings extends Component {
 
     render() {
         let user = this.props.userDataStore.userData.user;
-        console.warn('this.state.name',this.state.name);
+        console.warn('this.state.name', this.state.name);
         return (
             <View style={{flex: 1, alignItems: 'center'}}>
                 <LinearGradient
@@ -166,8 +168,8 @@ export default class AccountSettings extends Component {
                                 selectionColor={fontGrey}
                                 underlineColorAndroid={'transparent'}
                                 style={styles.textInput}
-                                value={this.state.name? this.state.navigation: user.name || ""}
-                                onChangeText={(name)=>this.setState({name})}
+                                value={this.state.name ? this.state.navigation : user.name || ""}
+                                onChangeText={(name) => this.setState({name})}
                             />
                         </View>
                         <View style={{flex: 1, width: SW - (Pad * 3)}}>
@@ -251,7 +253,9 @@ const Navbar = (props) => {
             <View style={{flexDirection: 'row'}}>
                 <View style={{flex: 1}}>
                     <TouchableOpacity onPress={() => props.handleBackButton()}>
-                        <ArrowIcon name='ios-arrow-back-outline' style={{color: '#fff', fontSize: 30, margin: 20}}/>
+                        <View style={{margin: 20}}>
+                            <Cicons name={"back"} size={25} color={"#fff"}/>
+                        </View>
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, justifyContent: 'center', paddingRight: Pad}}>

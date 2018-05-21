@@ -7,8 +7,6 @@ import {
     Platform,
     ScrollView,
     StyleSheet,
-    TextInput,
-    TouchableHighlight,
     TouchableOpacity,
     UIManager,
     View
@@ -18,8 +16,6 @@ import Header from '../../../../components/headers/Header';
 import InfoItem from '../../../../components/InfoItem';
 import {SW, SH, GOLD} from "../../../../config/styles";
 import StarRating from 'react-native-star-rating';
-import StarIcon from 'react-native-vector-icons/FontAwesome';
-import Icon from 'react-native-vector-icons/dist/Ionicons';
 import Communications from 'react-native-communications';
 import {formatTime} from "../../../../generalFunc/generalFunctions";
 import {getAvgRating} from "../../../../generalFunc/generalFunctions";
@@ -27,37 +23,6 @@ import {getAvgRating} from "../../../../generalFunc/generalFunctions";
 // mobx
 import {inject, observer} from "mobx-react/index";
 
-data1 =
-    {
-        profilePic: require('../../../../../assets/avatars/handyManAvatar.jpg'),
-        name: 'אבי הבנאי',
-        service: 'חשמלאי',
-        time: '14:00',
-        jobStatus: 'onTheWay',
-        price: '100'
-    }
-const data = [
-    {
-        name: 'גסיקה',
-        date: '23/3/2018',
-        pic: require('../../../../../assets/avatars/Loreal-Avatar.jpg'),
-        review: 'שירותי ונדיב, עושה עבודה טובה ומהירה',
-        price: 5,
-        workTime: 2,
-        service: 5,
-    },
-    {
-        name: 'אסף',
-        date: '17/3/2018',
-        pic: require('../../../../../assets/avatars/avatar-sitepal.jpg'),
-        review: 'אחלה גבר, מחיר אש',
-        price: 5,
-        workTime: 5,
-        service: 5,
-    },
-
-
-]
 
 @inject("userDataStore")
 @inject("openJobsStore")
@@ -85,7 +50,7 @@ export default class OnTheWayConsumer extends Component {
 
     componentDidMount() {
         this.setState({
-            height: this.state.height * data.length + SH / 8
+            height: this.state.height * this.props.userDataStore.focusedJob.user_pro.pro_reviews.length + SH / 8
         })
     }
 
@@ -417,12 +382,13 @@ const styles = StyleSheet.create({
     ExpandViewInsideText:
         {
             width: SW,
-            backgroundColor: '#fff',
+            backgroundColor: '#f6f6f6',
             alignSelf: 'center',
             alignItems: 'center'
         },
 
     proCard: {
+
         width: SW - ((SW / 20) * 2),
         height: SH / 3.2
     },

@@ -257,22 +257,15 @@ export default class ApplyBaseScreen extends React.Component {
                             data={this.props.userDataStore.focusedConsumerJob.post_applies.slice(0)}
                             keyExtractor={this.keyExtractor}
                             renderItem={({item, index}) =>
-                                <View style={{
+                                <TouchableOpacity
+                                    onPress={() => this.showPro(item)}
+                                    style={{
                                     width: SW,
                                     backgroundColor: 'transparent',
                                     height: SH / 8,
                                 }}>
-                                    <TouchableOpacity onPress={() => this.showPro(item)}
-                                                        style={{
-                                                            flex: 1,
-                                                            backgroundColor: 'transparent',
-                                                        }}>
-
                                         {/*Using Linear For Shadow*/}
                                         <InfoItem info={item}/>
-
-
-                                    </TouchableOpacity>
                                     {index === job2.post_applies.length - 1 ?
                                         <LinearGradient colors={['rgba(0, 0, 0, 0.2)', 'rgba(0, 0, 0, 0)']}
                                                         style={{width: SW, height: 3}}/>
@@ -280,7 +273,7 @@ export default class ApplyBaseScreen extends React.Component {
                                         <LinearGradient colors={['#c0c0c0', 'rgba(255, 255, 255, 1)']}
                                                         style={{width: SW, height: 3}}/>
                                     }
-                                </View>
+                                </TouchableOpacity>
 
                             }
                         />

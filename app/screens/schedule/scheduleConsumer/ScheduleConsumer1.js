@@ -53,26 +53,18 @@ export default class ScheduleConsumer1 extends React.Component {
                     {this.props.userDataStore.userData.user.user_active_posts && this.props.userDataStore.userData.user.user_active_posts.length > 0 ?
                         this.props.userDataStore.userData.user.user_active_posts.map((item, index)=>{
                             return (
-                                <View
+                                <TouchableHighlight
+                                    onPress={() => {
+                                        this.chooseJob(item)
+                                    }}
                                     key={item.id}
                                     style={{
                                     width: SW,
                                     height: SH / 8 +0.5,
                                     backgroundColor: 'transparent'
                                 }}>
-                                    <TouchableHighlight onPress={() => {
-                                        this.chooseJob(item)
-                                    }}
-                                                        style={{
-                                                            width: SW,
-                                                            height: SH / 8,
-                                                            backgroundColor: 'transparent',
-                                                        }}>
-
                                         <InfoItem info={item} />
-                                    </TouchableHighlight>
-
-                                </View>
+                                </TouchableHighlight>
                             )
                         })
                         :

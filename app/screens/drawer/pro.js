@@ -177,12 +177,11 @@ export default class Pro extends Component {
                             onPress={this.logout.bind(this)}
                             style={styles.listItem}>
                             <View>
-                                <View>
-                                    <Text style={styles.textList}>
-                                        התנתק
-                                    </Text>
-                                </View>
+                                <Text style={styles.textList}>
+                                    התנתק
+                                </Text>
                             </View>
+
                         </TouchableOpacity>
 
                     </View>
@@ -257,11 +256,14 @@ export default class Pro extends Component {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            tyle={styles.listItem}
-                            onPress={this.logout.bind(this)}>
-                            <Text style={styles.textList}>
-                                התנתק
-                            </Text>
+                            onPress={this.logout.bind(this)}
+                            style={styles.listItem}>
+                            <View>
+                                <Text style={styles.textList}>
+                                    התנתק
+                                </Text>
+                            </View>
+
                         </TouchableOpacity>
 
 
@@ -282,7 +284,7 @@ const Navbar = (props) => {
                 })
             }
             }>
-                <View style={{ fontSize: 30, margin: 20}}>
+                <View style={{ margin: 20}}>
                     <Cicons name={"back"} size={25} color={"#fff"}/>
                 </View>
             </TouchableOpacity>
