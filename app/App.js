@@ -21,6 +21,9 @@ import ProsListStore from './state-manager/mobx/prosListStore';
 
 import Pushy from 'pushy-react-native';
 
+let Appsee = require('react-native-appsee');
+Appsee.start("69c114cc5e934d34800ce547aa8bb320");
+
 //the usual consumer costumer auth process happens here
 let authStore = new AuthStore();
 //pro Auth state manager:

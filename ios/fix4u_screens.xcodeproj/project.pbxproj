@@ -61,6 +61,8 @@
 		99EEC64DD7B24FDC8B5247AD /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7843CAA129B478C9B5C2B9A /* MaterialCommunityIcons.ttf */; };
 		00EF4CB73AA34A4087F8E7ED /* Rubik.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D299C94D4BF04688A291D437 /* Rubik.ttf */; };
 		DB2630DF22674BDDBA37335D /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4787E4A305AD4DEB8584A5D5 /* Rubik-Bold.ttf */; };
+		4BAE36B236004140AC615C19 /* libRNAppsee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9727311C3D4357A0A06AFA /* libRNAppsee.a */; };
+		C55F7EF6B07A4914A6EB6B63 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A126DFFEFDD4A298456964E /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -413,6 +415,9 @@
 		C7843CAA129B478C9B5C2B9A /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; name = "MaterialCommunityIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		D299C94D4BF04688A291D437 /* Rubik.ttf */ = {isa = PBXFileReference; name = "Rubik.ttf"; path = "../assets/fonts/Rubik.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		4787E4A305AD4DEB8584A5D5 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; name = "Rubik-Bold.ttf"; path = "../assets/fonts/Rubik-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1BA37EE7B3894973B32228A2 /* RNAppsee.xcodeproj */ = {isa = PBXFileReference; name = "RNAppsee.xcodeproj"; path = "../node_modules/react-native-appsee/ios/RNAppsee.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		BE9727311C3D4357A0A06AFA /* libRNAppsee.a */ = {isa = PBXFileReference; name = "libRNAppsee.a"; path = "libRNAppsee.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		0A126DFFEFDD4A298456964E /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -449,6 +454,8 @@
 				48346E7995824B96A256B424 /* libRNBraintreeDropIn.a in Frameworks */,
 				233095A80FE94438BA68C3C5 /* libRCTBEEPickerManager.a in Frameworks */,
 				18BA5822F9194786A4485E24 /* libRNVectorIcons.a in Frameworks */,
+				4BAE36B236004140AC615C19 /* libRNAppsee.a in Frameworks */,
+				C55F7EF6B07A4914A6EB6B63 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,6 +606,7 @@
 			isa = PBXGroup;
 			children = (
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
+				0A126DFFEFDD4A298456964E /* libz.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -645,6 +653,7 @@
 				9FA664E50E724129BFF8F24D /* RNBraintreeDropIn.xcodeproj */,
 				9F679CA6CCC74DCB80DE9C09 /* RCTBEEPickerManager.xcodeproj */,
 				FA82802BC2F8430B86C577E7 /* RNVectorIcons.xcodeproj */,
+				1BA37EE7B3894973B32228A2 /* RNAppsee.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1344,6 +1353,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1355,6 +1365,7 @@
 					"$(SRCROOT)/../node_modules/react-native-braintree-payments-drop-in/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-appsee\ios",
 				);
 			};
 			name = Debug;
@@ -1380,6 +1391,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1391,6 +1403,7 @@
 					"$(SRCROOT)/../node_modules/react-native-braintree-payments-drop-in/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-appsee\ios",
 				);
 			};
 			name = Release;
@@ -1420,6 +1433,7 @@
 					"$(SRCROOT)/../node_modules/react-native-braintree-payments-drop-in/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-appsee\ios",
 				);
 			};
 			name = Debug;
@@ -1448,6 +1462,7 @@
 					"$(SRCROOT)/../node_modules/react-native-braintree-payments-drop-in/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-appsee\ios",
 				);
 			};
 			name = Release;
@@ -1482,6 +1497,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1493,6 +1509,7 @@
 					"$(SRCROOT)/../node_modules/react-native-braintree-payments-drop-in/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-appsee\ios",
 				);
 			};
 			name = Debug;
@@ -1527,6 +1544,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1538,6 +1556,7 @@
 					"$(SRCROOT)/../node_modules/react-native-braintree-payments-drop-in/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-appsee\ios",
 				);
 			};
 			name = Release;
@@ -1571,6 +1590,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1582,6 +1602,7 @@
 					"$(SRCROOT)/../node_modules/react-native-braintree-payments-drop-in/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-appsee\ios",
 				);
 			};
 			name = Debug;
@@ -1615,6 +1636,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1626,6 +1648,7 @@
 					"$(SRCROOT)/../node_modules/react-native-braintree-payments-drop-in/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-appsee\ios",
 				);
 			};
 			name = Release;
