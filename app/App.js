@@ -22,6 +22,11 @@ import {StackNavigator} from 'react-navigation'
 
 import Pushy from 'pushy-react-native';
 
+let Appsee = require('react-native-appsee');
+Appsee.start("69c114cc5e934d34800ce547aa8bb320");
+
+//a
+
 //the usual consumer costumer auth process happens here
 let authStore = new AuthStore();
 //pro Auth state manager:
