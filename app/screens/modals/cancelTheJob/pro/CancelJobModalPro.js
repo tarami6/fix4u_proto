@@ -3,9 +3,13 @@ import {View, Image, StyleSheet, Alert,TextInput, KeyboardAvoidingView, Touchabl
 import {SW, SH, fontGrey} from "../../../../config/styles";
 import Text from '../../../../components/text/Text'
 import {submitButton} from "../../../../components/modalSubmitButton";
+import {inject, observer} from "mobx-react/native";
+import {fetcher} from "../../../../generalFunc/fetcher";
+import {startJobRoute} from "../../../../config/apiRoutes";
+import {NavigationActions} from "react-navigation";
+
 
 const CancelJobModal = (props) => {
-
 
     return (
         <View style={{flex: 1, backgroundColor: 'transparent'}}>
@@ -16,7 +20,7 @@ const CancelJobModal = (props) => {
                     <View style={styles.eXicon}>
                         <TouchableWithoutFeedback
                             onPress={() => {
-                                Alert.alert('exit pressed')
+                                this.props.modalsStore.closeModal('proCancelJobModal');
                             }}>
                             <Image
                                 source={require('../../../../../assets/icons/Exit.png')}
@@ -91,7 +95,7 @@ const CancelJobModal = (props) => {
                         <View style={{flex: 1,  justifyContent: 'center'}}>
                             <View style={{alignItems: 'center'}}>
                                 {submitButton('אשר', 'pro', () => {
-                                    Alert.alert('אושר')
+                                    props.proCancelJob()
                                 })}
                             </View>
                         </View>
@@ -103,7 +107,12 @@ const CancelJobModal = (props) => {
     )
 }
 
-export default class TextPage extends React.Component {
+
+@inject("navigationStore")
+@inject("userDataStore")
+@inject("modalsStore")
+@observer
+export default class CancelJobModalPro extends React.Component {
     static navigationOptions = {
         header: null
     }
@@ -125,9 +134,57 @@ export default class TextPage extends React.Component {
         })
     }
 
+    // Job Cancel Handling
+
+    proCancelJob(){
+        let jobId = this.props.userDataStore.focusedJob.id;
+        let sendObj = {
+            status: 'canceled',
+            canceled_by: 'pro'
+        };
+        let headers = {
+            token: this.props.userDataStore.userData.token
+        };
+        //start job route is also the route for pro to cancel the job
+        let route = startJobRoute(jobId);
+
+        this.props.modalsStore.hideModal("proCancelJobModal");
+        this.props.modalsStore.showModal("loaderModal");
+        fetcher(route, 'PATCH', this.successProCancel.bind(this), this.errorCallback.bind(this), sendObj, headers)
+    }
+
+    //navigate away from current focused job after it has been canceled
+    navigateAway(){
+        const actionToDispatch = NavigationActions.reset({
+            index: 0,
+            key: null,
+            actions: [
+                NavigationActions.navigate({
+                    routeName: 'ProNavigator',
+                    action: NavigationActions.navigate({routeName: 'Home'}),
+                })
+            ],
+        });
+        this.props.navigationStore.dispatch(actionToDispatch)
+    }
+
+    successProCancel(res) {
+        this.props.userDataStore.removeProPost(res.id);
+        this.props.modalsStore.hideModal("loaderModal");
+        Alert.alert("העבודה בוטלה בהצלחה")
+        this.navigateAway();
+    }
+
+    errorCallback(err) {
+        this.props.modalsStore.hideModal("loaderModal");
+        console.log('error in active job/index', err);
+    }
+
+    ////
+
     render() {
         return (
-            <CancelJobModal {...this.state} changeBox={this.changeBox.bind(this)}/>
+            <CancelJobModal {...this.state} changeBox={this.changeBox.bind(this)} proCancelJob={this.proCancelJob.bind(this)}/>
         )
     }
 }

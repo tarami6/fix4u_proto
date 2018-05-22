@@ -8,7 +8,8 @@ import {hebrewServices, ServicesArrToHebString} from "../../generalFunc/generalO
 import {inject, observer} from "mobx-react/native";
 import {msToHMS} from "../../generalFunc/generalFunctions";
 
-
+@inject("timerStore")
+@observer
 export default class InProgressItem extends React.Component {
 
     constructor(props) {
@@ -25,23 +26,27 @@ export default class InProgressItem extends React.Component {
     }
 
     startTimer() {
-        this.interval = setInterval(() => {
-            let basicDate = new Date(this.props.job.job_start_time);
-            let currentDate = new Date();
-            let x = currentDate-basicDate;
-            let timer = msToHMS(x)
-            this.setState({timer: timer})
-        }, 1000);
+        // this.setState({jobStartTime: new Date(this.props.job.job_start_time)});
+        let startTime = new Date(this.props.job.job_start_time);
+        this.props.timerStore.startTimer(startTime);
+
+        // this.interval = setInterval(() => {
+        //     let basicDate = this.state.jobStartTime;
+        //     let currentDate = new Date();
+        //     let x = currentDate-basicDate;
+        //     let timer = msToHMS(x)
+        //     this.setState({timer: timer})
+        // }, 1000);
     }
 
     componentWillUnmount(){
-        clearInterval(this.interval);
+        // clearInterval(this.interval);
+        this.props.timerStore.stopTimer();
     }
 
     render(){
         let job = this.props.job;
-
-        console.log("Sas", job)
+        console.log("sdad", job)
         let pic = job.user_pro.profile_pic_thumb || job.user.profile_pic_thumb
         return (
             <View style={{
@@ -53,7 +58,7 @@ export default class InProgressItem extends React.Component {
 
                 <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
                     <View style={{height: 65, width: 65, borderWidth: 3, borderRadius: 1000, alignItems: 'center', justifyContent: 'center', borderColor: '#fdb82c'}}>
-                        <Text style={{fontSize: 10}}>{this.state.timer}</Text>
+                        <Text style={{fontSize: 10}}>{job.status === 'consumer_payment' ? 'בתשלום' :  this.props.timerStore.timer}</Text>
                     </View>
                 </View>
                 <View style={{flex: 1, justifyContent: 'center'}}>

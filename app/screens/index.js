@@ -38,7 +38,6 @@ type Props = {};
 @observer
 export default class ScreensBase extends Component<Props> {
     onBackPress = () => {
-        console.warn("screenBase backHandler pressed");
         // console.log('backHandler pressed')
         const {dispatch} = this.store;
         // console.log(this.store);
@@ -121,7 +120,6 @@ export default class ScreensBase extends Component<Props> {
         this.props.userDataStore.setLoading(true);
         //try login fetch starts here
         this.setState({tryLoginFetch: true});
-        console.warn("try login is on");
         tryLogin(this.props.notificationsStore, this.props.userDataStore, this.successLoginCallback.bind(this), this.tryLoginError.bind(this))
         //    get location and save to userDataStore fetch starts here
         this.setState({userLocationFetch: true});

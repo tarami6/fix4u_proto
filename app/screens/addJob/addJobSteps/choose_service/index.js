@@ -5,7 +5,7 @@
 * */
 
 import React, {Component} from 'react';
-import {Alert, BackHandler, Dimensions, ScrollView} from 'react-native';
+import {Alert, BackHandler, Dimensions,View, ScrollView} from 'react-native';
 
 import Header from '../../../../components/headers/Header'
 
@@ -15,18 +15,24 @@ import ChooseTime from "../ChooseTime";
 import {inject, observer} from "mobx-react/native";
 
 
-
 @inject("navigationStore")
 @observer
 export default class ChooseService extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            pageIsUp: false
+        }
+    }
 
     static navigationOptions = {
         header: null
     }
+
+
     onBackPress = () => {
-        console.warn("choose Service backHandler")
         if (this.props.navigation.state.params) {
-            if(this.props.navigation.state.params.drawerOpen){
+            if (this.props.navigation.state.params.drawerOpen) {
                 this.props.navigation.navigate('DrawerClose');
                 this.props.navigation.setParams({
                     drawerOpen: false,
@@ -51,12 +57,11 @@ export default class ChooseService extends Component {
         return true;
     };
 
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+
+            BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+
     }
 
     componentWillUnmount() {
@@ -70,11 +75,15 @@ export default class ChooseService extends Component {
 
     render() {
         return (
-            <ScrollView style={{flex:1}}>
+
+
+            <ScrollView style={{flex: 1}}>
+                    <View style={{flex: 1}}>
                     <LinierView>
                         <Header head={'consumerHome'} {...this.props}/>
                     </LinierView>
-                    <CardList nextStep={this.nextStep.bind(this)}/>
+                    <CardList nextStep = {this.nextStep.bind(this)}/>
+                    </View>
             </ScrollView>
         );
     }

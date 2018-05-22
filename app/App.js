@@ -18,6 +18,8 @@ import NavigationStore from "./state-manager/mobx/navigationStore";
 import OpenJobsStore from './state-manager/mobx/openJobsStore';
 import NotificationsStore from './state-manager/mobx/notificationsStore';
 import ProsListStore from './state-manager/mobx/prosListStore';
+import TimerStore from './state-manager/mobx/timerStore'
+
 import {StackNavigator} from 'react-navigation'
 
 import Pushy from 'pushy-react-native';
@@ -45,7 +47,8 @@ let openJobsStore = new OpenJobsStore();
 let notificationsStore = new NotificationsStore();
 //for when a user wants to see full prosList:
 let prosListStore = new ProsListStore();
-
+// for timers
+let timerStore = new TimerStore();
 
 // // Ramistesting
 // import LoadingPage from './screens/modals/Loader/LoadingPage';
@@ -53,15 +56,15 @@ let prosListStore = new ProsListStore();
 // import ProsListToConnect from './screens/jobApplyConsumer/screens/ProsListToConnect'
 // import Panels from './components/infoItem/Panels';
 // import CancelTheJobModal from './screens/modals/cancelTheJob/pro/CancelJobModalPro';
-// import CancelJobModalConsumer from './screens/modals/cancelTheJob/consumer/CancelJobModalConsumer';
+import CancelJobModalConsumer from './screens/modals/cancelTheJob/consumer/CancelJobModalConsumer';
 // import AccountSettings from './screens/drawer/screens/AccountSettings'
 // import LoadingPage from './screens/modals/Loader/LoadingPage'
-//
-// const HomeNavigation = StackNavigator({
-//     Home: {
-//         screen: LoadingPage
-//     }
-// })
+
+const HomeNavigation = StackNavigator({
+    Home: {
+        screen: CancelJobModalConsumer
+    }
+})
 
 
 let appState = '';
@@ -144,7 +147,6 @@ let handleNotificationData = (type, payload) => {
             userDataStore.focusJob(payload);
             break;
         case 'pro_update_post':
-            console.warn(userDataStore.focusedJob.id);
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
                 notificationsStore.removePostNotifications('active', payload.id, 'consumer', userDataStore.userData.token)
@@ -185,20 +187,17 @@ let handleNotificationData = (type, payload) => {
                 console.warn("pro canceled this post");
                 // notificationsStore.removePostNotifications('active', payload.id, 'pro', userDataStore.userData.token)
             }
-            console.warn("post with id: " + payload.post_id + " was canceled");
             userDataStore.removeActivePost(payload.post_id);
             break;
 
         //    the is getting this:
         case 'consumer_post_cancel':
-            console.warn("post with id: " + payload.post_id + " was canceled");
             userDataStore.removeProPost(payload.post_id);
 
         default:
             console.warn("notification wasn't handled:", type);
 
     }
-    console.warn('handle not:', 'type: ' + type, 'payload: ' + payload);
 }
 
 type Props = {};
@@ -258,7 +257,9 @@ export default class App extends Component {
         return (
             <Provider navigationStore={navigationStore} authStore={authStore} addJobStore={addJobStore}
                       userDataStore={userDataStore} proAuthStore={proAuthStore} modalsStore={modalsStore}
-                      openJobsStore={openJobsStore} notificationsStore={notificationsStore} prosListStore={prosListStore}>
+                      openJobsStore={openJobsStore} notificationsStore={notificationsStore}
+                      prosListStore={prosListStore} timerStore={timerStore}
+            >
                 <ScreensBase/>
             </Provider>
         )

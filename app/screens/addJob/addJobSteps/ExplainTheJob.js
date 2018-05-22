@@ -38,7 +38,6 @@ export default class ChooseTime extends React.Component {
     };
 
     handleBackButton = () => {
-        console.warn("explain the job backHandler")
         const {dispatch} = this.props.navigationStore;
         const {navigationState} = this.props.navigationStore;
         const routeName = navigationState.routes[0].routeName

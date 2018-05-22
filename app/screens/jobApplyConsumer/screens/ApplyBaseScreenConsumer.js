@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, BackHandler, FlatList, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Alert, BackHandler, FlatList, InteractionManager, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Text from '../../../components/text/Text'
 import Header from '../../../components/headers/Header';
 import LinearViewBelowHeaderConsumer from '../../../components/LinearViewBelowHeaderConsumer'
@@ -121,10 +121,8 @@ export default class ApplyBaseScreen extends React.Component {
         let jobDate = new Date(this.props.userDataStore.focusedConsumerJob.modified);
         jobDate.setMinutes(jobDate.getMinutes() + 5);
         if (currentDate.getTime() > jobDate.getTime()) {
-            this.diff = diff;
             this.setState({diff: '00:00'})
             // **** TIMES PASSED !!!! when loading the app (not on screen)
-            console.warn("ur time already finished");
             clearInterval(this.interval);
             this.navigateToNoAppliesNavigator();
         }
@@ -144,7 +142,6 @@ export default class ApplyBaseScreen extends React.Component {
                 let end = Moment.utc(endTime, "mm:ss");
                 let d = Moment.duration(end.diff(start));
                 let diff = Moment.utc(+d).format('mm:ss');
-                this.diff = diff;
                 this.setState({diff: diff})
 
                 let timeToEndTimer = currentTime - FirststartTime;
@@ -154,7 +151,6 @@ export default class ApplyBaseScreen extends React.Component {
 
                 if (timeToEndTimer > -1) {
                     // **** TIMES PASSED !!!! when user on this page and time is app he gets here
-                    console.warn("timer stoped by timeToEndTimer ==0 ");
                     this.setState({diff: '00:00'});
                     clearInterval(this.interval);
                     this.navigateToNoAppliesNavigator();
@@ -166,23 +162,24 @@ export default class ApplyBaseScreen extends React.Component {
     }
 
     componentDidMount() {
-        //notification handling with server:
-        let token = this.props.userDataStore.userData.token;
-        let postId = this.props.userDataStore.focusedConsumerJob.id
-        this.props.notificationsStore.removeOpenPostsNotifications('consumer', token, postId);
-        //backHandler
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-        //check job time handler:
-        let currentDate = new Date();
-        let jobDate = new Date(this.props.userDataStore.focusedConsumerJob.modified);
-        //// HERE WE SET THE 5 MINUTES DIFF COUNT AS WELL
-        jobDate.setMinutes(jobDate.getMinutes() + 5);
-        if (currentDate.getTime() > jobDate.getTime()) {
-            // **** TIMES PASSED !!!! when loading the app (not on screen)
-            console.warn('times up!');
-            this.navigateToNoAppliesNavigator();
-        }
-        this.timeRemaining(this.props.userDataStore.focusedConsumerJob.modified)
+        InteractionManager.runAfterInteractions(() => {
+            //notification handling with server:
+            let token = this.props.userDataStore.userData.token;
+            let postId = this.props.userDataStore.focusedConsumerJob.id
+            this.props.notificationsStore.removeOpenPostsNotifications('consumer', token, postId);
+            //backHandler
+            BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+            //check job time handler:
+            let currentDate = new Date();
+            let jobDate = new Date(this.props.userDataStore.focusedConsumerJob.modified);
+            //// HERE WE SET THE 5 MINUTES DIFF COUNT AS WELL
+            jobDate.setMinutes(jobDate.getMinutes() + 5);
+            if (currentDate.getTime() > jobDate.getTime()) {
+                // **** TIMES PASSED !!!! when loading the app (not on screen)
+                this.navigateToNoAppliesNavigator();
+            }
+            this.timeRemaining(this.props.userDataStore.focusedConsumerJob.modified)
+        })
     }
 
 

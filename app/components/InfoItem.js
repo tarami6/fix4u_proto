@@ -26,6 +26,11 @@ export default class InfoItem extends React.Component {
             <InProgressItem  job={this.props.info} />
             )
         }
+        else if(this.props.info.status ==="consumer_payment"){
+            return(
+            <InProgressItem  job={this.props.info} />
+            )
+        }
 
         else if (this.props.type === 'consumer') {
             return (

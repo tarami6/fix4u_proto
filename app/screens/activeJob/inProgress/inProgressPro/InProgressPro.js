@@ -13,7 +13,10 @@ import {SW} from "../../../../config/styles";
 // import styles from './styles';
 import Header from '../../../../components/headers/Header'
 import {submitButton} from "../../../../components/modalSubmitButton";
+// in case the timer was initiated here and not in schduale as it suppose to
+let timerInitiatedHere = false
 
+@inject("timerStore")
 @inject("userDataStore")
 @observer
 export default class InProgressPro extends Component {
@@ -54,23 +57,28 @@ export default class InProgressPro extends Component {
 
     //Timer functions and handling start"
     componentDidMount() {
-
+        if(!this.props.timerStore.timer){
+            timerInitiatedHere=true
+            this.props.timerStore.startTimer()
+        }
         // let currentTime = dateObjToTimeString()
-        this.startTimer();
+        // this.startTimer();
     }
-
-    startTimer() {
-        this.interval = setInterval(() => {
-            let basicDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
-            let currentDate = new Date();
-            let x = currentDate-basicDate;
-            let timer = msToHMS(x)
-            this.setState({timer: timer})
-        }, 1000);
-    }
+    //
+    // startTimer() {
+    //     // this.interval = setInterval(() => {
+    //     //     let basicDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
+    //     //     let currentDate = new Date();
+    //     //     let x = currentDate-basicDate;
+    //     //     let timer = msToHMS(x)
+    //     //     this.setState({timer: timer})
+    //     // }, 1000);
+    // }
 
     componentWillUnmount(){
-        clearInterval(this.interval);
+        if(timerInitiatedHere){
+            this.props.timerStore.stopTimer();
+        }
     }
 
     //Timer handling ends here
@@ -128,7 +136,7 @@ export default class InProgressPro extends Component {
                             backgroundColor: 'white', height: SW / 1.6, width: SW / 1.6, borderRadius: 200,
                             alignItems: 'center', justifyContent: 'center'
                         }}>
-                            <Text style={{fontSize: 30,  color: '#474747', fontFamily: 'sans-serif'}}> {this.state.timer} </Text>
+                            <Text style={{fontSize: 30,  color: '#474747', fontFamily: 'sans-serif'}}> {this.props.timerStore.timer} </Text>
                         </View>
                     </LinearGradient>
 

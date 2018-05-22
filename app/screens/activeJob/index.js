@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Text, View, BackHandler, Alert} from 'react-native';
+import {Alert, BackHandler, Text, View} from 'react-native';
 //config:
 import {editPostConsumerRoute, startJobRoute} from "../../config/apiRoutes";
 import {fetcher} from "../../generalFunc/fetcher";
@@ -13,7 +13,6 @@ import InProgressPro from './inProgress/inProgressPro';
 import InProgressConsumer from './inProgress/inProgressConsumer';
 //pro payment step here the decides what will be the payment
 import ProPaymentPro from './proPayment/proPaymentPro';
-import ConsumerPaymentConsumer from "./consumerPayment/ConsumerPaymentConsumer/ConsumerPaymentConsumer";
 //consumer payment step - here the consumer pays the pro
 import ConsumerPaymentPro from './consumerPayment/ConsumerPaymentPro'
 //Consumer review
@@ -25,10 +24,16 @@ import ConsumerReview from './consumerReview/consumerReviewConsumer';
 @observer
 export default class ActiveJob extends Component {
 
-    constructor(props){
+    handleBackButton = () => {
+        this.props.navigation.goBack();
+        return true;
+    }
+
+    constructor(props) {
         super(props);
 
     }
+
     componentDidMount() {
         let token = this.props.userDataStore.userData.token;
         this.props.notificationsStore.removePostNotifications('active', this.props.userDataStore.focusedJob.id, this.props.userDataStore.currentUserType, token)
@@ -36,18 +41,12 @@ export default class ActiveJob extends Component {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
 
-    handleBackButton = () => {
-        console.warn("active job index backHandler pressed")
-        this.props.navigation.goBack();
-        return true;
-    }
-
     componentWillUnmount() {
         this.props.userDataStore.focusJob({id: 'asd123456780'});
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
-    consumerCancel(){
+    consumerCancel() {
         let jobId = this.props.userDataStore.focusedJob.id;
         let sendObj = {
             status: 'canceled',
@@ -61,7 +60,7 @@ export default class ActiveJob extends Component {
         fetcher(route, 'PATCH', this.successConsumerCancel.bind(this), this.errorCallback.bind(this), sendObj, headers)
     }
 
-    proCancel(){
+    proCancel() {
         let jobId = this.props.userDataStore.focusedJob.id;
         let sendObj = {
             status: 'canceled',
@@ -75,25 +74,25 @@ export default class ActiveJob extends Component {
         fetcher(route, 'PATCH', this.successProCancel.bind(this), this.errorCallback.bind(this), sendObj, headers)
     }
 
-    successProCancel(res){
+    successProCancel(res) {
         this.props.userDataStore.removeProPost(res.id);
         this.props.navigation.navigate('Home');
     }
 
-    successConsumerCancel(res){
+    successConsumerCancel(res) {
         console.log('cancled job?', res);
         Alert.alert('עבודה בוטלה בהצלחה');
         this.props.userDataStore.removeActivePost(res.id);
         this.props.navigation.navigate('AddJob');
     }
-    errorCallback(err){
+
+    errorCallback(err) {
         console.log('error in active job/index', err);
     }
 
 
     render() {
-        if(!this.props.userDataStore.focusedJob.id){
-            console.warn('no focused job')
+        if (!this.props.userDataStore.focusedJob.id) {
             this.props.navigation.navigate('Home');
         }
         let jobStatus = this.props.userDataStore.focusedJob.status
@@ -105,17 +104,18 @@ export default class ActiveJob extends Component {
                 );
             }
             else if (jobStatus === 'in_progress' || jobStatus === 'pro_payment'
-                || jobStatus === 'consumer_payment' ) {
+                || jobStatus === 'consumer_payment') {
                 return (
-                    <InProgressConsumer {...this.props} cancelJob={this.consumerCancel.bind(this)}/>
+                    <InProgressConsumer {...this.props} />
                 );
             }
-            else if ( jobStatus === 'consumer_review') {
+            else if (jobStatus === 'consumer_review') {
                 return (
-                    <ConsumerReview navigation={this.props.navigation} />
+                    <ConsumerReview navigation={this.props.navigation}/>
                 );
             }
             else {
+                this.props.navigation.navigate('Home');
                 return (
                     <View>
                         <Text>
@@ -128,7 +128,7 @@ export default class ActiveJob extends Component {
         else {
             if (jobStatus === 'on_the_way') {
                 return (
-                    <OnTheWayPro {...this.props} cancelJob={this.proCancel.bind(this)} />
+                    <OnTheWayPro {...this.props} cancelJob={this.proCancel.bind(this)}/>
                 );
             }
             else if (jobStatus === 'in_progress') {

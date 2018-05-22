@@ -27,7 +27,6 @@ export default class ChooseAddress extends React.Component {
         header: null,
     };
     handleBackButton = () => {
-        console.warn("choose address backHandler");
         const {dispatch} = this.props.navigationStore;
         const {navigationState} = this.props.navigationStore;
         const routeName = navigationState.routes[0].routeName
@@ -75,10 +74,8 @@ export default class ChooseAddress extends React.Component {
     }
 
     handleSubmit() {
-        console.warn('1', new Date());
         this.props.modalsStore.showModal('loaderModal');
         if (this.state.place_id) {
-            console.warn('2a', new Date());
             this.getCoordsAndSubmitData(this.state.place_id)
         }
         else {
@@ -88,14 +85,12 @@ export default class ChooseAddress extends React.Component {
                 Alert.alert('המערכת לא זיהתה את המיקום שלך, אנא הכנס מיקום')
             }
             else {
-                console.warn('2b', new Date());
                 this.submitJob(lat, lon, currentAddress)
             }
         }
     }
 
     submitJob(lat, lon, address = this.state.address) {
-        console.warn('3', new Date());
         let objToSave = {
             lat: lat,
             lon: lon,
@@ -127,26 +122,22 @@ export default class ChooseAddress extends React.Component {
                 payload: item
             };
         }
-        console.warn('4', new Date());
         fetcher(addJobRoute, 'POST', this.successCallback.bind(this), this.errorCallback.bind(this), item, headers);
 
     }
 
     successCallback(response) {
-        console.warn('5a', new Date());
         this.props.modalsStore.hideModal('loaderModal');
         if (response.id) {
             this.props.userDataStore.addJob(response)
             this.props.userDataStore.focusConsumerJob(response);
             this.props.navigation.navigate('ApplyBaseScreen');
         }
-        console.warn('success addJob!', response);
     }
 
     //autoCompleteHandling:
 
     errorCallback(response) {
-        console.warn('5b', new Date());
         this.props.modalsStore.hideModal('loaderModal');
         console.warn('error addJob');
         console.log('error in addJob:', response)
@@ -170,7 +161,6 @@ export default class ChooseAddress extends React.Component {
         fetch(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${itemId}&key=${Keys.places_api_web_services}`)
             .then((response) => response.json())
             .then((responseJson) => {
-                console.warn(responseJson.result.geometry);
                 this.setState({
                     lat: responseJson.result.geometry.location.lat,
                     lon: responseJson.result.geometry.location.lng

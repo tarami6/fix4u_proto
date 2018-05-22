@@ -1,12 +1,12 @@
 import React, {Component} from "react";
-import {Text, TouchableOpacity, View, StyleSheet} from "react-native";
+import {View} from "react-native";
 import Modal from "react-native-modal";
 import {inject, observer} from "mobx-react/native";
-import AuthModal from './authModal';
 import ProPhoneVerifyModal from './proPhoneVerifyModal';
 import ChooseJobModal from './chooseJobModal'
-import {SH, SW} from "../../config/styles";
 import ModalLoader from './Loader/ModalLoader'
+import ConsumerCancelJobModal from './cancelTheJob/consumer';
+import ProCancelJobModal from './cancelTheJob/pro';
 
 @inject("modalsStore")
 @observer
@@ -23,7 +23,7 @@ export default class Modals extends Component {
     }
 
 
-    closeModal(modalName){
+    closeModal(modalName) {
         this.props.modalsStore.closeModal(modalName);
     }
 
@@ -37,10 +37,16 @@ export default class Modals extends Component {
                     animationOutTiming={1000}
                     backdropTransitionInTiming={2000}
                     backdropTransitionOutTiming={1000}
-                    onBackButtonPress={()=>{this.closeModal('proPhoneVerifyModal')}}
-                    onBackdropPress={()=>{this.closeModal('proPhoneVerifyModal')}}
+                    onBackButtonPress={() => {
+                        this.closeModal('proPhoneVerifyModal')
+                    }}
+                    onBackdropPress={() => {
+                        this.closeModal('proPhoneVerifyModal')
+                    }}
                 >
-                    <ProPhoneVerifyModal closeModal={()=>{this.closeModal('proPhoneVerifyModal')}}/>
+                    <ProPhoneVerifyModal closeModal={() => {
+                        this.closeModal('proPhoneVerifyModal')
+                    }}/>
                 </Modal>
                 <Modal
                     animationIn={'fadeIn'}
@@ -50,10 +56,14 @@ export default class Modals extends Component {
                     animationOutTiming={1000}
                     backdropTransitionInTiming={2000}
                     backdropTransitionOutTiming={1000}
-                    onBackButtonPress={()=>{this.closeModal('chooseJobModal')}}
-                    onBackdropPress={()=>{this.closeModal('chooseJobModal')}}
+                    onBackButtonPress={() => {
+                        this.closeModal('chooseJobModal')
+                    }}
+                    onBackdropPress={() => {
+                        this.closeModal('chooseJobModal')
+                    }}
                 >
-                    <ChooseJobModal />
+                    <ChooseJobModal/>
                 </Modal>
                 <Modal
                     animationIn={'fadeIn'}
@@ -64,7 +74,40 @@ export default class Modals extends Component {
                     backdropTransitionInTiming={2000}
                     backdropTransitionOutTiming={1000}
                 >
-                    <ModalLoader />
+                    <ModalLoader/>
+                </Modal>
+                <Modal
+                    animationIn={'fadeIn'}
+                    animationOut={'fadeOut'}
+                    isVisible={this.props.modalsStore.consumerCancelJobModal && this.state.showModals}
+                    animationInTiming={100}
+                    animationOutTiming={200}
+                    backdropTransitionInTiming={2000}
+                    backdropTransitionOutTiming={1000}
+                    onBackButtonPress={() => {
+                        this.closeModal('consumerCancelJobModal')
+                    }}
+                    onBackdropPress={() => {
+                        this.closeModal('consumerCancelJobModal')
+                    }}>
+                >
+                    <ConsumerCancelJobModal/>
+                </Modal>
+                <Modal
+                    animationIn={'fadeIn'}
+                    animationOut={'fadeOut'}
+                    isVisible={this.props.modalsStore.proCancelJobModal && this.state.showModals}
+                    animationInTiming={100}
+                    animationOutTiming={200}
+                    backdropTransitionInTiming={2000}
+                    backdropTransitionOutTiming={1000}
+                    onBackButtonPress={() => {
+                        this.closeModal('proCancelJobModal')
+                    }}
+                    onBackdropPress={() => {
+                        this.closeModal('proCancelJobModal')
+                    }}>
+                    <ProCancelJobModal/>
                 </Modal>
             </View>
         )

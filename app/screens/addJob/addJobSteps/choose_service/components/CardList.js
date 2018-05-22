@@ -53,7 +53,9 @@ const services = [
 ]
 
 class CardList extends React.Component {
-     keyExtractor = (item) => item.id + '';
+
+    _keyExtractor = (item, index) => index + '';
+
     render() {
         return (
             <View style={{marginTop: -105, flex: 1, alignItems: 'center'}}>
@@ -67,6 +69,7 @@ class CardList extends React.Component {
                          columnWrapperStyle={{ flexWrap: 'wrap', flex: 1, marginTop: 5 }}
                         data={services}
                           numColumns={2}
+                        keyExtractor={this._keyExtractor}
                         renderItem={(item) => (
                             <View style={{flex:1,marginBottom: SH / 30, alignItems: 'center'}}>
                                       <CardRow service={item} nextStep={this.props.nextStep}/>

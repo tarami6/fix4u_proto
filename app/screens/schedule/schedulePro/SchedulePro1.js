@@ -1,6 +1,6 @@
 // React -react naitve
 import React from 'react';
-import {Alert, BackHandler, Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {Alert, InteractionManager, BackHandler, Image, FlatList, Text, TouchableHighlight, View} from 'react-native';
 // headr
 import Header from '../../../components/headers/Header'
 // pro Item
@@ -14,23 +14,94 @@ import {inject, observer} from "mobx-react/index";
 import Swipeout from 'react-native-swipeout'
 import Cicons from '../../../components/customIcons/CustomIcons'
 
+class MyListItem extends React.PureComponent {
 
+    render() {
+        const swipeSettings = (id, item) => {
+            return ({
+                autoClose: true,
+                onClose: (secId, rowID, direction) => {
 
+                },
+                onOpen: (secId, rowID, direction) => {
+
+                },
+                left: [
+                    {
+                        onPress: () => {
+                            this.props.cancelJob(item)
+                        },
+                        type: 'delete',
+                        component:
+                            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                                <Image source={require('../../../../assets/icons/delete.png')}/></View>
+                    }
+                ],
+                rowID: this.props.index,
+                sectionId: 1,
+            })
+        };
+        return (
+            <View>
+                {this.props.item.status === "on_the_way" ?
+                    <Swipeout {...(swipeSettings(this.props.item.id, this.props.item))} onPress={() => {
+                        console.warn("pressed:" + this.props.item.id)
+                    }}>
+                        <TouchableHighlight onPress={() => this.props.chooseJob(this.props.item)}
+                                            style={{
+                                                width: SW,
+                                                height: SH / 8,
+                                                borderBottomWidth: 1,
+                                                borderColor: '#AAAAAA'
+                                            }}>
+                            <InfoItem type={'consumer'} info={this.props.item}/>
+                        </TouchableHighlight>
+                    </Swipeout> : <TouchableHighlight onPress={() => this.props.chooseJob(this.props.item)}
+                                                      key={this.props.item.id}
+                                                      style={{
+                                                          width: SW,
+                                                          height: SH / 8,
+                                                          borderBottomWidth: 1,
+                                                          borderColor: '#AAAAAA'
+                                                      }}>
+
+                        <InfoItem type={'consumer'} info={this.props.item}/>
+                    </TouchableHighlight>
+                }
+            </View>
+        )
+    }
+}
+
+@inject("modalsStore")
 @inject("userDataStore")
 @observer
 export default class SchedulePro1 extends React.Component {
     static navigationOptions = {
         header: null
     }
+
+    constructor(props){
+        super(props);
+        this.state = {
+            pageIsUp: false
+        }
+    }
     handleBackButton = () => {
-        console.warn('success??321');
         this.props.navigation.navigate('DrawerClose');
         return true;
     }
 
     componentDidMount() {
+        InteractionManager.runAfterInteractions(() => {
+            this.setState({
+                pageIsUp: true
+            });
+            // 2: Component is done animating
+            // 3: Start fetching the team
+            BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        });
         //backHandler:
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     componentWillUnmount() {
@@ -44,37 +115,23 @@ export default class SchedulePro1 extends React.Component {
         this.props.navigation.navigate('ActiveJob');
     }
 
+    cancelJob(job){
+        this.props.userDataStore.focusJob(job);
+        this.props.modalsStore.showModal("proCancelJobModal");
+
+    }
+
+    _renderItem = ({item}) => (
+        <MyListItem
+            item={item}
+            chooseJob={this.chooseJob.bind(this)}
+            cancelJob={this.cancelJob.bind(this)}
+        />
+    );
+
+
     render() {
-        const swipeSettings = (id) => {
-            return ({
-                autoClose: true,
-                onClose: (secId, rowID, direction) => {
 
-                },
-                onOpen: (secId, rowID, direction) => {
-
-                },
-                left: [
-                    {
-                        onPress: () => {
-                            Alert.alert('Alert', 'Are you sure you want to delete this',
-                                [
-                                    {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                                    {text: 'Yes', onPress: () => this.props.cancelJob(id)}
-                                ],
-                                {cancelable: true}
-                            )
-                        },
-                        type: 'delete',
-                        component:
-                            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                                <Image source={require('../../../../assets/icons/delete.png')}/></View>
-                    }
-                ],
-                rowID: this.props.index,
-                sectionId: 1,
-            })
-        }
         return (
             <View style={{flex: 1}}>
                 <View style={{flex: 0.185, backgroundColor: '#FFBA00', elevation: 5}}>
@@ -92,43 +149,24 @@ export default class SchedulePro1 extends React.Component {
                 </View>
                 <View style={{flex: 1}}>
 
-                    {this.props.userDataStore.userData.user.pro_posts && this.props.userDataStore.userData.user.pro_posts.length > 0 ?
-                        this.props.userDataStore.userData.user.pro_posts.map((item) => {
-                            return (
-                                <View key={item.id}>
-                                    {item.status === "on_the_way" ?
-                                        <Swipeout {...(swipeSettings(item.id))} onPress={() => {
-                                            console.warn("pressed:" + item.id)
-                                        }}>
-                                            <TouchableHighlight onPress={() => this.chooseJob(item)}
-                                                                key={item.id}
-                                                                style={{
-                                                                    width: SW,
-                                                                    height: SH / 8,
-                                                                    borderBottomWidth: 1,
-                                                                    borderColor: '#AAAAAA'
-                                                                }}>
-                                                <InfoItem type={'consumer'} info={item}/>
-                                            </TouchableHighlight>
-                                        </Swipeout> : <TouchableHighlight onPress={() => this.chooseJob(item)}
-                                                                          key={item.id}
-                                                                          style={{
-                                                                              width: SW,
-                                                                              height: SH / 8,
-                                                                              borderBottomWidth: 1,
-                                                                              borderColor: '#AAAAAA'
-                                                                          }}>
+                    {this.state.pageIsUp?
+                        //// pro posts map:
 
-                                            <InfoItem type={'consumer'} info={item}/>
-                                        </TouchableHighlight>
-                                    }
-                                </View>
-                            )
-                        }) :
+                        <FlatList
+                            data={this.props.userDataStore.userData.user.pro_posts}
+                            getItemLayout={(data, index) => (
+                                {length: SH/8+0.5, offset: SH/8+0.5 * index, index}
+                            )}
+                            keyExtractor={(item, index) => index + ''}
+                            renderItem={this._renderItem}
+                        />:
                         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>אין לך עבודות </Text>
+                            <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}> טוען </Text>
                         </View>
                     }
+                    {this.props.userDataStore.userData.user.pro_posts === 0 ? <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                            <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>{this.state.pageIsUp ?   "אין לך עבודות": "טוען" }</Text>
+                        </View> : null}
                 </View>
 
             </View>

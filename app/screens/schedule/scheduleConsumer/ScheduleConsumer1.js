@@ -1,5 +1,14 @@
 import React from 'react';
-import {StyleSheet, FlatList, TouchableHighlight, View, Text, Alert, BackHandler} from 'react-native';
+import {
+    StyleSheet,
+    FlatList,
+    InteractionManager,
+    TouchableHighlight,
+    View,
+    Text,
+    Alert,
+    BackHandler
+} from 'react-native';
 import Header from '../../../components/headers/Header';
 import InfoItem from '../../../components/InfoItem';
 import {HH, SH, SW} from "../../../config/styles";
@@ -14,13 +23,26 @@ export default class ScheduleConsumer1 extends React.Component {
         header: null,
     }
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            pageIsUp: false
+        }
+    }
+
     componentDidMount() {
         //backHandler:
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        InteractionManager.runAfterInteractions(() => {
+            this.setState({
+                pageIsUp: true
+            });
+            // 2: Component is done animating
+            // 3: Start fetching the team
+            BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        });
     }
 
     handleBackButton = () => {
-        console.warn("schedule consumer backHandler")
         this.props.navigation.goBack();
         return true;
     }
@@ -42,7 +64,6 @@ export default class ScheduleConsumer1 extends React.Component {
 
 
     render() {
-
         return (
             <View style={{flex: 1,}}>
                 <View style={{width: SW, height: HH, backgroundColor: '#ffffff', elevation: 1}}>
@@ -50,36 +71,40 @@ export default class ScheduleConsumer1 extends React.Component {
                 </View>
 
                 <View style={{flex: 1}}>
-                    {this.props.userDataStore.userData.user.user_active_posts && this.props.userDataStore.userData.user.user_active_posts.length > 0 ?
-                        this.props.userDataStore.userData.user.user_active_posts.map((item, index)=>{
-                            return (
-                                <TouchableHighlight
-                                    onPress={() => {
-                                        this.chooseJob(item)
-                                    }}
-                                    key={item.id}
-                                    style={{
-                                    width: SW,
-                                    height: SH / 8 +0.5,
-                                    backgroundColor: 'transparent'
-                                }}>
-                                        <InfoItem info={item} />
-                                </TouchableHighlight>
-                            )
-                        })
-                        :
-                        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>אין לך עבודות </Text>
-                        </View>
+                    {this.state.pageIsUp ?
+                        this.props.userDataStore.userData.user.user_active_posts && this.props.userDataStore.userData.user.user_active_posts.length > 0 ?
+                            this.props.userDataStore.userData.user.user_active_posts.map((item, index) => {
+                                return (
+                                    <TouchableHighlight
+                                        onPress={() => {
+                                            this.chooseJob(item)
+                                        }}
+                                        key={item.id}
+                                        style={{
+                                            width: SW,
+                                            height: SH / 8 + 0.5,
+                                            backgroundColor: 'transparent'
+                                        }}>
+                                        <InfoItem info={item}/>
+                                    </TouchableHighlight>
+                                )
+                            })
+                            :
+                            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                                <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>אין לך עבודות </Text>
+                            </View>
 
+                        : <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                            <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>טוען </Text>
+                        </View>
                     }
+
                 </View>
 
             </View>
         )
     }
 }
-
 
 
 const styles = StyleSheet.create({

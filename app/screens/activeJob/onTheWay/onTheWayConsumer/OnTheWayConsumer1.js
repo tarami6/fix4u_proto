@@ -23,7 +23,7 @@ import {getAvgRating} from "../../../../generalFunc/generalFunctions";
 // mobx
 import {inject, observer} from "mobx-react/index";
 
-
+@inject("modalsStore")
 @inject("userDataStore")
 @inject("openJobsStore")
 @observer
@@ -73,22 +73,15 @@ export default class OnTheWayConsumer extends Component {
         }
     }
 
-    cancelJob(){
-        Alert.alert(
-            'ביטול עבודה',
-            'האם אתה בטוח שאתה מעוניין לבטל את העבודה הנוכחית?',
-            [
-                {text: 'לא, בטל פעולה', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                {text: 'כן', onPress: () => this.props.cancelJob()},
-            ],
-            { cancelable: true }
-        )
+    cancelJob() {
+        this.props.userDataStore.focusJob(this.props.userDataStore.focusedJob);
+        this.props.modalsStore.showModal("consumerCancelJobModal");
+
     }
 
 
-
     render() {
-        let reviews = this.props.userDataStore.focusedJob.user_pro.pro_reviews?this.props.userDataStore.focusedJob.user_pro.pro_reviews.slice(0): [];
+        let reviews = this.props.userDataStore.focusedJob.user_pro.pro_reviews ? this.props.userDataStore.focusedJob.user_pro.pro_reviews.slice(0) : [];
         let job = this.props.userDataStore.focusedJob.user_pro;
         let rating = getAvgRating(
             job.price_rating_avg,
@@ -128,7 +121,7 @@ export default class OnTheWayConsumer extends Component {
                                 </View>
 
                                 <View style={styles.infoReviewCount}>
-                                    <Text> {reviews ? reviews.length  : 0}  חוות דעת </Text>
+                                    <Text> {reviews ? reviews.length : 0} חוות דעת </Text>
                                 </View>
                             </View>
                         </View>

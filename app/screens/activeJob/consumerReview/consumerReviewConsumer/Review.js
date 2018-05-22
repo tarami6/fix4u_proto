@@ -73,8 +73,6 @@ export default class Review extends Component {
         this.props.notificationsStore.removePostNotifications('active', this.props.userDataStore.focusedJob.id, this.props.userDataStore.currentUserType, token)
         this.props.userDataStore.removeActivePost(this.props.userDataStore.focusedJob.id);
         this.props.navigation.navigate('AddJob');
-        console.warn('success cb at consumer Review:', res);
-        console.log('success cb at consumer Review:', res);
     }
 
     errorCB(err) {

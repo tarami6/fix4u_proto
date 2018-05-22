@@ -11,7 +11,7 @@ import {
     TouchableHighlight,
     BackHandler,
     UIManager,
-    View
+    View, InteractionManager
 } from 'react-native';
 import Text from '../../../components/text/Text'
 import Header from '../../../components/headers/Header';
@@ -78,7 +78,6 @@ export default class ApplyBaseScreen extends React.Component {
 
     //handling backHandler:
     handleBackButton = () => {
-        console.warn('success??113');
         this.props.navigationStore.dispatch(NavigationActions.back());
     }
     expand_collapse_Function = () => {
@@ -112,6 +111,7 @@ export default class ApplyBaseScreen extends React.Component {
             buttonText: 'ios-arrow-down',
             height: SH / 3.2,
             modalVisible: false,
+            pageUp: false
         }
     }
 
@@ -124,18 +124,20 @@ export default class ApplyBaseScreen extends React.Component {
     }
 
     componentDidMount() {
-        //backHandler:
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        InteractionManager.runAfterInteractions(() => {
+            this.setState({pageUp: true})
+            //backHandler:
+            BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
 
 
-        this.setState({
-            height: this.state.height * data.length + SH / 8
+            this.setState({
+                height: this.state.height * data.length + SH / 8
+            })
         })
     }
 
     //handling backHandler:
     handleBackButton = () => {
-        console.warn('success??224');
         this.props.navigation.goBack();
         return true;
     }
@@ -153,7 +155,6 @@ export default class ApplyBaseScreen extends React.Component {
         }
         else {
             let successCB = (res) => {
-                console.warn('success callback edit user', res)
                 this.props.userDataStore.updateUser(res);
                 this.fetchChoosePro(proObj)
             }
@@ -444,7 +445,8 @@ export default class ApplyBaseScreen extends React.Component {
                 <View style={styles.MainContainer}>
                     <ScrollView style={styles.ChildView}>
                         <View style={styles.ExpandViewInsideText}>
-                            {apply.user_pro.pro_reviews.map((item, index) => {
+
+                            {this.state.pageUp && apply.user_pro.pro_reviews.map((item, index) => {
                                 return (
                                     <View key={index} style={styles.proCard}>
                                         {/*Name and Image*/}
