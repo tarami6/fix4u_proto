@@ -1,6 +1,6 @@
 // React -react naitve
 import React from 'react';
-import {Alert, BackHandler, Image, FlatList, Text, TouchableHighlight, View} from 'react-native';
+import {Alert, InteractionManager, BackHandler, Image, FlatList, Text, TouchableHighlight, View} from 'react-native';
 // headr
 import Header from '../../../components/headers/Header'
 // pro Item
@@ -47,7 +47,7 @@ class MyListItem extends React.PureComponent {
                     <Swipeout {...(swipeSettings(this.props.item.id, this.props.item))} onPress={() => {
                         console.warn("pressed:" + this.props.item.id)
                     }}>
-                        <TouchableHighlight onPress={() => this.chooseJob(item)}
+                        <TouchableHighlight onPress={() => this.props.chooseJob(this.props.item)}
                                             style={{
                                                 width: SW,
                                                 height: SH / 8,
@@ -56,7 +56,7 @@ class MyListItem extends React.PureComponent {
                                             }}>
                             <InfoItem type={'consumer'} info={this.props.item}/>
                         </TouchableHighlight>
-                    </Swipeout> : <TouchableHighlight onPress={() => this.chooseJob(this.props.item)}
+                    </Swipeout> : <TouchableHighlight onPress={() => this.props.chooseJob(this.props.item)}
                                                       key={this.props.item.id}
                                                       style={{
                                                           width: SW,
@@ -73,21 +73,35 @@ class MyListItem extends React.PureComponent {
     }
 }
 
+@inject("modalsStore")
 @inject("userDataStore")
 @observer
 export default class SchedulePro1 extends React.Component {
     static navigationOptions = {
         header: null
     }
+
+    constructor(props){
+        super(props);
+        this.state = {
+            pageIsUp: false
+        }
+    }
     handleBackButton = () => {
-        console.warn('success??321');
         this.props.navigation.navigate('DrawerClose');
         return true;
     }
 
     componentDidMount() {
+        InteractionManager.runAfterInteractions(() => {
+            this.setState({
+                pageIsUp: true
+            });
+            // 2: Component is done animating
+            // 3: Start fetching the team
+            BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        });
         //backHandler:
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     componentWillUnmount() {
@@ -101,9 +115,17 @@ export default class SchedulePro1 extends React.Component {
         this.props.navigation.navigate('ActiveJob');
     }
 
+    cancelJob(job){
+        this.props.userDataStore.focusJob(job);
+        this.props.modalsStore.showModal("proCancelJobModal");
+
+    }
+
     _renderItem = ({item}) => (
         <MyListItem
             item={item}
+            chooseJob={this.chooseJob.bind(this)}
+            cancelJob={this.cancelJob.bind(this)}
         />
     );
 
@@ -127,7 +149,7 @@ export default class SchedulePro1 extends React.Component {
                 </View>
                 <View style={{flex: 1}}>
 
-                    {this.props.userDataStore.userData.user.pro_posts && this.props.userDataStore.userData.user.pro_posts.length > 0 ?
+                    {this.state.pageIsUp?
                         //// pro posts map:
 
                         <FlatList
@@ -135,11 +157,11 @@ export default class SchedulePro1 extends React.Component {
                             getItemLayout={(data, index) => (
                                 {length: SH/8+0.5, offset: SH/8+0.5 * index, index}
                             )}
-                            keyExtractor={(item, index) => index}
+                            keyExtractor={(item, index) => index + ''}
                             renderItem={this._renderItem}
                         />:
                         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>אין לך עבודות </Text>
+                            <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>{this.state.pageIsUp?   "אין לך עבודות": "טוען" }</Text>
                         </View>
                     }
                 </View>

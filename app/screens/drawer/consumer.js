@@ -39,7 +39,6 @@ export default class Consumer extends Component {
     }
 
     handleBackButton = () => {
-        console.warn("Drawer consumer backHandler")
         this.props.navigation.navigate('DrawerClose');
         return true;
     }
@@ -72,7 +71,6 @@ export default class Consumer extends Component {
     }
 
     errorLogout(err) {
-        console.warn('logout error:', err);
         console.log('logout error:', err);
         Alert.alert('there was a problem with the internet connection')
     }

@@ -18,7 +18,6 @@ export default class TimerStore {
         let timerInterval = setInterval(()=>{
             if(!this.allowTimer){
                 clearInterval(timerInterval)
-                console.warn("timer cleared!");
             }
             else {
                 let currentDate = new Date();

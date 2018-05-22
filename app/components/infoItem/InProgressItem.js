@@ -46,8 +46,6 @@ export default class InProgressItem extends React.Component {
 
     render(){
         let job = this.props.job;
-
-        console.log("Sas", job)
         let pic = job.user_pro.profile_pic_thumb || job.user.profile_pic_thumb
         return (
             <View style={{

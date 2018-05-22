@@ -142,7 +142,6 @@ let handleNotificationData = (type, payload) => {
             userDataStore.focusJob(payload);
             break;
         case 'pro_update_post':
-            console.warn(userDataStore.focusedJob.id);
             if (payload.id === userDataStore.focusedJob.id) {
                 userDataStore.focusJob(payload);
                 notificationsStore.removePostNotifications('active', payload.id, 'consumer', userDataStore.userData.token)
@@ -183,20 +182,17 @@ let handleNotificationData = (type, payload) => {
                 console.warn("pro canceled this post");
                 // notificationsStore.removePostNotifications('active', payload.id, 'pro', userDataStore.userData.token)
             }
-            console.warn("post with id: " + payload.post_id + " was canceled");
             userDataStore.removeActivePost(payload.post_id);
             break;
 
         //    the is getting this:
         case 'consumer_post_cancel':
-            console.warn("post with id: " + payload.post_id + " was canceled");
             userDataStore.removeProPost(payload.post_id);
 
         default:
             console.warn("notification wasn't handled:", type);
 
     }
-    console.warn('handle not:', 'type: ' + type, 'payload: ' + payload);
 }
 
 type Props = {};

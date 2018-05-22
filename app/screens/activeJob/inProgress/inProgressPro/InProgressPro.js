@@ -62,7 +62,7 @@ export default class InProgressPro extends Component {
             this.props.timerStore.startTimer()
         }
         // let currentTime = dateObjToTimeString()
-        this.startTimer();
+        // this.startTimer();
     }
     //
     // startTimer() {

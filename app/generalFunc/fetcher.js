@@ -48,7 +48,6 @@ export const
         /**
          * One way to fetch and debug
          **/
-        console.warn("start fetching");
         // fetch(`${mainRoute}/${route}`, {
         //     method: method,
         //     headers: headers,

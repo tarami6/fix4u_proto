@@ -24,7 +24,6 @@ export default class ChooseService extends Component {
         header: null
     }
     onBackPress = () => {
-        console.warn("choose Service backHandler")
         if (this.props.navigation.state.params) {
             if(this.props.navigation.state.params.drawerOpen){
                 this.props.navigation.navigate('DrawerClose');

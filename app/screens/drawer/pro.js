@@ -84,7 +84,6 @@ export default class Pro extends Component {
     }
 
     errorLogout(err) {
-        console.warn('logout error:', err);
         console.log('logout error:', err);
         Alert.alert('there was a problem with the internet connection')
     }

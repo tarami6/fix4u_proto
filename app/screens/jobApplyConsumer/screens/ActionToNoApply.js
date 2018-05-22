@@ -35,7 +35,6 @@ export default class ActionToNoApply extends React.Component {
         const {navigationState} = this.props.navigationStore;
         // console.log('navigationState',navigationState.index);
         if (navigationState.index === 0) {
-            // console.warn('exiting app');
             Alert.alert(
                 'Exit App',
                 'Exiting the application?', [

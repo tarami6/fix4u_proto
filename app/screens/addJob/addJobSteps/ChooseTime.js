@@ -86,7 +86,6 @@ export default class ChooseTime extends React.Component {
         }
     }
     goBack() {
-        console.warn("choose time backHandler");
         this.props.navigation.goBack()
     }
 
@@ -100,7 +99,6 @@ export default class ChooseTime extends React.Component {
         let timeSeted = new Date(editedHours)
         let hoursEnd = timeSeted.getHours() < 10 ? '0' + timeSeted.getHours() : timeSeted.getHours();
         let time_end = hoursEnd + ':' + minutes + ":" + "00";
-        console.warn('time_start:', time_start);
         let sendObj = {
             appointment_date: editedDate,
             appointment_time_start: time_start,

@@ -41,7 +41,6 @@ export default class AccountSettings extends Component {
         header: null
     }
     handleBackButton = () => {
-        console.warn('success??224');
         this.props.navigation.navigate("Home");
         this.props.navigation.navigate('DrawerOpen')
         return true;
@@ -142,7 +141,6 @@ export default class AccountSettings extends Component {
 
     render() {
         let user = this.props.userDataStore.userData.user;
-        console.warn('this.state.name',this.state.name);
         return (
             <View style={{flex: 1, alignItems: 'center'}}>
                 <LinearGradient

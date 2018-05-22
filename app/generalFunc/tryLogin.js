@@ -4,12 +4,9 @@ import {AsyncStorage} from 'react-native'
 import {loginRoute, getAppliesRoute} from "../config/apiRoutes";
 
 export const tryLogin = (notificationsStore, userDataStore, callbackFunc, errCB=(err)=>console.warn('err:', err)) => {
-    console.log('tryLogin initiated');
 
     //fetch callbacks:
     const successCallback = (response) => {
-        console.warn('success tryLogin');
-        console.log('response tryLogin', response);
 
         //setting allData
         userDataStore.setUserData(response);
@@ -30,7 +27,6 @@ export const tryLogin = (notificationsStore, userDataStore, callbackFunc, errCB=
                 callbackFunc(response);
             }).catch((err) => {
                 userDataStore.setCurrentUserType(userType);
-                console.warn('err in setUserType', err);
                 callbackFunc(response);
             })
         }

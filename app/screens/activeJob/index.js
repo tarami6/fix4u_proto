@@ -25,7 +25,6 @@ import ConsumerReview from './consumerReview/consumerReviewConsumer';
 export default class ActiveJob extends Component {
 
     handleBackButton = () => {
-        console.warn("active job index backHandler pressed")
         this.props.navigation.goBack();
         return true;
     }
@@ -94,7 +93,6 @@ export default class ActiveJob extends Component {
 
     render() {
         if (!this.props.userDataStore.focusedJob.id) {
-            console.warn('no focused job')
             this.props.navigation.navigate('Home');
         }
         let jobStatus = this.props.userDataStore.focusedJob.status
@@ -118,7 +116,6 @@ export default class ActiveJob extends Component {
             }
             else {
                 this.props.navigation.navigate('Home');
-                console.warn("error with focused job status");
                 return (
                     <View>
                         <Text>
