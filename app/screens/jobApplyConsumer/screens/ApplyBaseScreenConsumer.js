@@ -181,7 +181,7 @@ export default class ApplyBaseScreen extends React.Component {
                 // **** TIMES PASSED !!!! when loading the app (not on screen)
                 this.navigateToNoAppliesNavigator();
             }
-            // this.timeRemaining(this.props.userDataStore.focusedConsumerJob.modified)
+            this.timeRemaining(this.props.userDataStore.focusedConsumerJob.modified)
         })
     }
 

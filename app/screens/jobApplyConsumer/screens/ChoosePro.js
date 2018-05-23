@@ -67,22 +67,117 @@ const data = [
 
 ]
 
-
-
-
 @observer
-class ProReviewsView extends React.Component {
-    constructor(props){
+class ProReviewView extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             pageUp: false
         }
     }
+
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
             this.setState({pageUp: true})
         })
     }
+
+    render() {
+        let { item } = this.props;
+        return (
+            <View style={styles.proCard}>
+                {/*Name and Image*/}
+                <View style={styles.cardNameAndImageView}>
+                    <View style={styles.cardNameAndDate}>
+                        <Text style={styles.nameText}>{item.name}</Text>
+                        <Text style={{fontSize: 16}}>{formatTime(item.created_at)}</Text>
+                    </View>
+                    <View style={styles.cardPicProView}>
+                        {this.state.pageUp && item.user.profile_pic_thumb &&
+                        <Image
+                            style={styles.proPic}
+                            source={{uri: item.user.profile_pic_thumb}}
+                        />}
+                    </View>
+                </View>
+                {/*Review*/}
+                <View style={styles.cardReview}>
+                    <Text style={{fontSize: 16}}>{item.review}</Text>
+                </View>
+                {this.state.pageUp &&
+                <View style={{flex: 1}}>
+                    <View style={styles.row}>
+                        <View style={styles.starsContainer}>
+                            <StarRating
+                                disabled={false}
+                                maxStars={5}
+                                rating={item.price_rating}
+                                starSize={14}
+                                fullStarColor={'#ffd700'}
+                                emptyStar={'star'}
+                                iconSet={'FontAwesome'}
+                            />
+                        </View>
+                        <View style={styles.cardRightTitle}>
+                            <Text style={{fontSize: 16}}>מחיר</Text>
+                        </View>
+                    </View>
+                    <View style={styles.row}>
+                        <View style={styles.starsContainer}>
+                            <StarRating
+                                disabled={false}
+                                maxStars={5}
+                                rating={item.time_rating}
+                                starSize={14}
+                                fullStarColor={'#ffd700'}
+                                emptyStar={'star'}
+                                iconSet={'FontAwesome'}
+                            />
+                        </View>
+                        <View style={styles.cardRightTitle}>
+                            <Text style={{fontSize: 16}}>זמן עבודה</Text>
+                        </View>
+                    </View>
+                    <View style={styles.row}>
+                        <View style={styles.starsContainer}>
+                            <StarRating
+                                disabled={false}
+                                maxStars={5}
+                                rating={item.performance_rating}
+                                starSize={14}
+                                fullStarColor={'#ffd700'}
+                                emptyStar={'star'}
+                                iconSet={'FontAwesome'}
+                            />
+                        </View>
+                        <View style={styles.cardRightTitle}>
+                            <Text style={{fontSize: 16}}>שירות</Text>
+                        </View>
+                    </View>
+                </View>}
+                {/*Bot Border*/}
+                <View style={styles.cardBottomBorder}/>
+            </View>
+        )
+    }
+}
+
+
+@observer
+class ProReviewsView extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            pageUp: false
+        }
+    }
+
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(() => {
+            this.setState({pageUp: true})
+        })
+    }
+
     render() {
         const {reviews} = this.props;
         return (
@@ -92,76 +187,15 @@ class ProReviewsView extends React.Component {
 
                         {reviews.map((item, index) => {
                             return (
-                                <View key={item.id + ''} style={styles.proCard}>
-                                    {/*Name and Image*/}
-                                    <View style={styles.cardNameAndImageView}>
-                                        <View style={styles.cardNameAndDate}>
-                                            <Text style={styles.nameText}>{item.user.name}</Text>
-                                            <Text style={{fontSize: 16}}>{formatTime(item.created_at)}</Text>
-                                        </View>
-                                        <View style={styles.cardPicProView}>
-                                            {this.state.pageUp && item.user.profile_pic_thumb &&
-                                            <Image
-                                                style={styles.proPic}
-                                                source={{uri: item.user.profile_pic_thumb}}
-                                            />}
-                                        </View>
-                                    </View>
-                                    {/*Review*/}
-                                    <View style={styles.cardReview}>
-                                        <Text style={{fontSize: 16}}>{item.review}</Text>
-                                    </View>
-                                    <View style={styles.row}>
-                                        <View style={styles.starsContainer}>
-                                            <StarRating
-                                                disabled={false}
-                                                maxStars={5}
-                                                rating={item.price_rating}
-                                                starSize={14}
-                                                fullStarColor={'#ffd700'}
-                                                emptyStar={'star'}
-                                                iconSet={'FontAwesome'}
-                                            />
-                                        </View>
-                                        <View style={styles.cardRightTitle}>
-                                            <Text style={{fontSize: 16}}>מחיר</Text>
-                                        </View>
-                                    </View>
-                                    <View style={styles.row}>
-                                        <View style={styles.starsContainer}>
-                                            <StarRating
-                                                disabled={false}
-                                                maxStars={5}
-                                                rating={item.time_rating}
-                                                starSize={14}
-                                                fullStarColor={'#ffd700'}
-                                                emptyStar={'star'}
-                                                iconSet={'FontAwesome'}
-                                            />
-                                        </View>
-                                        <View style={styles.cardRightTitle}>
-                                            <Text style={{fontSize: 16}}>זמן עבודה</Text>
-                                        </View>
-                                    </View>
-                                    <View style={styles.row}>
-                                        <View style={styles.starsContainer}>
-                                            <StarRating
-                                                disabled={false}
-                                                maxStars={5}
-                                                rating={item.performance_rating}
-                                                starSize={14}
-                                                fullStarColor={'#ffd700'}
-                                                emptyStar={'star'}
-                                                iconSet={'FontAwesome'}
-                                            />
-                                        </View>
-                                        <View style={styles.cardRightTitle}>
-                                            <Text style={{fontSize: 16}}>שירות</Text>
-                                        </View>
-                                    </View>
-                                    {/*Bot Border*/}
-                                    <View style={styles.cardBottomBorder}/>
-                                </View>
+                                <ProReviewView key={item.id + ''} name={item.user.name}
+                                               item={item}
+                                               // created_at={item.created_at}
+                                               // profile_pic_thumb={item.user.profile_pic_thumb}
+                                               // review={item.review}
+                                               // price_rating={item.price_rating}
+                                               // time_rating={item.time_rating}
+                                               // performance_rating={item.performance_rating}
+                                />
                             )
                         })}
                     </View>
@@ -508,9 +542,10 @@ export default class ApplyBaseScreen extends React.Component {
                             </View>
                             <View
                                 style={styles.infoProPicView}>
+                                {this.state.pageUp &&
                                 <Image style={styles.infoProPic}
                                        source={{uri: apply.user_pro.profile_pic_thumb}}
-                                />
+                                />}
                             </View>
                         </View>
                         {/*about*/}
@@ -528,7 +563,7 @@ export default class ApplyBaseScreen extends React.Component {
                             {/*Stars*/}
                             <View style={{flex: 1, flexDirection: 'row'}}>
                                 <View style={styles.infoStarsView}>
-
+                                    {this.state.pageUp &&
                                     <StarRating
                                         disabled={false}
                                         maxStars={5}
@@ -537,7 +572,7 @@ export default class ApplyBaseScreen extends React.Component {
                                         fullStarColor={'#ffd700'}
                                         emptyStar={'star'}
                                         iconSet={'FontAwesome'}
-                                    />
+                                    />}
                                 </View>
 
 
