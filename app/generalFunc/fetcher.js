@@ -37,7 +37,9 @@ export const
         else {
             sendBody = JSON.stringify(body)
         }
-        console.log('allSentInfo:', route, method, sendBody, headers)
+
+        console.log('allSentInfo:', 'route',route, 'method',method , 'sendBody',sendBody , 'headers', headers );
+
         //     let fetchWaitTime = 10;
         //     setTimeout(()=>{
         //         console.log('too long');

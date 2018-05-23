@@ -58,7 +58,6 @@ class CardRow extends Component {
     }
 
     render() {
-        console.log("Sa", this.props.service.item)
         const service = this.props.service.item
         const animatedStyle = {transform: [{scale: this.scale}]}
         return (

@@ -20,6 +20,7 @@ import {inject, observer} from "mobx-react/index";
 import Communications from 'react-native-communications';
 
 let timerInitiatedHere = false;
+let gotTime = false;
 
 @inject("timerStore")
 @inject('modalsStore')
@@ -34,7 +35,8 @@ export default class InProgressConsumer extends Component {
         super(props);
         this.state = {
             modalVisible: false,
-            timer: '...'
+            timer: '...',
+            finishedTimer: false,
         }
     }
 
@@ -127,15 +129,17 @@ export default class InProgressConsumer extends Component {
             }
         }
         else {
-            let startTime = new Date(this.props.userDataStore.focusedJob.job_start_time);
-            let completionTime = new Date(this.props.userDataStore.focusedJob.job_completion_time);
-            let sec2 = addZero(completionTime.getSeconds() - startTime.getSeconds());
-            let min2 = addZero(completionTime.getMinutes() - startTime.getMinutes());
-            let hour2 = addZero(completionTime.getHours() - startTime.getHours());
-            let jobTime = hour2 + ':' + min2 + ':' + sec2;
-            this.setState({
-                timer: jobTime
-            })
+            this.getTime();
+
+            // let startTime = new Date(this.props.userDataStore.focusedJob.job_start_time);
+            // let completionTime = new Date(this.props.userDataStore.focusedJob.job_completion_time);
+            // let sec2 = addZero(completionTime.getSeconds() - startTime.getSeconds());
+            // let min2 = addZero(completionTime.getMinutes() - startTime.getMinutes());
+            // let hour2 = addZero(completionTime.getHours() - startTime.getHours());
+            // let jobTime = hour2 + ':' + min2 + ':' + sec2;
+            // this.setState({
+            //     timer: jobTime
+            // })
         }
     }
 
@@ -148,7 +152,21 @@ export default class InProgressConsumer extends Component {
         }
     }
 
+    getTime(){
+        let basicDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
+        let currentDate = new Date(this.props.userDataStore.focusedJob.job_completion_time);
+        let x = new Date(currentDate - basicDate);
+        let timer = msToHMS(x);
+        this.setState({
+            finishedTimer: timer
+        })
+    }
+
     render() {
+        if(this.props.userDataStore.focusedJob.status !== 'in_progress' && !gotTime){
+            gotTime = true;
+            this.getTime()
+        }
         let focusedJob = this.props.userDataStore.focusedJob;
         let rating = getAvgRating(
             focusedJob.user_pro.price_rating_avg,
@@ -196,7 +214,6 @@ export default class InProgressConsumer extends Component {
                 </View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-between'}}>
                     <View style={{flex: 0.3, justifyContent: 'center'}}>
-                        {console.log("inProgress", focusedJob.status)}
                         <Text style={mainStyles.greyTitle}>
                             {this.props.userDataStore.focusedJob.status === 'in_progress' ? 'בעבודה' : ''}
                             {this.props.userDataStore.focusedJob.status === 'pro_payment' ? focusedJob.user_pro.name + ' מכין חשבונית ' : ''}
@@ -206,7 +223,7 @@ export default class InProgressConsumer extends Component {
                     <View style={{flex: 1}}>
                         <OrangeCircle size={'big'} style={{width: 180, height: 180}}>
                             <Text style={{fontSize: 30, color: '#000', fontWeight: 'bold', fontFamily: 'sans-serif'}}>
-                                {this.props.timerStore.timers.get(focusedJob.id)}
+                                {this.props.userDataStore.focusedJob.status !== 'in_progress'? this.state.finishedTimer: this.props.timerStore.timers.get(focusedJob.id)}
                             </Text>
                         </OrangeCircle>
                     </View>
@@ -275,7 +292,7 @@ export default class InProgressConsumer extends Component {
                                     <View style={{flex: 1, borderBottomWidth: 0.5, borderColor: 'grey',}}>
                                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                                             <View style={{flex: 1}}>
-                                                <Text style={{fontSize: 14}}>{this.props.timerStore.timers.get(focusedJob.id) && this.props.timerStore.timers.get(focusedJob.id)}</Text>
+                                                <Text style={{fontSize: 14}}>{this.state.finishedTimer}</Text>
                                             </View>
                                             <View style={{flex: 1}}>
                                                 <Text>זמן</Text>
