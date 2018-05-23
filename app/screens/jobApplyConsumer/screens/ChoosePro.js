@@ -255,6 +255,7 @@ export default class ApplyBaseScreen extends React.Component {
 
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
+            // this.fetchReviews();
             this.setState({pageUp: true})
             //backHandler:
             BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
@@ -373,8 +374,12 @@ export default class ApplyBaseScreen extends React.Component {
     fetchReviews() {
         let pro = this.props.userDataStore.shownPro;
         let route = getProReviewsRoute(pro.id);
-        let token = this.props.userDataStore.userData.token;
-        fetcher(route, 'GET', this.successFetchReviews.bind(this), this.errorCallback.bind(this), {token: token})
+        let sendBody = {
+            token: this.props.userDataStore.userData.token
+        };
+        console.warn('sendBody', sendBody);
+
+        fetcher(route, 'GET', this.successFetchReviews.bind(this), this.errorCallback.bind(this), sendBody)
     }
 
     successFetchReviews(res) {
@@ -390,7 +395,7 @@ export default class ApplyBaseScreen extends React.Component {
         return (
 
             <View style={{flex: 1, backgroundColor: '#f6f6f6'}}>
-
+                {!this.state.pageUp && <Text>טוען מקצוען..</Text>}
                 <Modal
                     animationType="fade"
                     transparent={true}
@@ -490,7 +495,7 @@ export default class ApplyBaseScreen extends React.Component {
                         </View>
                     </View>
                 </Modal>
-
+                {this.state.pageUp &&
                 <View style={{flex: 0.5}}>
                     <LinearViewBelowHeaderConsumer>
                         < Header
@@ -520,8 +525,8 @@ export default class ApplyBaseScreen extends React.Component {
                             </View>
                         </View>
                     </LinearViewBelowHeaderConsumer>
-                </View>
-
+                </View>}
+                {this.state.pageUp &&
                 <View style={{flex: 0.7}}>
                     <View style={styles.infoView}>
                         {/*Image & service & full name*/}
@@ -577,7 +582,7 @@ export default class ApplyBaseScreen extends React.Component {
                             </View>
                         </View>
                     </View>
-                </View>
+                </View>}
                 {/*ProReviews list:*/}
                 <View style={{flex: 1}}>
                     {this.state.pageUp &&

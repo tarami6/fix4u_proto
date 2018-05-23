@@ -170,6 +170,7 @@ export default class ChooseAddress extends React.Component {
     }
 
     handleLocationPress(data, details) {
+        console.warn("handleLocationPress was on");
         if (this.mounted) {
             let address = data.description;
             let place_id = data.place_id;

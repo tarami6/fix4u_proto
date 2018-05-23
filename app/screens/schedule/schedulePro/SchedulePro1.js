@@ -1,6 +1,6 @@
 // React -react naitve
 import React from 'react';
-import {Alert, InteractionManager, BackHandler, Image, FlatList, Text, TouchableHighlight, View} from 'react-native';
+import {BackHandler, FlatList, Image, InteractionManager, Text, TouchableHighlight, View} from 'react-native';
 // headr
 import Header from '../../../components/headers/Header'
 // pro Item
@@ -80,6 +80,17 @@ export default class SchedulePro1 extends React.Component {
     static navigationOptions = {
         header: null
     }
+    handleBackButton = () => {
+        this.props.navigation.navigate('DrawerClose');
+        return true;
+    }
+    _renderItem = ({item}) => (
+        <MyListItem
+            item={item}
+            chooseJob={this.chooseJob.bind(this)}
+            cancelJob={this.cancelJob.bind(this)}
+        />
+    );
 
     constructor(props) {
         super(props);
@@ -88,10 +99,12 @@ export default class SchedulePro1 extends React.Component {
         }
     }
 
+
     handleBackButton = () => {
         this.props.navigation.navigate('DrawerClose');
         return true;
     }
+
 
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
@@ -109,7 +122,6 @@ export default class SchedulePro1 extends React.Component {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
-
     chooseJob(job) {
         console.log('choose job:', job);
         this.props.userDataStore.focusJob(job);
@@ -121,15 +133,6 @@ export default class SchedulePro1 extends React.Component {
         this.props.modalsStore.showModal("proCancelJobModal");
 
     }
-
-    _renderItem = ({item}) => (
-        <MyListItem
-            item={item}
-            chooseJob={this.chooseJob.bind(this)}
-            cancelJob={this.cancelJob.bind(this)}
-        />
-    );
-
 
     render() {
         console.log("saas00", this.props.userDataStore.userData.user.pro_posts.length)
@@ -150,9 +153,10 @@ export default class SchedulePro1 extends React.Component {
                 </View>
                 <View style={{flex: 1}}>
 
-                    {this.state.pageIsUp && this.props.userDataStore.userData.user.pro_posts.length > 0 ?
-                        //// pro posts map:
 
+                    {this.state.pageIsUp && (this.props.userDataStore.userData.user.pro_posts.length > 0) ?
+
+                        //// pro posts map:
                         <FlatList
                             data={this.props.userDataStore.userData.user.pro_posts}
                             getItemLayout={(data, index) => (
@@ -173,6 +177,7 @@ export default class SchedulePro1 extends React.Component {
                                     color: 'grey',
                                     opacity: 0.2
                                 }}>טוען</Text>}
+
                         </View>
                     }
 

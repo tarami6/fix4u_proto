@@ -27,10 +27,10 @@ export default class Header extends React.Component {
                 break;
 
             case 'AddJob':
-                return (<ArrowHeaderOrangeBackground {...props} previousPage={this.props.previousPage}/>)
+                return (<ArrowHeaderOrangeBackground {...props} />)
                 break;
             case 'Grey':
-                return (<CustomHeaderGrey {...props} previousPage={this.props.previousPage}/>)
+                return (<CustomHeaderGrey {...props} />)
                 break;
         }
     }

@@ -18,7 +18,7 @@ const CancelJobModal = (props) => {
                     <View style={styles.eXicon}>
                         <TouchableWithoutFeedback
                             onPress={() => {
-                                this.props.modalsStore.closeModal('consumerCancelJobModal');
+                                props.closeModal();
                             }}>
                             <Image
                                 source={require('../../../../../assets/icons/Exit.png')}
@@ -226,6 +226,7 @@ export default class TextPage extends React.Component {
     render() {
         return (
             <CancelJobModal {...this.state} changeBox={this.changeBox.bind(this)}
+                            closeModal={()=>this.props.modalsStore.closeModal('consumerCancelJobModal')}
                             cancelJob={this.consumerCancelJob.bind(this)}/>
         )
     }
