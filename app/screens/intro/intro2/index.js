@@ -6,7 +6,7 @@
 
 import React, {Component} from 'react';
 // import OpenScreen3 from '../../../components/infoScreens/OpenScreen3'
-import Step from './Step'
+import Step from './Step';
 
 
 export default class Intro2 extends Component {

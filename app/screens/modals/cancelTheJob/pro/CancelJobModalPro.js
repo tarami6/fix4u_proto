@@ -11,7 +11,6 @@ import {NavigationActions} from "react-navigation";
 
 const CancelJobModal = (props) => {
 
-
     return (
         <View style={{flex: 1, backgroundColor: 'transparent'}}>
             <KeyboardAvoidingView style={styles.modalContainer} behavior="position" enabled>

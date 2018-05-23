@@ -6,7 +6,6 @@ import me.pushy.sdk.react.PushyPackage;
 
 import com.appsee.reactnative.AppseeReactPackage;
 import com.facebook.react.ReactApplication;
-
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.beefe.picker.PickerViewPackage;
 import com.airbnb.android.react.maps.MapsPackage;

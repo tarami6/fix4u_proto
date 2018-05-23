@@ -15,7 +15,8 @@ import {consumerRegistrationRoute} from "../../config/apiRoutes";
 import {fetcher} from "../../generalFunc/fetcher";
 import {handlePushyToken} from "../../generalFunc/pushyTokenHandler";
 import {SW, mainStyles} from "../../config/styles";
-import Cicons from '../../components/customIcons/CustomIcons'
+import Cicons from '../../components/customIcons/CustomIcons';
+
 
 @inject('modalsStore')
 @inject("userDataStore")

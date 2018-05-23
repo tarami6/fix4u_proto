@@ -39,8 +39,7 @@ import Schedule from "../screens/schedule";
 //Active job
 import ActiveJob from '../screens/activeJob';
 // Drawer
-import AccountSettings from '../screens/drawer/screens/AccountSettings'
-
+import AccountSettings from '../screens/drawer/screens/AccountSettings';
 
 const {width} = Dimensions.get('window')
 

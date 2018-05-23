@@ -143,6 +143,7 @@ export default class AccountSettings extends Component {
 
     render() {
         let user = this.props.userDataStore.userData.user;
+
         return (
             <View style={{flex: 1, alignItems: 'center'}}>
                 <LinearGradient

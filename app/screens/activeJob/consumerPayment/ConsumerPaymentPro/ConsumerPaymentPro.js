@@ -27,6 +27,7 @@ export default class OnTheWayPro extends Component {
         this.animation1.play();
     }
 
+
     getPaid() {
         // console.warn(this.props.userDataStore.focusedJob);
     }
