@@ -206,8 +206,7 @@ export default class InProgressConsumer extends Component {
                     <View style={{flex: 1}}>
                         <OrangeCircle size={'big'} style={{width: 180, height: 180}}>
                             <Text style={{fontSize: 30, color: '#000', fontWeight: 'bold', fontFamily: 'sans-serif'}}>
-                                {this.props.userDataStore.focusedJob.status === 'in_progress' ? this.state.timer :
-                                    msToHMS(new Date(focusedJob.job_completion_time) - new Date(focusedJob.job_start_time))}
+                                {this.props.timerStore.timers.get(focusedJob.id)}
                             </Text>
                         </OrangeCircle>
                     </View>
