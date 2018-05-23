@@ -28,7 +28,7 @@ import Cicons from '../../../components/customIcons/CustomIcons'
 import {hebrewServices, ToIcon} from "../../../generalFunc/generalObjects";
 import {fetcher} from "../../../generalFunc/fetcher";
 import {inject, observer} from "mobx-react/native";
-import {chooseApplyRoute, editUserRoute} from "../../../config/apiRoutes";
+import {chooseApplyRoute, editUserRoute, getProReviewsRoute} from "../../../config/apiRoutes";
 
 import {formatTime, getAvgRating} from "../../../generalFunc/generalFunctions";
 
@@ -83,7 +83,7 @@ class ProReviewView extends React.Component {
     }
 
     render() {
-        let { item } = this.props;
+        let {item} = this.props;
         return (
             <View style={styles.proCard}>
                 {/*Name and Image*/}
@@ -189,12 +189,12 @@ class ProReviewsView extends React.Component {
                             return (
                                 <ProReviewView key={item.id + ''} name={item.user.name}
                                                item={item}
-                                               // created_at={item.created_at}
-                                               // profile_pic_thumb={item.user.profile_pic_thumb}
-                                               // review={item.review}
-                                               // price_rating={item.price_rating}
-                                               // time_rating={item.time_rating}
-                                               // performance_rating={item.performance_rating}
+                                    // created_at={item.created_at}
+                                    // profile_pic_thumb={item.user.profile_pic_thumb}
+                                    // review={item.review}
+                                    // price_rating={item.price_rating}
+                                    // time_rating={item.time_rating}
+                                    // performance_rating={item.performance_rating}
                                 />
                             )
                         })}
@@ -385,6 +385,17 @@ export default class ApplyBaseScreen extends React.Component {
                 });
             }
         });
+    }
+
+    fetchReviews(){
+        let pro = this.props.userDataStore.shownPro;
+        let route = getProReviewsRoute(pro.id);
+        let token = this.props.userDataStore.userData.token;
+        fetcher(route, 'GET', this.successFetchReviews.bind(this), this.errorCallback.bind(this), {token: token})
+    }
+    successFetchReviews(res){
+        console.warn("got reviews?", res);
+        console.log("got reviews?", res);
     }
 
     render() {
@@ -584,7 +595,9 @@ export default class ApplyBaseScreen extends React.Component {
                     </View>
                 </View>
                 {/*ProReviews list:*/}
+                {this.state.pageUp &&
                 <ProReviewsView reviews={apply.user_pro.pro_reviews}/>
+                }
                 <View style={styles.footer}>
                     {submitButton('הזמן עכשיו', 'consumer', () => {
                         this.setModalVisible(true);
