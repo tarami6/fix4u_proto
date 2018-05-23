@@ -1,5 +1,14 @@
 import React from 'react';
-import {StyleSheet, FlatList, TouchableHighlight, View, Text, Alert, BackHandler} from 'react-native';
+import {
+    StyleSheet,
+    FlatList,
+    TouchableHighlight,
+    View,
+    Text,
+    Alert,
+    BackHandler,
+    InteractionManager
+} from 'react-native';
 import Header from '../../../components/headers/Header';
 import InfoItem from '../../../components/InfoItem';
 import {HH, SH, SW} from "../../../config/styles";
@@ -14,9 +23,21 @@ export default class ScheduleConsumer1 extends React.Component {
         header: null,
     }
 
+    constructor(props){
+        super(props);
+        this.state = {
+            pageIsUp: false
+        }
+    }
+
     componentDidMount() {
-        //backHandler:
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        InteractionManager.runAfterInteractions(() => {
+            this.setState({
+                pageIsUp: true
+            });
+            //backHandler:
+            BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        })
     }
 
     handleBackButton = () => {
@@ -49,34 +70,26 @@ export default class ScheduleConsumer1 extends React.Component {
                 </View>
 
                 <View style={{flex: 1}}>
-                    {this.props.userDataStore.userData.user.user_active_posts && this.props.userDataStore.userData.user.user_active_posts.length > 0 ?
+                    {this.state.pageIsUp && this.props.userDataStore.userData.user.user_active_posts.length > 0 ?
                         this.props.userDataStore.userData.user.user_active_posts.map((item, index)=>{
                             return (
-                                <View
+                                <TouchableHighlight
+                                    onPress={() => {
+                                        this.chooseJob(item)
+                                    }}
                                     key={item.id}
                                     style={{
                                     width: SW,
                                     height: SH / 8 +0.5,
                                     backgroundColor: 'transparent'
                                 }}>
-                                    <TouchableHighlight onPress={() => {
-                                        this.chooseJob(item)
-                                    }}
-                                                        style={{
-                                                            width: SW,
-                                                            height: SH / 8,
-                                                            backgroundColor: 'transparent',
-                                                        }}>
-
                                         <InfoItem info={item} />
-                                    </TouchableHighlight>
-
-                                </View>
+                                </TouchableHighlight>
                             )
                         })
                         :
                         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>אין לך עבודות </Text>
+                            <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>{this.state.pageIsUp? "אין לך עבודות": "טוען עבודות.."}</Text>
                         </View>
 
                     }
@@ -86,6 +99,8 @@ export default class ScheduleConsumer1 extends React.Component {
         )
     }
 }
+
+
 
 const styles = StyleSheet.create({
     container: {

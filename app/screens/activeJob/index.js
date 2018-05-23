@@ -98,7 +98,7 @@ export default class ActiveJob extends Component {
         let jobStatus = this.props.userDataStore.focusedJob.status
         if (this.props.userDataStore.currentUserType !== 'pro') {
             //  CONSUMER SIDE consumer side //
-            if (jobStatus === 'on_the_way') {
+            if (jobStatus === 'on_the_way' || jobStatus === 'canceled') {
                 return (
                     <OnTheWayConsumer {...this.props} cancelJob={this.consumerCancel.bind(this)}/>
                 );

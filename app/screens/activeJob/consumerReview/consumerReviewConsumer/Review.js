@@ -4,6 +4,7 @@ import Text from '../../../../components/text/Text'
 import Header from '../../../../components/headers/Header'
 import InfoItem from '../../../../components/InfoItem'
 import StarRating from 'react-native-star-rating';
+import {msToHMS} from "../../../../generalFunc/generalFunctions";
 //styles
 import {SW} from "../../../../config/styles";
 import {submitButton} from "../../../../components/modalSubmitButton";
@@ -13,13 +14,6 @@ import {sendReviewRoute} from "../../../../config/apiRoutes";
 //mobx
 import {inject, observer} from "mobx-react/index";
 
-let data1 =
-    {
-        profilePic: require('../../../../../assets/avatars/handyManAvatar.jpg'),
-        name: 'אבי הבנאי',
-        service: 'חשמלאי',
-
-    }
 
 let starSize = 18;
 
@@ -37,11 +31,21 @@ export default class Review extends Component {
             price_rating: 0,
             time_rating: 0,
             performance_rating: 0,
-            review: ''
+            review: '',
+            time: ''
         }
     }
 
+    componentDidMount(){
+        let basicDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
+            let currentDate = new Date(this.props.userDataStore.focusedJob.job_completion_time);
+            let x = new Date(currentDate - basicDate);
+            let timer = msToHMS(x);
+            this.setState({
+                time: timer
+            })
 
+    }
     //send review start
     sendReview() {
         let route = sendReviewRoute(this.props.userDataStore.focusedJob.id);
@@ -100,6 +104,7 @@ export default class Review extends Component {
 
     render() {
         let focusedJob = this.props.userDataStore.focusedJob;
+        console.log("sassa", this.state.time)
         return (
             <View style={{flex: 1,}}>
                 <Header head={'Grey'} props={this.props} />
@@ -118,12 +123,23 @@ export default class Review extends Component {
                         {/*Stars*/}
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                             <View style={{flex: 1}}>
-                                <Text style={{fontSize: 16, color: '#000'}}>2:15:24</Text>
+                                <Text style={{fontSize: 16, color: '#000'}}>{this.state.time}</Text>
                             </View>
 
 
                             <View style={{flex: 1}}>
-                                <Text style={{fontSize: 16, color: '#000'}}>סה"כ שעות עבודה</Text>
+                                <Text style={{fontSize: 16, color: '#000'}}>סה"כ זמן עבודה</Text>
+                            </View>
+                        </View>
+
+                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                            <View style={{flex: 1}}>
+                                <Text style={{fontSize: 16, color: '#000'}}>{focusedJob.total_fee}</Text>
+                            </View>
+
+
+                            <View style={{flex: 1}}>
+                                <Text style={{fontSize: 16, color: '#000'}}>מחיר</Text>
                             </View>
                         </View>
                     </View>
@@ -249,6 +265,5 @@ const styles = StyleSheet.create({
         flex: 0.5,
         alignSelf: 'center',
         width: SW - ((SW / 20) * 2),
-        flexDirection: 'row',
     },
 })

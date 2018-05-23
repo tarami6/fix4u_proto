@@ -9,25 +9,12 @@ import {inject, observer} from "mobx-react/index";
 //config:
 import Communications from 'react-native-communications';
 //styles and components
-import {SW, mainStyles} from "../../../../config/styles";
+import {SW, mainStyles, mainColor} from "../../../../config/styles";
 import {submitButton} from "../../../../components/modalSubmitButton";
 import Header from '../../../../components/headers/Header'
+import Cicons from '../../../../components/customIcons/CustomIcons'
 
 
-//dummy data
-const data = {
-    name: 'אלכסנדרה קנדל',
-    address: 'רבינו נאנל 26, תל אביב',
-    description: 'נשרף לי הבית, לדעתי יש בעיות חשמלץ ויוצאים קצרים מהשקע. אני בבית אשמח אם מישהו יהיה פנוי מעכישיו לעכשיו',
-    jobImage: require('../../../../../assets/images/elec.jpg'),
-    profilePic: require('../../../../../assets/avatars/avatar-sitepal.jpg'),
-    price: "130",
-    time: {
-        hour: "14",
-        minutes: "30"
-    },
-
-}
 
 
 @inject("userDataStore")
@@ -111,8 +98,10 @@ export default class OnTheWayPro extends React.Component {
 
 
                             <View id='middle' style={styles.middleView}>
-                                <Image style={{marginBottom: '10%'}}
-                                       source={require('../../../../../assets/icons/startJobIcon.png')}/>
+                                <View style={{marginBottom: '10%'}}>
+                                    <Cicons name={"time"} size={150} color={mainColor}/>
+                                </View>
+
                                 <Text style={styles.middleText}> התחל עבודה אצל הלקוח
                                 </Text>
                                 <Text style={[styles.middleText, {marginBottom: '30%'}]}>{focusedJob.user.name}</Text>

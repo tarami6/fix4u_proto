@@ -47,8 +47,8 @@ export let buttonFont = 18;
 export let infoWhiteFont = 16;
 export let mediumFont = 14
 export let smallFont = 11;
-let mainFontBold = 'Rubik-Bold';
-let mainFont = 'Rubik';
+export let mainFontBold = 'Rubik-Bold';
+export let mainFont = 'Rubik';
 
 export const
     LinierBackground = (props) => {

@@ -3,6 +3,7 @@ import {Alert, StyleSheet, Text, TextInput, View} from 'react-native';
 //config
 import {fetcher} from "../../../../generalFunc/fetcher";
 import {startJobRoute} from "../../../../config/apiRoutes";
+import {msToHMS} from "../../../../generalFunc/generalFunctions";
 //mobx
 import {inject, observer} from "mobx-react/index";
 import {SW} from "../../../../config/styles";
@@ -17,9 +18,20 @@ export default class ProPaymentPro extends React.Component {
         this.state = {
             modalVisible: false,
             name: '',
+            time: ''
         };
     }
 
+    componentDidMount(){
+        let basicDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
+            let currentDate = new Date(this.props.userDataStore.focusedJob.job_completion_time);
+            let x = new Date(currentDate - basicDate);
+            let timer = msToHMS(x);
+            this.setState({
+                time: timer
+            })
+
+    }
     componentWillMount() {
         let name = this.props.userDataStore.focusedJob.user.name;
         this.setState({
@@ -132,7 +144,7 @@ export default class ProPaymentPro extends React.Component {
                     <View style={{flex: 1, borderBottomWidth: 1, borderColor: 'grey',}}>
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                             <View style={{flex: 1}}>
-                                <Text style={{fontSize: 14}}></Text>
+                                <Text style={{fontSize: 14}}>{this.state.time}</Text>
                             </View>
                             <View style={{flex: 1}}>
                                 <Text>זמן</Text>
@@ -151,10 +163,10 @@ export default class ProPaymentPro extends React.Component {
                     <View style={{flex: 1, borderBottomWidth: 1, borderColor: 'grey',}}>
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                             <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                <Text style={{fontSize: 14}}>5 שעות</Text>
+                                <Text style={{fontSize: 14}}>{ (parseInt(this.state.fee) + currentJob.service_fee) || currentJob.service_fee}</Text>
                             </View>
                             <View style={{flex: 1}}>
-                                <Text>זמן</Text>
+                                <Text>סה"כ לפני מע"ם</Text>
                             </View>
                         </View>
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
