@@ -9,6 +9,9 @@ import {submitButton} from "../../../../components/modalSubmitButton";
 //config
 import {phoneVerifyRoute} from "../../../../config/apiRoutes";
 import {fetcher} from "../../../../generalFunc/fetcher";
+import FlurryAnalytics from 'react-native-flurry-analytics';
+
+FlurryAnalytics.endTimedEvent('app');
 
 @inject("authStore")
 @observer

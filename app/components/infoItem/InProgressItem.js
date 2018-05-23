@@ -52,7 +52,12 @@ export default class InProgressItem extends React.Component {
 
                 <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
                     <View style={{height: 65, width: 65, borderWidth: 3, borderRadius: 1000, alignItems: 'center', justifyContent: 'center', borderColor: '#fdb82c'}}>
-                        <Text style={{fontSize: 10}}>{this.props.timerStore.timers.get(job.id)?this.props.timerStore.timers.get(job.id):'loading'}</Text>
+    {job.status === 'consumer_payment' ?
+        <Text style={{fontSize: 10}}>בתשלום</Text>
+        :
+        <Text
+            style={{fontSize: 10}}>{this.props.timerStore.timers.get(job.id) ? this.props.timerStore.timers.get(job.id) : '...'}</Text>
+    }
                     </View>
                 </View>
                 <View style={{flex: 1, justifyContent: 'center'}}>

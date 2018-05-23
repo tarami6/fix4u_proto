@@ -22,7 +22,7 @@ export default class HeadrConsumer extends Component {
                 this.props.notificationsStore.proNotifications.active.length +
                 this.props.notificationsStore.proNotifications.open.length :
                 this.props.notificationsStore.consumerNotifications.active.length +
-                this.props.notificationsStore.consumerNotifications.open.length) : null
+                this.props.notificationsStore.consumerNotifications.open.length) : null ;
         return (
 
             <View style={[styles.customHeader, {backgroundColor: color}]}>

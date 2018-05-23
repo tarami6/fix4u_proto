@@ -49,11 +49,7 @@ export default class Consumer extends Component {
     logout() {
         this.props.modalsStore.showModal("loaderModal");
         fetcher(logOutRoute, 'PATCH', this.successLogout.bind(this), this.errorLogout.bind(this), {push_token: ""}, {token: this.props.userDataStore.userData.token})
-        // console.warn(this.props.navigation);
-        // AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
-        // ));
-        // this.props.userDataStore.logout()
-        // this.props.navigation.navigate('Intro');
+
     }
 
     successLogout(res) {
@@ -133,6 +129,7 @@ const Navbar = (props) => {
     return (
         <View style={{width, height: Platform.OS == 'ios' ? 150 : 135,}}>
             <TouchableOpacity onPress={() => props.navigation.navigate('DrawerClose')}>
+
                 <View style={{margin: 20}}>
                     <Cicons name={"back"} size={25} color={"#fff"}/>
                 </View>

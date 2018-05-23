@@ -18,12 +18,21 @@ import NavigationStore from "./state-manager/mobx/navigationStore";
 import OpenJobsStore from './state-manager/mobx/openJobsStore';
 import NotificationsStore from './state-manager/mobx/notificationsStore';
 import ProsListStore from './state-manager/mobx/prosListStore';
-import TimerStore from './state-manager/mobx/timerStore'
+import TimerStore from './state-manager/mobx/timerStore';
+import FlurryAnalytics from 'react-native-flurry-analytics';
 
 import {StackNavigator} from 'react-navigation'
 
 import Pushy from 'pushy-react-native';
 
+FlurryAnalytics.setAppVersion('1.0.0');
+FlurryAnalytics.setDebugLogEnabled(true);
+FlurryAnalytics.setSessionContinueSeconds(10);
+FlurryAnalytics.setCrashReportingEnabled(true);
+FlurryAnalytics.startSession('TH7JSCTHWVJM6P4X6YQ6');
+FlurryAnalytics.logPageView();
+// FlurryAnalytics.setUserId('daniel s8');
+FlurryAnalytics.logEvent('app');
 let Appsee = require('react-native-appsee');
 Appsee.start("69c114cc5e934d34800ce547aa8bb320");
 
@@ -56,15 +65,15 @@ let timerStore = new TimerStore();
 // import ProsListToConnect from './screens/jobApplyConsumer/screens/ProsListToConnect'
 // import Panels from './components/infoItem/Panels';
 // import CancelTheJobModal from './screens/modals/cancelTheJob/pro/CancelJobModalPro';
-// import CancelJobModalConsumer from './screens/modals/cancelTheJob/consumer/CancelJobModalConsumer';
+import CancelJobModalConsumer from './screens/modals/cancelTheJob/consumer/CancelJobModalConsumer';
 // import AccountSettings from './screens/drawer/screens/AccountSettings'
 // import LoadingPage from './screens/modals/Loader/LoadingPage'
-//
-// const HomeNavigation = StackNavigator({
-//     Home: {
-//         screen: LoadingPage
-//     }
-// })
+
+const HomeNavigation = StackNavigator({
+    Home: {
+        screen: CancelJobModalConsumer
+    }
+})
 
 
 let appState = '';
