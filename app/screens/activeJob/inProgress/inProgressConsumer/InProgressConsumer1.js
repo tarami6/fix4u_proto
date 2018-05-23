@@ -20,7 +20,7 @@ import {inject, observer} from "mobx-react/index";
 import Communications from 'react-native-communications';
 
 let timerInitiatedHere = false;
-let gotTime = false;
+
 
 @inject("timerStore")
 @inject('modalsStore')
@@ -158,8 +158,7 @@ export default class InProgressConsumer extends Component {
     }
 
     render() {
-        if(this.props.userDataStore.focusedJob.status !== 'in_progress' && !gotTime){
-            gotTime = true;
+        if(this.props.userDataStore.focusedJob.status !== 'in_progress' && !this.state.finishedTimer){
             this.getTime()
         }
         let focusedJob = this.props.userDataStore.focusedJob;
