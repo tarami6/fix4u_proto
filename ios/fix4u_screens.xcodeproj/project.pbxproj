@@ -71,6 +71,7 @@
 		ACB40A5E64CE493DB49AD639 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C5C9D0E915B4A238258980C /* Octicons.ttf */; };
 		8390F0EA748E464DAA0EE859 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 803B7807B5C64205AF8473B3 /* SimpleLineIcons.ttf */; };
 		AA998497040B4C8D805361C1 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77EC383855A24C678BA50470 /* Zocial.ttf */; };
+		BDA43CE3E47A4A03811E6518 /* libRNFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D089FC406A4BE2A9F1A8C1 /* libRNFlurryAnalytics.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -433,6 +434,8 @@
 		2C5C9D0E915B4A238258980C /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		803B7807B5C64205AF8473B3 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		77EC383855A24C678BA50470 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D70A2C6A591541E69CF6E0B9 /* RNFlurryAnalytics.xcodeproj */ = {isa = PBXFileReference; name = "RNFlurryAnalytics.xcodeproj"; path = "../node_modules/react-native-flurry-analytics/ios/RNFlurryAnalytics.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		B3D089FC406A4BE2A9F1A8C1 /* libRNFlurryAnalytics.a */ = {isa = PBXFileReference; name = "libRNFlurryAnalytics.a"; path = "libRNFlurryAnalytics.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -469,6 +472,7 @@
 				48346E7995824B96A256B424 /* libRNBraintreeDropIn.a in Frameworks */,
 				233095A80FE94438BA68C3C5 /* libRCTBEEPickerManager.a in Frameworks */,
 				18BA5822F9194786A4485E24 /* libRNVectorIcons.a in Frameworks */,
+				BDA43CE3E47A4A03811E6518 /* libRNFlurryAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,6 +669,7 @@
 				9FA664E50E724129BFF8F24D /* RNBraintreeDropIn.xcodeproj */,
 				9F679CA6CCC74DCB80DE9C09 /* RCTBEEPickerManager.xcodeproj */,
 				FA82802BC2F8430B86C577E7 /* RNVectorIcons.xcodeproj */,
+				D70A2C6A591541E69CF6E0B9 /* RNFlurryAnalytics.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1384,6 +1389,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1395,6 +1401,7 @@
 					"$(SRCROOT)/../node_modules/react-native-braintree-payments-drop-in/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-flurry-analytics\ios",
 				);
 			};
 			name = Debug;
@@ -1420,6 +1427,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1431,6 +1439,7 @@
 					"$(SRCROOT)/../node_modules/react-native-braintree-payments-drop-in/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-flurry-analytics\ios",
 				);
 			};
 			name = Release;
@@ -1460,6 +1469,7 @@
 					"$(SRCROOT)/../node_modules/react-native-braintree-payments-drop-in/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-flurry-analytics\ios",
 				);
 			};
 			name = Debug;
@@ -1488,6 +1498,7 @@
 					"$(SRCROOT)/../node_modules/react-native-braintree-payments-drop-in/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-flurry-analytics\ios",
 				);
 			};
 			name = Release;
@@ -1522,6 +1533,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1533,6 +1545,7 @@
 					"$(SRCROOT)/../node_modules/react-native-braintree-payments-drop-in/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-flurry-analytics\ios",
 				);
 			};
 			name = Debug;
@@ -1567,6 +1580,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1578,6 +1592,7 @@
 					"$(SRCROOT)/../node_modules/react-native-braintree-payments-drop-in/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-flurry-analytics\ios",
 				);
 			};
 			name = Release;
@@ -1611,6 +1626,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1622,6 +1638,7 @@
 					"$(SRCROOT)/../node_modules/react-native-braintree-payments-drop-in/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-flurry-analytics\ios",
 				);
 			};
 			name = Debug;
@@ -1655,6 +1672,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1666,6 +1684,7 @@
 					"$(SRCROOT)/../node_modules/react-native-braintree-payments-drop-in/ios",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-flurry-analytics\ios",
 				);
 			};
 			name = Release;

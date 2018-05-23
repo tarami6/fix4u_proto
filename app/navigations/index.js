@@ -39,7 +39,11 @@ import Schedule from "../screens/schedule";
 //Active job
 import ActiveJob from '../screens/activeJob';
 // Drawer
-import AccountSettings from '../screens/drawer/screens/AccountSettings'
+import AccountSettings from '../screens/drawer/screens/AccountSettings';
+import FlurryAnalytics from 'react-native-flurry-analytics';
+
+FlurryAnalytics.logEvent('app');
+
 
 
 const {width} = Dimensions.get('window')
