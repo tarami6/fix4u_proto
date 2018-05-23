@@ -26,6 +26,9 @@ import {SW, SH, Pad} from "../../config/styles";
 import Cicons from '../../components/customIcons/CustomIcons'
 
 const {width, height} = Dimensions.get('window');
+
+
+@inject("modalsStore")
 @inject("userDataStore")
 @observer
 export default class Consumer extends Component {
@@ -44,6 +47,7 @@ export default class Consumer extends Component {
     }
 
     logout() {
+        this.props.modalsStore.showModal("loaderModal");
         fetcher(logOutRoute, 'PATCH', this.successLogout.bind(this), this.errorLogout.bind(this), {push_token: ""}, {token: this.props.userDataStore.userData.token})
         // console.warn(this.props.navigation);
         // AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
@@ -68,11 +72,13 @@ export default class Consumer extends Component {
         });
         this.props.navigation.dispatch(actionToDispatch)
         this.props.userDataStore.logout();
+        this.props.modalsStore.hideModal("loaderModal");
     }
 
     errorLogout(err) {
         console.log('logout error:', err);
-        Alert.alert('there was a problem with the internet connection')
+        Alert.alert('there was a problem with the internet connection');
+        this.props.modalsStore.hideModal("loaderModal");
     }
 
     render() {
@@ -103,14 +109,14 @@ export default class Consumer extends Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {
-                        Alert.alert('בפיתוח... כאן יהיה הגדרות החשבון שלך')
+                         this.props.navigation.navigate('AccountSettings')
                     }} style={styles.listItem}>
                         <Text style={styles.textList}>הגדרות חשבון</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {
                         Alert.alert('בפיתוח... כאן תוכל ליצור קשר עם תמיכה טכנית לכל שאלה')
                     }} style={styles.listItem}>
-                        <Text>תמיכה טכנית</Text>
+                        <Text style={styles.textList}>תמיכה טכנית</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.listItem} onPress={this.logout.bind(this)}>
                         <Text style={styles.textList}>
@@ -127,7 +133,7 @@ const Navbar = (props) => {
     return (
         <View style={{width, height: Platform.OS == 'ios' ? 150 : 135,}}>
             <TouchableOpacity onPress={() => props.navigation.navigate('DrawerClose')}>
-                <View style={{ margin: 20}}>
+                <View style={{margin: 20}}>
                     <Cicons name={"back"} size={25} color={"#fff"}/>
                 </View>
             </TouchableOpacity>

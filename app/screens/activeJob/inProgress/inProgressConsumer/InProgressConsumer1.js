@@ -19,6 +19,9 @@ import {inject, observer} from "mobx-react/index";
 
 import Communications from 'react-native-communications';
 
+let timerInitiatedHere = false;
+
+@inject("timerStore")
 @inject('modalsStore')
 @inject("userDataStore")
 @observer
@@ -116,7 +119,12 @@ export default class InProgressConsumer extends Component {
 
     componentDidMount() {
         if (this.props.userDataStore.focusedJob.status === 'in_progress') {
-            this.startTimer();
+            let jobId = this.props.userDataStore.focusedJob.id;
+            if(!this.props.timerStore.timers.get(jobId)){
+                timerInitiatedHere=true
+                let startDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
+                this.props.timerStore.startTimer(startDate, jobId);
+            }
         }
         else {
             let startTime = new Date(this.props.userDataStore.focusedJob.job_start_time);
@@ -133,7 +141,11 @@ export default class InProgressConsumer extends Component {
 
 
     componentWillUnmount() {
-        clearInterval(this.interval);
+        if(timerInitiatedHere){
+            timerInitiatedHere = false
+            let jobId = this.props.userDataStore.focusedJob.id;
+            this.props.timerStore.stopTimer(jobId);
+        }
     }
 
     render() {
@@ -188,6 +200,7 @@ export default class InProgressConsumer extends Component {
                         <Text style={mainStyles.greyTitle}>
                             {this.props.userDataStore.focusedJob.status === 'in_progress' ? 'בעבודה' : ''}
                             {this.props.userDataStore.focusedJob.status === 'pro_payment' ? focusedJob.user_pro.name + ' מכין חשבונית ' : ''}
+                            {this.props.userDataStore.focusedJob.status === 'consumer_payment' ? focusedJob.user_pro.name + ' ממתין לתשלום ' : ''}
                         </Text>
                     </View>
                     <View style={{flex: 1}}>
@@ -263,7 +276,7 @@ export default class InProgressConsumer extends Component {
                                     <View style={{flex: 1, borderBottomWidth: 0.5, borderColor: 'grey',}}>
                                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                                             <View style={{flex: 1}}>
-                                                <Text style={{fontSize: 14}}>{this.state.timer}</Text>
+                                                <Text style={{fontSize: 14}}>{this.props.timerStore.timers.get(focusedJob.id) && this.props.timerStore.timers.get(focusedJob.id)}</Text>
                                             </View>
                                             <View style={{flex: 1}}>
                                                 <Text>זמן</Text>

@@ -103,7 +103,6 @@ export default class ChooseJobModal extends Component {
         let currentJob = this.props.openJobsStore.focusedJob;
         let jobMinutes = new Date(currentJob.created_at).getMinutes().toString();
         let jobHours = new Date(currentJob.created_at).getHours().toString();
-        console.log("ad45", currentJob)
         return (
 
 

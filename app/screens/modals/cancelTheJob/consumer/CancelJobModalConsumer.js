@@ -1,9 +1,10 @@
 import React from 'react';
-import {View, Image, StyleSheet, Alert, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback} from 'react-native';
-import {SW, SH, fontGrey, mainRed} from "../../../../config/styles";
+import {Alert, Image, KeyboardAvoidingView, StyleSheet, TextInput, TouchableWithoutFeedback, View} from 'react-native';
+import {fontGrey, mainRed, SH, SW} from "../../../../config/styles";
 import Text from '../../../../components/text/Text'
 import {submitButton} from "../../../../components/modalSubmitButton";
 import {fetcher} from "../../../../generalFunc/fetcher";
+import {inject, observer} from "mobx-react/native";
 import {NavigationActions} from "react-navigation";
 import {editPostConsumerRoute} from "../../../../config/apiRoutes";
 
@@ -17,7 +18,7 @@ const CancelJobModal = (props) => {
                     <View style={styles.eXicon}>
                         <TouchableWithoutFeedback
                             onPress={() => {
-                                Alert.alert('exit pressed')
+                                this.props.modalsStore.closeModal('consumerCancelJobModal');
                             }}>
                             <Image
                                 source={require('../../../../../assets/icons/Exit.png')}
@@ -123,20 +124,14 @@ const CancelJobModal = (props) => {
     )
 }
 
+@inject("navigationStore")
+@inject("userDataStore")
+@inject("modalsStore")
+@observer
 export default class TextPage extends React.Component {
     static navigationOptions = {
         header: null
     }
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            accident: true,
-            foundElse: false,
-            notIntrest: false
-        }
-    }
-
     changeBox = (choose) => {
         switch (choose) {
             case 'accident' :
@@ -165,9 +160,18 @@ export default class TextPage extends React.Component {
         }
     };
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            accident: true,
+            foundElse: false,
+            notIntrest: false
+        }
+    }
+
     // Job Cancel Handling
 
-    consumerCancelJob(){
+    consumerCancelJob() {
         let jobId = this.props.userDataStore.focusedJob.id;
         let sendObj = {
             status: 'canceled',
@@ -185,26 +189,30 @@ export default class TextPage extends React.Component {
     }
 
     //navigate away from current focused job after it has been canceled
-    navigateAway(){
-        const actionToDispatch = NavigationActions.reset({
-            index: 0,
-            key: null,
-            actions: [
-                NavigationActions.navigate({
-                    routeName: 'ConsumerNavigator',
-                    action: NavigationActions.navigate({routeName: 'Home'}),
-                })
-            ],
-        });
-        this.props.navigationStore.dispatch(actionToDispatch)
+    navigateAway() {
+        console.warn('yo');
+        this.props.modalsStore.hideModal("consumerCancelJobModal");
+        //for now the traditional way to navigate is not working so Im navigating by a render listener on activeJob.
+        this.props.userDataStore.focusJob({});
+        // let routeName = this.props.userDataStore.userType === "pro" ? "ProNavigator" : "ConsumerNavigator";
+        // console.warn('y', routeName);
+        // const actionToDispatch = NavigationActions.reset({
+        //     index: 0,
+        //     key: null,
+        //     actions: [
+        //         NavigationActions.navigate({
+        //             routeName: "ProNavigator",
+        //             action: NavigationActions.navigate({routeName: 'Home'}),
+        //         })
+        //     ],
+        // });
+        // this.props.navigationStore.dispatch(actionToDispatch);
     }
 
     successConsumerCancel(res) {
-        this.props.navigation.navigate('AddJob');
         this.props.userDataStore.removeActivePost(res.id);
-
         this.props.modalsStore.hideModal("loaderModal");
-        Alert.alert("העבודה בוטלה בהצלחה")
+        Alert.alert("העבודה בוטלה בהצלחה");
         this.navigateAway();
     }
 
@@ -217,7 +225,8 @@ export default class TextPage extends React.Component {
 
     render() {
         return (
-            <CancelJobModal {...this.state} changeBox={this.changeBox.bind(this)} cancelJob={this.consumerCancelJob.bind(this)}/>
+            <CancelJobModal {...this.state} changeBox={this.changeBox.bind(this)}
+                            cancelJob={this.consumerCancelJob.bind(this)}/>
         )
     }
 }

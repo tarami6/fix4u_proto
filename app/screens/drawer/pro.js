@@ -1,13 +1,21 @@
 /* @flow */
 
 import React, {Component} from 'react';
-import {Alert, AsyncStorage, Dimensions, Image, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+    Alert,
+    AsyncStorage,
+    Dimensions,
+    Image,
+    Platform,
+    StyleSheet,
+    TouchableOpacity,
+    View
+} from 'react-native';
 import Text from '../../components/text/Text'
 import LinearGradient from 'react-native-linear-gradient';
 import Circle from '../../components/circle'
 import {inject, observer} from "mobx-react/native";
-import ArrowIcon from 'react-native-vector-icons/Ionicons';
-import {SH, SW, Pad} from "../../config/styles";
+import {backgroundGrey, largeFont, mainFontBold, Pad, SH, START, SW} from "../../config/styles";
 //func and config
 import {fetcher} from "../../generalFunc/fetcher";
 import {logOutRoute} from "../../config/apiRoutes";
@@ -17,7 +25,7 @@ import Cicons from '../../components/customIcons/CustomIcons'
 
 const {width, height} = Dimensions.get('window')
 
-
+@inject("modalsStore")
 @inject("notificationsStore")
 @inject("userDataStore")
 @observer
@@ -59,6 +67,7 @@ export default class Pro extends Component {
     }
 
     logout() {
+        this.props.modalsStore.showModal("loaderModal");
         fetcher(logOutRoute, 'PATCH', this.successLogout.bind(this), this.errorLogout.bind(this), {push_token: ""}, {token: this.props.userDataStore.userData.token})
         // console.warn(this.props.navigation);
         // AsyncStorage.setItem('GetServiceUser', JSON.stringify(''
@@ -81,9 +90,11 @@ export default class Pro extends Component {
             ],
         });
         this.props.navigation.dispatch(actionToDispatch)
+        this.props.modalsStore.hideModal("loaderModal");
     }
 
     errorLogout(err) {
+        this.props.modalsStore.hideModal("loaderModal");
         console.log('logout error:', err);
         Alert.alert('there was a problem with the internet connection')
     }
@@ -117,6 +128,16 @@ export default class Pro extends Component {
                     </LinearGradient>
                     <View style={{flex: 1}}>
                         {/*Switch drawer type consumer/pro*/}
+                        <TouchableOpacity onPress={() => this.handleSwitch('consumer')}>
+                            <View style={[styles.listItem, {height: SH / 7.5, backgroundColor: backgroundGrey}]}>
+                                <Text style={{
+                                    textAlign: 'center',
+                                    fontSize: largeFont,
+                                    color: START,
+                                    fontFamily: mainFontBold
+                                }}>מצב איש מקצוע</Text>
+                            </View>
+                        </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => this.handleSwitch('consumer')}
                             style={styles.listItem}>
@@ -176,12 +197,11 @@ export default class Pro extends Component {
                             onPress={this.logout.bind(this)}
                             style={styles.listItem}>
                             <View>
-                                <View>
-                                    <Text style={styles.textList}>
-                                        התנתק
-                                    </Text>
-                                </View>
+                                <Text style={styles.textList}>
+                                    התנתק
+                                </Text>
                             </View>
+
                         </TouchableOpacity>
 
                     </View>
@@ -205,6 +225,16 @@ export default class Pro extends Component {
                     </LinearGradient>
                     <View style={{flex: 1}}>
                         {/*Switch drawer type consumer/pro*/}
+                        <TouchableOpacity onPress={() => this.handleSwitch('pro')}>
+                            <View style={[styles.listItem, {height: SH / 7.5, backgroundColor: backgroundGrey}]}>
+                                <Text style={{
+                                    textAlign: 'center',
+                                    fontSize: largeFont,
+                                    color: START,
+                                    fontFamily: mainFontBold
+                                }}>מצב לקוח</Text>
+                            </View>
+                        </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => this.handleSwitch('pro')}
                             style={styles.listItem}>
@@ -256,11 +286,14 @@ export default class Pro extends Component {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            tyle={styles.listItem}
-                            onPress={this.logout.bind(this)}>
-                            <Text style={styles.textList}>
-                                התנתק
-                            </Text>
+                            onPress={this.logout.bind(this)}
+                            style={styles.listItem}>
+                            <View>
+                                <Text style={styles.textList}>
+                                    התנתק
+                                </Text>
+                            </View>
+
                         </TouchableOpacity>
 
 
@@ -281,7 +314,7 @@ const Navbar = (props) => {
                 })
             }
             }>
-                <View style={{ margin: 20}}>
+                <View style={{margin: 20}}>
                     <Cicons name={"back"} size={25} color={"#fff"}/>
                 </View>
             </TouchableOpacity>
