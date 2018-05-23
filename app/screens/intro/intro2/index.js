@@ -6,7 +6,10 @@
 
 import React, {Component} from 'react';
 // import OpenScreen3 from '../../../components/infoScreens/OpenScreen3'
-import Step from './Step'
+import Step from './Step';
+import FlurryAnalytics from 'react-native-flurry-analytics';
+
+FlurryAnalytics.logEvent('app');
 
 
 export default class Intro2 extends Component {

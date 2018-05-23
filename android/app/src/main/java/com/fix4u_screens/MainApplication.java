@@ -6,6 +6,7 @@ import me.pushy.sdk.react.PushyPackage;
 
 import com.appsee.reactnative.AppseeReactPackage;
 import com.facebook.react.ReactApplication;
+import com.xxsnakerxx.flurryanalytics.FlurryAnalyticsPackage;
 
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.beefe.picker.PickerViewPackage;
@@ -37,6 +38,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new FlurryAnalyticsPackage(),
                     new PickerViewPackage(),
                     new MapsPackage(),
                     new LinearGradientPackage(),
