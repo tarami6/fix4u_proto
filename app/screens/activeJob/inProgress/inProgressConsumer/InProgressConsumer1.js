@@ -36,7 +36,7 @@ export default class InProgressConsumer extends Component {
         this.state = {
             modalVisible: false,
             timer: '...',
-            finishedTimer: false,
+            finishedTimer: '',
         }
     }
 
