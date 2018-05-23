@@ -125,6 +125,10 @@ export default class CancelJobModalPro extends React.Component {
         }
     }
 
+    componentDidMount(){
+        console.log("pro navigations:", this.props.navigationStore);
+    }
+
     changeBox = () => {
         prevA = this.state.accident;
         prevB = this.state.notCome;

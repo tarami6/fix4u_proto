@@ -81,12 +81,13 @@ export default class SchedulePro1 extends React.Component {
         header: null
     }
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             pageIsUp: false
         }
     }
+
     handleBackButton = () => {
         this.props.navigation.navigate('DrawerClose');
         return true;
@@ -115,7 +116,7 @@ export default class SchedulePro1 extends React.Component {
         this.props.navigation.navigate('ActiveJob');
     }
 
-    cancelJob(job){
+    cancelJob(job) {
         this.props.userDataStore.focusJob(job);
         this.props.modalsStore.showModal("proCancelJobModal");
 
@@ -131,7 +132,7 @@ export default class SchedulePro1 extends React.Component {
 
 
     render() {
-
+        console.log("saas00", this.props.userDataStore.userData.user.pro_posts.length)
         return (
             <View style={{flex: 1}}>
                 <View style={{flex: 0.185, backgroundColor: '#FFBA00', elevation: 5}}>
@@ -149,24 +150,32 @@ export default class SchedulePro1 extends React.Component {
                 </View>
                 <View style={{flex: 1}}>
 
-                    {this.state.pageIsUp?
+                    {this.state.pageIsUp && this.props.userDataStore.userData.user.pro_posts.length > 0 ?
                         //// pro posts map:
 
                         <FlatList
                             data={this.props.userDataStore.userData.user.pro_posts}
                             getItemLayout={(data, index) => (
-                                {length: SH/8+0.5, offset: SH/8+0.5 * index, index}
+                                {length: SH / 8 + 0.5, offset: SH / 8 + 0.5 * index, index}
                             )}
                             keyExtractor={(item, index) => index + ''}
                             renderItem={this._renderItem}
-                        />:
+                        /> :
                         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}> טוען </Text>
+                            {this.props.userDataStore.userData.user.pro_posts.length === 0 ?
+                                <Text style={{
+                                    fontSize: 30,
+                                    color: 'grey',
+                                    opacity: 0.2
+                                }}>אין לך עבודות</Text>
+                                : <Text style={{
+                                    fontSize: 30,
+                                    color: 'grey',
+                                    opacity: 0.2
+                                }}>טוען</Text>}
                         </View>
                     }
-                    {this.props.userDataStore.userData.user.pro_posts === 0 ? <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>{this.state.pageIsUp ?   "אין לך עבודות": "טוען" }</Text>
-                        </View> : null}
+
                 </View>
 
             </View>

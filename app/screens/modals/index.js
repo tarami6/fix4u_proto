@@ -90,7 +90,6 @@ export default class Modals extends Component {
                     onBackdropPress={() => {
                         this.closeModal('consumerCancelJobModal')
                     }}>
-                >
                     <ConsumerCancelJobModal/>
                 </Modal>
                 <Modal

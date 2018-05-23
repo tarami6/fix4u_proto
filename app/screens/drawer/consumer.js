@@ -26,6 +26,9 @@ import {SW, SH, Pad} from "../../config/styles";
 import Cicons from '../../components/customIcons/CustomIcons'
 
 const {width, height} = Dimensions.get('window');
+
+
+@inject("modalsStore")
 @inject("userDataStore")
 @observer
 export default class Consumer extends Component {
@@ -44,6 +47,7 @@ export default class Consumer extends Component {
     }
 
     logout() {
+        this.props.modalsStore.showModal("loaderModal");
         fetcher(logOutRoute, 'PATCH', this.successLogout.bind(this), this.errorLogout.bind(this), {push_token: ""}, {token: this.props.userDataStore.userData.token})
 
     }
@@ -64,11 +68,13 @@ export default class Consumer extends Component {
         });
         this.props.navigation.dispatch(actionToDispatch)
         this.props.userDataStore.logout();
+        this.props.modalsStore.hideModal("loaderModal");
     }
 
     errorLogout(err) {
         console.log('logout error:', err);
-        Alert.alert('there was a problem with the internet connection')
+        Alert.alert('there was a problem with the internet connection');
+        this.props.modalsStore.hideModal("loaderModal");
     }
 
     render() {

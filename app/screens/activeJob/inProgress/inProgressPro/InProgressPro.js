@@ -16,7 +16,7 @@ import {submitButton} from "../../../../components/modalSubmitButton";
 // in case the timer was initiated here and not in schduale as it suppose to
 let timerInitiatedHere = false
 
-@inject("timerStore")
+    @inject("timerStore")
 @inject("userDataStore")
 @observer
 export default class InProgressPro extends Component {
@@ -24,12 +24,6 @@ export default class InProgressPro extends Component {
         header: null
     }
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            timer: '...'
-        }
-    }
 
     finishJob() {
         let route = startJobRoute(this.props.userDataStore.focusedJob.id);
@@ -57,9 +51,11 @@ export default class InProgressPro extends Component {
 
     //Timer functions and handling start"
     componentDidMount() {
-        if(!this.props.timerStore.timer){
+        let jobId = this.props.userDataStore.focusedJob.id;
+        if(!this.props.timerStore.timers.get(jobId)){
             timerInitiatedHere=true
-            this.props.timerStore.startTimer()
+            let startDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
+            this.props.timerStore.startTimer(startDate, jobId);
         }
         // let currentTime = dateObjToTimeString()
         // this.startTimer();
@@ -77,7 +73,9 @@ export default class InProgressPro extends Component {
 
     componentWillUnmount(){
         if(timerInitiatedHere){
-            this.props.timerStore.stopTimer();
+            timerInitiatedHere = false
+            let jobId = this.props.userDataStore.focusedJob.id;
+            this.props.timerStore.stopTimer(jobId);
         }
     }
 
@@ -85,6 +83,7 @@ export default class InProgressPro extends Component {
 
 
     render() {
+        let job = this.props.userDataStore.focusedJob;
         return (
             <View style={styles.Container}>
                 {/*Top View */}
@@ -95,10 +94,10 @@ export default class InProgressPro extends Component {
                             flex: 0.5,
                             fontWeight: 'bold',
                             width: "60%",
-                        }}>{this.props.userDataStore.focusedJob.user.name}</Text>
-                        {this.props.userDataStore.focusedJob.user.profile_pic_thumb?
+                        }}>{job.user.name}</Text>
+                        {job.user.profile_pic_thumb?
                         <Image style={{margin: 20, width: 66, height: 66, borderRadius: 100}}
-                               source={{uri: this.props.userDataStore.focusedJob.user.profile_pic_thumb}}/>:null}
+                               source={{uri: job.user.profile_pic_thumb}}/>:null}
                     </View>
 
                     <View style={{flex: 0.3, marginRight: '5%', marginLeft: '5%'}}>
@@ -106,7 +105,7 @@ export default class InProgressPro extends Component {
                             flex: 1,
                             fontWeight: 'bold',
                             fontSize: 15
-                        }}>{this.props.userDataStore.focusedJob.address}</Text>
+                        }}>{job.address}</Text>
                     </View>
 
 
@@ -136,7 +135,7 @@ export default class InProgressPro extends Component {
                             backgroundColor: 'white', height: SW / 1.6, width: SW / 1.6, borderRadius: 200,
                             alignItems: 'center', justifyContent: 'center'
                         }}>
-                            <Text style={{fontSize: 30,  color: '#474747', fontFamily: 'sans-serif'}}> {this.props.timerStore.timer} </Text>
+                            <Text style={{fontSize: 30,  color: '#474747', fontFamily: 'sans-serif'}}> {this.props.timerStore.timers.get(job.id)} </Text>
                         </View>
                     </LinearGradient>
 

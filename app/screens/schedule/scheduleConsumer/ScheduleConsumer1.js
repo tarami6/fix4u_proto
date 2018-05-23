@@ -2,12 +2,11 @@ import React from 'react';
 import {
     StyleSheet,
     FlatList,
-    InteractionManager,
     TouchableHighlight,
     View,
     Text,
     Alert,
-    BackHandler
+    InteractionManager
 } from 'react-native';
 import Header from '../../../components/headers/Header';
 import InfoItem from '../../../components/InfoItem';
@@ -23,7 +22,8 @@ export default class ScheduleConsumer1 extends React.Component {
         header: null,
     }
 
-    constructor(props) {
+
+    constructor(props){
         super(props);
         this.state = {
             pageIsUp: false
@@ -31,15 +31,16 @@ export default class ScheduleConsumer1 extends React.Component {
     }
 
     componentDidMount() {
-        //backHandler:
+
+
         InteractionManager.runAfterInteractions(() => {
             this.setState({
                 pageIsUp: true
             });
-            // 2: Component is done animating
-            // 3: Start fetching the team
+            //backHandler:
             BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-        });
+        })
+
     }
 
     handleBackButton = () => {
@@ -71,31 +72,27 @@ export default class ScheduleConsumer1 extends React.Component {
                 </View>
 
                 <View style={{flex: 1}}>
-                    {this.state.pageIsUp ?
-                        this.props.userDataStore.userData.user.user_active_posts && this.props.userDataStore.userData.user.user_active_posts.length > 0 ?
-                            this.props.userDataStore.userData.user.user_active_posts.map((item, index) => {
-                                return (
-                                    <TouchableHighlight
-                                        onPress={() => {
-                                            this.chooseJob(item)
-                                        }}
-                                        key={item.id}
-                                        style={{
-                                            width: SW,
-                                            height: SH / 8 + 0.5,
-                                            backgroundColor: 'transparent'
-                                        }}>
-                                        <InfoItem info={item}/>
-                                    </TouchableHighlight>
-                                )
-                            })
-                            :
-                            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                                <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>אין לך עבודות </Text>
-                            </View>
+                    {this.state.pageIsUp && this.props.userDataStore.userData.user.user_active_posts.length > 0 ?
+                        this.props.userDataStore.userData.user.user_active_posts.map((item, index)=>{
+                            return (
+                                <TouchableHighlight
+                                    onPress={() => {
+                                        this.chooseJob(item)
+                                    }}
+                                    key={item.id}
+                                    style={{
+                                    width: SW,
+                                    height: SH / 8 +0.5,
+                                    backgroundColor: 'transparent'
+                                }}>
+                                        <InfoItem info={item} />
+                                </TouchableHighlight>
+                            )
+                        })
+                        :
+                        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                            <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>{this.state.pageIsUp? "אין לך עבודות": "טוען עבודות.."}</Text>
 
-                        : <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <Text style={{fontSize: 30, color: 'grey', opacity: 0.2}}>טוען </Text>
                         </View>
                     }
 

@@ -88,10 +88,11 @@ Pushy.setNotificationListener(async (data) => {
         console.log('Received notification: ' + JSON.stringify(data));
         if (data.type) {
             let payload = JSON.parse(data.payload);
-            if (appState === 'active') {
+            if (appState === 'active' && userDataStore.userData.token && !modalsStore.loaderModal ) {
                 handleNotificationData(data.type, payload);
             }
-            else {
+            //new condition 22/05 pass notifications only if user is logged in
+            else if(userDataStore.userData.token) {
                 let updateAppInterval = setInterval(() => {
                     if (appState === 'active') {
                         clearInterval(updateAppInterval);
@@ -166,7 +167,7 @@ let handleNotificationData = (type, payload) => {
                 // notificationsStore.addPostsNotification('active', payload.id, 'pro');
             }
             userDataStore.removeProPost(payload.id);
-        //    for pro that post he apliied to was closed
+        //    for pro that post he applied to was closed
         case 'open_post_remove':
             if (openJobsStore.focusedJob.id === payload.post_id && modalsStore.chooseJobModal) {
                 modalsStore.hideModal('chooseJobModal');

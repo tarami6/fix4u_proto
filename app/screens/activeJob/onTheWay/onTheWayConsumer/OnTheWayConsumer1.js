@@ -73,11 +73,13 @@ export default class OnTheWayConsumer extends Component {
         }
     }
 
-    cancelJob() {
-        this.props.userDataStore.focusJob(this.props.userDataStore.focusedJob);
-        this.props.modalsStore.showModal("consumerCancelJobModal");
 
+    cancelJob(){
+        this.props.modalsStore.showModal("consumerCancelJobModal");
     }
+
+
+
 
 
     render() {

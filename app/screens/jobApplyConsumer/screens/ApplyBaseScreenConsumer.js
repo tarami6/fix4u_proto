@@ -63,7 +63,7 @@ export default class ApplyBaseScreen extends React.Component {
 
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-        clearInterval(this.interval)
+        this.mounted = false
     }
 
 
@@ -148,7 +148,9 @@ export default class ApplyBaseScreen extends React.Component {
                 timeToEndTimer = timeToEndTimer % 1000000 / 1000;
                 timeToEndTimer.toFixed(0)
                 timeToEndTimer = timeToEndTimer - diffrence * 60;
-
+                if(!this.mounted){
+                    clearInterval(this.interval);
+                }
                 if (timeToEndTimer > -1) {
                     // **** TIMES PASSED !!!! when user on this page and time is app he gets here
                     this.setState({diff: '00:00'});
@@ -163,6 +165,7 @@ export default class ApplyBaseScreen extends React.Component {
 
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
+            this.mounted = true;
             //notification handling with server:
             let token = this.props.userDataStore.userData.token;
             let postId = this.props.userDataStore.focusedConsumerJob.id
@@ -178,7 +181,7 @@ export default class ApplyBaseScreen extends React.Component {
                 // **** TIMES PASSED !!!! when loading the app (not on screen)
                 this.navigateToNoAppliesNavigator();
             }
-            this.timeRemaining(this.props.userDataStore.focusedConsumerJob.modified)
+            // this.timeRemaining(this.props.userDataStore.focusedConsumerJob.modified)
         })
     }
 
@@ -253,6 +256,9 @@ export default class ApplyBaseScreen extends React.Component {
                         <FlatList
                             data={this.props.userDataStore.focusedConsumerJob.post_applies.slice(0)}
                             keyExtractor={this.keyExtractor}
+                            getItemLayout={(data, index) => (
+                                {length: SH/8, offset: SH/8 * index, index}
+                            )}
                             renderItem={({item, index}) =>
                                 <TouchableOpacity
                                     onPress={() => this.showPro(item)}

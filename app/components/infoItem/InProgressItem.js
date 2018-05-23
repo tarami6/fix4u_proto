@@ -22,32 +22,26 @@ export default class InProgressItem extends React.Component {
     componentDidMount() {
 
         // let currentTime = dateObjToTimeString()
+
         this.startTimer();
     }
 
     startTimer() {
-        // this.setState({jobStartTime: new Date(this.props.job.job_start_time)});
-        let startTime = new Date(this.props.job.job_start_time);
-        this.props.timerStore.startTimer(startTime);
-
-        // this.interval = setInterval(() => {
-        //     let basicDate = this.state.jobStartTime;
-        //     let currentDate = new Date();
-        //     let x = currentDate-basicDate;
-        //     let timer = msToHMS(x)
-        //     this.setState({timer: timer})
-        // }, 1000);
+        let jobId = this.props.job.id;
+        if(!this.props.timerStore.timers[jobId]){
+            let startDate = new Date(this.props.job.job_start_time);
+            this.props.timerStore.startTimer(startDate, jobId);
+        }
     }
 
     componentWillUnmount(){
         // clearInterval(this.interval);
-        this.props.timerStore.stopTimer();
+        this.props.timerStore.stopTimer(this.props.job.id);
     }
 
     render(){
         let job = this.props.job;
-        console.log("sdad", job)
-        let pic = job.user_pro.profile_pic_thumb || job.user.profile_pic_thumb
+        let pic = job.user_pro.profile_pic_thumb || job.user.profile_pic_thumb;
         return (
             <View style={{
                 flex: 1,
@@ -58,7 +52,12 @@ export default class InProgressItem extends React.Component {
 
                 <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'center'}}>
                     <View style={{height: 65, width: 65, borderWidth: 3, borderRadius: 1000, alignItems: 'center', justifyContent: 'center', borderColor: '#fdb82c'}}>
-                        <Text style={{fontSize: 10}}>{job.status === 'consumer_payment' ? 'בתשלום' :  this.props.timerStore.timer}</Text>
+    {job.status === 'consumer_payment' ?
+        <Text style={{fontSize: 10}}>בתשלום</Text>
+        :
+        <Text
+            style={{fontSize: 10}}>{this.props.timerStore.timers.get(job.id) ? this.props.timerStore.timers.get(job.id) : '...'}</Text>
+    }
                     </View>
                 </View>
                 <View style={{flex: 1, justifyContent: 'center'}}>
