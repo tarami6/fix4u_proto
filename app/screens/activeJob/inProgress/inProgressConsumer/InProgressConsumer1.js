@@ -38,7 +38,6 @@ export default class InProgressConsumer extends Component {
         }
     }
 
-
     pay() {
         let userToken = this.props.userDataStore.userData.token;
         fetcher(braintreeGetTokenRoute, 'GET', this.successCallback.bind(this), this.errorCallback.bind(this), {token: userToken})
@@ -68,7 +67,6 @@ export default class InProgressConsumer extends Component {
             });
 
     }
-
 
     fetchPayment(result) {
         let route = braintreeSendTokenRoute(this.props.userDataStore.focusedJob.id)
@@ -118,8 +116,8 @@ export default class InProgressConsumer extends Component {
     }
 
     componentDidMount() {
+        let jobId = this.props.userDataStore.focusedJob.id;
         if (this.props.userDataStore.focusedJob.status === 'in_progress') {
-            let jobId = this.props.userDataStore.focusedJob.id;
             if(!this.props.timerStore.timers.get(jobId)){
                 timerInitiatedHere=true
                 let startDate = new Date(this.props.userDataStore.focusedJob.job_start_time);
@@ -127,6 +125,7 @@ export default class InProgressConsumer extends Component {
             }
         }
         else {
+            this.props.timerStore.stopTimer(jobId);
             let startTime = new Date(this.props.userDataStore.focusedJob.job_start_time);
             let completionTime = new Date(this.props.userDataStore.focusedJob.job_completion_time);
             let sec2 = addZero(completionTime.getSeconds() - startTime.getSeconds());
@@ -139,6 +138,13 @@ export default class InProgressConsumer extends Component {
         }
     }
 
+    stopTheTimer(status,jobId) {
+        if(status !== 'in_progress') {
+             this.props.timerStore.stopTimer(jobId);
+        } else {
+            return
+        }
+    }
 
     componentWillUnmount() {
         if(timerInitiatedHere){
@@ -155,6 +161,7 @@ export default class InProgressConsumer extends Component {
             focusedJob.user_pro.time_rating_avg,
             focusedJob.user_pro.performance_rating_avg,
         );
+        this.stopTheTimer(this.props.userDataStore.focusedJob.status, this.props.userDataStore.focusedJob.id)
         return (
             <View style={{flex: 1,}}>
                 <Header head={'Grey'} props={this.props}/>

@@ -44,28 +44,6 @@ var options = {
     }
 };
 
-const data = [
-    {
-        name: 'גסיקה',
-        date: '23/3/2018',
-        pic: require('../../../../assets/avatars/Loreal-Avatar.jpg'),
-        review: 'שירותי ונדיב, עושה עבודה טובה ומהירה',
-        price: 5,
-        workTime: 2,
-        service: 5,
-    },
-    {
-        name: 'אסף',
-        date: '17/3/2018',
-        pic: require('../../../../assets/avatars/avatar-sitepal.jpg'),
-        review: 'אחלה גבר, מחיר אש',
-        price: 5,
-        workTime: 5,
-        service: 5,
-    },
-
-
-]
 
 @observer
 class ProReviewView extends React.Component {
@@ -104,57 +82,62 @@ class ProReviewView extends React.Component {
                 <View style={styles.cardReview}>
                     <Text style={{fontSize: 16}}>{item.review}</Text>
                 </View>
-                {this.state.pageUp &&
+
                 <View style={{flex: 1}}>
-                    <View style={styles.row}>
-                        <View style={styles.starsContainer}>
-                            <StarRating
-                                disabled={false}
-                                maxStars={5}
-                                rating={item.price_rating}
-                                starSize={14}
-                                fullStarColor={'#ffd700'}
-                                emptyStar={'star'}
-                                iconSet={'FontAwesome'}
-                            />
+                    {this.state.pageUp &&
+                    <View style={{flex: 1}}>
+                        <View style={styles.row}>
+                            <View style={styles.starsContainer}>
+                                <StarRating
+                                    disabled={false}
+                                    maxStars={5}
+                                    rating={item.price_rating}
+                                    starSize={14}
+                                    fullStarColor={'#ffd700'}
+                                    emptyStar={'star'}
+                                    iconSet={'FontAwesome'}
+                                />
+                            </View>
+                            <View style={styles.cardRightTitle}>
+                                <Text style={{fontSize: 16}}>מחיר</Text>
+                            </View>
                         </View>
-                        <View style={styles.cardRightTitle}>
-                            <Text style={{fontSize: 16}}>מחיר</Text>
+                        <View style={styles.row}>
+                            <View style={styles.starsContainer}>
+                                <StarRating
+                                    disabled={false}
+                                    maxStars={5}
+                                    rating={item.time_rating}
+                                    starSize={14}
+                                    fullStarColor={'#ffd700'}
+                                    emptyStar={'star'}
+                                    iconSet={'FontAwesome'}
+                                />
+                            </View>
+                            <View style={styles.cardRightTitle}>
+                                <Text style={{fontSize: 16}}>זמן עבודה</Text>
+                            </View>
+                        </View>
+                        <View style={styles.row}>
+                            <View style={styles.starsContainer}>
+                                <StarRating
+                                    disabled={false}
+                                    maxStars={5}
+                                    rating={item.performance_rating}
+                                    starSize={14}
+                                    fullStarColor={'#ffd700'}
+                                    emptyStar={'star'}
+                                    iconSet={'FontAwesome'}
+                                />
+                            </View>
+                            <View style={styles.cardRightTitle}>
+                                <Text style={{fontSize: 16}}>שירות</Text>
+                            </View>
                         </View>
                     </View>
-                    <View style={styles.row}>
-                        <View style={styles.starsContainer}>
-                            <StarRating
-                                disabled={false}
-                                maxStars={5}
-                                rating={item.time_rating}
-                                starSize={14}
-                                fullStarColor={'#ffd700'}
-                                emptyStar={'star'}
-                                iconSet={'FontAwesome'}
-                            />
-                        </View>
-                        <View style={styles.cardRightTitle}>
-                            <Text style={{fontSize: 16}}>זמן עבודה</Text>
-                        </View>
-                    </View>
-                    <View style={styles.row}>
-                        <View style={styles.starsContainer}>
-                            <StarRating
-                                disabled={false}
-                                maxStars={5}
-                                rating={item.performance_rating}
-                                starSize={14}
-                                fullStarColor={'#ffd700'}
-                                emptyStar={'star'}
-                                iconSet={'FontAwesome'}
-                            />
-                        </View>
-                        <View style={styles.cardRightTitle}>
-                            <Text style={{fontSize: 16}}>שירות</Text>
-                        </View>
-                    </View>
-                </View>}
+                    }
+                </View>
+
                 {/*Bot Border*/}
                 <View style={styles.cardBottomBorder}/>
             </View>
@@ -278,7 +261,7 @@ export default class ApplyBaseScreen extends React.Component {
 
 
             this.setState({
-                height: this.state.height * data.length + SH / 8
+                height: this.state.height * this.props.userDataStore.shownPro.user_pro.pro_reviews.length + SH / 8
             })
         })
     }
@@ -387,13 +370,14 @@ export default class ApplyBaseScreen extends React.Component {
         });
     }
 
-    fetchReviews(){
+    fetchReviews() {
         let pro = this.props.userDataStore.shownPro;
         let route = getProReviewsRoute(pro.id);
         let token = this.props.userDataStore.userData.token;
         fetcher(route, 'GET', this.successFetchReviews.bind(this), this.errorCallback.bind(this), {token: token})
     }
-    successFetchReviews(res){
+
+    successFetchReviews(res) {
         console.warn("got reviews?", res);
         console.log("got reviews?", res);
     }
@@ -595,9 +579,12 @@ export default class ApplyBaseScreen extends React.Component {
                     </View>
                 </View>
                 {/*ProReviews list:*/}
-                {this.state.pageUp &&
-                <ProReviewsView reviews={apply.user_pro.pro_reviews}/>
-                }
+                <View style={{flex: 1}}>
+                    {this.state.pageUp &&
+                    <ProReviewsView reviews={apply.user_pro.pro_reviews}/>
+                    }
+                </View>
+
                 <View style={styles.footer}>
                     {submitButton('הזמן עכשיו', 'consumer', () => {
                         this.setModalVisible(true);
