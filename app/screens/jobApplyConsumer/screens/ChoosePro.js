@@ -258,7 +258,8 @@ export default class ApplyBaseScreen extends React.Component {
             buttonText: 'ios-arrow-down',
             height: SH / 3.2,
             modalVisible: false,
-            pageUp: false
+            pageUp: false,
+            reviews: '',
         }
     }
 
@@ -272,7 +273,7 @@ export default class ApplyBaseScreen extends React.Component {
 
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
-            // this.fetchReviews();
+            this.fetchReviews();
             this.setState({pageUp: true})
             //backHandler:
             BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
@@ -389,7 +390,7 @@ export default class ApplyBaseScreen extends React.Component {
     }
 
     fetchReviews() {
-        let pro = this.props.userDataStore.shownPro;
+        let pro = this.props.userDataStore.shownPro.user_pro;
         let route = getProReviewsRoute(pro.id);
         let sendBody = {
             token: this.props.userDataStore.userData.token
@@ -400,6 +401,7 @@ export default class ApplyBaseScreen extends React.Component {
     }
 
     successFetchReviews(res) {
+        this.setState({reviews: res})
         console.warn("got reviews?", res);
         console.log("got reviews?", res);
     }
@@ -594,15 +596,16 @@ export default class ApplyBaseScreen extends React.Component {
 
 
                                 <View style={styles.infoReviewCount}>
-                                    <Text>{apply.user_pro.pro_reviews.length} חוות דעת </Text>
+                                    {/*<Text>{apply.user_pro.pro_reviews.length} חוות דעת </Text>*/}
+                                    <Text> ממוצע חוות דעת </Text>
                                 </View>
                             </View>
                         </View>
                     </View>
                 </View>}
                 {/*ProReviews list:*/}
-                {this.state.pageUp &&
-                <ProReviewsView reviews={apply.user_pro.pro_reviews}/>
+                {this.state.pageUp && this.state.reviews ?
+                    <ProReviewsView reviews={this.state.reviews}/> : <View/>
                 }
                 <View style={styles.footer}>
                     {submitButton('הזמן עכשיו', 'consumer', () => {
