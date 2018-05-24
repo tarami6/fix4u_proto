@@ -1,0 +1,12 @@
+Scanning folders for symlinks in C:\Users\Ram\fix4UDev\fix4u_proto\node_modules (31ms)
+{ Error: Cannot find module 'C:\Users\Ram\fix4UDev\fix4u_proto\node_modules\ANYTHING\package.json'
+    at Function.Module._resolveFilename (module.js:542:15)
+    at Function.Module._load (module.js:472:25)
+    at Module.require (module.js:585:17)
+    at require (internal/module.js:11:18)
+    at getRNPMConfig (C:/Users/Ram/fix4UDev/fix4u_proto/node_modules/react-native/local-cli/core/index.js:53:3)
+    at Object.getDependencyConfig (C:/Users/Ram/fix4UDev/fix4u_proto/node_modules/react-native/local-cli/core/index.js:115:18)
+    at deps.reduce (C:/Users/Ram/fix4UDev/fix4u_proto/node_modules/react-native/local-cli/link/getDependencyConfig.js:16:24)
+    at Array.reduce (<anonymous>)
+    at getDependencyConfig (C:/Users/Ram/fix4UDev/fix4u_proto/node_modules/react-native/local-cli/link/getDependencyConfig.js:13:15)
+    at Object.link (C:/Users/Ram/fix4UDev/fix4u_proto/node_modules/react-native/local-cli/link/link.js:131:24) code: 'MODULE_NOT_FOUND' }

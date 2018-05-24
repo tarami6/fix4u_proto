@@ -1,7 +1,6 @@
 package com.fix4u_screens;
 
 import com.facebook.react.ReactActivity;
-import android.content.Intent;
 
 public class MainActivity extends ReactActivity {
 

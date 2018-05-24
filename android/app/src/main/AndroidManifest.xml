@@ -1,114 +1,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.fix4u_screens">
+    package="com.fix4u_screens">
 
-    <!--<uses-permission android:name="android.permission.INTERNET"/>-->
-    <!--<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>-->
-    <!--<uses-permission android:name="android.permission.CAMERA"/>-->
-    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>-->
-    <!--<uses-permission android:name="android.permission.WAKE_LOCK"/>-->
-    <!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>-->
-    <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>-->
-    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
-    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>-->
-    <!---->
-
-    <!--dangerous list-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-
-
-    <!--normal list-->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-            android:name=".MainApplication"
-            android:allowBackup="false"
-            android:icon="@mipmap/app_icon"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme">
-        <meta-data
-                android:name="com.facebook.sdk.ApplicationId"
-                android:value="@string/facebook_app_id"/>
-        <meta-data
-                android:name="com.google.android.geo.API_KEY"
-                android:value="@string/google_maps_key"/>
-
-        <activity
-                android:name=".MainActivity"
-                android:screenOrientation="portrait"
-                android:configChanges="orientation|screenSize"
-                android:label="@string/app_name"
-                android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
-        <!-- Pushy Declarations -->
-
-        <!-- Pushy Notification Receiver -->
-        <!-- Do not modify - internal BroadcastReceiver that forwards notifications to the internal notification service-->
-        <receiver android:name="me.pushy.sdk.react.receivers.PushReceiver" android:exported="false">
-            <intent-filter>
-                <!-- Do not modify this -->
-                <action android:name="pushy.me"/>
-            </intent-filter>
-        </receiver>
-
-        <!-- Pushy Update Receiver -->
-        <!-- Do not modify - internal BroadcastReceiver that restarts the listener service -->
-        <receiver android:name="me.pushy.sdk.receivers.PushyUpdateReceiver" android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
-                <data android:scheme="package"/>
-            </intent-filter>
-        </receiver>
-
-        <!-- Pushy Boot Receiver -->
-        <!-- Do not modify - internal BroadcastReceiver that restarts the listener service -->
-        <receiver android:name="me.pushy.sdk.receivers.PushyBootReceiver" android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
-        </receiver>
-
-        <!-- Pushy Socket Service -->
-        <!-- Do not modify - internal socket service -->
-        <service android:name="me.pushy.sdk.services.PushySocketService"/>
-
-        <!-- Pushy Notification Service -->
-        <!-- Do not modify - internal notification service that forwards notifications to your React Native app -->
-        <service android:name="me.pushy.sdk.react.services.PushyNotificationService"/>
-
-        <!-- End Pushy Declarations -->
-
-        <!--BrainTree payments: -->
-        <activity android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
-                  android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="com.fix4u_screens.braintree"/>
-            </intent-filter>
-        </activity>
+      android:name=".MainApplication"
+      android:label="@string/app_name"
+      android:icon="@mipmap/ic_launcher"
+      android:allowBackup="false"
+      android:theme="@style/AppTheme">
+      <activity
+        android:name=".MainActivity"
+        android:label="@string/app_name"
+        android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+        android:windowSoftInputMode="adjustResize">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+      </activity>
+      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
 
 </manifest>
