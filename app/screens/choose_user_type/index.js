@@ -1,20 +1,15 @@
 /* @flow */
 
 import React, {Component} from 'react';
-import {
-    View,
-    TouchableOpacity,
-    StyleSheet,
-} from 'react-native';
+import {StyleSheet, TouchableOpacity, View,} from 'react-native';
 import Text from '../../components/text/Text'
 import {inject, observer} from 'mobx-react';
 import authStore from '../../state-manager/mobx/authStore';
-import {HH, LinierBackground} from "../../config/styles";
+import {HH, LinierBackground, mainStyles, SH, SW} from "../../config/styles";
 //config:
 import {consumerRegistrationRoute} from "../../config/apiRoutes";
 import {fetcher} from "../../generalFunc/fetcher";
 import {handlePushyToken} from "../../generalFunc/pushyTokenHandler";
-import {SW, mainStyles} from "../../config/styles";
 import Cicons from '../../components/customIcons/CustomIcons';
 
 
@@ -74,11 +69,10 @@ export default class ChooseUserType extends Component {
             <View style={styles.container}>
 
 
-
                 <ConsumerButton navigate={() => this.navigate('consumer')}/>
-<View style={{marginTop: SW /15}}>
-      <Cicons name={"a-pro"} size={80} color={"#DBDBDB"}/>
-</View>
+                <View style={{marginTop: (SW / 15)*2, marginBottom: (SH/30)}}>
+                    <Cicons name={"a-pro"} size={80} color={"#DBDBDB"}/>
+                </View>
                 <ProButton navigate={() => this.navigate('pro')}/>
             </View>
         );
@@ -99,22 +93,23 @@ const
 const
     ProButton = ({navigate}) => {
         return (
-            <TouchableOpacity onPress={() => navigate('Pro')}>
-                <LinierBackground>
-                    <View style={{
-                        width: SW - 124,
-                        height: HH - 4,
-                        borderRadius: 30,
-                        margin: 1,
-                        backgroundColor: '#fff',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        paddingRight: 40,
-                        paddingLeft: 40
-                    }}>
-                        <Text style={[mainStyles.buttonText, {color: '#fd8724'}]}>אני נותן שירות</Text>
-                    </View>
-                </LinierBackground>
+            <TouchableOpacity onPress={() => navigate('Pro')} style={{
+                borderWidth: 1.5,
+                borderColor: '#ff8500',
+                width: SW - 111,
+                height: HH - 3,
+                borderRadius: 30,
+                margin: 1,
+                backgroundColor: '#fff',
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingRight: 40,
+                paddingLeft: 40,
+            }}>
+                {/*<LinierBackground>*/}
+
+                    <Text style={[mainStyles.buttonText, {color: '#fd8724'}]}>אני נותן שירות</Text>
+                {/*</LinierBackground>*/}
             </TouchableOpacity>
         )
     }

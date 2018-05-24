@@ -25,7 +25,7 @@ export default StyleSheet.create({
         width: SW / 1.3,
         backgroundColor: '#fff',
         borderRadius: 8,
-        
+        fontSize: 20,
         // borderWidth: 0.1,
         // borderTopWidth: 4,
         // borderLeftWidth:2,

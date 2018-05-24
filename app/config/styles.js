@@ -58,7 +58,7 @@ export const
                 start={{x: 0.25, y: 0.0}} end={{x: 1.0, y: 0.5}}
                 style={{
                     height: HH,
-                    width: SW - 120,
+                    width: SW - 110,
                     borderRadius: 30,
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -104,6 +104,7 @@ export let mainStyles = StyleSheet.create({
         color: '#fff',
         fontFamily: mainFontBold,
         fontSize: buttonFont,
+        textAlign: 'center',
 
     },
 

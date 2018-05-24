@@ -21,14 +21,17 @@ export default StyleSheet.create({
     //text input:
     inputContainer: {},
     textInputStyle: {
-        width: SW * 0.6,
+        width: SW / 1.3,
         backgroundColor: '#fff',
-        borderRadius: 7,
-        borderWidth: 0.1,
-        borderTopWidth: 4,
-        borderLeftWidth:2,
-        borderRightWidth:2,
+        borderRadius: 8,
+        fontSize: 20,
+        // borderWidth: 0.1,
+        // borderTopWidth: 4,
+        // borderLeftWidth:2,
+        // borderRightWidth:2,
         borderColor: 'rgba(218, 218, 218, 0.35)',
+        marginBottom: SH /8,
+        textAlign: 'center'
 
     },
 
