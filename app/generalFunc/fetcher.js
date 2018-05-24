@@ -38,7 +38,7 @@ export const
             sendBody = JSON.stringify(body)
         }
 
-        console.log('allSentInfo:', 'route',route, 'method',method , 'sendBody',sendBody , 'headers', headers );
+        // console.log('allSentInfo:', 'route',route, 'method',method , 'sendBody',sendBody , 'headers', headers );
 
         //     let fetchWaitTime = 10;
         //     setTimeout(()=>{

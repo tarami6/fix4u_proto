@@ -192,7 +192,7 @@ let handleNotificationData = (type, payload) => {
             userDataStore.removeActivePost(payload.post_id);
             break;
 
-        //    the is getting this:
+        //    the pro is getting this:
         case 'consumer_post_cancel':
             userDataStore.removeProPost(payload.post_id);
 

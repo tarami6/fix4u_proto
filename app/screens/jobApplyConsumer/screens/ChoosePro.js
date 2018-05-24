@@ -201,6 +201,22 @@ export default class ApplyBaseScreen extends React.Component {
         header: null,
     };
 
+    constructor() {
+        super();
+        if (Platform.OS === 'android') {
+            UIManager.setLayoutAnimationEnabledExperimental(true);
+        }
+        this.state = {
+            textLayoutHeight: 0,
+            updatedHeight: 0,
+            expand: false,
+            buttonText: 'ios-arrow-down',
+            height: SH / 3.2,
+            modalVisible: false,
+            pageUp: false,
+            reviews: '',
+        }
+    }
     //handling backHandler:
     handleBackButton = () => {
         this.props.navigationStore.dispatch(NavigationActions.back());
@@ -223,27 +239,11 @@ export default class ApplyBaseScreen extends React.Component {
             });
         }
     }
+
     //handling backHandler:
     handleBackButton = () => {
         this.props.navigation.goBack();
         return true;
-    }
-
-    constructor() {
-        super();
-        if (Platform.OS === 'android') {
-            UIManager.setLayoutAnimationEnabledExperimental(true);
-        }
-        this.state = {
-            textLayoutHeight: 0,
-            updatedHeight: 0,
-            expand: false,
-            buttonText: 'ios-arrow-down',
-            height: SH / 3.2,
-            modalVisible: false,
-            pageUp: false,
-            reviews: '',
-        }
     }
 
     componentWillUnmount() {
@@ -397,7 +397,7 @@ export default class ApplyBaseScreen extends React.Component {
         return (
 
             <View style={{flex: 1, backgroundColor: '#f6f6f6'}}>
-                {!this.state.pageUp && <Text>טוען מקצוען..</Text>}
+                {/*{!this.state.pageUp && <Text>טוען מקצוען..</Text>}*/}
                 <Modal
                     animationType="fade"
                     transparent={true}
@@ -420,18 +420,18 @@ export default class ApplyBaseScreen extends React.Component {
                             </View>
                             <View style={styles.body}>
                                 <View style={{flex: 2, alignItems: 'center'}}>
-                                    {this.state.pageUp &&
+                                    {this.state.pageUp?
                                     <Image style={{width: SW / 4.5, height: SW / 4.5, borderRadius: 100}}
                                            source={{uri: apply.user_pro.profile_pic_thumb}}
-                                    />}
+                                    />:<View style={{width: SW / 4.5, height: SW / 4.5, borderRadius: 100}}/>}
                                     <Text style={{
                                         fontSize: 16,
                                         color: '#000',
                                         fontWeight: 'bold',
                                         marginTop: SW / 20,
                                         textAlign: 'center'
-                                    }}>{apply.user_pro.name}</Text>
-                                    <Text style={{fontSize: 16}}>{hebrewServices[job.service]}</Text>
+                                    }}>{this.state.pageUp && apply.user_pro.name}</Text>
+                                    <Text style={{fontSize: 16}}>{this.state.pageUp && hebrewServices[job.service]}</Text>
                                     <View style={{
                                         marginTop: 20,
                                         opacity: 0.65,
@@ -445,7 +445,7 @@ export default class ApplyBaseScreen extends React.Component {
                                         color: '#000',
                                         fontWeight: 'bold',
                                         marginTop: SW / 20
-                                    }}> היום {apply.time.slice(0, 5)} </Text>
+                                    }}>{this.state.pageUp? "היום":" טוען מידע.."}{this.state.pageUp && apply.time.slice(0, 5)} </Text>
                                     <Text style={{fontSize: 14}}> מחיר הגעה {apply.service_fee} ש"ח</Text>
                                 </View>
                                 {!this.props.userDataStore.userData.user.name &&
@@ -497,7 +497,6 @@ export default class ApplyBaseScreen extends React.Component {
                         </View>
                     </View>
                 </Modal>
-                {this.state.pageUp &&
                 <View style={{flex: 0.5}}>
                     <LinearViewBelowHeaderConsumer>
                         < Header
@@ -513,22 +512,24 @@ export default class ApplyBaseScreen extends React.Component {
                             </View>
                             {/*Job Info*/}
                             <View style={styles.serviceView}>
-                                <Text style={styles.serviceText}>{hebrewServices[job.service]}</Text>
+                                <Text style={styles.serviceText}>{this.state.pageUp && hebrewServices[job.service]}</Text>
                                 <Text
-                                    style={styles.serviceText}>היום {job.appointment_time_start.slice(0, 5) + '-' + job.appointment_time_end.slice(0, 5)}
+                                    style={styles.serviceText}>{this.state.pageUp? "היום":" טוען מידע.."} {this.state.pageUp && (job.appointment_time_start.slice(0, 5) + '-' + job.appointment_time_end.slice(0, 5))}
                                 </Text>
                             </View>
                             {/*Border*/}
                             <View style={styles.headerBorder}/>
                             {/*Service Icon*/}
                             <View style={styles.serviceIconView}>
-                                {job.image_thumb ?
-                                    <Cicons name={ToIcon[job.service]} size={50} color={"#fff"}/> : <View/>}
+                                {this.state.pageUp &&
+                                (job.image_thumb ?
+                                    <Cicons name={ToIcon[job.service]} size={50} color={"#fff"}/> : <View/>)
+                                }
                             </View>
                         </View>
                     </LinearViewBelowHeaderConsumer>
-                </View>}
-                {this.state.pageUp &&
+                </View>
+                {this.state.pageUp?
                 <View style={{flex: 0.7}}>
                     <View style={styles.infoView}>
                         {/*Image & service & full name*/}
@@ -585,7 +586,7 @@ export default class ApplyBaseScreen extends React.Component {
                             </View>
                         </View>
                     </View>
-                </View>}
+                </View>: <View style={{flex:0.7}}/>}
                 {/*ProReviews list:*/}
                 <View style={{flex: 1}}>
                     {this.state.pageUp && this.state.reviews ?

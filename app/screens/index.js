@@ -129,7 +129,7 @@ export default class ScreensBase extends Component<Props> {
 
     tryLoginError(err) {
         this.setState({tryLoginFetch: false});
-        console.warn('err in try login:', err);
+        console.log('err in try login:', err);
     }
 
     componentWillUnmount() {
@@ -158,7 +158,7 @@ export default class ScreensBase extends Component<Props> {
     };
 
     render() {
-        if (this.state.userLocationFetch || this.state.tryLoginFetch) {
+        if (this.state.tryLoginFetch) {
             return (
                 <LoadingPage/>
             )

@@ -9,27 +9,33 @@ export default class TextUs extends React.Component {
         super(props)
   }
     render() {
-        if (this.props.type == 'whiteTitle') {
+        if (this.props.type === 'whiteTitle') {
             return (
                 <Text style={[mainStyles.whiteTitle, this.props.style]}>
                     {this.props.children}
                 </Text>
             )
-        }else if(this.props.type == 'button'){
+        }else if(this.props.type === 'button'){
             return(
                 <Text style={[mainStyles.button, this.props.style]}>
                     {this.props.children}
                 </Text>
             )
-        } else if(this.props.type == 'greyTitle'){
+        } else if(this.props.type === 'greyTitle'){
             return(
                 <Text style={[mainStyles.greyTitle, this.props.style ]}>
                     {this.props.children}
                 </Text>
             )
-        }else if(this.props.type == 'greySmallNote'){
+        }else if(this.props.type === 'greySmallNote'){
             return(
                 <Text style={[mainStyles.greySmallNote, this.props.style ]}>
+                    {this.props.children}
+                </Text>
+            )
+        }else if (this.props.type === "introText"){
+            return(
+                <Text style={[mainStyles.introText, this.props.style ]}>
                     {this.props.children}
                 </Text>
             )

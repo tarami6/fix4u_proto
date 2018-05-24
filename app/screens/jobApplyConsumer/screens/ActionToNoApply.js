@@ -57,25 +57,34 @@ export default class ActionToNoApply extends React.Component {
     }
 
     searchAgain() {
-
-        let currentJob = this.props.userDataStore.focusedConsumerJob;
-        let route = editPostConsumerRoute(currentJob.id);
-        let sendBody = {
-            status: "open",
-        };
-        let headers = {
-            token: this.props.userDataStore.userData.token
+        if (this.props.userDataStore.focusedConsumerJob.id) {
+            let currentJob = this.props.userDataStore.focusedConsumerJob;
+            let route = editPostConsumerRoute(currentJob.id);
+            let sendBody = {
+                status: "open",
+            };
+            let headers = {
+                token: this.props.userDataStore.userData.token
+            }
+            fetcher(route, 'PATCH', this.searchAgainSuccessCB.bind(this), this.errCB.bind(this), sendBody, headers)
         }
-        fetcher(route, 'PATCH', this.searchAgainSuccessCB.bind(this), this.errCB.bind(this), sendBody, headers)
+        else {
+            Alert.alert('עבודה בוטלה עקב חוסר פעילות')
+        }
     }
 
     getProsList() {
-        let currentJob = this.props.userDataStore.focusedConsumerJob;
-        let route = prosListRoute(currentJob.id);
-        let sendBody = {
-            token: this.props.userDataStore.userData.token
+        if (this.props.userDataStore.focusedConsumerJob.id) {
+            let currentJob = this.props.userDataStore.focusedConsumerJob;
+            let route = prosListRoute(currentJob.id);
+            let sendBody = {
+                token: this.props.userDataStore.userData.token
+            }
+            fetcher(route, 'GET', this.getProsListSuccessCB.bind(this), this.errCB.bind(this), sendBody)
         }
-        fetcher(route, 'GET', this.getProsListSuccessCB.bind(this), this.errCB.bind(this), sendBody)
+        else {
+            Alert.alert('עבודה בוטלה עקב חוסר פעילות')
+        }
     }
 
     getProsListSuccessCB(res) {
@@ -122,21 +131,24 @@ export default class ActionToNoApply extends React.Component {
 
         console.log('success update timer!', res);
     }
-    consumerCancel(){
-        let jobId = this.props.userDataStore.focusedConsumerJob.id;
-        let sendObj = {
-            status: 'canceled',
-            canceled_by: 'consumer'
-        };
-        let headers = {
-            token: this.props.userDataStore.userData.token
-        };
-        //start job route is also the route for pro to cancel the job
-        let route = editPostConsumerRoute(jobId);
-        fetcher(route, 'PATCH', this.successConsumerCancel.bind(this), this.errCB.bind(this), sendObj, headers)
+
+    consumerCancel() {
+        if (this.props.userDataStore.focusedConsumerJob.id) {
+            let jobId = this.props.userDataStore.focusedConsumerJob.id;
+            let sendObj = {
+                status: 'canceled',
+                canceled_by: 'consumer'
+            };
+            let headers = {
+                token: this.props.userDataStore.userData.token
+            };
+            //start job route is also the route for pro to cancel the job
+            let route = editPostConsumerRoute(jobId);
+            fetcher(route, 'PATCH', this.successConsumerCancel.bind(this), this.errCB.bind(this), sendObj, headers)
+        }
     }
 
-    successConsumerCancel(res){
+    successConsumerCancel(res) {
         console.log('canceled job?', res);
         Alert.alert('עבודה בוטלה בהצלחה');
         this.props.userDataStore.removeOpenPost(res.id);
@@ -148,7 +160,7 @@ export default class ActionToNoApply extends React.Component {
     }
 
     render() {
-        if(!this.props.userDataStore.focusedConsumerJob.id){
+        if (!this.props.userDataStore.focusedConsumerJob.id) {
             this.props.navigation.navigate("AddJob");
         }
         return (
@@ -199,8 +211,7 @@ export default class ActionToNoApply extends React.Component {
 
                 </View>
                 <View style={{flex: 0.4, alignItems: 'center', justifyContent: 'center'}}>
-                    <TouchableOpacity onPress={() =>
-                    {
+                    <TouchableOpacity onPress={() => {
                         Alert.alert(
                             'ביטול עבודה',
                             'האם אתה בטוח שאתה מעוניין לבטל את העבודה הנוכחית?',
@@ -208,7 +219,7 @@ export default class ActionToNoApply extends React.Component {
                                 {text: 'לא, בטל פעולה', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                                 {text: 'כן', onPress: () => this.consumerCancel()},
                             ],
-                            { cancelable: true }
+                            {cancelable: true}
                         )
 
                     }}>

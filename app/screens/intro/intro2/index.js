@@ -13,7 +13,7 @@ export default class Intro2 extends Component {
 
     render() {
         return (
-            <Step skipIntro={() => this.props.navigation.navigate('GeneralAuth')}/>
+            <Step skipIntro={() => this.props.navigation.navigate('GeneralAuth')} {...this.props}/>
         );
     }
 }

@@ -4,7 +4,7 @@ import React from 'react';
 import {
     View,
     FlatList,
-    StyleSheet,
+    StyleSheet, InteractionManager,
 } from 'react-native';
 import Text from "../../../../../components/text/Text"  ;
 
@@ -53,6 +53,17 @@ const services = [
 ]
 
 class CardList extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            pageUp: false,
+        }
+    }
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(() => {
+            this.setState({pageUp: true})
+        })
+    }
 
     _keyExtractor = (item, index) => index + '';
 
@@ -63,6 +74,7 @@ class CardList extends React.Component {
                     איזה שירות תרצה לבחור היום?
                 </Text>
                 <View style={styles.containerServices}>
+                    {this.state.pageUp &&
                     <FlatList
                         keyExtractor={this.keyExtractor}
                         scrollEnabled={false}
@@ -76,7 +88,7 @@ class CardList extends React.Component {
                             </View>
 
                             )}
-                    />
+                    />}
                 </View>
             </View>
         )

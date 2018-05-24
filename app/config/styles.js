@@ -72,11 +72,16 @@ export const
 
 export let mainStyles = StyleSheet.create({
     // Text
+    introText: {
+        fontFamily: mainFont,
+        fontSize: 18,
+    },
     whiteTitle:{
         fontFamily: mainFontBold,
         fontSize: largeFont,
         color: '#ffffff',
-        textAlign: 'center'
+        textAlign: 'center',
+
     },
     button:{
         fontFamily: mainFontBold,
